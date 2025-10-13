@@ -12,7 +12,6 @@ import {
 
 export async function GET(request: NextRequest) {
   try {
-    // Get all products
     const products = await prisma.product.findMany({
       orderBy: {
         createdAt: 'asc',
