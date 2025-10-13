@@ -5,20 +5,35 @@ import {
   errorResponse,
   validationErrorResponse,
 } from '@/lib/apiResponse';
-import {
-  createProductSchema,
-  updateProductSchema,
-} from '@/lib/schemas/productSchema';
+import { createProductSchema } from '@/lib/schemas/productSchema';
+import adminToken from '@/lib/adminToken';
 
 export async function GET(request: NextRequest) {
   try {
+    const page = parseInt(request.nextUrl.searchParams.get('page') || '1');
+    const limit = parseInt(request.nextUrl.searchParams.get('limit') || '10');
+    const offset = (page - 1) * limit;
+
+    const totalProducts = await prisma.product.count();
+    const totalPages = Math.ceil(totalProducts / limit);
+
     const products = await prisma.product.findMany({
+      take: limit,
+      skip: offset,
       orderBy: {
         createdAt: 'asc',
       },
     });
 
-    return successResponse('Products fetched successfully', products);
+    return successResponse('Products fetched successfully', {
+      products,
+      pagination: {
+        currentPage: page,
+        totalProducts,
+        productsPerPage: limit,
+        totalPages,
+      },
+    });
   } catch (error) {
     console.error('Get products error: ', error);
     return errorResponse('Failed to fetch products');
@@ -27,14 +42,19 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    // Parse and validate the request body
+    const authError = adminToken(request);
+
+    if (authError) {
+      return authError;
+    }
+
     const body = await request.json();
     const result = createProductSchema.safeParse(body);
 
     if (!result.success) {
       return validationErrorResponse(result.error);
     }
-    // Create a product
+
     const productData = result.data;
     const product = await prisma.product.create({
       data: {

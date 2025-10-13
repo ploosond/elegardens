@@ -50,7 +50,6 @@ export async function POST(request: Request) {
         userId: user.id,
         username: user.username,
         role: user.role,
-        isAdmin: true,
       },
       jwtSecret,
       { expiresIn: '1h' }

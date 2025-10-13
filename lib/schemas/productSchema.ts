@@ -18,7 +18,7 @@ const imageSchema = z.object({
 const imagesArraySchema = z
   .array(imageSchema)
   .min(1, 'At least one image is required')
-  .max(3, 'Maximum 3 images are allowed');
+  .max(6, 'Maximum 6 images are allowed');
 
 const lightSchema = z.object({
   en: z.enum(['sun', 'half-shadow', 'shadow']),
@@ -42,7 +42,7 @@ export const createProductSchema = z.object({
 export const updateProductSchema = z.object({
   common_name: commonNameSchema.optional(),
   description: descriptionSchema.optional(),
-  images: z.array(imageSchema).optional(),
+  images: imagesArraySchema.optional(),
   height: z.number().positive('Height must be a positive number').optional(),
   diameter: z
     .number()
