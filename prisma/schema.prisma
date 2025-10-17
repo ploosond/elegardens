@@ -24,9 +24,9 @@ model Product {
   common_name Json
   description Json
   images Json
-  height Float
-  diameter Float
-  hardiness Float
+  height String
+  diameter String
+  hardiness String
   light Json
   color String @default("#6a844a")
   createdAt DateTime @default(now())

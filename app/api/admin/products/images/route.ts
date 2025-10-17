@@ -44,6 +44,7 @@ export async function POST(request: NextRequest) {
 
       uploadedImages.push({
         url: cloudinaryResult.secure_url,
+        public_id: cloudinaryResult.public_id,
         altText: file.name.replace(/\.[^/.]+$/, ''),
       });
     }

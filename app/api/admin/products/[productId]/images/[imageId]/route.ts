@@ -1,11 +1,12 @@
 import adminToken from '@/lib/adminToken';
 import { errorResponse, successResponse } from '@/lib/apiResponse';
+import { deleteFromCloudinary } from '@/lib/cloudinary/cloudinaryUpload';
 import prisma from '@/lib/prisma';
 import { NextRequest } from 'next/server';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { productId: string; imageIndex: string } }
+  { params }: { params: { productId: string; imageId: string } }
 ) {
   try {
     const authError = adminToken(request);
@@ -13,8 +14,9 @@ export async function DELETE(
       return authError;
     }
 
-    const productId = parseInt(params.productId, 10);
-    const imageIndex = parseInt(params.imageIndex, 10);
+    const { productId: productIdParam, imageId: imageIdParam } = await params;
+    const productId = parseInt(productIdParam, 10);
+    const imageId = parseInt(imageIdParam, 10);
 
     const existingProduct = await prisma.product.findUnique({
       where: {
@@ -28,10 +30,11 @@ export async function DELETE(
 
     const existingImages = existingProduct.images as {
       url: string;
+      public_id: string;
       altText: string;
     }[];
 
-    if (imageIndex < 0 || imageIndex >= existingImages.length) {
+    if (imageId < 0 || imageId >= existingImages.length) {
       return errorResponse(
         `Invalid image index. Product has ${
           existingImages.length
@@ -40,16 +43,13 @@ export async function DELETE(
       );
     }
 
+    await deleteFromCloudinary(existingImages[imageId].public_id);
+
     const updatedImages = existingImages.filter(
-      (_, index) => index !== imageIndex
+      (_, index) => index !== imageId
     );
 
-    if (updatedImages.length === 0) {
-      return errorResponse(
-        'Cannot delete all images. Product must have at least one image.',
-        400
-      );
-    }
+    // Allow deleting all images - frontend validation will handle the business rule
 
     const updatedProduct = await prisma.product.update({
       where: {
@@ -62,7 +62,7 @@ export async function DELETE(
 
     return successResponse('Image deleted successfully', {
       product: updatedProduct,
-      deletedImage: existingImages[imageIndex],
+      deletedImage: existingImages[imageId],
       remainingImages: updatedImages,
     });
   } catch (error) {

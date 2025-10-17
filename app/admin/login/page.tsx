@@ -2,19 +2,17 @@
 
 import { loginSchema, LoginSchema } from '@/lib/schemas/loginSchema';
 import { zodResolver } from '@hookform/resolvers/zod';
-import axios from 'axios';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { User, Lock, LogIn } from 'lucide-react';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
-import ErrorMessage from '@/components/ui/ErrorMessage';
+import toast from 'react-hot-toast';
+import { useAdminLogin } from '@/hooks/useAuth';
 
 export default function AdminLogin() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [loginError, setLoginError] = useState('');
   const router = useRouter();
+  const adminLogin = useAdminLogin();
 
   const {
     register,
@@ -22,33 +20,19 @@ export default function AdminLogin() {
     formState: { errors, isValid },
   } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
-    mode: 'onBlur',
+    mode: 'onTouched',
   });
 
   const onSubmit = async (data: LoginSchema) => {
-    setIsLoading(true);
-    setLoginError('');
-
     try {
-      const response = await axios.post('/api/admin/login', data);
+      const response = await adminLogin.mutateAsync(data);
 
-      if (response.data.success) {
-        localStorage.setItem('adminToken', response.data.data.token);
-        localStorage.setItem(
-          'adminUser',
-          JSON.stringify(response.data.data.user)
-        );
-
-        router.push('/admin');
-      } else {
-        setLoginError(response.data.message);
-      }
-    } catch (error: unknown) {
-      if (error instanceof Error) {
-        setLoginError(error.message);
-      } else {
-        setLoginError('An unknown error occurred');
-      }
+      localStorage.setItem('adminToken', response.data.token);
+      localStorage.setItem('adminUser', JSON.stringify(response.data.user));
+      toast.success('Login successful!');
+      router.push('/admin');
+    } catch (error: any) {
+      toast.error(error.response?.data?.message || 'Login failed');
     }
   };
 
@@ -86,15 +70,13 @@ export default function AdminLogin() {
               error={errors.password?.message}
             />
 
-            {loginError && <ErrorMessage message={loginError} type='form' />}
-
             <Button
               type='submit'
-              disabled={!isValid}
-              loading={isLoading}
+              loading={adminLogin.isPending}
               icon={<LogIn className='w-5 h-5' />}
+              className='w-full'
             >
-              {isLoading ? 'Logging in...' : 'Login'}
+              {adminLogin.isPending ? 'Logging in...' : 'Login'}
             </Button>
           </form>
         </div>

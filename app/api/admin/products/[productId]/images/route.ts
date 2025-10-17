@@ -4,7 +4,45 @@ import { uploadToCloudinary } from '@/lib/cloudinary/cloudinaryUpload';
 import prisma from '@/lib/prisma';
 import { NextRequest } from 'next/server';
 
-export async function PUT(
+export async function GET(
+  request: NextRequest,
+  { params }: { params: { productId: string } }
+) {
+  try {
+    const { productId: productIdParam } = await params;
+    const productId = parseInt(productIdParam, 10);
+
+    const product = await prisma.product.findUnique({
+      where: {
+        id: productId,
+      },
+      select: {
+        images: true,
+      },
+    });
+
+    if (!product) {
+      return errorResponse('Product not found', 404);
+    }
+
+    const images = product.images as {
+      url: string;
+      public_id: string;
+      altText: string;
+    }[];
+
+    return successResponse('Product images fetched successfully', {
+      images,
+      totalImages: images.length,
+    });
+  } catch (error) {
+    console.error('Get product images error: ', error);
+    return errorResponse('Failed to fetch product images', 500);
+  }
+}
+
+// POST - Add images to an existing product
+export async function POST(
   request: NextRequest,
   { params }: { params: { productId: string } }
 ) {
@@ -14,7 +52,8 @@ export async function PUT(
       return authError;
     }
 
-    const productId = parseInt(params.productId, 10);
+    const { productId: productIdParam } = await params;
+    const productId = parseInt(productIdParam, 10);
 
     const existingProduct = await prisma.product.findUnique({
       where: { id: productId },
@@ -27,8 +66,13 @@ export async function PUT(
     const formData = await request.formData();
     const files = formData.getAll('images') as File[];
 
+    if (!files || files.length === 0) {
+      return errorResponse('No images provided', 400);
+    }
+
     const existingImages = existingProduct.images as {
       url: string;
+      public_id: string;
       altText: string;
     }[];
 
@@ -39,14 +83,6 @@ export async function PUT(
         `Cannot upload ${files.length} images. Product already has ${existingImages.length} images. Maximum 6 total allowed.`,
         400
       );
-    }
-
-    if (!files || files.length === 0) {
-      return errorResponse('No images provided', 400);
-    }
-
-    if (files.length > 6) {
-      return errorResponse('Maximum 6 images are allowed', 400);
     }
 
     const uploadedImages = [];
@@ -73,16 +109,27 @@ export async function PUT(
 
       uploadedImages.push({
         url: cloudinaryResult.secure_url,
+        public_id: cloudinaryResult.public_id,
         altText: file.name.replace(/\.[^/.]+$/, ''),
       });
     }
 
-    return successResponse('Images uploaded successfully', {
-      images: uploadedImages,
-      totalImages: uploadedImages.length,
+    // Combine existing images with new uploaded images
+    const allImages = [...existingImages, ...uploadedImages];
+
+    // Update the product in database
+    const updatedProduct = await prisma.product.update({
+      where: { id: productId },
+      data: { images: allImages },
+    });
+
+    return successResponse('Images added to product successfully', {
+      product: updatedProduct,
+      newImages: uploadedImages,
+      totalImages: allImages.length,
     });
   } catch (error) {
-    console.error('Upload images error: ', error);
-    return errorResponse('Failed to upload images', 500);
+    console.error('Add images to product error: ', error);
+    return errorResponse('Failed to add images to product', 500);
   }
 }

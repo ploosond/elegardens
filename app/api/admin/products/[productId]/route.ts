@@ -13,7 +13,8 @@ export async function GET(
   { params }: { params: { productId: string } }
 ) {
   try {
-    const productId = parseInt(params.productId, 10);
+    const { productId: productIdParam } = await params;
+    const productId = parseInt(productIdParam, 10);
 
     const product = await prisma.product.findUnique({
       where: { id: productId },
@@ -40,7 +41,8 @@ export async function PUT(
       return authError;
     }
 
-    const productId = parseInt(params.productId, 10);
+    const { productId: productIdParam } = await params;
+    const productId = parseInt(productIdParam, 10);
 
     const body = await request.json();
     const result = updateProductSchema.safeParse(body);
@@ -57,23 +59,9 @@ export async function PUT(
       return errorResponse('Product not found', 404);
     }
 
-    const existingImages = existingProduct.images as {
-      url: string;
-      altText: string;
-    }[];
-    if (result.data.images) {
-      const newImages = result.data.images;
-      const combinedImages = [...existingImages, ...newImages];
-
-      if (combinedImages.length > 6) {
-        return errorResponse(
-          `Cannot add ${newImages.length} images. Product already has ${existingImages.length} images. Maximum 6 total allowed.`,
-          400
-        );
-      }
-
-      result.data.images = combinedImages;
-    }
+    // Don't handle images in PUT - they are managed separately via add/delete endpoints
+    // Remove images from update data to avoid conflicts
+    delete result.data.images;
 
     const updatedProduct = await prisma.product.update({
       where: { id: productId },
@@ -98,8 +86,8 @@ export async function DELETE(
     if (authError) {
       return authError;
     }
-
-    const productId = parseInt(params.productId, 10);
+    const { productId: productIdParam } = await params;
+    const productId = parseInt(productIdParam, 10);
 
     const existingProduct = await prisma.product.findUnique({
       where: { id: productId },

@@ -29,13 +29,13 @@ export async function POST(request: Request) {
 
     // 3. Check if user exists and is admin
     if (!user || user.role !== 'ADMIN') {
-      return errorResponse('Admin access required', 401);
+      return errorResponse('Username or password not correct', 401);
     }
 
     // 4. Verify password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return errorResponse('Invalid credentials', 401);
+      return errorResponse('Username or password not correct', 401);
     }
 
     // TODO : look if we can do this differently

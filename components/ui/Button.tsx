@@ -17,7 +17,7 @@ export default function Button({
   ...props
 }: ButtonProps) {
   const baseClasses =
-    'inline-flex w-full items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow transition-colors duration-150 disabled:cursor-not-allowed disabled:opacity-60';
+    'inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold shadow transition-colors duration-150 disabled:cursor-not-allowed';
 
   const variantClasses = {
     primary: 'bg-primary text-white hover:bg-primary-dark',

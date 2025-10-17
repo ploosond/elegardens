@@ -20,3 +20,12 @@ export async function uploadToCloudinary(
       .end(buffer);
   });
 }
+
+export async function deleteFromCloudinary(publicId: string) {
+  return new Promise((resolve, reject) => {
+    cloudinaryConfig.uploader.destroy(publicId, (error, result) => {
+      if (error) reject(error);
+      else resolve(result);
+    });
+  });
+}

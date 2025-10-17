@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Outfit, Poppins } from 'next/font/google';
 import './globals.css';
+import { Providers } from './providers';
 
 const outfit = Outfit({
   subsets: ['latin'],
@@ -27,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${outfit.variable} ${poppins.variable} antialiased`}>
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
