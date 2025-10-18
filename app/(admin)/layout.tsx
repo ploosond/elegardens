@@ -4,6 +4,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import NavigationLink from '@/components/ui/NavigationLink';
 import LogoutButton from '@/components/ui/LogoutButton';
+import { clearInvalidTokens, validateToken } from '@/lib/tokenUtils';
 
 export default function AdminLayout({
   children,
@@ -17,9 +18,11 @@ export default function AdminLayout({
 
   useEffect(() => {
     const token = localStorage.getItem('adminToken');
-    if (token) {
+
+    if (token && validateToken(token)) {
       setIsAuthenticated(true);
     } else {
+      clearInvalidTokens();
       setIsAuthenticated(false);
       if (pathname !== '/admin/login') {
         router.push('/admin/login');
@@ -34,6 +37,10 @@ export default function AdminLayout({
     setIsAuthenticated(false);
     router.push('/admin/login');
   };
+
+  if (pathname === '/admin/login') {
+    return <>{children}</>;
+  }
 
   if (isLoading) {
     return (
@@ -53,6 +60,9 @@ export default function AdminLayout({
         <div className='bg-white shadow-sm border-b border-gray-200 p-4'>
           <div className='flex items-center justify-between'>
             <div className='flex gap-4'>
+              <NavigationLink href='/admin' isActive={pathname === '/admin'}>
+                Dashboard
+              </NavigationLink>
               <NavigationLink
                 href='/admin/products'
                 isActive={pathname === '/admin/products'}
