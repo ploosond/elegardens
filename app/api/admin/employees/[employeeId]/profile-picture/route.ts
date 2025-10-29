@@ -1,3 +1,4 @@
+import { Prisma } from '@/app/generated/prisma';
 import adminToken from '@/lib/adminToken';
 import { errorResponse, successResponse } from '@/lib/apiResponse';
 import {
@@ -5,7 +6,6 @@ import {
   uploadToCloudinary,
 } from '@/lib/cloudinary/cloudinaryUpload';
 import prisma from '@/lib/prisma';
-import { ProfilePictureDto } from '@/types/dto/employee.dto';
 import { NextRequest } from 'next/server';
 
 export async function POST(
@@ -104,7 +104,14 @@ export async function DELETE(
 
     await deleteFromCloudinary(profilePicture.public_id);
 
-    return successResponse('Profile picture deleted successfully');
+    const updatedEmployee = await prisma.employee.update({
+      where: { id: employeeId },
+      data: { profilePicture: Prisma.JsonNull },
+    });
+
+    return successResponse('Profile picture deleted successfully', {
+      employee: updatedEmployee,
+    });
   } catch (error) {
     console.error('Delete profile picture error: ', error);
     return errorResponse('Failed to delete profile picture', 500);

@@ -4,6 +4,7 @@ import {
   successResponse,
   validationErrorResponse,
 } from '@/lib/apiResponse';
+import { deleteFromCloudinary } from '@/lib/cloudinary/cloudinaryUpload';
 import prisma from '@/lib/prisma';
 import { updateEmployeeSchema } from '@/lib/schemas/employeeSchema';
 import { NextRequest } from 'next/server';
@@ -61,6 +62,21 @@ export async function DELETE(
 
     const { employeeId: employeeIdParam } = await params;
     const employeeId = parseInt(employeeIdParam, 10);
+
+    const existingEmployee = await prisma.employee.findUnique({
+      where: { id: employeeId },
+    });
+
+    if (!existingEmployee) {
+      return errorResponse('Employee not found', 404);
+    }
+
+    if (existingEmployee.profilePicture) {
+      const profilePicture = existingEmployee.profilePicture as {
+        public_id: string;
+      };
+      await deleteFromCloudinary(profilePicture.public_id);
+    }
 
     const employee = await prisma.employee.delete({
       where: { id: employeeId },

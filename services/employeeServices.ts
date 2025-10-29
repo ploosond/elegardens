@@ -54,25 +54,6 @@ export const createEmployee = async (
   }
 };
 
-export const updateEmployee = async (
-  employeeId: number,
-  updateEmployeeDto: UpdateEmployeeDto
-): Promise<EmployeeResponseDto> => {
-  try {
-    const response = await adminApiClient.put(
-      `/employees/${employeeId}`,
-      updateEmployeeDto
-    );
-    return response.data;
-  } catch (error: any) {
-    console.error(
-      'Failed to update employee',
-      error?.response.data || error.message
-    );
-    throw error;
-  }
-};
-
 export const uploadProfilePictureForExistingEmployee = async (
   employeeId: number,
   formData: FormData
@@ -92,7 +73,26 @@ export const uploadProfilePictureForExistingEmployee = async (
   }
 };
 
-export const deleteProfilePictureForExistingEmployee = async (
+export const updateEmployee = async (
+  employeeId: number,
+  updateEmployeeDto: UpdateEmployeeDto
+): Promise<EmployeeResponseDto> => {
+  try {
+    const response = await adminApiClient.put(
+      `/employees/${employeeId}`,
+      updateEmployeeDto
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error(
+      'Failed to update employee',
+      error?.response.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const deleteProfilePicture = async (
   employeeId: number
 ): Promise<DeleteProfilePictureResponseDto> => {
   try {

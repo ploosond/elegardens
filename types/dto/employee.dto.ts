@@ -73,4 +73,7 @@ export interface ProfilePictureResponseDto {
 export interface DeleteProfilePictureResponseDto {
   success: boolean;
   message: string;
+  data: {
+    employee: EmployeeDto;
+  };
 }
