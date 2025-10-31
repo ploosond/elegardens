@@ -9,7 +9,7 @@ import {
   updateProduct,
   uploadImagesForNewProduct,
 } from '@/services/productServices';
-import { deleteImage } from '@/services/imageServices';
+import { deleteImageByPublicId } from '@/services/imageServices';
 import { UpdateProductDto } from '@/types/dto';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
@@ -106,7 +106,7 @@ export const useDeleteImage = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: deleteImage,
+    mutationFn: deleteImageByPublicId,
     onSuccess: () => {
       // Invalidate products queries to reflect any changes
       queryClient.invalidateQueries({ queryKey: ['products'] });

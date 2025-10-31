@@ -1,6 +1,9 @@
 import adminToken from '@/lib/adminToken';
 import { errorResponse, successResponse } from '@/lib/apiResponse';
-import { uploadToCloudinary } from '@/lib/cloudinary/cloudinaryUpload';
+import {
+  deleteFromCloudinary,
+  uploadToCloudinary,
+} from '@/lib/cloudinary/cloudinaryUpload';
 import { NextRequest } from 'next/server';
 
 export async function POST(request: NextRequest) {
@@ -42,5 +45,28 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Upload profile picture error: ', error);
     return errorResponse('Failed to upload profile picture', 500);
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const authError = adminToken(request);
+    if (authError) {
+      return authError;
+    }
+
+    const body = await request.json();
+    const { public_id } = body;
+
+    if (!public_id) {
+      return errorResponse('The public_id is required', 400);
+    }
+
+    await deleteFromCloudinary(public_id);
+
+    return successResponse('Profile picture deleted successfully');
+  } catch (error) {
+    console.error('Delete profile picture error: ', error);
+    return errorResponse('Failed to delete profile picture', 500);
   }
 }

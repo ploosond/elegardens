@@ -19,10 +19,10 @@ const profilePictureSchema = z.object({
 export const createEmployeeSchema = z.object({
   first_name: z.string().trim().min(1, 'First name is required'),
   last_name: z.string().trim().min(1, 'Last name is required'),
-  email: z.email('Valid email is required').optional(),
+  email: z.email('Provide a valid email').trim().or(z.literal('')).optional(),
   role: roleSchema,
   department: departmentSchema,
-  telephone: z.string().trim().min(1, 'Telephone is required').optional(),
+  telephone: z.string().trim().or(z.literal('')).optional(),
   profilePicture: profilePictureSchema.optional(),
 });
 
@@ -31,9 +31,11 @@ export type CreateEmployeeSchema = z.infer<typeof createEmployeeSchema>;
 export const updateEmployeeSchema = z.object({
   first_name: z.string().trim().min(1, 'First name is required').optional(),
   last_name: z.string().trim().min(1, 'Last name is required').optional(),
-  email: z.email('Valid email is required').optional(),
+  email: z.email('Provide a valid email').trim().or(z.literal('')).optional(),
   role: roleSchema.optional(),
   department: departmentSchema.optional(),
-  telephone: z.string().trim().min(1, 'Telephone is required').optional(),
+  telephone: z.string().trim().or(z.literal('')).optional(),
   profilePicture: profilePictureSchema.optional(),
 });
+
+export type UpdateEmployeeSchema = z.infer<typeof updateEmployeeSchema>;

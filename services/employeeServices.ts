@@ -2,6 +2,7 @@ import { adminApiClient } from '@/lib/axios';
 import {
   CreateEmployeeDto,
   DeleteProfilePictureResponseDto,
+  DeleteProfilePictureWithDataResponseDto,
   EmployeeResponseDto,
   EmployeesResponseDto,
   ProfilePictureResponseDto,
@@ -21,6 +22,21 @@ export const fetchEmployees = async (): Promise<EmployeesResponseDto> => {
   }
 };
 
+export const fetchEmployee = async (
+  employeeId: number
+): Promise<EmployeeResponseDto> => {
+  try {
+    const response = await adminApiClient.get(`/employees/${employeeId}`);
+    return response.data;
+  } catch (error: any) {
+    console.error(
+      'Failed to fetch employee',
+      error?.response.data || error.message
+    );
+    throw error;
+  }
+};
+
 export const uploadProfilePictureForNewEmployee = async (
   formData: FormData
 ): Promise<ProfilePictureResponseDto> => {
@@ -33,6 +49,23 @@ export const uploadProfilePictureForNewEmployee = async (
   } catch (error: any) {
     console.error(
       'Failed to upload profile picture',
+      error?.response.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const deletePendingProfilePicture = async (
+  publicId: string
+): Promise<DeleteProfilePictureResponseDto> => {
+  try {
+    const response = await adminApiClient.delete('/employees/profile-picture', {
+      data: { public_id: publicId },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error(
+      'Failed to delete pending profile picture',
       error?.response.data || error.message
     );
     throw error;
@@ -92,9 +125,9 @@ export const updateEmployee = async (
   }
 };
 
-export const deleteProfilePicture = async (
+export const deleteProfilePictureForExistingEmployee = async (
   employeeId: number
-): Promise<DeleteProfilePictureResponseDto> => {
+): Promise<DeleteProfilePictureWithDataResponseDto> => {
   try {
     const response = await adminApiClient.delete(
       `/employees/${employeeId}/profile-picture`

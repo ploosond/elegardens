@@ -1,7 +1,9 @@
 import {
   createEmployee,
   deleteEmployee,
-  deleteProfilePicture,
+  deletePendingProfilePicture,
+  deleteProfilePictureForExistingEmployee,
+  fetchEmployee,
   fetchEmployees,
   updateEmployee,
   uploadProfilePictureForExistingEmployee,
@@ -24,6 +26,12 @@ export const useUploadProfilePictureForNewEmployee = () => {
   });
 };
 
+export const useDeletePendingProfilePicture = () => {
+  return useMutation({
+    mutationFn: (publicId: string) => deletePendingProfilePicture(publicId),
+  });
+};
+
 export const useCreateEmployee = () => {
   const queryClient = useQueryClient();
 
@@ -35,9 +43,16 @@ export const useCreateEmployee = () => {
   });
 };
 
-export const useUploadProfilePictureForExistingEmployee = () => {
-  const queryClient = useQueryClient();
+export const useFetchEmployee = (employeeId: number) => {
+  return useQuery({
+    queryKey: ['employees', employeeId],
+    queryFn: () => fetchEmployee(employeeId),
+    enabled: !!employeeId,
+    staleTime: 5 * 60 * 1000,
+  });
+};
 
+export const useUploadProfilePictureForExistingEmployee = () => {
   return useMutation({
     mutationFn: ({
       employeeId,
@@ -46,9 +61,6 @@ export const useUploadProfilePictureForExistingEmployee = () => {
       employeeId: number;
       formData: FormData;
     }) => uploadProfilePictureForExistingEmployee(employeeId, formData),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['employees'] });
-    },
   });
 };
 
@@ -63,19 +75,24 @@ export const useUpdateEmployee = () => {
       employeeId: number;
       updateEmployeeDto: UpdateEmployeeDto;
     }) => updateEmployee(employeeId, updateEmployeeDto),
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['employees'] });
+      queryClient.invalidateQueries({
+        queryKey: ['employees', variables.employeeId],
+      });
     },
   });
 };
 
-export const useDeleteProfilePicture = () => {
+export const useDeleteProfilePictureForExistingEmployee = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (employeeId: number) => deleteProfilePicture(employeeId),
-    onSuccess: () => {
+    mutationFn: (employeeId: number) =>
+      deleteProfilePictureForExistingEmployee(employeeId),
+    onSuccess: (data, employeeId) => {
       queryClient.invalidateQueries({ queryKey: ['employees'] });
+      queryClient.invalidateQueries({ queryKey: ['employees', employeeId] });
     },
   });
 };

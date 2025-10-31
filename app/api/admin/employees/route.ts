@@ -1,19 +1,3 @@
-/** 
-CREATE Employee with Image:
-  Step 1: POST /employees/profile-picture      → Upload image → Get image data
-  Step 2: POST /employees                       → Create employee with image data
-
-UPDATE Employee with Image:
-  Step 1: POST /employees/{id}/profile-picture → Upload image → Get image data
-  Step 2: PUT /employees/{id}                   → Update employee with image data
-
-REMOVE Profile Picture:
-  DELETE /employees/{id}/profile-picture        → Delete from Cloudinary + Set to null
-
-DELETE Employee:
-  DELETE /employees/{id}                        → Delete image + Delete employee
-**/
-
 import adminToken from '@/lib/adminToken';
 import {
   errorResponse,

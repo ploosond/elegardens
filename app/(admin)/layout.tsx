@@ -57,9 +57,9 @@ export default function AdminLayout({
     <div className='min-h-screen bg-gray-50'>
       {/* Admin Navigation - Always visible when authenticated */}
       {isAuthenticated && (
-        <div className='bg-white shadow-sm border-b border-gray-200 p-4'>
-          <div className='flex items-center justify-between'>
-            <div className='flex gap-4'>
+        <div className='bg-white shadow-sm border-b border-gray-200 p-3 md:p-4'>
+          <div className='flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3'>
+            <div className='flex flex-wrap gap-2 md:gap-4'>
               <NavigationLink href='/admin' isActive={pathname === '/admin'}>
                 Dashboard
               </NavigationLink>

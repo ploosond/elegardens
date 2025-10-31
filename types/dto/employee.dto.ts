@@ -67,10 +67,16 @@ export interface ProfilePictureResponseDto {
   message: string;
   data: {
     profilePicture: ProfilePictureDto;
+    oldProfilePicture?: ProfilePictureDto | null;
   };
 }
 
 export interface DeleteProfilePictureResponseDto {
+  success: boolean;
+  message: string;
+}
+
+export interface DeleteProfilePictureWithDataResponseDto {
   success: boolean;
   message: string;
   data: {

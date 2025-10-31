@@ -1,6 +1,6 @@
 import { adminApiClient } from '@/lib/axios';
 
-export const deleteImage = async (publicId: string) => {
+export const deleteImageByPublicId = async (publicId: string) => {
   try {
     const response = await adminApiClient.delete('/images', {
       data: { public_id: publicId },

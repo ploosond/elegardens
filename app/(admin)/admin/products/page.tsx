@@ -167,7 +167,7 @@ export default function ProductsPage() {
 
   if (isLoading) {
     return (
-      <div className='p-6'>
+      <div className='p-4 md:p-6'>
         <div className='flex items-center justify-center py-12'>
           <div className='animate-spin rounded-full h-8 w-8 border-b-2 border-primary'></div>
           <span className='ml-2 text-gray-600'>Loading products...</span>
@@ -178,21 +178,29 @@ export default function ProductsPage() {
 
   if (error) {
     return (
-      <div className='p-6'>
+      <div className='p-4 md:p-6'>
         <div className='text-center py-12'>
           <p className='text-red-600 mb-2'>Failed to load products</p>
-          <Button onClick={() => window.location.reload()}>Try Again</Button>
+          <Button
+            onClick={() => window.location.reload()}
+            className='w-full sm:w-auto'
+          >
+            Try Again
+          </Button>
         </div>
       </div>
     );
   }
 
   return (
-    <div className='p-6'>
+    <div className='p-4 md:p-6'>
       {/* Header with Add Button */}
       {!showAddForm && (
         <div className='mb-4 flex flex-row-reverse items-center justify-between'>
-          <Button onClick={() => setShowAddForm(true)} className='w-32'>
+          <Button
+            onClick={() => setShowAddForm(true)}
+            className='w-full md:w-32'
+          >
             Add
           </Button>
         </div>
@@ -201,7 +209,7 @@ export default function ProductsPage() {
       {/* Add Product Form */}
       {showAddForm && (
         <div className='mb-6'>
-          <div className='bg-white shadow p-6'>
+          <div className='bg-white shadow p-4 md:p-6'>
             <h2 className='text-lg font-semibold mb-3'>Add New Product</h2>
 
             <form
@@ -214,7 +222,7 @@ export default function ProductsPage() {
               {/* Section 1: Basic Info */}
               <div className='border-b border-gray-200 pb-6'>
                 {/* Common Name Fields */}
-                <div className='grid grid-cols-2 gap-4 mb-4'>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                   <div>
                     <label className='block font-medium text-gray-700 mb-1'>
                       Common Name (EN) *
@@ -251,7 +259,7 @@ export default function ProductsPage() {
                 </div>
 
                 {/* Description Fields */}
-                <div className='grid grid-cols-2 gap-4'>
+                <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                   <div>
                     <label className='block font-medium text-gray-700 mb-1'>
                       Description (EN) *
@@ -290,7 +298,7 @@ export default function ProductsPage() {
 
               {/* Section 2: Physical Properties */}
               <div className='border-b border-gray-200 pb-6'>
-                <div className='grid grid-cols-3 gap-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
                   <div>
                     <label className='block font-medium text-gray-700 mb-1'>
                       Height (cm) *
@@ -346,7 +354,7 @@ export default function ProductsPage() {
 
               {/* Section 3: Visual Properties */}
               <div>
-                <div className='grid grid-cols-3 gap-4'>
+                <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4'>
                   {/* Images */}
                   <div>
                     <label className='block font-medium text-gray-700 mb-2'>
@@ -514,11 +522,11 @@ export default function ProductsPage() {
               </div>
 
               {/* Submit Button */}
-              <div className='flex justify-end space-x-3'>
+              <div className='flex flex-col sm:flex-row justify-end gap-3'>
                 <Button
                   type='button'
                   variant='secondary'
-                  className='w-32'
+                  className='w-full sm:w-32'
                   onClick={() => {
                     reset(); // Reset form
                     setUploadedImages([]); // Clear uploaded images
@@ -532,7 +540,7 @@ export default function ProductsPage() {
                 <Button
                   type='submit'
                   loading={createProduct.isPending}
-                  className='w-40'
+                  className='w-full sm:w-40'
                 >
                   Create
                 </Button>
@@ -542,102 +550,169 @@ export default function ProductsPage() {
         </div>
       )}
 
-      {/* Products Table */}
-      <div className='bg-white  shadow overflow-hidden'>
-        <table className='w-full border-collapse'>
-          <thead>
-            <tr className='bg-gray-200 text-gray-700'>
-              <th className='border p-3'>#</th>
-              <th className='border p-3'>Common Name (EN)</th>
-              <th className='border p-3'>Common Name (DE)</th>
-              <th className='border p-3'>Description (EN)</th>
-              <th className='border p-3'>Description (DE)</th>
-              <th className='border p-3'>Height (cm)</th>
-              <th className='border p-3'>Diameter (cm)</th>
-              <th className='border p-3'>Hardiness (°C)</th>
-              <th className='border p-3'>Light (EN)</th>
-              <th className='border p-3'>Light (DE)</th>
-              <th className='border p-3'>Images</th>
-              <th className='border p-3'>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.length === 0 ? (
-              <tr>
-                <td colSpan={12} className='p-6 text-center text-gray-500'>
-                  <div className='flex flex-col items-center'>
-                    <p className='text-lg font-medium'>No products found</p>
-                    <p className='text-sm'>
-                      Get started by adding your first product
-                    </p>
-                  </div>
-                </td>
+      {/* Products Display */}
+      <div className='bg-white shadow overflow-hidden'>
+        <div className='overflow-x-auto'>
+          <table
+            className='w-full border-collapse'
+            style={{ tableLayout: 'fixed' }}
+          >
+            <colgroup>
+              <col style={{ width: '3%' }} />
+              <col style={{ width: '8%' }} />
+              <col style={{ width: '8%' }} />
+              <col style={{ width: '19.5%' }} />
+              <col style={{ width: '19.5%' }} />
+              <col style={{ width: '5%' }} />
+              <col style={{ width: '5%' }} />
+              <col style={{ width: '5%' }} />
+              <col style={{ width: '5%' }} />
+              <col style={{ width: '5%' }} />
+              <col style={{ width: '7%' }} />
+              <col style={{ width: '5%' }} />
+            </colgroup>
+            <thead>
+              <tr className='bg-gray-200 text-gray-700'>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  #
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Common Name (EN)
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Common Name (DE)
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Description (EN)
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Description (DE)
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Height (cm)
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Diameter (cm)
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Hardiness (°C)
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Light (EN)
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Light (DE)
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Images
+                </th>
+                <th className='border p-1 text-center font-normal text-sm'>
+                  Actions
+                </th>
               </tr>
-            ) : (
-              [...products]
-                .sort((a, b) =>
-                  (a.common_name?.en || '').localeCompare(
-                    b.common_name?.en || ''
+            </thead>
+            <tbody>
+              {products.length === 0 ? (
+                <tr>
+                  <td colSpan={12} className='p-6 text-center text-gray-500'>
+                    <div className='flex flex-col items-center'>
+                      <p className='text-lg font-normal'>No products found</p>
+                      <p className='text-sm font-normal'>
+                        Get started by adding your first product
+                      </p>
+                    </div>
+                  </td>
+                </tr>
+              ) : (
+                [...products]
+                  .sort((a, b) =>
+                    (a.common_name?.en || '').localeCompare(
+                      b.common_name?.en || ''
+                    )
                   )
-                )
-                .map((product, index) => (
-                  <tr key={product.id} className='hover:bg-gray-100'>
-                    <td className='border p-3 font-medium'>{index + 1}</td>
-                    <td className='border p-3'>{product.common_name.en}</td>
-                    <td className='border p-3'>{product.common_name.de}</td>
-                    <td className='border p-3'>{product.description.en}</td>
-                    <td className='border p-3'>{product.description.de}</td>
-                    <td className='border p-3'>{product.height}</td>
-                    <td className='border p-3'>{product.diameter}</td>
-                    <td className='border p-3'>{product.hardiness}</td>
-                    <td className='border p-3'>{product.light.en}</td>
-                    <td className='border p-3'>{product.light.de}</td>
-                    <td className='border p-3'>
-                      <div className='flex flex-col gap-1'>
-                        {product.images.slice(0, 3).map((image, index) => (
-                          <img
-                            key={index}
-                            src={image.url}
-                            alt={image.altText}
-                            className='h-16 w-16  object-cover'
-                          />
-                        ))}
-                        {product.images.length > 3 && (
-                          <div className='h-16 w-16  bg-gray-200 flex items-center justify-center text-xs text-gray-600'>
-                            +{product.images.length - 3}
-                          </div>
-                        )}
-                      </div>
-                    </td>
-                    <td className='border p-3'>
-                      <div className='flex flex-col gap-1 items-center justify-center'>
-                        <Button
-                          variant='secondary'
-                          onClick={() =>
-                            router.push(`/admin/products/edit/${product.id}`)
-                          }
-                          className='p-2 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-800 border border-blue-200'
-                          title='Edit product'
-                        >
-                          <Pencil className='w-4 h-4' />
-                        </Button>
-                        <Button
-                          variant='secondary'
-                          onClick={() =>
-                            handleDelete(product.id, product.common_name.en)
-                          }
-                          className='p-2 bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-800 border border-red-200'
-                          title='Delete product'
-                        >
-                          <X className='w-4 h-4' />
-                        </Button>
-                      </div>
-                    </td>
-                  </tr>
-                ))
-            )}
-          </tbody>
-        </table>
+                  .map((product, index) => (
+                    <tr key={product.id} className='hover:bg-gray-100'>
+                      <td className='border p-1 text-center font-normal text-sm'>
+                        {index + 1}
+                      </td>
+                      <td className='border p-1 text-center font-normal text-sm'>
+                        {product.common_name.en}
+                      </td>
+                      <td className='border p-1 text-center font-normal text-sm'>
+                        {product.common_name.de}
+                      </td>
+                      <td className='border p-1 font-normal text-sm'>
+                        <div className='max-h-64 overflow-y-auto  text-justify'>
+                          {product.description.en}
+                        </div>
+                      </td>
+                      <td className='border p-1 font-normal text-sm'>
+                        <div className='max-h-64 overflow-y-auto  text-justify'>
+                          {product.description.de}
+                        </div>
+                      </td>
+                      <td className='border p-1 text-center font-normal text-sm'>
+                        {product.height}
+                      </td>
+                      <td className='border p-1 text-center font-normal text-sm'>
+                        {product.diameter}
+                      </td>
+                      <td className='border p-1 text-center font-normal text-sm'>
+                        {product.hardiness}
+                      </td>
+                      <td className='border p-1 text-center font-normal text-sm'>
+                        {product.light.en}
+                      </td>
+                      <td className='border p-1 text-center font-normal text-sm'>
+                        {product.light.de}
+                      </td>
+                      <td className='border p-1'>
+                        <div className='flex flex-col gap-1 items-center justify-center'>
+                          {product.images.slice(0, 3).map((image, index) => (
+                            <img
+                              key={index}
+                              src={image.url}
+                              alt={image.altText}
+                              className='h-16 w-16 object-cover rounded'
+                            />
+                          ))}
+                          {product.images.length > 3 && (
+                            <div className='h-16 w-16 bg-gray-200 flex items-center justify-center text-xs text-gray-600 rounded'>
+                              +{product.images.length - 3}
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                      <td className='border p-1'>
+                        <div className='flex flex-col gap-1 items-center justify-center'>
+                          <Button
+                            variant='secondary'
+                            onClick={() =>
+                              router.push(`/admin/products/edit/${product.id}`)
+                            }
+                            className='p-2 bg-blue-50 text-blue-700 hover:bg-blue-100 hover:text-blue-800 border border-blue-200'
+                            title='Edit product'
+                          >
+                            <Pencil className='w-4 h-4' />
+                          </Button>
+                          <Button
+                            variant='secondary'
+                            onClick={() =>
+                              handleDelete(product.id, product.common_name.en)
+                            }
+                            className='p-2 bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-800 border border-red-200'
+                            title='Delete product'
+                          >
+                            <X className='w-4 h-4' />
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );
