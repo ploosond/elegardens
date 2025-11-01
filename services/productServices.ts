@@ -8,10 +8,14 @@ import {
   UpdateProductDto,
 } from '@/types/dto';
 
-// GET - List all products
-export const fetchProducts = async (): Promise<ProductsResponseDto> => {
+export const fetchProducts = async (
+  page: number = 1,
+  limit: number = 10
+): Promise<ProductsResponseDto> => {
   try {
-    const response = await adminApiClient.get('/products?limit=1000');
+    const response = await adminApiClient.get(
+      `/products?page=${page}&limit=${limit}`
+    );
     return response.data;
   } catch (error: any) {
     console.error(
@@ -22,7 +26,6 @@ export const fetchProducts = async (): Promise<ProductsResponseDto> => {
   }
 };
 
-// GET - Fetch single product
 export const fetchProduct = async (
   productId: number
 ): Promise<ProductResponseDto> => {
@@ -32,22 +35,6 @@ export const fetchProduct = async (
   } catch (error: any) {
     console.error(
       'Failed to fetch product',
-      error?.response.data || error.message
-    );
-    throw error;
-  }
-};
-
-// GET - Fetch product images
-export const fetchProductImages = async (
-  productId: number
-): Promise<ProductImagesResponseDto> => {
-  try {
-    const response = await adminApiClient.get(`/products/${productId}/images`);
-    return response.data;
-  } catch (error: any) {
-    console.log(
-      'Failed to fetch product images',
       error?.response.data || error.message
     );
     throw error;
@@ -78,6 +65,23 @@ export const uploadImagesForNewProduct = async (
   } catch (error: any) {
     console.error(
       'Failed to upload images',
+      error?.response.data || error.message
+    );
+    throw error;
+  }
+};
+
+export const deletePendingProductImage = async (
+  publicId: string
+): Promise<{ success: boolean; message: string }> => {
+  try {
+    const response = await adminApiClient.delete('/products/images', {
+      data: { public_id: publicId },
+    });
+    return response.data;
+  } catch (error: any) {
+    console.error(
+      'Failed to delete pending image',
       error?.response.data || error.message
     );
     throw error;

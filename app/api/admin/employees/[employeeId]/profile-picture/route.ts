@@ -43,7 +43,6 @@ export async function POST(
       return errorResponse('File is too large. Maximum size is 10MB', 400);
     }
 
-    // Get old profile picture info if exists
     const oldProfilePicture = existingEmployee.profilePicture
       ? (existingEmployee.profilePicture as {
           url: string;
@@ -52,7 +51,6 @@ export async function POST(
         })
       : null;
 
-    // Upload new profile picture
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
@@ -103,13 +101,11 @@ export async function DELETE(
       public_id: string;
     };
 
-    // 1. Update database first (source of truth, consistent with PUT)
     await prisma.employee.update({
       where: { id: employeeId },
       data: { profilePicture: null as any },
     });
 
-    // 2. Delete from Cloudinary (non-blocking, like PUT endpoint)
     try {
       await deleteFromCloudinary(profilePicture.public_id);
     } catch (error) {
@@ -117,10 +113,7 @@ export async function DELETE(
         'Failed to delete profile picture from Cloudinary, but DB updated:',
         error
       );
-      // Don't fail the request - DB is already updated
     }
-
-    // 3. Return updated employee (consistent with PUT endpoint)
     const updatedEmployee = await prisma.employee.findUnique({
       where: { id: employeeId },
     });

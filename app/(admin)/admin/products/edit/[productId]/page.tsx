@@ -22,12 +22,20 @@ export default function EditProductPage() {
   const params = useParams();
   const productId = parseInt(params.productId as string, 10);
 
-  const [uploadedImages, setUploadedImages] = useState<
+  const [existingImages, setExistingImages] = useState<
     Array<{ url: string; public_id: string; altText: string }>
   >([]);
+  const [originalImages, setOriginalImages] = useState<
+    Array<{ url: string; public_id: string; altText: string }>
+  >([]);
+  const [originalImagesInitialized, setOriginalImagesInitialized] =
+    useState(false);
   const [uploadingFiles, setUploadingFiles] = useState<File[]>([]);
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [maxImagesError, setMaxImagesError] = useState<string>('');
+  const [deletingImageIndex, setDeletingImageIndex] = useState<number | null>(
+    null
+  );
 
   const { data: productData, isLoading, error } = useFetchProduct(productId);
   const updateProduct = useUpdateProduct();
@@ -46,10 +54,11 @@ export default function EditProductPage() {
     mode: 'onTouched',
   });
 
-  // Load product data into form when data is available
   useEffect(() => {
     if (productData?.data?.product) {
       const product = productData.data.product;
+      const productImages = product.images || [];
+
       reset({
         common_name: product.common_name,
         description: product.description,
@@ -59,28 +68,46 @@ export default function EditProductPage() {
         light: product.light,
         color: product.color,
       });
-      setUploadedImages(product.images || []);
+
+      if (!originalImagesInitialized) {
+        setOriginalImages(productImages);
+        setOriginalImagesInitialized(true);
+      }
+
+      setExistingImages(productImages);
     }
   }, [productData, reset]);
 
-  // Image upload handler
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    if (uploadedImages.length + files.length > 6) {
+    const fileArray = Array.from(files);
+    for (const file of fileArray) {
+      if (!file.type.startsWith('image/')) {
+        toast.error('Invalid file type. Only images are allowed');
+        e.target.value = '';
+        return;
+      }
+
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error('File is too large. Maximum size is 10MB');
+        e.target.value = '';
+        return;
+      }
+    }
+
+    const totalImages = existingImages.length + files.length;
+    if (totalImages > 6) {
       setMaxImagesError(
-        `You can upload maximum 6 images. You already have ${uploadedImages.length} images.`
+        `You can upload maximum 6 images. You already have ${existingImages.length} images.`
       );
       e.target.value = '';
       return;
     }
 
-    // Clear any previous max images error
     setMaxImagesError('');
 
-    // Add files to uploading state to show individual placeholders
-    const fileArray = Array.from(files);
     setUploadingFiles(fileArray);
 
     try {
@@ -89,56 +116,105 @@ export default function EditProductPage() {
         formData.append('images', file);
       }
 
-      const result = await addImages.mutateAsync({ productId, formData });
-      setUploadedImages((prev) => [...prev, ...result.data.newImages]);
+      await addImages.mutateAsync({ productId, formData });
+      toast.success('Images uploaded successfully');
     } catch (error) {
       console.error('Upload failed:', error);
-      toast.error('Failed to upload images');
+      toast.error('Failed to upload images. Please try again.');
     } finally {
-      setUploadingFiles([]); // Clear uploading files
+      setUploadingFiles([]);
     }
     e.target.value = '';
   };
 
-  // Image delete handler
+  const handleCancel = async () => {
+    if (!originalImagesInitialized || originalImages.length === 0) {
+      if (existingImages.length > 0) {
+        const indicesToDelete = Array.from(
+          { length: existingImages.length },
+          (_, i) => i
+        ).sort((a, b) => b - a);
+
+        for (const imageIndex of indicesToDelete) {
+          try {
+            await deleteProductImageMutation.mutateAsync({
+              productId,
+              imageIndex,
+            });
+          } catch (error) {
+            console.error(
+              `Failed to cleanup uploaded image at index ${imageIndex}:`,
+              error
+            );
+          }
+        }
+      }
+    } else {
+      const originalPublicIds = new Set(
+        originalImages.map((img) => img.public_id)
+      );
+
+      const indicesToDelete: number[] = [];
+      existingImages.forEach((img, index) => {
+        if (!originalPublicIds.has(img.public_id)) {
+          indicesToDelete.push(index);
+        }
+      });
+
+      if (indicesToDelete.length > 0) {
+        indicesToDelete.sort((a, b) => b - a);
+
+        for (const imageIndex of indicesToDelete) {
+          try {
+            await deleteProductImageMutation.mutateAsync({
+              productId,
+              imageIndex,
+            });
+          } catch (error) {
+            console.error(
+              `Failed to cleanup uploaded image at index ${imageIndex}:`,
+              error
+            );
+          }
+        }
+      }
+    }
+    router.push('/admin/products');
+  };
+
   const handleImageDelete = async (imageIndex: number) => {
-    const imageToDelete = uploadedImages[imageIndex];
+    const imageToDelete = existingImages[imageIndex];
 
-    // Remove from UI immediately (optimistic update)
-    setUploadedImages((prev) =>
-      prev.filter((_, index) => index !== imageIndex)
-    );
+    setDeletingImageIndex(imageIndex);
 
-    // Delete from database and Cloudinary via the proper endpoint
     try {
-      await deleteProductImageMutation.mutateAsync({ productId, imageIndex });
+      await deleteProductImageMutation.mutateAsync({
+        productId,
+        imageIndex,
+      });
+      setExistingImages((prev) =>
+        prev.filter((_, index) => index !== imageIndex)
+      );
+      toast.success('Image removed successfully');
     } catch (error) {
       console.error('Failed to delete image:', error);
       toast.error('Failed to delete image. Please try again.');
-      // Revert UI change if deletion failed
-      setUploadedImages((prev) => {
-        const reverted = [...prev];
-        reverted.splice(imageIndex, 0, imageToDelete);
-        return reverted;
-      });
+    } finally {
+      setDeletingImageIndex(null);
     }
   };
 
-  // Form submission handler
   const onSubmit = async (data: UpdateProductSchema) => {
     setHasAttemptedSubmit(true);
 
-    // Check if no images (same validation as add form)
-    if (uploadedImages.length === 0) {
-      return; // Don't submit, just show validation error
+    if (existingImages.length === 0) {
+      return;
     }
 
     try {
-      // Images are managed separately via add/delete API calls immediately
       await updateProduct.mutateAsync({ productId, updateProductDto: data });
       toast.success('Product updated successfully');
-      // Success - navigate back
-      setHasAttemptedSubmit(false); // Reset on success
+      setHasAttemptedSubmit(false);
       router.push('/admin/products');
     } catch (error) {
       console.error('Failed to update product:', error);
@@ -331,32 +407,52 @@ export default function EditProductPage() {
                       Choose Files
                     </div>
                   </div>
-                  {(uploadedImages.length > 0 || uploadingFiles.length > 0) && (
+                  {(existingImages.length > 0 ||
+                    uploadingFiles.length > 0 ||
+                    deletingImageIndex !== null) && (
                     <div className='mt-3 px-2 py-2 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50'>
                       <div className='flex flex-wrap gap-2'>
-                        {/* Show uploaded images */}
-                        {uploadedImages.map((image, index) => (
-                          <div key={index} className='relative flex-shrink-0'>
-                            <img
-                              src={image.url}
-                              alt={image.altText}
-                              className='h-20 w-20 object-cover rounded-lg border-2 border-white shadow-md'
-                            />
-                            <button
-                              type='button'
-                              onClick={() => handleImageDelete(index)}
-                              disabled={deleteProductImageMutation.isPending}
-                              className='absolute -top-2 -right-2 bg-white text-red-500 hover:bg-red-50 hover:text-red-600 rounded-full w-6 h-6 flex items-center justify-center shadow-md text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed'
-                              title='Remove image'
+                        {/* Show all images from existingImages (includes newly uploaded ones after refetch) */}
+                        {existingImages.map((image, index) => {
+                          // Show loading placeholder for the image being deleted
+                          if (
+                            deletingImageIndex === index &&
+                            deleteProductImageMutation.isPending
+                          ) {
+                            return (
+                              <div
+                                key={`image-${image.public_id}-${index}`}
+                                className='relative flex-shrink-0'
+                              >
+                                <div className='h-20 w-20 bg-gray-200 rounded-lg border-2 border-white shadow-md flex items-center justify-center'>
+                                  <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600'></div>
+                                </div>
+                              </div>
+                            );
+                          }
+
+                          // Show normal image
+                          return (
+                            <div
+                              key={`image-${image.public_id}-${index}`}
+                              className='relative flex-shrink-0'
                             >
-                              {deleteProductImageMutation.isPending ? (
-                                <div className='animate-spin rounded-full h-3 w-3 border-b border-red-500'></div>
-                              ) : (
-                                '×'
-                              )}
-                            </button>
-                          </div>
-                        ))}
+                              <img
+                                src={image.url}
+                                alt={image.altText}
+                                className='h-20 w-20 object-cover rounded-lg border-2 border-white shadow-md'
+                              />
+                              <button
+                                type='button'
+                                onClick={() => handleImageDelete(index)}
+                                className='absolute -top-2 -right-2 bg-white text-red-500 hover:bg-red-50 hover:text-red-600 rounded-full w-6 h-6 flex items-center justify-center shadow-md text-sm font-semibold'
+                                title='Remove image'
+                              >
+                                ×
+                              </button>
+                            </div>
+                          );
+                        })}
                         {/* Show individual loading placeholders for each file being uploaded */}
                         {uploadingFiles.map((file, index) => (
                           <div
@@ -371,7 +467,7 @@ export default function EditProductPage() {
                       </div>
                     </div>
                   )}
-                  {hasAttemptedSubmit && uploadedImages.length === 0 && (
+                  {hasAttemptedSubmit && existingImages.length === 0 && (
                     <p className='text-red-500 text-sm mt-1'>
                       At least one image is required
                     </p>
@@ -487,17 +583,13 @@ export default function EditProductPage() {
                 type='button'
                 variant='secondary'
                 className='w-32'
-                onClick={() => {
-                  setMaxImagesError(''); // Clear any error messages
-                  router.push('/admin/products');
-                }}
+                onClick={handleCancel}
               >
                 Cancel
               </Button>
               <Button
                 type='submit'
-                disabled={!isValid}
-                loading={updateProduct.isPending}
+                disabled={!isValid || uploadingFiles.length > 0}
                 className='w-40'
               >
                 Update

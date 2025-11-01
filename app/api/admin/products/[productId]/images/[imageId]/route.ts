@@ -43,13 +43,10 @@ export async function DELETE(
       );
     }
 
-    await deleteFromCloudinary(existingImages[imageId].public_id);
-
+    const imageToDelete = existingImages[imageId];
     const updatedImages = existingImages.filter(
       (_, index) => index !== imageId
     );
-
-    // Allow deleting all images - frontend validation will handle the business rule
 
     const updatedProduct = await prisma.product.update({
       where: {
@@ -60,9 +57,18 @@ export async function DELETE(
       },
     });
 
+    try {
+      await deleteFromCloudinary(imageToDelete.public_id);
+    } catch (error) {
+      console.error(
+        `Failed to delete image from Cloudinary (public_id: ${imageToDelete.public_id}), but DB updated:`,
+        error
+      );
+    }
+
     return successResponse('Image deleted successfully', {
       product: updatedProduct,
-      deletedImage: existingImages[imageId],
+      deletedImage: imageToDelete,
       remainingImages: updatedImages,
     });
   } catch (error) {

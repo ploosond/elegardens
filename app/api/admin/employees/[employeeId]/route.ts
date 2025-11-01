@@ -9,7 +9,6 @@ import prisma from '@/lib/prisma';
 import { updateEmployeeSchema } from '@/lib/schemas/employeeSchema';
 import { NextRequest } from 'next/server';
 
-// GET /api/admin/employees/[employeeId] - Fetch single employee by ID
 export async function GET(
   request: NextRequest,
   { params }: { params: { employeeId: string } }
@@ -38,10 +37,6 @@ export async function GET(
   }
 }
 
-// PUT /api/admin/employees/[employeeId] - Update employee (step 2 of 2-step process)
-// Step 1: Upload new profile picture via POST /employees/[id]/profile-picture
-// Step 2: Update employee with profilePicture data
-// Old profile picture is deleted from Cloudinary if replaced (non-blocking)
 export async function PUT(
   request: NextRequest,
   { params }: { params: { employeeId: string } }
@@ -80,7 +75,6 @@ export async function PUT(
       : null;
     const newProfilePicture = updateData.profilePicture;
 
-    // Delete old profile picture if replaced (non-blocking)
     const shouldDeleteOldProfilePicture =
       oldProfilePicture &&
       newProfilePicture &&
@@ -106,8 +100,6 @@ export async function PUT(
   }
 }
 
-// DELETE /api/admin/employees/[employeeId] - Delete employee permanently
-// Deletes employee from database first, then cleans up profile picture from Cloudinary (non-blocking)
 export async function DELETE(
   request: NextRequest,
   { params }: { params: { employeeId: string } }
@@ -135,12 +127,10 @@ export async function DELETE(
         })
       : null;
 
-    // Delete employee from database first
     const employee = await prisma.employee.delete({
       where: { id: employeeId },
     });
 
-    // Clean up profile picture from Cloudinary (non-blocking)
     if (profilePicture) {
       try {
         await deleteFromCloudinary(profilePicture.public_id);

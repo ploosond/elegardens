@@ -4,44 +4,6 @@ import { uploadToCloudinary } from '@/lib/cloudinary/cloudinaryUpload';
 import prisma from '@/lib/prisma';
 import { NextRequest } from 'next/server';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { productId: string } }
-) {
-  try {
-    const { productId: productIdParam } = await params;
-    const productId = parseInt(productIdParam, 10);
-
-    const product = await prisma.product.findUnique({
-      where: {
-        id: productId,
-      },
-      select: {
-        images: true,
-      },
-    });
-
-    if (!product) {
-      return errorResponse('Product not found', 404);
-    }
-
-    const images = product.images as {
-      url: string;
-      public_id: string;
-      altText: string;
-    }[];
-
-    return successResponse('Product images fetched successfully', {
-      images,
-      totalImages: images.length,
-    });
-  } catch (error) {
-    console.error('Get product images error: ', error);
-    return errorResponse('Failed to fetch product images', 500);
-  }
-}
-
-// POST - Add images to an existing product
 export async function POST(
   request: NextRequest,
   { params }: { params: { productId: string } }
@@ -114,10 +76,8 @@ export async function POST(
       });
     }
 
-    // Combine existing images with new uploaded images
     const allImages = [...existingImages, ...uploadedImages];
 
-    // Update the product in database
     const updatedProduct = await prisma.product.update({
       where: { id: productId },
       data: { images: allImages },

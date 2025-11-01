@@ -8,7 +8,6 @@ import prisma from '@/lib/prisma';
 import { createEmployeeSchema } from '@/lib/schemas/employeeSchema';
 import { NextRequest } from 'next/server';
 
-// GET /api/admin/employees - Fetch all employees
 export async function GET(request: NextRequest) {
   try {
     const employees = await prisma.employee.findMany({
@@ -24,9 +23,6 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/admin/employees - Create new employee (step 2 of 2-step process)
-// Step 1: Upload profile picture via POST /employees/profile-picture
-// Step 2: Create employee with profilePicture data
 export async function POST(request: NextRequest) {
   try {
     const authError = adminToken(request);

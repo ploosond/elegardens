@@ -12,7 +12,6 @@ import {
 import { UpdateEmployeeDto } from '@/types/dto/employee.dto';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-// Hook to fetch all employees
 export const useFetchEmployees = () => {
   return useQuery({
     queryKey: ['employees'],
@@ -33,7 +32,6 @@ export const useDeletePendingProfilePicture = () => {
   });
 };
 
-// Hook to create employee (invalidates employees list on success)
 export const useCreateEmployee = () => {
   const queryClient = useQueryClient();
 
@@ -45,7 +43,6 @@ export const useCreateEmployee = () => {
   });
 };
 
-// Hook to fetch single employee by ID
 export const useFetchEmployee = (employeeId: number) => {
   return useQuery({
     queryKey: ['employees', employeeId],
@@ -67,7 +64,6 @@ export const useUploadProfilePictureForExistingEmployee = () => {
   });
 };
 
-// Hook to update employee (invalidates both list and specific employee on success)
 export const useUpdateEmployee = () => {
   const queryClient = useQueryClient();
 
@@ -101,7 +97,6 @@ export const useDeleteProfilePictureForExistingEmployee = () => {
   });
 };
 
-// Hook to delete employee (invalidates employees list on success)
 export const useDeleteEmployee = () => {
   const queryClient = useQueryClient();
 

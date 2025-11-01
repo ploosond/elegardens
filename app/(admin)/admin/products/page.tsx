@@ -11,7 +11,7 @@ import {
   useCreateProduct,
   useDeleteProduct,
   useUploadImageForNewProduct,
-  useDeleteImage,
+  useDeletePendingProductImage,
 } from '@/hooks/useProducts';
 import {
   createProductSchema,
@@ -28,14 +28,21 @@ export default function ProductsPage() {
   const [uploadingFiles, setUploadingFiles] = useState<File[]>([]);
   const [hasAttemptedUpload, setHasAttemptedUpload] = useState(false);
   const [maxImagesError, setMaxImagesError] = useState<string>('');
+  const [deletingImageIndex, setDeletingImageIndex] = useState<number | null>(
+    null
+  );
+  const [currentPage, setCurrentPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [deletingProductId, setDeletingProductId] = useState<number | null>(
+    null
+  );
 
-  const { data, isLoading, error } = useFetchProducts();
+  const { data, isLoading, error } = useFetchProducts(currentPage, limit);
   const createProduct = useCreateProduct();
   const uploadImages = useUploadImageForNewProduct();
   const deleteProduct = useDeleteProduct();
-  const deleteImageMutation = useDeleteImage();
+  const deletePendingImage = useDeletePendingProductImage();
 
-  // Form setup with validation
   const {
     register,
     handleSubmit,
@@ -48,26 +55,38 @@ export default function ProductsPage() {
     mode: 'onTouched',
   });
 
-  // Reset hasAttemptedUpload when form opens
   useEffect(() => {
     if (showAddForm) {
       setHasAttemptedUpload(false);
     }
   }, [showAddForm]);
 
-  // Sync uploadedImages with form data for validation
   useEffect(() => {
     setValue('images', uploadedImages);
   }, [uploadedImages, setValue]);
 
   const products = data?.data?.products || [];
+  const pagination = data?.data?.pagination;
 
-  // Images upload handler
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    // Check if adding these files would exceed the limit
+    const fileArray = Array.from(files);
+    for (const file of fileArray) {
+      if (!file.type.startsWith('image/')) {
+        toast.error('Invalid file type. Only images are allowed');
+        e.target.value = '';
+        return;
+      }
+
+      if (file.size > 10 * 1024 * 1024) {
+        toast.error('File is too large. Maximum size is 10MB');
+        e.target.value = '';
+        return;
+      }
+    }
+
     if (uploadedImages.length + files.length > 6) {
       setMaxImagesError(
         `You can upload maximum 6 images. You already have ${uploadedImages.length} images.`
@@ -76,11 +95,10 @@ export default function ProductsPage() {
       return;
     }
 
-    // Clear any previous max images error
     setMaxImagesError('');
 
-    // Add files to uploading state to show individual placeholders
-    const fileArray = Array.from(files);
+    const previousImages = uploadedImages;
+
     setUploadingFiles(fileArray);
 
     try {
@@ -91,48 +109,69 @@ export default function ProductsPage() {
 
       const result = await uploadImages.mutateAsync(formData);
       setUploadedImages((prev) => [...prev, ...result.data.images]);
+      toast.success('Images uploaded successfully');
     } catch (error) {
       console.error('Upload failed:', error);
       toast.error('Failed to upload images. Please try again.');
+      setUploadedImages(previousImages);
+      setValue('images', previousImages);
     } finally {
-      setUploadingFiles([]); // Clear uploading files
+      setUploadingFiles([]);
     }
     e.target.value = '';
   };
 
-  // Image delete handler
+  const handleCancel = async () => {
+    if (uploadedImages.length > 0) {
+      for (const image of uploadedImages) {
+        if (image.public_id) {
+          try {
+            await deletePendingImage.mutateAsync(image.public_id);
+          } catch (error) {
+            console.error('Failed to cleanup image:', error);
+          }
+        }
+      }
+    }
+
+    reset();
+    setUploadedImages([]);
+    setUploadingFiles([]);
+    setMaxImagesError('');
+    setShowAddForm(false);
+  };
+
   const handleImageDelete = async (imageIndex: number) => {
     const imageToDelete = uploadedImages[imageIndex];
 
-    // Remove from UI immediately (optimistic update)
-    setUploadedImages((prev) =>
-      prev.filter((_, index) => index !== imageIndex)
-    );
+    setDeletingImageIndex(imageIndex);
 
-    // Try to delete from Cloudinary if public_id exists
     if (imageToDelete.public_id) {
       try {
-        await deleteImageMutation.mutateAsync(imageToDelete.public_id);
+        await deletePendingImage.mutateAsync(imageToDelete.public_id);
+        setUploadedImages((prev) =>
+          prev.filter((_, index) => index !== imageIndex)
+        );
+        toast.success('Image removed');
       } catch (error) {
         console.error('Failed to delete image from Cloudinary:', error);
         toast.error(
           'Failed to delete image from storage. It may still appear in the final product.'
         );
-        // Note: For new products, we don't revert UI changes since the image
-        // is only in Cloudinary and not yet saved to database
+      } finally {
+        setDeletingImageIndex(null);
       }
+    } else {
+      setDeletingImageIndex(null);
     }
   };
 
-  // Form submission handler
   const onSubmit = async (data: CreateProductSchema) => {
-    // Check if no images (same validation as edit form)
     if (uploadedImages.length === 0) {
-      return; // Don't submit, just show validation error
+      return;
     }
 
     try {
-      // Add images to the form data before API call
       const productDataWithImages = {
         ...data,
         images: uploadedImages,
@@ -140,13 +179,13 @@ export default function ProductsPage() {
 
       await createProduct.mutateAsync(productDataWithImages);
       toast.success('Product created successfully');
-      // Success - clear form and close
-      reset(); // Clear form
-      setUploadedImages([]); // Clear uploaded images
-      setUploadingFiles([]); // Clear uploading files
-      setHasAttemptedUpload(false); // Reset upload attempt flag
-      setMaxImagesError(''); // Clear any error messages
-      setShowAddForm(false); // Close form
+      reset();
+      setUploadedImages([]);
+      setUploadingFiles([]);
+      setHasAttemptedUpload(false);
+      setMaxImagesError('');
+      setShowAddForm(false);
+      setCurrentPage(1);
     } catch (error) {
       console.error('Failed to create product:', error);
       toast.error('Failed to create product. Please try again.');
@@ -154,14 +193,23 @@ export default function ProductsPage() {
   };
 
   const handleDelete = async (productId: number, productName: string) => {
-    if (window.confirm(`Are you sure you want to delete "${productName}"?`)) {
-      try {
-        await deleteProduct.mutateAsync(productId);
-        toast.success('Product deleted successfully');
-      } catch (error) {
-        console.error('Failed to delete product:', error);
-        toast.error('Failed to delete product. Please try again.');
-      }
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${productName}"? This action cannot be undone.`
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setDeletingProductId(productId);
+    try {
+      await deleteProduct.mutateAsync(productId);
+      toast.success('Product deleted successfully');
+    } catch (error) {
+      console.error('Failed to delete product:', error);
+      toast.error('Failed to delete product. Please try again.');
+    } finally {
+      setDeletingProductId(null);
     }
   };
 
@@ -373,32 +421,51 @@ export default function ProductsPage() {
                       </div>
                     </div>
                     {(uploadedImages.length > 0 ||
-                      uploadingFiles.length > 0) && (
+                      uploadingFiles.length > 0 ||
+                      deletingImageIndex !== null) && (
                       <div className='mt-3 px-2 py-2 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50'>
                         <div className='flex flex-wrap gap-2'>
                           {/* Show uploaded images */}
-                          {uploadedImages.map((image, index) => (
-                            <div key={index} className='relative flex-shrink-0'>
-                              <img
-                                src={image.url}
-                                alt={image.altText}
-                                className='h-20 w-20 object-cover rounded-lg border-2 border-white shadow-md'
-                              />
-                              <button
-                                type='button'
-                                onClick={() => handleImageDelete(index)}
-                                disabled={deleteImageMutation.isPending}
-                                className='absolute -top-2 -right-2 bg-white text-red-500 hover:bg-red-50 hover:text-red-600 rounded-full w-6 h-6 flex items-center justify-center shadow-md text-sm font-semibold disabled:opacity-50 disabled:cursor-not-allowed'
-                                title='Remove image'
+                          {uploadedImages.map((image, index) => {
+                            // Show loading placeholder for the image being deleted
+                            if (
+                              deletingImageIndex === index &&
+                              deletePendingImage.isPending
+                            ) {
+                              return (
+                                <div
+                                  key={index}
+                                  className='relative flex-shrink-0'
+                                >
+                                  <div className='h-20 w-20 bg-gray-200 rounded-lg border-2 border-white shadow-md flex items-center justify-center'>
+                                    <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600'></div>
+                                  </div>
+                                </div>
+                              );
+                            }
+
+                            // Show normal image
+                            return (
+                              <div
+                                key={index}
+                                className='relative flex-shrink-0'
                               >
-                                {deleteImageMutation.isPending ? (
-                                  <div className='animate-spin rounded-full h-3 w-3 border-b border-red-500'></div>
-                                ) : (
-                                  '×'
-                                )}
-                              </button>
-                            </div>
-                          ))}
+                                <img
+                                  src={image.url}
+                                  alt={image.altText}
+                                  className='h-20 w-20 object-cover rounded-lg border-2 border-white shadow-md'
+                                />
+                                <button
+                                  type='button'
+                                  onClick={() => handleImageDelete(index)}
+                                  className='absolute -top-2 -right-2 bg-white text-red-500 hover:bg-red-50 hover:text-red-600 rounded-full w-6 h-6 flex items-center justify-center shadow-md text-sm font-semibold'
+                                  title='Remove image'
+                                >
+                                  ×
+                                </button>
+                              </div>
+                            );
+                          })}
                           {/* Show individual loading placeholders for each file being uploaded */}
                           {uploadingFiles.map((file, index) => (
                             <div
@@ -527,19 +594,13 @@ export default function ProductsPage() {
                   type='button'
                   variant='secondary'
                   className='w-full sm:w-32'
-                  onClick={() => {
-                    reset(); // Reset form
-                    setUploadedImages([]); // Clear uploaded images
-                    setUploadingFiles([]); // Clear uploading files
-                    setMaxImagesError(''); // Clear any error messages
-                    setShowAddForm(false); // Close form
-                  }}
+                  onClick={handleCancel}
                 >
                   Cancel
                 </Button>
                 <Button
                   type='submit'
-                  loading={createProduct.isPending}
+                  disabled={uploadingFiles.length > 0}
                   className='w-full sm:w-40'
                 >
                   Create
@@ -700,10 +761,15 @@ export default function ProductsPage() {
                             onClick={() =>
                               handleDelete(product.id, product.common_name.en)
                             }
-                            className='p-2 bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-800 border border-red-200'
+                            disabled={deletingProductId === product.id}
+                            className='p-2 bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-800 border border-red-200 disabled:opacity-50 disabled:cursor-not-allowed'
                             title='Delete product'
                           >
-                            <X className='w-4 h-4' />
+                            {deletingProductId === product.id ? (
+                              <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-red-500'></div>
+                            ) : (
+                              <X className='w-4 h-4' />
+                            )}
                           </Button>
                         </div>
                       </td>
@@ -713,6 +779,53 @@ export default function ProductsPage() {
             </tbody>
           </table>
         </div>
+
+        {/* Pagination Controls */}
+        {pagination && pagination.totalPages > 1 && (
+          <div className='flex items-center justify-between gap-4 p-4 border-t border-gray-200'>
+            <div className='flex items-center gap-2'>
+              <select
+                value={limit}
+                onChange={(e) => {
+                  setLimit(Number(e.target.value));
+                  setCurrentPage(1);
+                }}
+                className='px-2 py-1 border border-gray-300 rounded text-sm'
+              >
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={30}>30</option>
+              </select>
+              <span className='text-sm text-gray-600'>per page</span>
+            </div>
+
+            <div className='flex items-center gap-2'>
+              <Button
+                variant='secondary'
+                onClick={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                disabled={pagination.currentPage === 1}
+                className='px-2 py-1 text-sm disabled:opacity-50'
+              >
+                Prev
+              </Button>
+              <span className='text-sm text-gray-600'>
+                {pagination.currentPage} / {pagination.totalPages}
+              </span>
+              <Button
+                variant='secondary'
+                onClick={() =>
+                  setCurrentPage((prev) =>
+                    Math.min(pagination.totalPages, prev + 1)
+                  )
+                }
+                disabled={pagination.currentPage === pagination.totalPages}
+                className='px-2 py-1 text-sm disabled:opacity-50'
+              >
+                Next
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

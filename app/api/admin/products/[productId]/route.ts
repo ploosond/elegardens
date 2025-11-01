@@ -59,8 +59,6 @@ export async function PUT(
       return errorResponse('Product not found', 404);
     }
 
-    // Don't handle images in PUT - they are managed separately via add/delete endpoints
-    // Remove images from update data to avoid conflicts
     delete result.data.images;
 
     const updatedProduct = await prisma.product.update({

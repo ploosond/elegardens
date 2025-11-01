@@ -51,7 +51,6 @@ export default function EmployeesPage() {
 
   const employees = data?.data?.employees || [];
 
-  // Upload profile picture (step 1: before creating employee)
   const handleProfilePictureUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -72,7 +71,6 @@ export default function EmployeesPage() {
 
     const previousImage = uploadedProfilePicture;
 
-    // Clear old image immediately for better UX
     setUploadedProfilePicture(null);
     setValue('profilePicture', undefined);
     setUploadingFile(true);
@@ -81,16 +79,13 @@ export default function EmployeesPage() {
       const formData = new FormData();
       formData.append('profilePicture', file);
 
-      // 1. Upload new image first
       const result = await uploadProfilePicture.mutateAsync(formData);
       const newImage = result.data.profilePicture;
 
-      // 2. Set new image in state and form
       setUploadedProfilePicture(newImage);
       setValue('profilePicture', newImage);
       toast.success('Profile picture uploaded successfully');
 
-      // 3. Delete old image after successful upload (non-blocking)
       if (previousImage) {
         try {
           await deletePendingProfilePicture.mutateAsync(
@@ -98,14 +93,12 @@ export default function EmployeesPage() {
           );
         } catch (error) {
           console.error('Failed to delete previous image:', error);
-          // Non-blocking - continue with new image
         }
       }
     } catch (error) {
       console.error('Upload failed:', error);
       toast.error('Failed to upload profile picture. Please try again.');
 
-      // Restore previous image if upload fails
       if (previousImage) {
         setUploadedProfilePicture(previousImage);
         setValue('profilePicture', previousImage);
@@ -116,7 +109,6 @@ export default function EmployeesPage() {
     }
   };
 
-  // Delete uploaded profile picture (before employee creation)
   const handleProfilePictureDelete = async () => {
     if (!uploadedProfilePicture || deletePendingProfilePicture.isPending) {
       return;
@@ -124,7 +116,6 @@ export default function EmployeesPage() {
 
     const imageToDelete = uploadedProfilePicture;
 
-    // Optimistic update
     setUploadedProfilePicture(null);
     setValue('profilePicture', undefined);
 
@@ -134,13 +125,11 @@ export default function EmployeesPage() {
     } catch (error) {
       console.error('Failed to delete profile picture:', error);
       toast.error('Failed to remove image. Please try again.');
-      // Restore on failure
       setUploadedProfilePicture(imageToDelete);
       setValue('profilePicture', imageToDelete);
     }
   };
 
-  // Clean up uploaded image on form cancel/close
   const handleCancel = async () => {
     if (uploadedProfilePicture) {
       try {
@@ -157,7 +146,6 @@ export default function EmployeesPage() {
     setShowAddForm(false);
   };
 
-  // Delete employee (with confirmation dialog)
   const handleDeleteEmployee = async (employeeId: number) => {
     const confirmed = window.confirm(
       'Are you sure you want to delete this employee? This action cannot be undone.'
@@ -179,7 +167,6 @@ export default function EmployeesPage() {
     }
   };
 
-  // Create employee (step 2: after uploading profile picture in step 1)
   const onSubmit = async (data: CreateEmployeeSchema) => {
     try {
       await createEmployee.mutateAsync(data);

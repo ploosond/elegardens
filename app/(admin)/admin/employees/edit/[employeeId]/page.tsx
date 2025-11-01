@@ -51,7 +51,6 @@ export default function EditEmployeePage() {
     mode: 'onTouched',
   });
 
-  // Load employee data into form when fetched
   useEffect(() => {
     if (employeeData?.data?.employee) {
       const employee = employeeData.data.employee;
@@ -62,10 +61,9 @@ export default function EditEmployeePage() {
         role: employee.role,
         department: employee.department,
         telephone: employee.telephone || '',
-        profilePicture: undefined, // Don't pre-fill profilePicture
+        profilePicture: undefined,
       });
 
-      // Set or clear existing profile picture state
       if (employee.profilePicture) {
         setExistingProfilePicture(employee.profilePicture);
       } else {
@@ -74,8 +72,6 @@ export default function EditEmployeePage() {
     }
   }, [employeeData, reset]);
 
-  // Upload new profile picture (step 1: before updating employee)
-  // Old image is automatically deleted by API on update
   const handleProfilePictureUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -96,7 +92,6 @@ export default function EditEmployeePage() {
 
     const previousImage = uploadedProfilePicture;
 
-    // Clear old image immediately for better UX
     setUploadedProfilePicture(null);
     setValue('profilePicture', undefined);
 
@@ -104,19 +99,16 @@ export default function EditEmployeePage() {
       const formData = new FormData();
       formData.append('profilePicture', file);
 
-      // 1. Upload new image first
       const result = await uploadProfilePicture.mutateAsync({
         employeeId,
         formData,
       });
       const newImage = result.data.profilePicture;
 
-      // 2. Set new image in state and form
       setUploadedProfilePicture(newImage);
       setValue('profilePicture', newImage);
       toast.success('Profile picture uploaded successfully');
 
-      // 3. Delete old uploaded image after successful upload (non-blocking)
       if (previousImage) {
         try {
           await deletePendingProfilePicture.mutateAsync(
@@ -124,14 +116,12 @@ export default function EditEmployeePage() {
           );
         } catch (error) {
           console.error('Failed to delete previous image:', error);
-          // Non-blocking - continue with new image
         }
       }
     } catch (error) {
       console.error('Upload failed:', error);
       toast.error('Failed to upload profile picture. Please try again.');
 
-      // Restore previous image if upload fails
       if (previousImage) {
         setUploadedProfilePicture(previousImage);
         setValue('profilePicture', previousImage);
@@ -141,7 +131,6 @@ export default function EditEmployeePage() {
     }
   };
 
-  // Delete newly uploaded profile picture (before form submission)
   const handleProfilePictureDelete = async () => {
     if (!uploadedProfilePicture || deletePendingProfilePicture.isPending) {
       return;
@@ -149,7 +138,6 @@ export default function EditEmployeePage() {
 
     const imageToDelete = uploadedProfilePicture;
 
-    // Optimistic update
     setUploadedProfilePicture(null);
     setValue('profilePicture', undefined);
 
@@ -159,13 +147,11 @@ export default function EditEmployeePage() {
     } catch (error) {
       console.error('Failed to delete profile picture:', error);
       toast.error('Failed to remove image. Please try again.');
-      // Restore on failure
       setUploadedProfilePicture(imageToDelete);
       setValue('profilePicture', imageToDelete);
     }
   };
 
-  // Remove existing profile picture from database (standalone action)
   const handleRemoveExistingProfilePicture = async () => {
     if (!existingProfilePicture || deleteProfilePicture.isPending) {
       return;
@@ -173,7 +159,6 @@ export default function EditEmployeePage() {
 
     try {
       await deleteProfilePicture.mutateAsync(employeeId);
-      // Clear state after successful deletion
       setExistingProfilePicture(null);
       toast.success('Profile picture removed successfully');
     } catch (error) {
@@ -182,7 +167,6 @@ export default function EditEmployeePage() {
     }
   };
 
-  // Clean up uploaded image on cancel (if exists)
   const handleCancel = async () => {
     if (uploadedProfilePicture) {
       try {
@@ -196,7 +180,6 @@ export default function EditEmployeePage() {
     router.push('/admin/employees');
   };
 
-  // Update employee (step 2: after uploading new profile picture in step 1)
   const onSubmit = async (data: UpdateEmployeeSchema) => {
     try {
       const updateData: UpdateEmployeeSchema = {

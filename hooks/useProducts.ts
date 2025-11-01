@@ -1,22 +1,21 @@
 import {
   addImagesToExistingProduct,
   createProduct,
+  deletePendingProductImage,
   deleteProduct,
   deleteProductImage,
   fetchProduct,
-  fetchProductImages,
   fetchProducts,
   updateProduct,
   uploadImagesForNewProduct,
 } from '@/services/productServices';
-import { deleteImageByPublicId } from '@/services/imageServices';
 import { UpdateProductDto } from '@/types/dto';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-export const useFetchProducts = () => {
+export const useFetchProducts = (page: number = 1, limit: number = 10) => {
   return useQuery({
-    queryKey: ['products'],
-    queryFn: fetchProducts,
+    queryKey: ['products', page, limit],
+    queryFn: () => fetchProducts(page, limit),
     staleTime: 5 * 60 * 1000,
   });
 };
@@ -25,14 +24,6 @@ export const useFetchProduct = (productId: number) => {
   return useQuery({
     queryKey: ['products', productId],
     queryFn: () => fetchProduct(productId),
-    enabled: !!productId,
-  });
-};
-
-export const useFetchProductImages = (productId: number) => {
-  return useQuery({
-    queryKey: ['products', productId, 'images'],
-    queryFn: () => fetchProductImages(productId),
     enabled: !!productId,
   });
 };
@@ -102,15 +93,9 @@ export const useDeleteProduct = () => {
   });
 };
 
-export const useDeleteImage = () => {
-  const queryClient = useQueryClient();
-
+export const useDeletePendingProductImage = () => {
   return useMutation({
-    mutationFn: deleteImageByPublicId,
-    onSuccess: () => {
-      // Invalidate products queries to reflect any changes
-      queryClient.invalidateQueries({ queryKey: ['products'] });
-    },
+    mutationFn: (publicId: string) => deletePendingProductImage(publicId),
   });
 };
 
