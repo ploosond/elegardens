@@ -11,6 +11,7 @@ import {
   useCreateEmployee,
   useUploadProfilePictureForNewEmployee,
   useDeletePendingProfilePicture,
+  useDeleteEmployee,
 } from '@/hooks/useEmployees';
 import {
   createEmployeeSchema,
@@ -27,11 +28,15 @@ export default function EmployeesPage() {
     altText: string;
   } | null>(null);
   const [uploadingFile, setUploadingFile] = useState(false);
+  const [deletingEmployeeId, setDeletingEmployeeId] = useState<number | null>(
+    null
+  );
 
   const { data, isLoading, error } = useFetchEmployees();
   const createEmployee = useCreateEmployee();
   const uploadProfilePicture = useUploadProfilePictureForNewEmployee();
   const deletePendingProfilePicture = useDeletePendingProfilePicture();
+  const deleteEmployee = useDeleteEmployee();
 
   const {
     register,
@@ -46,7 +51,7 @@ export default function EmployeesPage() {
 
   const employees = data?.data?.employees || [];
 
-  // Profile picture upload handler
+  // Upload profile picture (step 1: before creating employee)
   const handleProfilePictureUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -111,7 +116,7 @@ export default function EmployeesPage() {
     }
   };
 
-  // Profile picture delete handler
+  // Delete uploaded profile picture (before employee creation)
   const handleProfilePictureDelete = async () => {
     if (!uploadedProfilePicture || deletePendingProfilePicture.isPending) {
       return;
@@ -135,7 +140,7 @@ export default function EmployeesPage() {
     }
   };
 
-  // Cleanup function for cancel/close
+  // Clean up uploaded image on form cancel/close
   const handleCancel = async () => {
     if (uploadedProfilePicture) {
       try {
@@ -152,7 +157,29 @@ export default function EmployeesPage() {
     setShowAddForm(false);
   };
 
-  // Form submission handler
+  // Delete employee (with confirmation dialog)
+  const handleDeleteEmployee = async (employeeId: number) => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete this employee? This action cannot be undone.'
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
+    setDeletingEmployeeId(employeeId);
+    try {
+      await deleteEmployee.mutateAsync(employeeId);
+      toast.success('Employee deleted successfully');
+    } catch (error) {
+      console.error('Failed to delete employee:', error);
+      toast.error('Failed to delete employee. Please try again.');
+    } finally {
+      setDeletingEmployeeId(null);
+    }
+  };
+
+  // Create employee (step 2: after uploading profile picture in step 1)
   const onSubmit = async (data: CreateEmployeeSchema) => {
     try {
       await createEmployee.mutateAsync(data);
@@ -434,7 +461,6 @@ export default function EmployeesPage() {
                 </Button>
                 <Button
                   type='submit'
-                  loading={createEmployee.isPending || uploadingFile}
                   disabled={uploadingFile}
                   className='w-full sm:w-40'
                 >
@@ -570,11 +596,16 @@ export default function EmployeesPage() {
                         </Button>
                         <Button
                           variant='secondary'
-                          onClick={() => {}}
-                          className='p-2 bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-800 border border-red-200'
+                          onClick={() => handleDeleteEmployee(employee.id)}
+                          disabled={deletingEmployeeId === employee.id}
+                          className='p-2 bg-red-50 text-red-700 hover:bg-red-100 hover:text-red-800 border border-red-200 disabled:opacity-50 disabled:cursor-not-allowed'
                           title='Delete employee'
                         >
-                          <X className='w-4 h-4' />
+                          {deletingEmployeeId === employee.id ? (
+                            <div className='animate-spin rounded-full h-4 w-4 border-b-2 border-red-500'></div>
+                          ) : (
+                            <X className='w-4 h-4' />
+                          )}
                         </Button>
                       </div>
                     </td>

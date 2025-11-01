@@ -51,7 +51,7 @@ export default function EditEmployeePage() {
     mode: 'onTouched',
   });
 
-  // Load employee data into form when data is available
+  // Load employee data into form when fetched
   useEffect(() => {
     if (employeeData?.data?.employee) {
       const employee = employeeData.data.employee;
@@ -65,14 +65,17 @@ export default function EditEmployeePage() {
         profilePicture: undefined, // Don't pre-fill profilePicture
       });
 
-      // Set or clear existing profile picture state based on employee data
+      // Set or clear existing profile picture state
       if (employee.profilePicture) {
         setExistingProfilePicture(employee.profilePicture);
+      } else {
+        setExistingProfilePicture(null);
       }
     }
   }, [employeeData, reset]);
 
-  // Profile picture upload handler
+  // Upload new profile picture (step 1: before updating employee)
+  // Old image is automatically deleted by API on update
   const handleProfilePictureUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -138,7 +141,7 @@ export default function EditEmployeePage() {
     }
   };
 
-  // Profile picture delete handler (for newly uploaded image)
+  // Delete newly uploaded profile picture (before form submission)
   const handleProfilePictureDelete = async () => {
     if (!uploadedProfilePicture || deletePendingProfilePicture.isPending) {
       return;
@@ -162,7 +165,7 @@ export default function EditEmployeePage() {
     }
   };
 
-  // Remove existing profile picture handler (standalone action)
+  // Remove existing profile picture from database (standalone action)
   const handleRemoveExistingProfilePicture = async () => {
     if (!existingProfilePicture || deleteProfilePicture.isPending) {
       return;
@@ -179,10 +182,23 @@ export default function EditEmployeePage() {
     }
   };
 
-  // Form submission handler
+  // Clean up uploaded image on cancel (if exists)
+  const handleCancel = async () => {
+    if (uploadedProfilePicture) {
+      try {
+        await deletePendingProfilePicture.mutateAsync(
+          uploadedProfilePicture.public_id
+        );
+      } catch (error) {
+        console.error('Failed to cleanup uploaded image:', error);
+      }
+    }
+    router.push('/admin/employees');
+  };
+
+  // Update employee (step 2: after uploading new profile picture in step 1)
   const onSubmit = async (data: UpdateEmployeeSchema) => {
     try {
-      // Include profilePicture in update if user uploaded a new one
       const updateData: UpdateEmployeeSchema = {
         ...data,
         profilePicture: uploadedProfilePicture || undefined,
@@ -477,16 +493,13 @@ export default function EditEmployeePage() {
                 type='button'
                 variant='secondary'
                 className='w-full sm:w-32'
-                onClick={() => router.push('/admin/employees')}
+                onClick={handleCancel}
               >
                 Cancel
               </Button>
               <Button
                 type='submit'
                 disabled={!isValid || uploadProfilePicture.isPending}
-                loading={
-                  updateEmployee.isPending || uploadProfilePicture.isPending
-                }
                 className='w-full sm:w-40'
               >
                 Update

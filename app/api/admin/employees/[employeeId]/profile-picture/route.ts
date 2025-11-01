@@ -1,4 +1,3 @@
-import { Prisma } from '@/app/generated/prisma';
 import adminToken from '@/lib/adminToken';
 import { errorResponse, successResponse } from '@/lib/apiResponse';
 import {
@@ -107,7 +106,7 @@ export async function DELETE(
     // 1. Update database first (source of truth, consistent with PUT)
     await prisma.employee.update({
       where: { id: employeeId },
-      data: { profilePicture: Prisma.JsonNull },
+      data: { profilePicture: null as any },
     });
 
     // 2. Delete from Cloudinary (non-blocking, like PUT endpoint)

@@ -9,6 +9,7 @@ import {
   UpdateEmployeeDto,
 } from '@/types/dto/employee.dto';
 
+// Fetch all employees
 export const fetchEmployees = async (): Promise<EmployeesResponseDto> => {
   try {
     const response = await adminApiClient.get('/employees');
@@ -22,6 +23,7 @@ export const fetchEmployees = async (): Promise<EmployeesResponseDto> => {
   }
 };
 
+// Fetch single employee by ID
 export const fetchEmployee = async (
   employeeId: number
 ): Promise<EmployeeResponseDto> => {
@@ -72,6 +74,7 @@ export const deletePendingProfilePicture = async (
   }
 };
 
+// Create new employee (step 2: after uploading profile picture in step 1)
 export const createEmployee = async (
   createEmployeeDto: CreateEmployeeDto
 ): Promise<EmployeeResponseDto> => {
@@ -106,6 +109,8 @@ export const uploadProfilePictureForExistingEmployee = async (
   }
 };
 
+// Update employee (step 2: after uploading new profile picture in step 1)
+// API automatically deletes old profile picture if replaced
 export const updateEmployee = async (
   employeeId: number,
   updateEmployeeDto: UpdateEmployeeDto
@@ -142,6 +147,7 @@ export const deleteProfilePictureForExistingEmployee = async (
   }
 };
 
+// Delete employee permanently (API handles profile picture cleanup)
 export const deleteEmployee = async (
   employeeId: number
 ): Promise<EmployeeResponseDto> => {
