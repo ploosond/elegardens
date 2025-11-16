@@ -102,6 +102,15 @@
 
     "search_placeholder": "Search products...",
 
+    "loading": "Loading...",
+    "error": "Error",
+
+    "showing": "Showing {from}–{to} of {total}",
+    "results": "{count} results",
+
+    "prev": "Prev",
+    "next": "Next",
+
     "no_products_title": "No products found",
     "no_products_desc": "Try adjusting your filters or search term.",
     "clear_filters": "Clear Filters"

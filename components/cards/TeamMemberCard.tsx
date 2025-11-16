@@ -12,7 +12,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
   const locale = useLocale();
 
   return (
-    <div className='flex h-[320px] flex-col justify-between overflow-hidden rounded-lg bg-white p-4 text-center shadow-md transition hover:shadow-lg'>
+    <div className='group flex h-[320px] flex-col justify-between overflow-hidden rounded-sm border border-muted/10 bg-white/5 p-4 text-center shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-muted/20 hover:shadow-lg'>
       {member.profilePicture?.url ? (
         <Image
           src={member.profilePicture.url}
@@ -22,7 +22,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
           className='mx-auto mb-4 h-32 w-32 rounded-full object-cover'
         />
       ) : (
-        <div className='mx-auto mb-4 flex h-32 w-32 items-center justify-center rounded-full bg-primary'>
+        <div className='mx-auto mb-4 flex h-32 w-32 items-center justify-center rounded-full bg-primary transition-transform duration-500 group-hover:scale-105'>
           <span className='text-4xl font-bold text-on-dark'>
             {member.first_name[0]}
             {member.last_name[0]}

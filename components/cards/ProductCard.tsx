@@ -13,14 +13,14 @@ export default function ProductCard({ product }: ProductCardProps) {
   const t = useTranslations('ProductCard');
 
   return (
-    <div className='overflow-hidden rounded-lg shadow-md transition hover:shadow-lg'>
+    <div className='group flex h-full flex-col overflow-hidden rounded-sm border border-muted/10 bg-white/5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-muted/20 hover:shadow-lg'>
       <div className='relative overflow-hidden'>
         <Image
           src={product.images[0]?.url}
           alt={product.common_name?.[locale as 'en' | 'de']}
           width={400}
           height={400}
-          className='h-72 w-full object-cover transition-transform duration-300 hover:scale-105 md:h-80'
+          className='h-72 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-80'
         />
       </div>
       <div
@@ -59,7 +59,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             {t('buy')}
           </span>
           <a
-            href={`/products/${product.id}`}
+            href={`/${locale}/products/${product.id}`}
             className='inline-flex w-full cursor-pointer items-center justify-center rounded-full border-2 border-on-dark/60 px-4 py-1 text-sm font-semibold text-on-dark/90 transition-colors hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-dark/50'
           >
             {t('details')}

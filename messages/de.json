@@ -102,6 +102,15 @@
 
     "search_placeholder": "Produkte suchen...",
 
+    "loading": "Lädt...",
+    "error": "Fehler",
+
+    "showing": "Zeige {from}–{to} von {total}",
+    "results": "{count} Ergebnisse",
+
+    "prev": "Zurück",
+    "next": "Weiter",
+
     "no_products_title": "Keine Produkte gefunden",
     "no_products_desc": "Passen Sie Ihre Filter oder den Suchbegriff an.",
     "clear_filters": "Filter zurücksetzen"
