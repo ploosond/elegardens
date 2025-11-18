@@ -69,6 +69,22 @@ export default function PolicyPage() {
                   <br />
                   {t('section4_content')}
                 </p>
+                <p className='text-base text-text'>
+                  <strong className='text-text'>
+                    {t('section4_cookie_types')}
+                  </strong>
+                </p>
+                <ul className='list-disc list-inside space-y-2 text-base text-text ml-4'>
+                  <li>
+                    <strong>{t('section4_necessary')}</strong>
+                  </li>
+                  <li>
+                    <strong>{t('section4_marketing')}</strong>
+                  </li>
+                </ul>
+                <p className='text-base text-text mt-4'>
+                  {t('section4_consent')}
+                </p>
               </div>
             </div>
 
@@ -77,15 +93,18 @@ export default function PolicyPage() {
               <h2 className='mb-4 text-xl font-semibold text-secondary md:text-2xl'>
                 {t('section5_title')}
               </h2>
-              <p className='text-base text-text'>{t('section5_content')}</p>
-            </div>
-
-            {/* Section 6 */}
-            <div>
-              <h2 className='mb-4 text-xl font-semibold text-secondary md:text-2xl'>
-                {t('section6_title')}
-              </h2>
-              <p className='text-base text-text'>{t('section6_content')}</p>
+              <p className='text-base text-text mb-4'>{t('section5_content')}</p>
+              <ul className='list-disc list-inside space-y-2 text-base text-text ml-4'>
+                <li>{t('section5_right1')}</li>
+                <li>{t('section5_right2')}</li>
+                <li>{t('section5_right3')}</li>
+                <li>{t('section5_right4')}</li>
+                <li>{t('section5_right5')}</li>
+                <li>{t('section5_right6')}</li>
+              </ul>
+              <p className='text-base text-text mt-4'>
+                {t('section5_contact')}
+              </p>
             </div>
           </div>
         </div>

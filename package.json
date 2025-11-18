@@ -13,6 +13,7 @@
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@c15t/nextjs": "^1.8.1",
     "@hookform/resolvers": "^5.2.2",
     "@prisma/client": "^6.16.2",
     "@prisma/extension-accelerate": "^2.0.2",

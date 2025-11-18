@@ -7,6 +7,7 @@ import Footer from '@/components/ui/Footer';
 import { routing } from '@/i18n/routing';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { notFound } from 'next/navigation';
+import ConsentManager from '../consent-manager';
 
 const raleway = Raleway({
   subsets: ['latin'],
@@ -33,7 +34,9 @@ export default async function RootLayout({
       <body className={`${raleway.className} antialiased`}>
         <NextIntlClientProvider>
           <Header />
-          <Providers>{children}</Providers>
+          <Providers>
+            <ConsentManager>{children}</ConsentManager>
+          </Providers>
           <Footer />
         </NextIntlClientProvider>
       </body>
