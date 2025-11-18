@@ -9,7 +9,7 @@ import { NextRequest } from 'next/server';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { employeeId: string } }
+  { params }: { params: Promise<{ employeeId: string }> }
 ) {
   try {
     const authError = adminToken(request);
@@ -74,7 +74,7 @@ export async function POST(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { employeeId: string } }
+  { params }: { params: Promise<{ employeeId: string }> }
 ) {
   try {
     const authError = adminToken(request);

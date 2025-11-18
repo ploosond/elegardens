@@ -6,7 +6,7 @@ import { NextRequest } from 'next/server';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { productId: string; imageId: string } }
+  { params }: { params: Promise<{ productId: string; imageId: string }> }
 ) {
   try {
     const authError = adminToken(request);

@@ -6,7 +6,7 @@ import { NextRequest } from 'next/server';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { productId: string } }
+  { params }: { params: Promise<{ productId: string }> }
 ) {
   try {
     const authError = adminToken(request);
