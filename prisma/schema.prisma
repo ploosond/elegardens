@@ -58,3 +58,16 @@ model User {
   updatedAt DateTime @updatedAt()
 }
 
+model Project {
+  id Int @id @default(autoincrement())
+  client String
+  title Json // { en: string, de: string }
+  category Json // { en: string, de: string }
+  tagline Json // { en: string, de: string }
+  image String
+  sections Json // { de: Section[], en: Section[] } where Section = { title: string, texts: string[] }
+  displayRank Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+

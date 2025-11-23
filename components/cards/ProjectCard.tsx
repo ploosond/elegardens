@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { Project } from '@/data/projects';
+import type { ProjectDto } from '@/types/dto';
 
 interface ProjectCardProps {
-  project: Project;
+  project: ProjectDto;
   locale: string;
 }
 
@@ -10,7 +10,7 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
   return (
     <article className='group flex h-full transform cursor-pointer flex-col overflow-hidden rounded-sm border border-muted/10 bg-white/5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-muted/20 hover:shadow-lg focus:outline-none focus-visible:-translate-y-1 focus-visible:shadow-lg focus-visible:ring-4 focus-visible:ring-primary/20'>
       {/* Cover image */}
-      <div className='relative h-56 w-full overflow-hidden rounded bg-surface sm:h-64 md:h-56 lg:h-64'>
+      <div className='relative h-56 w-full overflow-hidden bg-surface sm:h-64 md:h-56 lg:h-64'>
         <Image
           src={project.image}
           alt={project.title[locale as 'en' | 'de']}
@@ -28,8 +28,13 @@ export default function ProjectCard({ project, locale }: ProjectCardProps) {
 
       {/* Content */}
       <div className='flex flex-1 flex-col gap-4 p-5'>
-        <div className='flex items-start justify-between'>
-          <div className='min-w-0'>
+        <div className='flex items-start justify-between gap-2'>
+          <div className='min-w-0 flex-1'>
+            <div className='mb-2 flex items-center gap-2'>
+              <span className='inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary'>
+                {project.category[locale as 'en' | 'de']}
+              </span>
+            </div>
             <p className='mb-1 text-xs uppercase tracking-widest text-secondary'>
               {project.client}
             </p>

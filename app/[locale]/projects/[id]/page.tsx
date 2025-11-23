@@ -2,11 +2,59 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import BackButton from '@/components/ui/BackButton';
-import projects from '@/data/projects';
+import type {
+  ProjectDto,
+  ProjectResponseDto,
+  ProjectsResponseDto,
+} from '@/types/dto';
+
+async function fetchAllProjects(): Promise<ProjectDto[]> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const url = `${baseUrl}/api/admin/projects?page=1&limit=1000`;
+    const response = await fetch(url, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch projects');
+    }
+
+    const data: ProjectsResponseDto = await response.json();
+    return data.data.projects || [];
+  } catch (error) {
+    console.error('Failed to fetch projects:', error);
+    return [];
+  }
+}
+
+async function fetchProject(id: number): Promise<ProjectDto | null> {
+  try {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+    const url = `${baseUrl}/api/admin/projects/${id}`;
+    const response = await fetch(url, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null;
+      }
+      throw new Error('Failed to fetch project');
+    }
+
+    const data: ProjectResponseDto = await response.json();
+    return data.data.project || null;
+  } catch (error) {
+    console.error('Failed to fetch project:', error);
+    return null;
+  }
+}
 
 export async function generateStaticParams() {
+  const projects = await fetchAllProjects();
   return projects.map((project) => ({
-    id: project._id.toString(),
+    id: project.id.toString(),
   }));
 }
 
@@ -16,7 +64,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string; id: string }>;
 }) {
   const { locale, id } = await params;
-  const project = projects.find((p) => p._id.toString() === id);
+  const projectId = parseInt(id, 10);
+  const project = await fetchProject(projectId);
 
   if (!project) {
     return {
@@ -37,12 +86,15 @@ export default async function ProjectDetailPage({
 }) {
   const { locale, id } = await params;
   const t = await getTranslations('ProjectPage');
+  const projectId = parseInt(id, 10);
 
-  const project = projects.find((p) => p._id.toString() === id);
+  const project = await fetchProject(projectId);
 
   if (!project) {
     notFound();
   }
+
+  const sections = project.sections[locale as 'en' | 'de'] || [];
 
   return (
     <article
@@ -86,47 +138,33 @@ export default async function ProjectDetailPage({
       <div className='grid grid-cols-1 grid-rows-[auto_1fr] gap-6 lg:grid-cols-3 lg:gap-8'>
         {/* Main content (starts at col 1, row 2) */}
         <main className='prose prose-base dark:prose-invert max-w-none lg:col-span-2'>
-          <section className='mb-8'>
-            <h2 className='mb-4 text-xl font-extrabold text-secondary sm:mb-6 sm:text-2xl'>
-              {t('about')}
-            </h2>
-            <p className='mb-2 text-justify text-sm text-gray-700 sm:mb-4 sm:text-base'>
-              {project.about[locale as 'en' | 'de']}
-            </p>
-          </section>
-          <section className='mb-8'>
-            <h2 className='mb-4 text-xl font-extrabold text-secondary sm:mb-6 sm:text-2xl'>
-              {t('challenge')}
-            </h2>
-            <p className='mb-2 text-justify text-sm text-gray-700 sm:mb-4 sm:text-base'>
-              {project.challenge[locale as 'en' | 'de']}
-            </p>
-          </section>
-          <section className='mb-8'>
-            <h2 className='mb-4 text-xl font-extrabold text-secondary sm:mb-6 sm:text-2xl'>
-              {t('solution')}
-            </h2>
-            <p className='mb-2 text-justify text-sm text-gray-700 sm:mb-4 sm:text-base'>
-              {project.solution[locale as 'en' | 'de']}
-            </p>
-          </section>
-          <section>
-            <h2 className='mb-4 text-xl font-extrabold text-secondary sm:mb-6 sm:text-2xl'>
-              {t('result')}
-            </h2>
-            <div className=' mt-2 rounded-lg'>
-              <p className='mb-2 text-justify text-sm text-gray-700 sm:mb-4 sm:text-base'>
-                {project.result[locale as 'en' | 'de']}
-              </p>
-            </div>
-          </section>
+          {sections.map((section, index) => (
+            <section
+              key={index}
+              className={index < sections.length - 1 ? 'mb-8' : ''}
+            >
+              <h2 className='mb-4 text-xl font-extrabold text-secondary sm:mb-6 sm:text-2xl'>
+                {section.title}
+              </h2>
+              <div className='space-y-2'>
+                {section.texts.map((text, textIndex) => (
+                  <p
+                    key={textIndex}
+                    className='mb-2 text-justify text-sm text-gray-700 sm:mb-4 sm:text-base'
+                  >
+                    {text}
+                  </p>
+                ))}
+              </div>
+            </section>
+          ))}
         </main>
 
         {/* Aside / meta (starts at col 3, row 2) */}
         <aside className='lg:sticky lg:top-20'>
           <div className='rounded-lg border border-gray-100 bg-white p-6 shadow-sm'>
             <div className='mb-4'>
-              <span className='bg-accent/10 text-md inline-block rounded-full py-1 font-semibold uppercase tracking-wide text-secondary'>
+              <span className='inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold uppercase tracking-wide text-primary'>
                 {project.category[locale as 'en' | 'de']}
               </span>
             </div>

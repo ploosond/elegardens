@@ -1,6 +1,9 @@
 // Product DTOs
 export * from './product.dto';
 
+// Project DTOs
+export * from './project.dto';
+
 // Auth DTOs
 export * from './auth.dto';
 

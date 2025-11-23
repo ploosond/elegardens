@@ -578,11 +578,11 @@ export default function EditProductPage() {
             </div>
 
             {/* Submit Button */}
-            <div className='flex justify-end space-x-3 '>
+            <div className='flex flex-col sm:flex-row justify-end gap-3'>
               <Button
                 type='button'
                 variant='secondary'
-                className='w-32'
+                className='w-full sm:w-32'
                 onClick={handleCancel}
               >
                 Cancel
@@ -590,7 +590,7 @@ export default function EditProductPage() {
               <Button
                 type='submit'
                 disabled={!isValid || uploadingFiles.length > 0}
-                className='w-40'
+                className='w-full sm:w-40'
               >
                 Update
               </Button>

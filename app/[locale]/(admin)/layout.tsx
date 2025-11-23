@@ -75,6 +75,15 @@ export default function AdminLayout({
               >
                 Employees
               </NavigationLink>
+              <NavigationLink
+                href='/admin/projects'
+                isActive={
+                  pathname === '/admin/projects' ||
+                  pathname?.startsWith('/admin/projects/')
+                }
+              >
+                Projects
+              </NavigationLink>
             </div>
             <LogoutButton onClick={handleLogout} />
           </div>
