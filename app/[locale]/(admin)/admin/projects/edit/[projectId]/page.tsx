@@ -64,8 +64,8 @@ export default function EditProjectPage() {
     name: 'sections.en',
   });
 
-  const sectionsDeFields = watch('sections.de');
-  const sectionsEnFields = watch('sections.en');
+  const sectionsDeFields = watch('sections.de') ?? [];
+  const sectionsEnFields = watch('sections.en') ?? [];
 
   useEffect(() => {
     if (projectData?.data?.project) {
@@ -433,9 +433,7 @@ export default function EditProjectPage() {
                       />
                       {errors.sections?.de?.[sectionIndex]?.title && (
                         <p className='mt-1 text-xs text-red-600'>
-                          {
-                            errors.sections.de[sectionIndex]?.title?.message
-                          }
+                          {errors.sections.de[sectionIndex]?.title?.message}
                         </p>
                       )}
                     </div>
@@ -454,7 +452,8 @@ export default function EditProjectPage() {
                               className='flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm'
                               rows={2}
                             />
-                            {sectionsDeFields[sectionIndex]?.texts.length > 1 && (
+                            {sectionsDeFields[sectionIndex]?.texts.length >
+                              1 && (
                               <button
                                 type='button'
                                 onClick={() => {
@@ -561,7 +560,8 @@ export default function EditProjectPage() {
                               className='flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm'
                               rows={2}
                             />
-                            {sectionsEnFields[sectionIndex]?.texts.length > 1 && (
+                            {sectionsEnFields[sectionIndex]?.texts.length >
+                              1 && (
                               <button
                                 type='button'
                                 onClick={() => {
@@ -636,4 +636,3 @@ export default function EditProjectPage() {
     </div>
   );
 }
-

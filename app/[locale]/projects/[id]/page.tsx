@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
 import BackButton from '@/components/ui/BackButton';
+import prisma from '@/lib/prisma';
 import type {
   ProjectDto,
   ProjectResponseDto,
@@ -52,11 +53,24 @@ async function fetchProject(id: number): Promise<ProjectDto | null> {
 }
 
 export async function generateStaticParams() {
-  const projects = await fetchAllProjects();
-  return projects.map((project) => ({
-    id: project.id.toString(),
-  }));
+  try {
+    // Fetch directly from database at build time to avoid API connection issues
+    const projects = await prisma.project.findMany({
+      select: { id: true },
+      orderBy: { displayRank: 'asc' },
+    });
+    return projects.map((project) => ({
+      id: project.id.toString(),
+    }));
+  } catch (error) {
+    console.error('Failed to generate static params:', error);
+    // Return empty array to allow dynamic rendering if build-time fetch fails
+    return [];
+  }
 }
+
+// Allow dynamic routes for projects not generated at build time
+export const dynamicParams = true;
 
 export async function generateMetadata({
   params,
