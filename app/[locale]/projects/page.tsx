@@ -60,9 +60,10 @@ export default async function ProjectsPage({
       <div className='mx-auto px-4 py-8 sm:px-6 sm:py-12'>
         {projects.length === 0 ? (
           <div className='text-center py-12'>
-            <p className='text-gray-500'>
-              {t('no_projects') || 'No projects found'}
+            <p className='text-lg font-semibold text-gray-900'>
+              {t('no_projects_title')}
             </p>
+            <p className='mt-2 text-gray-500'>{t('no_projects_desc')}</p>
           </div>
         ) : (
           <div className='grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3'>

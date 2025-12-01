@@ -1,4 +1,0 @@
--- AlterTable
-ALTER TABLE "public"."Product" ALTER COLUMN "height" SET DATA TYPE TEXT,
-ALTER COLUMN "diameter" SET DATA TYPE TEXT,
-ALTER COLUMN "hardiness" SET DATA TYPE TEXT;

@@ -133,7 +133,9 @@
   "ProjectsPage": {
     "hero_title": "Unsere Arbeit",
     "hero_highlight": "Projekte",
-    "hero_description": "Entdecken Sie aktuelle Landschafts- und Gartenprojekte – von privaten Terrassen bis zu gewerblichen Anlagen – und erleben Sie unser Konzept für Gestaltung, Bepflanzung und nachhaltige Pflege."
+    "hero_description": "Entdecken Sie aktuelle Landschafts- und Gartenprojekte – von privaten Terrassen bis zu gewerblichen Anlagen – und erleben Sie unser Konzept für Gestaltung, Bepflanzung und nachhaltige Pflege.",
+    "no_projects_title": "Keine Projekte gefunden",
+    "no_projects_desc": "Wir haben noch keine Projekte hinzugefügt. Schauen Sie bald wieder vorbei."
   },
   "ProjectPage": {
     "back_to_projects": "Zurück zu den Projekten",
