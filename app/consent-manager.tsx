@@ -25,7 +25,10 @@ export default function ConsentManager({ children }: { children: ReactNode }) {
         description={
           <>
             {t('description')}{' '}
-            <Link href='/policy' className='underline hover:text-primary '>
+            <Link
+              href='/policy'
+              className='underline hover:text-primary focus:outline-none'
+            >
               {t('privacyPolicy')}
             </Link>
             .
