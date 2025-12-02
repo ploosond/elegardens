@@ -12,12 +12,31 @@ export default function ProductCard({ product }: ProductCardProps) {
   const locale = useLocale();
   const t = useTranslations('ProductCard');
 
+  // Get available names
+  const enName = product.common_name?.en?.trim() || '';
+  const deName = product.common_name?.de?.trim() || '';
+
+  // Determine primary and secondary names
+  // Primary: current locale if available, otherwise fallback to the other
+  // Secondary: the other language if available and different from primary
+  const primaryName =
+    locale === 'de'
+      ? deName || enName
+      : enName || deName;
+  const secondaryName =
+    locale === 'de'
+      ? enName && enName !== primaryName ? enName : null
+      : deName && deName !== primaryName ? deName : null;
+
+  // Alt text fallback
+  const altText = primaryName || product.images[0]?.altText || 'Product image';
+
   return (
     <div className='group flex h-full flex-col overflow-hidden rounded-sm border border-muted/10 bg-white/5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-muted/20 hover:shadow-lg'>
       <div className='relative overflow-hidden'>
         <Image
           src={product.images[0]?.url}
-          alt={product.common_name?.[locale as 'en' | 'de']}
+          alt={altText}
           width={400}
           height={400}
           className='h-72 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-80'
@@ -30,24 +49,13 @@ export default function ProductCard({ product }: ProductCardProps) {
         }}
       >
         <div>
-          {locale === 'de' ? (
-            <>
-              <p className='line-clamp-2 text-sm font-black tracking-tight text-on-dark md:text-base'>
-                {product.common_name?.de}
-              </p>
-              <p className='line-clamp-1 text-xs italic text-on-dark md:text-sm'>
-                {product.common_name?.en}
-              </p>
-            </>
-          ) : (
-            <>
-              <p className='line-clamp-2 text-sm font-black tracking-tight text-on-dark md:text-base'>
-                {product.common_name?.en}
-              </p>
-              <p className='line-clamp-1 text-xs italic text-on-dark md:text-sm'>
-                {product.common_name?.de}
-              </p>
-            </>
+          <p className='line-clamp-2 text-sm font-black tracking-tight text-on-dark md:text-base'>
+            {primaryName}
+          </p>
+          {secondaryName && (
+            <p className='line-clamp-1 text-xs italic text-on-dark md:text-sm'>
+              {secondaryName}
+            </p>
           )}
         </div>
         {/* CTAs */}

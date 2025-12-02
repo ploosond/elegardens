@@ -273,7 +273,7 @@ export default function ProductsPage() {
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                   <div>
                     <label className='block font-medium text-gray-700 mb-1'>
-                      Common Name (EN) *
+                      Common Name (EN)
                     </label>
                     <input
                       {...register('common_name.en')}
@@ -286,11 +286,16 @@ export default function ProductsPage() {
                         {errors.common_name.en.message}
                       </p>
                     )}
+                    {errors.common_name && !errors.common_name.en && !errors.common_name.de && (
+                      <p className='mt-1 text-sm text-red-600'>
+                        {errors.common_name.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
                     <label className='block font-medium text-gray-700 mb-1'>
-                      Common Name (DE) *
+                      Common Name (DE)
                     </label>
                     <input
                       {...register('common_name.de')}
@@ -305,12 +310,15 @@ export default function ProductsPage() {
                     )}
                   </div>
                 </div>
+                <p className='text-sm text-gray-500 mb-4 -mt-2'>
+                  * At least one language (EN or DE) must have a name
+                </p>
 
                 {/* Description Fields */}
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                   <div>
                     <label className='block font-medium text-gray-700 mb-1'>
-                      Description (EN) *
+                      Description (EN)
                     </label>
                     <textarea
                       {...register('description.en')}
@@ -323,11 +331,16 @@ export default function ProductsPage() {
                         {errors.description.en.message}
                       </p>
                     )}
+                    {errors.description && !errors.description.en && !errors.description.de && (
+                      <p className='mt-1 text-sm text-red-600'>
+                        {errors.description.message}
+                      </p>
+                    )}
                   </div>
 
                   <div>
                     <label className='block font-medium text-gray-700 mb-1'>
-                      Description (DE) *
+                      Description (DE)
                     </label>
                     <textarea
                       {...register('description.de')}
@@ -342,6 +355,9 @@ export default function ProductsPage() {
                     )}
                   </div>
                 </div>
+                <p className='text-sm text-gray-500 mb-4 -mt-2'>
+                  * At least one language (EN or DE) must have a description
+                </p>
               </div>
 
               {/* Section 2: Physical Properties */}
@@ -686,30 +702,31 @@ export default function ProductsPage() {
                 </tr>
               ) : (
                 [...products]
-                  .sort((a, b) =>
-                    (a.common_name?.en || '').localeCompare(
-                      b.common_name?.en || ''
-                    )
-                  )
+                  .sort((a, b) => {
+                    // Sort by first available name (EN preferred, fallback to DE)
+                    const aName = (a.common_name?.en?.trim() || a.common_name?.de?.trim() || '').toLowerCase();
+                    const bName = (b.common_name?.en?.trim() || b.common_name?.de?.trim() || '').toLowerCase();
+                    return aName.localeCompare(bName);
+                  })
                   .map((product, index) => (
                     <tr key={product.id} className='hover:bg-gray-100'>
                       <td className='border p-1 text-center font-normal text-sm'>
                         {index + 1}
                       </td>
                       <td className='border p-1 text-center font-normal text-sm'>
-                        {product.common_name.en}
+                        {product.common_name?.en?.trim() || '—'}
                       </td>
                       <td className='border p-1 text-center font-normal text-sm'>
-                        {product.common_name.de}
+                        {product.common_name?.de?.trim() || '—'}
                       </td>
                       <td className='border p-1 font-normal text-sm'>
                         <div className='max-h-64 overflow-y-auto  text-justify'>
-                          {product.description.en}
+                          {product.description?.en?.trim() || '—'}
                         </div>
                       </td>
                       <td className='border p-1 font-normal text-sm'>
                         <div className='max-h-64 overflow-y-auto  text-justify'>
-                          {product.description.de}
+                          {product.description?.de?.trim() || '—'}
                         </div>
                       </td>
                       <td className='border p-1 text-center font-normal text-sm'>

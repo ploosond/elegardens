@@ -61,6 +61,17 @@ export default function ProductDetailPage() {
   const product = productData.data.product;
   const allProducts = productsData?.data?.products ?? [];
 
+  // Get available names and descriptions with fallback
+  const enName = product.common_name?.en?.trim() || '';
+  const deName = product.common_name?.de?.trim() || '';
+  const productName =
+    locale === 'de' ? deName || enName : enName || deName;
+
+  const enDesc = product.description?.en?.trim() || '';
+  const deDesc = product.description?.de?.trim() || '';
+  const productDescription =
+    locale === 'de' ? deDesc || enDesc : enDesc || deDesc;
+
   // Related products (exclude current)
   const relatedProducts = allProducts
     .filter((p) => p.id !== product.id)
@@ -89,7 +100,8 @@ export default function ProductDetailPage() {
                   }
                   alt={
                     product.images[selectedImageIndex]?.altText ||
-                    product.common_name[locale as 'en' | 'de']
+                    productName ||
+                    'Product image'
                   }
                   fill
                   className='object-cover'
@@ -125,7 +137,7 @@ export default function ProductDetailPage() {
           <div className='flex flex-col'>
             <div className='mb-10'>
               <h1 className='mb-2 font-poppins text-2xl font-semibold text-primary sm:text-3xl'>
-                {product.common_name[locale as 'en' | 'de']}
+                {productName}
               </h1>
               <hr className='border-muted/60 mb-6 border-0 border-b-2' />
               {/* Product Attributes */}
@@ -166,7 +178,7 @@ export default function ProductDetailPage() {
               </div>
             </div>
             <p className='text-justify leading-relaxed text-text'>
-              {product.description[locale as 'en' | 'de']}
+              {productDescription}
             </p>
           </div>
         </div>

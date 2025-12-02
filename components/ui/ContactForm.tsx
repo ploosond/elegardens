@@ -20,6 +20,8 @@ export default function ContactForm() {
     message: '',
   });
 
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -29,6 +31,13 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setFormStatus({
+      submitted: false,
+      error: false,
+      message: '',
+    });
+
     try {
       const response = await axios.post('/api/contact', formData);
       setFormStatus({
@@ -43,14 +52,18 @@ export default function ContactForm() {
         phone: '',
         message: '',
       });
-    } catch (error: any) {
+    } catch (error) {
       console.log(error);
-      const errorMessage = error.response?.data?.error || t('form_error');
+      const errorMessage =
+        (axios.isAxiosError(error) && error.response?.data?.error) ||
+        t('form_error');
       setFormStatus({
         submitted: true,
         error: true,
         message: errorMessage,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -75,10 +88,14 @@ export default function ContactForm() {
       <form onSubmit={handleSubmit}>
         <div className='mb-6 grid grid-cols-1 gap-6 md:grid-cols-2'>
           <div>
-            <label className='mb-1 block text-sm font-medium text-text'>
+            <label
+              htmlFor='firstname'
+              className='mb-1 block text-sm font-medium text-text'
+            >
               {t('form_firstname')}
             </label>
             <input
+              id='firstname'
               type='text'
               name='firstname'
               value={formData.firstname}
@@ -89,10 +106,14 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <label className='mb-1 block text-sm font-medium text-text'>
+            <label
+              htmlFor='lastname'
+              className='mb-1 block text-sm font-medium text-text'
+            >
               {t('form_lastname')}
             </label>
             <input
+              id='lastname'
               type='text'
               name='lastname'
               value={formData.lastname}
@@ -103,10 +124,14 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <label className='mb-1 block text-sm font-medium text-text'>
+            <label
+              htmlFor='email'
+              className='mb-1 block text-sm font-medium text-text'
+            >
               {t('form_email')}
             </label>
             <input
+              id='email'
               type='email'
               name='email'
               value={formData.email}
@@ -117,10 +142,14 @@ export default function ContactForm() {
           </div>
 
           <div>
-            <label className='mb-1 block text-sm font-medium text-text'>
+            <label
+              htmlFor='phone'
+              className='mb-1 block text-sm font-medium text-text'
+            >
               {t('form_phone')}
             </label>
             <input
+              id='phone'
               type='tel'
               name='phone'
               value={formData.phone}
@@ -131,10 +160,14 @@ export default function ContactForm() {
         </div>
 
         <div className='mb-6'>
-          <label className='mb-1 block text-sm font-medium text-text'>
+          <label
+            htmlFor='message'
+            className='mb-1 block text-sm font-medium text-text'
+          >
             {t('form_message')}
           </label>
           <textarea
+            id='message'
             name='message'
             value={formData.message}
             onChange={handleChange}
@@ -146,9 +179,10 @@ export default function ContactForm() {
 
         <button
           type='submit'
-          className='flex w-full items-center justify-center rounded-full bg-primary py-3 font-semibold text-on-dark transition-colors hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer'
+          disabled={loading}
+          className='flex w-full items-center justify-center rounded-full bg-primary py-3 font-semibold text-on-dark transition-colors hover:bg-primary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50'
         >
-          {t('form_submit')}
+          {loading ? t('form_submitting') : t('form_submit')}
         </button>
       </form>
     </div>

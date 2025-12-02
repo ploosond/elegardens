@@ -260,7 +260,7 @@ export default function EditProductPage() {
               <div className='grid grid-cols-2 gap-4 mb-4'>
                 <div>
                   <label className='block font-medium text-gray-700 mb-1'>
-                    Common Name (EN) *
+                    Common Name (EN)
                   </label>
                   <input
                     {...register('common_name.en')}
@@ -273,11 +273,16 @@ export default function EditProductPage() {
                       {errors.common_name.en.message}
                     </p>
                   )}
+                  {errors.common_name && !errors.common_name.en && !errors.common_name.de && (
+                    <p className='mt-1 text-sm text-red-600'>
+                      {errors.common_name.message}
+                    </p>
+                  )}
                 </div>
 
                 <div>
                   <label className='block font-medium text-gray-700 mb-1'>
-                    Common Name (DE) *
+                    Common Name (DE)
                   </label>
                   <input
                     {...register('common_name.de')}
@@ -292,12 +297,15 @@ export default function EditProductPage() {
                   )}
                 </div>
               </div>
+              <p className='text-sm text-gray-500 mb-4 -mt-2'>
+                * At least one language (EN or DE) must have a name
+              </p>
 
               {/* Description Fields */}
               <div className='grid grid-cols-2 gap-4'>
                 <div>
                   <label className='block font-medium text-gray-700 mb-1'>
-                    Description (EN) *
+                    Description (EN)
                   </label>
                   <textarea
                     {...register('description.en')}
@@ -310,11 +318,16 @@ export default function EditProductPage() {
                       {errors.description.en.message}
                     </p>
                   )}
+                  {errors.description && !errors.description.en && !errors.description.de && (
+                    <p className='mt-1 text-sm text-red-600'>
+                      {errors.description.message}
+                    </p>
+                  )}
                 </div>
 
                 <div>
                   <label className='block font-medium text-gray-700 mb-1'>
-                    Description (DE) *
+                    Description (DE)
                   </label>
                   <textarea
                     {...register('description.de')}
@@ -329,6 +342,9 @@ export default function EditProductPage() {
                   )}
                 </div>
               </div>
+              <p className='text-sm text-gray-500 mb-4 -mt-2'>
+                * At least one language (EN or DE) must have a description
+              </p>
             </div>
 
             {/* Section 2: Physical Properties */}

@@ -1,13 +1,13 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import {
   ConsentManagerDialog,
   ConsentManagerProvider,
   CookieBanner,
 } from '@c15t/nextjs';
 import type { ReactNode } from 'react';
-import { useTranslations } from 'next-intl';
-import { Link } from '@/i18n/navigation';
 
 export default function ConsentManager({ children }: { children: ReactNode }) {
   const t = useTranslations('CookieConsent');

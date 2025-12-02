@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { sendContactEmail } from '@/lib/email';
 
 export async function POST(req: NextRequest) {
   try {
@@ -22,9 +23,8 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // TODO: Implement actual email sending logic here
-    // For now, just log the contact form submission
-    console.log('Contact form submission:', {
+    // Send email
+    await sendContactEmail({
       firstname,
       lastname,
       email,
@@ -32,13 +32,40 @@ export async function POST(req: NextRequest) {
       message,
     });
 
-    // Simulate successful submission
     return NextResponse.json(
       { message: 'Thank you for your message! We will get back to you soon.' },
       { status: 200 }
     );
   } catch (error) {
     console.error('Contact form error:', error);
+
+    // Provide more specific error messages
+    if (error instanceof Error) {
+      if (error.message.includes('SMTP configuration')) {
+        return NextResponse.json(
+          {
+            error:
+              'Email service is not configured. Please contact the administrator.',
+          },
+          { status: 500 }
+        );
+      }
+      if (error.message.includes('CONTACT_EMAIL')) {
+        return NextResponse.json(
+          {
+            error:
+              'Contact email is not configured. Please contact the administrator.',
+          },
+          { status: 500 }
+        );
+      }
+      // Log the full error for debugging
+      console.error('Full error details:', {
+        message: error.message,
+        stack: error.stack,
+      });
+    }
+
     return NextResponse.json(
       { error: 'Something went wrong. Please try again later.' },
       { status: 500 }

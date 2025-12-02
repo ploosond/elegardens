@@ -12,7 +12,6 @@ export const adminLogin = async (
     throw error;
   }
 };
-
 export const adminRegister = async (registerData: {
   first_name: string;
   last_name: string;
@@ -28,3 +27,4 @@ export const adminRegister = async (registerData: {
     throw error;
   }
 };
+

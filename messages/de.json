@@ -199,6 +199,7 @@
     "form_phone": "Telefonnummer",
     "form_message": "Ihre Nachricht *",
     "form_submit": "Nachricht senden",
+    "form_submitting": "Wird gesendet...",
     "form_success": "Ihre Nachricht wurde erfolgreich gesendet!",
     "form_error": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
   },

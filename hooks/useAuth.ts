@@ -6,9 +6,9 @@ export const useAdminLogin = () => {
     mutationFn: adminLogin,
   });
 };
-
 export const useAdminRegister = () => {
   return useMutation({
     mutationFn: adminRegister,
   });
 };
+

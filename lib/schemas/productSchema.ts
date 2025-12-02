@@ -1,14 +1,36 @@
 import { z } from 'zod';
 
-const commonNameSchema = z.object({
-  en: z.string().trim().min(1, 'English common name is required'),
-  de: z.string().trim().min(1, 'German common name is required'),
-});
+const commonNameSchema = z
+  .object({
+    en: z.string().trim(),
+    de: z.string().trim(),
+  })
+  .refine(
+    (data) => {
+      const enTrimmed = (data.en || '').trim();
+      const deTrimmed = (data.de || '').trim();
+      return enTrimmed.length > 0 || deTrimmed.length > 0;
+    },
+    {
+      message: 'At least one language (EN or DE) must have a name',
+    }
+  );
 
-const descriptionSchema = z.object({
-  en: z.string().trim().min(1, 'English description is required'),
-  de: z.string().trim().min(1, 'German description is required'),
-});
+const descriptionSchema = z
+  .object({
+    en: z.string().trim(),
+    de: z.string().trim(),
+  })
+  .refine(
+    (data) => {
+      const enTrimmed = (data.en || '').trim();
+      const deTrimmed = (data.de || '').trim();
+      return enTrimmed.length > 0 || deTrimmed.length > 0;
+    },
+    {
+      message: 'At least one language (EN or DE) must have a description',
+    }
+  );
 
 const imageSchema = z.object({
   url: z.string().url('Valid image URL is required'),
