@@ -134,10 +134,15 @@
     "hero_title": "Our Work",
     "hero_highlight": "Projects",
     "hero_description": "Browse recent landscape and garden projects — from private patios to commercial landscapes — showcasing our design, planting, and long-term care approach.",
+    "loading": "Loading...",
+    "error": "Error",
     "no_projects_title": "No projects found",
     "no_projects_desc": "We haven't added any projects yet. Check back soon."
   },
   "ProjectPage": {
+    "loading": "Loading...",
+    "project_not_found": "Project Not Found",
+    "project_not_found_desc": "The project you are looking for does not exist. Please check the URL or browse our projects.",
     "back_to_projects": "Back to Projects",
     "about": "About",
     "challenge": "The challenge",

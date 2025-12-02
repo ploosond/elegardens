@@ -1,52 +1,49 @@
-import { getTranslations } from 'next-intl/server';
+'use client';
+
 import Link from 'next/link';
 import HeroSection from '@/components/ui/HeroSection';
 import ProjectCard from '@/components/cards/ProjectCard';
-import type { ProjectDto, ProjectsResponseDto } from '@/types/dto';
+import { useFetchProjects } from '@/hooks/useProjects';
+import { useLocale, useTranslations } from 'next-intl';
+import type { ProjectDto } from '@/types/dto';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'ProjectsPage' });
+export default function ProjectsPage() {
+  const t = useTranslations('ProjectsPage');
+  const locale = useLocale();
+  const limit = 1000; // Fetch all projects at once
 
-  return {
-    title: t('hero_title') + ' ' + t('hero_highlight'),
-    description: t('hero_description'),
-  };
-}
+  // Fetch all projects
+  const {
+    isPending: isPendingProjects,
+    isError: isErrorProjects,
+    data: projectsData,
+    error: errorProjects,
+  } = useFetchProjects(1, limit);
 
-async function fetchProjects(): Promise<ProjectDto[]> {
-  try {
-    // Use absolute URL for server-side fetch
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const url = `${baseUrl}/api/admin/projects?page=1&limit=1000`;
-    const response = await fetch(url, {
-      cache: 'no-store',
-    });
+  const allProjects: ProjectDto[] =
+    projectsData?.data?.projects?.sort(
+      (a, b) => a.displayRank - b.displayRank
+    ) ?? [];
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch projects');
-    }
-
-    const data: ProjectsResponseDto = await response.json();
-    return data.data.projects || [];
-  } catch (error) {
-    console.error('Failed to fetch projects:', error);
-    return [];
+  // Loading state
+  if (isPendingProjects) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <h2 className='text-2xl font-semibold text-text'>{t('loading')}</h2>
+      </div>
+    );
   }
-}
 
-export default async function ProjectsPage({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
-  const { locale } = await params;
-  const t = await getTranslations('ProjectsPage');
-  const projects = await fetchProjects();
+  // Error state
+  if (isErrorProjects) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <h2 className='text-2xl font-semibold text-danger'>
+          {t('error')}: {errorProjects?.message}
+        </h2>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -58,7 +55,7 @@ export default async function ProjectsPage({
 
       {/* Project Grid */}
       <div className='mx-auto px-4 py-8 sm:px-6 sm:py-12'>
-        {projects.length === 0 ? (
+        {allProjects.length === 0 ? (
           <div className='text-center py-12'>
             <p className='text-lg font-semibold text-gray-900'>
               {t('no_projects_title')}
@@ -67,16 +64,14 @@ export default async function ProjectsPage({
           </div>
         ) : (
           <div className='grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3'>
-            {projects
-              .sort((a, b) => a.displayRank - b.displayRank)
-              .map((project) => (
-                <Link
-                  key={project.id}
-                  href={`/${locale}/projects/${project.id}`}
-                >
-                  <ProjectCard project={project} locale={locale} />
-                </Link>
-              ))}
+            {allProjects.map((project) => (
+              <Link
+                key={project.id}
+                href={`/${locale}/projects/${project.id}`}
+              >
+                <ProjectCard project={project} locale={locale} />
+              </Link>
+            ))}
           </div>
         )}
       </div>

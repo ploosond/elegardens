@@ -1,113 +1,53 @@
-import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
+'use client';
+
+import { useParams } from 'next/navigation';
+import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
+import Link from 'next/link';
 import BackButton from '@/components/ui/BackButton';
-import prisma from '@/lib/prisma';
-import type {
-  ProjectDto,
-  ProjectResponseDto,
-  ProjectsResponseDto,
-} from '@/types/dto';
+import { useFetchProject } from '@/hooks/useProjects';
 
-async function fetchAllProjects(): Promise<ProjectDto[]> {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const url = `${baseUrl}/api/admin/projects?page=1&limit=1000`;
-    const response = await fetch(url, {
-      cache: 'no-store',
-    });
+export default function ProjectDetailPage() {
+  const params = useParams();
+  const t = useTranslations('ProjectPage');
+  const locale = useLocale();
+  const projectId = Number(params.id);
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch projects');
-    }
+  // Fetch current project
+  const {
+    data: projectData,
+    isPending: isLoadingProject,
+    isError: isErrorProject,
+  } = useFetchProject(projectId);
 
-    const data: ProjectsResponseDto = await response.json();
-    return data.data.projects || [];
-  } catch (error) {
-    console.error('Failed to fetch projects:', error);
-    return [];
-  }
-}
-
-async function fetchProject(id: number): Promise<ProjectDto | null> {
-  try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-    const url = `${baseUrl}/api/admin/projects/${id}`;
-    const response = await fetch(url, {
-      cache: 'no-store',
-    });
-
-    if (!response.ok) {
-      if (response.status === 404) {
-        return null;
-      }
-      throw new Error('Failed to fetch project');
-    }
-
-    const data: ProjectResponseDto = await response.json();
-    return data.data.project || null;
-  } catch (error) {
-    console.error('Failed to fetch project:', error);
-    return null;
-  }
-}
-
-export async function generateStaticParams() {
-  try {
-    // Fetch directly from database at build time to avoid API connection issues
-    const projects = await prisma.project.findMany({
-      select: { id: true },
-      orderBy: { displayRank: 'asc' },
-    });
-    return projects.map((project) => ({
-      id: project.id.toString(),
-    }));
-  } catch (error) {
-    console.error('Failed to generate static params:', error);
-    // Return empty array to allow dynamic rendering if build-time fetch fails
-    return [];
-  }
-}
-
-// Allow dynamic routes for projects not generated at build time
-export const dynamicParams = true;
-
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string; id: string }>;
-}) {
-  const { locale, id } = await params;
-  const projectId = parseInt(id, 10);
-  const project = await fetchProject(projectId);
-
-  if (!project) {
-    return {
-      title: 'Project Not Found',
-    };
+  if (isLoadingProject) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <h2 className='text-2xl font-semibold text-text'>{t('loading')}</h2>
+      </div>
+    );
   }
 
-  return {
-    title: project.title[locale as 'en' | 'de'],
-    description: project.tagline[locale as 'en' | 'de'],
-  };
-}
-
-export default async function ProjectDetailPage({
-  params,
-}: {
-  params: Promise<{ locale: string; id: string }>;
-}) {
-  const { locale, id } = await params;
-  const t = await getTranslations('ProjectPage');
-  const projectId = parseInt(id, 10);
-
-  const project = await fetchProject(projectId);
-
-  if (!project) {
-    notFound();
+  if (isErrorProject || !projectData?.data?.project) {
+    return (
+      <div className='flex min-h-screen items-center justify-center'>
+        <div className='text-center'>
+          <h2 className='text-2xl font-semibold text-text'>
+            {t('project_not_found')}
+          </h2>
+          <p className='mt-4 text-text/70'>{t('project_not_found_desc')}</p>
+          <Link
+            href={`/${locale}/projects`}
+            className='mt-6 inline-block rounded-md bg-primary px-6 py-3 text-on-dark hover:bg-primary-dark'
+          >
+            {t('back_to_projects')}
+          </Link>
+        </div>
+      </div>
+    );
   }
 
+  const project = projectData.data.project;
   const sections = project.sections[locale as 'en' | 'de'] || [];
 
   return (
@@ -154,7 +94,7 @@ export default async function ProjectDetailPage({
         <main className='prose prose-base dark:prose-invert max-w-none lg:col-span-2'>
           {sections.map((section, index) => (
             <section
-              key={index}
+              key={`section-${index}-${section.title}`}
               className={index < sections.length - 1 ? 'mb-8' : ''}
             >
               <h2 className='mb-4 text-xl font-extrabold text-secondary sm:mb-6 sm:text-2xl'>
@@ -163,7 +103,7 @@ export default async function ProjectDetailPage({
               <div className='space-y-2'>
                 {section.texts.map((text, textIndex) => (
                   <p
-                    key={textIndex}
+                    key={`text-${index}-${textIndex}-${text.slice(0, 20)}`}
                     className='mb-2 text-justify text-sm text-gray-700 sm:mb-4 sm:text-base'
                   >
                     {text}
