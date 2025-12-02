@@ -14,6 +14,8 @@ const prisma = new PrismaClient({
 export async function main() {
   const hashedPassword = await bcrypt.hash('password', 10);
 
+  await prisma.user.deleteMany({});
+
   await prisma.user.create({
     data: {
       first_name: 'Root',
