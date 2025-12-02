@@ -86,14 +86,14 @@ export default function Home() {
             <div className='mt-6 flex flex-col items-center justify-center gap-3 px-4 sm:flex-row sm:gap-4 sm:px-0'>
               <Link
                 href='/products'
-                className='inline-flex w-full items-center justify-center rounded-full bg-surface px-6 py-3 font-semibold text-text shadow transition-colors hover:bg-muted sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer'
+                className='inline-flex items-center justify-center rounded-full bg-surface px-6 py-3 font-semibold text-text shadow transition-colors hover:bg-muted sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer'
               >
                 {t('exploreProducts')}
               </Link>
 
               <Link
                 href='/contact'
-                className='inline-flex w-full items-center justify-center rounded-full bg-primary px-6 py-3 font-semibold text-on-dark shadow transition-colors hover:bg-primary-dark sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer'
+                className='inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 font-semibold text-on-dark shadow transition-colors hover:bg-primary-dark sm:w-auto focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 cursor-pointer'
               >
                 {t('contactTeam')}
               </Link>

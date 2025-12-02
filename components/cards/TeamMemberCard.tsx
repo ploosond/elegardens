@@ -12,7 +12,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
   const locale = useLocale();
 
   return (
-    <div className='group flex h-[320px] flex-col justify-between overflow-hidden rounded-sm border border-muted/10 bg-white/5 p-4 text-center shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-muted/20 hover:shadow-lg'>
+    <div className='group flex h-[320px] flex-col justify-start overflow-hidden rounded-sm border border-muted/10 bg-white/5 p-4 text-center shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-muted/20 hover:shadow-lg'>
       {member.profilePicture?.url ? (
         <Image
           src={member.profilePicture.url}
@@ -29,13 +29,13 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
           </span>
         </div>
       )}
-      <h3 className='mb-2 text-xl font-semibold text-primary'>
+      <h3 className='mb-1 text-xl font-semibold text-primary'>
         {member.first_name} {member.last_name}
       </h3>
-      <p className='mb-2 truncate text-sm font-semibold text-secondary line-clamp-2 break-words'>
+      <p className='mt-1 truncate text-sm font-semibold text-secondary line-clamp-2 break-words'>
         {member.role[locale as 'en' | 'de']}
       </p>
-      <div className='mt-2 space-y-1'>
+      <div className='mt-1 space-y-1'>
         <p className='break-words text-sm text-gray-500'>{member.email}</p>
         <p className='text-xs text-gray-500 md:text-sm'>{member.telephone}</p>
       </div>
