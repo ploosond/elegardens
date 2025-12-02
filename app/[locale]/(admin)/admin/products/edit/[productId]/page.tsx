@@ -13,7 +13,7 @@ import {
 } from '@/hooks/useProducts';
 import {
   updateProductSchema,
-  UpdateProductSchema,
+  type UpdateProductSchema,
 } from '@/lib/schemas/productSchema';
 import toast from 'react-hot-toast';
 
@@ -76,7 +76,7 @@ export default function EditProductPage() {
 
       setExistingImages(productImages);
     }
-  }, [productData, reset]);
+  }, [productData, reset, originalImagesInitialized]);
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -183,8 +183,6 @@ export default function EditProductPage() {
   };
 
   const handleImageDelete = async (imageIndex: number) => {
-    const imageToDelete = existingImages[imageIndex];
-
     setDeletingImageIndex(imageIndex);
 
     try {
@@ -259,10 +257,14 @@ export default function EditProductPage() {
               {/* Common Name Fields */}
               <div className='grid grid-cols-2 gap-4 mb-4'>
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='common-name-en'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Common Name (EN)
                   </label>
                   <input
+                    id='common-name-en'
                     {...register('common_name.en')}
                     type='text'
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -273,18 +275,24 @@ export default function EditProductPage() {
                       {errors.common_name.en.message}
                     </p>
                   )}
-                  {errors.common_name && !errors.common_name.en && !errors.common_name.de && (
-                    <p className='mt-1 text-sm text-red-600'>
-                      {errors.common_name.message}
-                    </p>
-                  )}
+                  {errors.common_name &&
+                    !errors.common_name.en &&
+                    !errors.common_name.de && (
+                      <p className='mt-1 text-sm text-red-600'>
+                        {errors.common_name.message}
+                      </p>
+                    )}
                 </div>
 
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='common-name-de'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Common Name (DE)
                   </label>
                   <input
+                    id='common-name-de'
                     {...register('common_name.de')}
                     type='text'
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -304,10 +312,14 @@ export default function EditProductPage() {
               {/* Description Fields */}
               <div className='grid grid-cols-2 gap-4'>
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='description-en'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Description (EN)
                   </label>
                   <textarea
+                    id='description-en'
                     {...register('description.en')}
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
                     placeholder='Short description in English'
@@ -318,18 +330,24 @@ export default function EditProductPage() {
                       {errors.description.en.message}
                     </p>
                   )}
-                  {errors.description && !errors.description.en && !errors.description.de && (
-                    <p className='mt-1 text-sm text-red-600'>
-                      {errors.description.message}
-                    </p>
-                  )}
+                  {errors.description &&
+                    !errors.description.en &&
+                    !errors.description.de && (
+                      <p className='mt-1 text-sm text-red-600'>
+                        {errors.description.message}
+                      </p>
+                    )}
                 </div>
 
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='description-de'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Description (DE)
                   </label>
                   <textarea
+                    id='description-de'
                     {...register('description.de')}
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
                     placeholder='Kurze Beschreibung auf Deutsch'
@@ -351,10 +369,14 @@ export default function EditProductPage() {
             <div className='border-b border-gray-200 pb-6'>
               <div className='grid grid-cols-3 gap-4'>
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='height'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Height (cm) *
                   </label>
                   <input
+                    id='height'
                     {...register('height')}
                     type='text'
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -368,10 +390,14 @@ export default function EditProductPage() {
                 </div>
 
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='diameter'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Diameter (cm) *
                   </label>
                   <input
+                    id='diameter'
                     {...register('diameter')}
                     type='text'
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -385,10 +411,14 @@ export default function EditProductPage() {
                 </div>
 
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='hardiness'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Hardiness (°C) *
                   </label>
                   <input
+                    id='hardiness'
                     {...register('hardiness')}
                     type='text'
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -408,11 +438,15 @@ export default function EditProductPage() {
               <div className='grid grid-cols-3 gap-4'>
                 {/* Images */}
                 <div>
-                  <label className='block font-medium text-gray-700 mb-2'>
+                  <label
+                    htmlFor='product-images'
+                    className='block font-medium text-gray-700 mb-2'
+                  >
                     Product Images *
                   </label>
                   <div className='relative w-full'>
                     <input
+                      id='product-images'
                       type='file'
                       accept='image/*'
                       multiple
@@ -470,9 +504,9 @@ export default function EditProductPage() {
                           );
                         })}
                         {/* Show individual loading placeholders for each file being uploaded */}
-                        {uploadingFiles.map((file, index) => (
+                        {uploadingFiles.map((_file, index) => (
                           <div
-                            key={`uploading-${index}`}
+                            key={`uploading-${Date.now()}-${index}`}
                             className='relative flex-shrink-0'
                           >
                             <div className='h-20 w-20 bg-gray-200 rounded-lg border-2 border-white shadow-md flex items-center justify-center'>
@@ -497,7 +531,10 @@ export default function EditProductPage() {
 
                 {/* Light */}
                 <div>
-                  <label className='block font-medium text-gray-700 mb-2'>
+                  <label
+                    htmlFor='light-en'
+                    className='block font-medium text-gray-700 mb-2'
+                  >
                     Light *
                   </label>
                   <Controller
@@ -567,17 +604,22 @@ export default function EditProductPage() {
 
                 {/* Color */}
                 <div>
-                  <label className='block font-medium text-gray-700 mb-2'>
+                  <label
+                    htmlFor='color'
+                    className='block font-medium text-gray-700 mb-2'
+                  >
                     Color *
                   </label>
                   <div className='flex items-center gap-3'>
                     <input
+                      id='color-picker'
                       {...register('color')}
                       type='color'
                       onChange={(e) => setValue('color', e.target.value)}
                       className='w-10 h-10 border border-gray-300 rounded cursor-pointer'
                     />
                     <input
+                      id='color'
                       {...register('color')}
                       type='text'
                       className='w-24 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm'

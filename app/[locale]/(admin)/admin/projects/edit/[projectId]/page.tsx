@@ -14,7 +14,7 @@ import {
 } from '@/hooks/useProjects';
 import {
   updateProjectSchema,
-  UpdateProjectSchema,
+  type UpdateProjectSchema,
 } from '@/lib/schemas/projectSchema';
 import toast from 'react-hot-toast';
 
@@ -24,8 +24,8 @@ export default function EditProjectPage() {
   const projectId = parseInt(params.projectId as string, 10);
 
   const [currentImage, setCurrentImage] = useState<string>('');
-  const [uploadingFile, setUploadingFile] = useState<File | null>(null);
-  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
+  const [_uploadingFile, setUploadingFile] = useState<File | null>(null);
+  const [_hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
   const { data: projectData, isLoading, error } = useFetchProject(projectId);
@@ -196,10 +196,14 @@ export default function EditProjectPage() {
 
               {/* Client */}
               <div className='mb-4'>
-                <label className='block font-medium text-gray-700 mb-1'>
+                <label
+                  htmlFor='client'
+                  className='block font-medium text-gray-700 mb-1'
+                >
                   Client *
                 </label>
                 <input
+                  id='client'
                   {...register('client')}
                   type='text'
                   className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -215,10 +219,14 @@ export default function EditProjectPage() {
               {/* Title Fields */}
               <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='title-en'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Title (EN) *
                   </label>
                   <input
+                    id='title-en'
                     {...register('title.en')}
                     type='text'
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -231,10 +239,14 @@ export default function EditProjectPage() {
                 </div>
 
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='title-de'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Title (DE) *
                   </label>
                   <input
+                    id='title-de'
                     {...register('title.de')}
                     type='text'
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -250,10 +262,14 @@ export default function EditProjectPage() {
               {/* Category Fields */}
               <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='category-en'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Category (EN) *
                   </label>
                   <input
+                    id='category-en'
                     {...register('category.en')}
                     type='text'
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -266,10 +282,14 @@ export default function EditProjectPage() {
                 </div>
 
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='category-de'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Category (DE) *
                   </label>
                   <input
+                    id='category-de'
                     {...register('category.de')}
                     type='text'
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -285,10 +305,14 @@ export default function EditProjectPage() {
               {/* Tagline Fields */}
               <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='tagline-en'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Tagline (EN) *
                   </label>
                   <textarea
+                    id='tagline-en'
                     {...register('tagline.en')}
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
                     rows={2}
@@ -301,10 +325,14 @@ export default function EditProjectPage() {
                 </div>
 
                 <div>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='tagline-de'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Tagline (DE) *
                   </label>
                   <textarea
+                    id='tagline-de'
                     {...register('tagline.de')}
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
                     rows={2}
@@ -319,10 +347,14 @@ export default function EditProjectPage() {
 
               {/* Display Rank */}
               <div className='mb-4'>
-                <label className='block font-medium text-gray-700 mb-1'>
+                <label
+                  htmlFor='display-rank'
+                  className='block font-medium text-gray-700 mb-1'
+                >
                   Display Rank
                 </label>
                 <input
+                  id='display-rank'
                   {...register('displayRank', { valueAsNumber: true })}
                   type='number'
                   min={0}
@@ -339,11 +371,15 @@ export default function EditProjectPage() {
             {/* Section 2: Image */}
             <div className='border-b border-gray-200 pb-6'>
               <div>
-                <label className='block font-medium text-gray-700 mb-2'>
+                <label
+                  htmlFor='project-image'
+                  className='block font-medium text-gray-700 mb-2'
+                >
                   Project Image *
                 </label>
                 <div className='relative w-full max-w-md'>
                   <input
+                    id='project-image'
                     type='file'
                     accept='image/*'
                     onChange={handleImageUpload}
@@ -363,7 +399,7 @@ export default function EditProjectPage() {
                           <div className='relative flex-shrink-0'>
                             <img
                               src={currentImage}
-                              alt='Current project image'
+                              alt='Current project'
                               className='h-20 w-20 object-cover rounded-lg border-2 border-white shadow-md'
                             />
                             <button
@@ -421,10 +457,14 @@ export default function EditProjectPage() {
                     </div>
 
                     <div className='mb-3'>
-                      <label className='block text-sm font-medium text-gray-700 mb-1'>
+                      <label
+                        htmlFor={`section-de-title-${sectionIndex}`}
+                        className='block text-sm font-medium text-gray-700 mb-1'
+                      >
                         Section Title *
                       </label>
                       <input
+                        id={`section-de-title-${sectionIndex}`}
                         {...register(
                           `sections.de.${sectionIndex}.title` as const
                         )}
@@ -439,13 +479,20 @@ export default function EditProjectPage() {
                     </div>
 
                     <div>
-                      <label className='block text-sm font-medium text-gray-700 mb-1'>
+                      <label
+                        htmlFor={`section-de-texts-${sectionIndex}`}
+                        className='block text-sm font-medium text-gray-700 mb-1'
+                      >
                         Section Content (Paragraphs) *
                       </label>
                       {sectionsDeFields[sectionIndex]?.texts?.map(
-                        (_, textIndex) => (
-                          <div key={textIndex} className='mb-2 flex gap-2'>
+                        (_text, textIndex) => (
+                          <div
+                            key={`${section.id}-${textIndex}`}
+                            className='mb-2 flex gap-2'
+                          >
                             <textarea
+                              id={`section-de-text-${sectionIndex}-${textIndex}`}
                               {...register(
                                 `sections.de.${sectionIndex}.texts.${textIndex}` as const
                               )}
@@ -529,10 +576,14 @@ export default function EditProjectPage() {
                     </div>
 
                     <div className='mb-3'>
-                      <label className='block text-sm font-medium text-gray-700 mb-1'>
+                      <label
+                        htmlFor={`section-en-title-${sectionIndex}`}
+                        className='block text-sm font-medium text-gray-700 mb-1'
+                      >
                         Section Title *
                       </label>
                       <input
+                        id={`section-en-title-${sectionIndex}`}
                         {...register(
                           `sections.en.${sectionIndex}.title` as const
                         )}
@@ -547,13 +598,20 @@ export default function EditProjectPage() {
                     </div>
 
                     <div>
-                      <label className='block text-sm font-medium text-gray-700 mb-1'>
+                      <label
+                        htmlFor={`section-en-texts-${sectionIndex}`}
+                        className='block text-sm font-medium text-gray-700 mb-1'
+                      >
                         Section Content (Paragraphs) *
                       </label>
                       {sectionsEnFields[sectionIndex]?.texts?.map(
-                        (_, textIndex) => (
-                          <div key={textIndex} className='mb-2 flex gap-2'>
+                        (_text, textIndex) => (
+                          <div
+                            key={`${section.id}-${textIndex}`}
+                            className='mb-2 flex gap-2'
+                          >
                             <textarea
+                              id={`section-en-text-${sectionIndex}-${textIndex}`}
                               {...register(
                                 `sections.en.${sectionIndex}.texts.${textIndex}` as const
                               )}

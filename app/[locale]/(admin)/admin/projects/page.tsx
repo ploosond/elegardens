@@ -15,7 +15,7 @@ import {
 } from '@/hooks/useProjects';
 import {
   createProjectSchema,
-  CreateProjectSchema,
+  type CreateProjectSchema,
 } from '@/lib/schemas/projectSchema';
 import toast from 'react-hot-toast';
 
@@ -263,10 +263,14 @@ export default function ProjectsPage() {
 
                 {/* Client */}
                 <div className='mb-4'>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='client'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Client *
                   </label>
                   <input
+                    id='client'
                     {...register('client')}
                     type='text'
                     className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -282,10 +286,14 @@ export default function ProjectsPage() {
                 {/* Title Fields */}
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='title-en'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Title (EN) *
                     </label>
                     <input
+                      id='title-en'
                       {...register('title.en')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -299,10 +307,14 @@ export default function ProjectsPage() {
                   </div>
 
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='title-de'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Title (DE) *
                     </label>
                     <input
+                      id='title-de'
                       {...register('title.de')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -319,10 +331,14 @@ export default function ProjectsPage() {
                 {/* Category Fields */}
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='category-en'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Category (EN) *
                     </label>
                     <input
+                      id='category-en'
                       {...register('category.en')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -336,10 +352,14 @@ export default function ProjectsPage() {
                   </div>
 
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='category-de'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Category (DE) *
                     </label>
                     <input
+                      id='category-de'
                       {...register('category.de')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -356,10 +376,14 @@ export default function ProjectsPage() {
                 {/* Tagline Fields */}
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='tagline-en'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Tagline (EN) *
                     </label>
                     <textarea
+                      id='tagline-en'
                       {...register('tagline.en')}
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
                       placeholder='A luxury accessory for health- and trend-conscious Gen Z.'
@@ -373,10 +397,14 @@ export default function ProjectsPage() {
                   </div>
 
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='tagline-de'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Tagline (DE) *
                     </label>
                     <textarea
+                      id='tagline-de'
                       {...register('tagline.de')}
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
                       placeholder='Ein Luxus-Accessoire für gesundheits- und trendbewusste Gen Z.'
@@ -392,10 +420,14 @@ export default function ProjectsPage() {
 
                 {/* Display Rank */}
                 <div className='mb-4'>
-                  <label className='block font-medium text-gray-700 mb-1'>
+                  <label
+                    htmlFor='display-rank'
+                    className='block font-medium text-gray-700 mb-1'
+                  >
                     Display Rank
                   </label>
                   <input
+                    id='display-rank'
                     {...register('displayRank', { valueAsNumber: true })}
                     type='number'
                     min={0}
@@ -413,11 +445,15 @@ export default function ProjectsPage() {
               {/* Section 2: Image */}
               <div className='border-b border-gray-200 pb-6'>
                 <div>
-                  <label className='block font-medium text-gray-700 mb-2'>
+                  <label
+                    htmlFor='project-image'
+                    className='block font-medium text-gray-700 mb-2'
+                  >
                     Project Image *
                   </label>
                   <div className='relative w-full max-w-md'>
                     <input
+                      id='project-image'
                       type='file'
                       accept='image/*'
                       onChange={handleImageUpload}
@@ -472,119 +508,8 @@ export default function ProjectsPage() {
               <div className='border-b border-gray-200 pb-6'>
                 <h3 className='text-md font-medium mb-4'>Project Sections</h3>
 
-                {/* German Sections */}
-                <div className='mb-6'>
-                  <h4 className='text-sm font-medium mb-3 text-gray-700'>
-                    Sections (DE) *
-                  </h4>
-                  {sectionsDe.map((section, sectionIndex) => (
-                    <div
-                      key={section.id}
-                      className='mb-4 p-4 border border-gray-200 rounded-lg bg-gray-50'
-                    >
-                      <div className='flex justify-between items-center mb-3'>
-                        <span className='text-sm font-medium text-gray-600'>
-                          Section {sectionIndex + 1}
-                        </span>
-                        {sectionsDe.length > 1 && (
-                          <button
-                            type='button'
-                            onClick={() => removeSectionDe(sectionIndex)}
-                            className='text-red-600 hover:text-red-800'
-                          >
-                            <Trash2 className='w-4 h-4' />
-                          </button>
-                        )}
-                      </div>
-
-                      <div className='mb-3'>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>
-                          Section Title *
-                        </label>
-                        <input
-                          {...register(
-                            `sections.de.${sectionIndex}.title` as const
-                          )}
-                          type='text'
-                          className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm'
-                          placeholder='e.g. About'
-                        />
-                        {errors.sections?.de?.[sectionIndex]?.title && (
-                          <p className='mt-1 text-xs text-red-600'>
-                            {errors.sections.de[sectionIndex]?.title?.message}
-                          </p>
-                        )}
-                      </div>
-
-                      <div>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>
-                          Section Content (Paragraphs) *
-                        </label>
-                        {sectionsDeFields[sectionIndex]?.texts?.map(
-                          (_, textIndex) => (
-                            <div key={textIndex} className='mb-2 flex gap-2'>
-                              <textarea
-                                {...register(
-                                  `sections.de.${sectionIndex}.texts.${textIndex}` as const
-                                )}
-                                className='flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm'
-                                placeholder={`Paragraph ${textIndex + 1}`}
-                                rows={2}
-                              />
-                              {sectionsDeFields[sectionIndex]?.texts.length >
-                                1 && (
-                                <button
-                                  type='button'
-                                  onClick={() => {
-                                    const currentTexts =
-                                      sectionsDeFields[sectionIndex]?.texts ||
-                                      [];
-                                    const newTexts = currentTexts.filter(
-                                      (_, i) => i !== textIndex
-                                    );
-                                    setValue(
-                                      `sections.de.${sectionIndex}.texts` as const,
-                                      newTexts
-                                    );
-                                  }}
-                                  className='text-red-600 hover:text-red-800 px-2'
-                                >
-                                  <X className='w-4 h-4' />
-                                </button>
-                              )}
-                            </div>
-                          )
-                        )}
-                        <button
-                          type='button'
-                          onClick={() => {
-                            const currentTexts =
-                              sectionsDeFields[sectionIndex]?.texts || [];
-                            setValue(
-                              `sections.de.${sectionIndex}.texts` as const,
-                              [...currentTexts, '']
-                            );
-                          }}
-                          className='mt-2 text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1'
-                        >
-                          <Plus className='w-4 h-4' />
-                          Add Paragraph
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                  <button
-                    type='button'
-                    onClick={() => appendSectionDe({ title: '', texts: [''] })}
-                    className='mt-2 text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1'
-                  >
-                    <Plus className='w-4 h-4' />
-                    Add Section (DE)
-                  </button>
-                </div>
-
                 {/* English Sections */}
-                <div>
+                <div className='mb-6'>
                   <h4 className='text-sm font-medium mb-3 text-gray-700'>
                     Sections (EN) *
                   </h4>
@@ -609,10 +534,14 @@ export default function ProjectsPage() {
                       </div>
 
                       <div className='mb-3'>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>
+                        <label
+                          htmlFor={`section-en-title-${sectionIndex}`}
+                          className='block text-sm font-medium text-gray-700 mb-1'
+                        >
                           Section Title *
                         </label>
                         <input
+                          id={`section-en-title-${sectionIndex}`}
                           {...register(
                             `sections.en.${sectionIndex}.title` as const
                           )}
@@ -628,13 +557,20 @@ export default function ProjectsPage() {
                       </div>
 
                       <div>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>
+                        <label
+                          htmlFor={`section-en-texts-${sectionIndex}`}
+                          className='block text-sm font-medium text-gray-700 mb-1'
+                        >
                           Section Content (Paragraphs) *
                         </label>
                         {sectionsEnFields[sectionIndex]?.texts?.map(
-                          (_, textIndex) => (
-                            <div key={textIndex} className='mb-2 flex gap-2'>
+                          (_text, textIndex) => (
+                            <div
+                              key={`${section.id}-${textIndex}`}
+                              className='mb-2 flex gap-2'
+                            >
                               <textarea
+                                id={`section-en-text-${sectionIndex}-${textIndex}`}
                                 {...register(
                                   `sections.en.${sectionIndex}.texts.${textIndex}` as const
                                 )}
@@ -691,6 +627,128 @@ export default function ProjectsPage() {
                   >
                     <Plus className='w-4 h-4' />
                     Add Section (EN)
+                  </button>
+                </div>
+
+                {/* German Sections */}
+                <div>
+                  <h4 className='text-sm font-medium mb-3 text-gray-700'>
+                    Sections (DE) *
+                  </h4>
+                  {sectionsDe.map((section, sectionIndex) => (
+                    <div
+                      key={section.id}
+                      className='mb-4 p-4 border border-gray-200 rounded-lg bg-gray-50'
+                    >
+                      <div className='flex justify-between items-center mb-3'>
+                        <span className='text-sm font-medium text-gray-600'>
+                          Section {sectionIndex + 1}
+                        </span>
+                        {sectionsDe.length > 1 && (
+                          <button
+                            type='button'
+                            onClick={() => removeSectionDe(sectionIndex)}
+                            className='text-red-600 hover:text-red-800'
+                          >
+                            <Trash2 className='w-4 h-4' />
+                          </button>
+                        )}
+                      </div>
+
+                      <div className='mb-3'>
+                        <label
+                          htmlFor={`section-de-title-${sectionIndex}`}
+                          className='block text-sm font-medium text-gray-700 mb-1'
+                        >
+                          Section Title *
+                        </label>
+                        <input
+                          id={`section-de-title-${sectionIndex}`}
+                          {...register(
+                            `sections.de.${sectionIndex}.title` as const
+                          )}
+                          type='text'
+                          className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm'
+                          placeholder='e.g. About'
+                        />
+                        {errors.sections?.de?.[sectionIndex]?.title && (
+                          <p className='mt-1 text-xs text-red-600'>
+                            {errors.sections.de[sectionIndex]?.title?.message}
+                          </p>
+                        )}
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor={`section-de-texts-${sectionIndex}`}
+                          className='block text-sm font-medium text-gray-700 mb-1'
+                        >
+                          Section Content (Paragraphs) *
+                        </label>
+                        {sectionsDeFields[sectionIndex]?.texts?.map(
+                          (_text, textIndex) => (
+                            <div
+                              key={`${section.id}-${textIndex}`}
+                              className='mb-2 flex gap-2'
+                            >
+                              <textarea
+                                id={`section-de-text-${sectionIndex}-${textIndex}`}
+                                {...register(
+                                  `sections.de.${sectionIndex}.texts.${textIndex}` as const
+                                )}
+                                className='flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm'
+                                placeholder={`Paragraph ${textIndex + 1}`}
+                                rows={2}
+                              />
+                              {sectionsDeFields[sectionIndex]?.texts.length >
+                                1 && (
+                                <button
+                                  type='button'
+                                  onClick={() => {
+                                    const currentTexts =
+                                      sectionsDeFields[sectionIndex]?.texts ||
+                                      [];
+                                    const newTexts = currentTexts.filter(
+                                      (_, i) => i !== textIndex
+                                    );
+                                    setValue(
+                                      `sections.de.${sectionIndex}.texts` as const,
+                                      newTexts
+                                    );
+                                  }}
+                                  className='text-red-600 hover:text-red-800 px-2'
+                                >
+                                  <X className='w-4 h-4' />
+                                </button>
+                              )}
+                            </div>
+                          )
+                        )}
+                        <button
+                          type='button'
+                          onClick={() => {
+                            const currentTexts =
+                              sectionsDeFields[sectionIndex]?.texts || [];
+                            setValue(
+                              `sections.de.${sectionIndex}.texts` as const,
+                              [...currentTexts, '']
+                            );
+                          }}
+                          className='mt-2 text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1'
+                        >
+                          <Plus className='w-4 h-4' />
+                          Add Paragraph
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                  <button
+                    type='button'
+                    onClick={() => appendSectionDe({ title: '', texts: [''] })}
+                    className='mt-2 text-sm text-blue-600 hover:text-blue-800 flex items-center gap-1'
+                  >
+                    <Plus className='w-4 h-4' />
+                    Add Section (DE)
                   </button>
                 </div>
               </div>

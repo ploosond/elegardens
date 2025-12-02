@@ -15,7 +15,7 @@ import {
 } from '@/hooks/useEmployees';
 import {
   createEmployeeSchema,
-  CreateEmployeeSchema,
+  type CreateEmployeeSchema,
 } from '@/lib/schemas/employeeSchema';
 import toast from 'react-hot-toast';
 
@@ -232,10 +232,14 @@ export default function EmployeesPage() {
               <div className='border-b border-gray-200 pb-6'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='first-name'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       First Name *
                     </label>
                     <input
+                      id='first-name'
                       {...register('first_name')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -249,10 +253,14 @@ export default function EmployeesPage() {
                   </div>
 
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='last-name'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Last Name *
                     </label>
                     <input
+                      id='last-name'
                       {...register('last_name')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -268,10 +276,14 @@ export default function EmployeesPage() {
 
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='email'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Email
                     </label>
                     <input
+                      id='email'
                       {...register('email')}
                       type='email'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -285,10 +297,14 @@ export default function EmployeesPage() {
                   </div>
 
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='telephone'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Telephone
                     </label>
                     <input
+                      id='telephone'
                       {...register('telephone')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -307,10 +323,14 @@ export default function EmployeesPage() {
               <div className='border-b border-gray-200 pb-6'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='role-en'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Role (EN) *
                     </label>
                     <input
+                      id='role-en'
                       {...register('role.en')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -324,10 +344,14 @@ export default function EmployeesPage() {
                   </div>
 
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='role-de'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Role (DE) *
                     </label>
                     <input
+                      id='role-de'
                       {...register('role.de')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -346,10 +370,14 @@ export default function EmployeesPage() {
               <div className='border-b border-gray-200 pb-6'>
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='department-en'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Department (EN) *
                     </label>
                     <input
+                      id='department-en'
                       {...register('department.en')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -363,10 +391,14 @@ export default function EmployeesPage() {
                   </div>
 
                   <div>
-                    <label className='block font-medium text-gray-700 mb-1'>
+                    <label
+                      htmlFor='department-de'
+                      className='block font-medium text-gray-700 mb-1'
+                    >
                       Department (DE) *
                     </label>
                     <input
+                      id='department-de'
                       {...register('department.de')}
                       type='text'
                       className='w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary'
@@ -383,11 +415,15 @@ export default function EmployeesPage() {
 
               {/* Section 4: Profile Picture */}
               <div>
-                <label className='block font-medium text-gray-700 mb-2'>
+                <label
+                  htmlFor='profile-picture'
+                  className='block font-medium text-gray-700 mb-2'
+                >
                   Profile Picture
                 </label>
                 <div className='relative w-full max-w-md'>
                   <input
+                    id='profile-picture'
                     type='file'
                     accept='image/*'
                     onChange={handleProfilePictureUpload}
