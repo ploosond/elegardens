@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
-    "postinstall": "prisma generate"
+    "postinstall": "npx only-allow pnpm"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
