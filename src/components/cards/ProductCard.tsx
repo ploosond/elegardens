@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
-import type { ProductDto } from '@/../types/dto/product.dto'
+import type { ProductDto } from '../../types/product.dto'
 
 interface ProductCardProps {
   product: ProductDto

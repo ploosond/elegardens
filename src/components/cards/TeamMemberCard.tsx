@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useLocale } from 'next-intl'
-import { EmployeeDto } from '@/../types/dto/employee.dto'
+import { EmployeeDto } from '../../types/employee.dto'
 
 interface TeamMemberCardProps {
   member: EmployeeDto

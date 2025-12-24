@@ -14,7 +14,7 @@ import ProductCard from '@/components/cards/ProductCard'
 
 const PAYLOAD_API = process.env.NEXT_PUBLIC_PAYLOAD_URL
 
-import type { ProductDto } from '@/../types/dto/product.dto'
+import type { ProductDto } from '@/types/product.dto'
 import { Link } from '@/i18n/navigation'
 
 async function getProduct(slug: string, locale: string) {

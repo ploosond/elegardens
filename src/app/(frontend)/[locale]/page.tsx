@@ -1,34 +1,78 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { Link } from '@/i18n/navigation'
-import { useFetchProducts } from '@/hooks/useProducts'
-import { useFetchEmployees } from '@/hooks/useEmployees'
 import { ArrowRight, Package, ShieldCheck, TreeDeciduous, TrendingUp } from 'lucide-react'
 import TeamMemberCard from '@/components/cards/TeamMemberCard'
 import ProductCard from '@/components/cards/ProductCard'
-import { EmployeeDto } from '@/types/dto/employee.dto'
-import { ProductDto } from '@/types/dto/product.dto'
-import { useTranslations } from 'next-intl'
+import { EmployeeDto } from '@/types/employee.dto'
+import { ProductDto } from '@/types/product.dto'
+import { useTranslations, useLocale } from 'next-intl'
 
 export default function Home() {
   const t = useTranslations('HomePage')
+  const locale = useLocale()
 
-  const {
-    isPending: isPendingProducts,
-    isError: isErrorProducts,
-    data: productsData,
-    error: errorProducts,
-  } = useFetchProducts(1, 10)
+  // Products state
+  const [products, setProducts] = useState<ProductDto[]>([])
+  const [isLoadingProducts, setIsLoadingProducts] = useState(true)
+  const [errorProducts, setErrorProducts] = useState<string | null>(null)
 
-  const {
-    isPending: isPendingEmployees,
-    isError: isErrorEmployees,
-    data: employeesData,
-    error: errorEmployees,
-  } = useFetchEmployees()
+  // Employees state
+  const [employees, setEmployees] = useState<EmployeeDto[]>([])
+  const [isLoadingEmployees, setIsLoadingEmployees] = useState(true)
+  const [errorEmployees, setErrorEmployees] = useState<string | null>(null)
+
+  // Fetch products from Payload
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        setIsLoadingProducts(true)
+        const url = new URL(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/products`)
+        url.searchParams.set('locale', locale)
+        url.searchParams.set('limit', '10')
+        url.searchParams.set('sort', 'common_name_en')
+        const res = await fetch(url.toString())
+        if (!res.ok) throw new Error('Failed to fetch products')
+        const data = await res.json()
+        setProducts(data.docs || [])
+        setErrorProducts(null)
+      } catch (err) {
+        setErrorProducts(err instanceof Error ? err.message : 'An error occurred')
+      } finally {
+        setIsLoadingProducts(false)
+      }
+    }
+    fetchProducts()
+  }, [locale])
+
+  // Fetch employees from Payload
+  useEffect(() => {
+    async function fetchEmployees() {
+      try {
+        setIsLoadingEmployees(true)
+        const url = new URL(`${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/employees`)
+        url.searchParams.set('locale', locale)
+        url.searchParams.set('limit', '10')
+        url.searchParams.set('sort', 'createdAt')
+        const res = await fetch(url.toString())
+        if (!res.ok) throw new Error('Failed to fetch employees')
+        const data = await res.json()
+        setEmployees(data.docs || [])
+        setErrorEmployees(null)
+      } catch (err) {
+        setErrorEmployees(err instanceof Error ? err.message : 'An error occurred')
+      } finally {
+        setIsLoadingEmployees(false)
+      }
+    }
+    fetchEmployees()
+  }, [locale])
 
   const videoUrl =
     'https://res.cloudinary.com/dl2zglwft/video/upload/v1762458652/main_video_qxbvq1.mp4'
 
-  if (isPendingProducts || isPendingEmployees) {
+  if (isLoadingProducts || isLoadingEmployees) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <h2 className="text-2xl font-semibold text-text">{t('loading')}</h2>
@@ -36,18 +80,15 @@ export default function Home() {
     )
   }
 
-  if (isErrorProducts || isErrorEmployees) {
+  if (errorProducts || errorEmployees) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <h2 className="text-2xl font-semibold text-danger">
-          {t('error')}: {errorProducts?.message || errorEmployees?.message}
+          {t('error')}: {errorProducts || errorEmployees}
         </h2>
       </div>
     )
   }
-
-  const products = productsData?.data?.products || []
-  const employees = employeesData?.data?.employees || []
 
   return (
     <div>

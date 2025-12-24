@@ -8,7 +8,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import SearchInput from '@/components/ui/SearchInput'
 import { useDebounce } from '@/../hooks/useDebounce'
 import Button from '@/components/ui/Button'
-import type { ProductDto } from '@/../types/dto/product.dto'
+import type { ProductDto } from '@/types/product.dto'
 
 const PAYLOAD_API = process.env.NEXT_PUBLIC_PAYLOAD_URL
 
@@ -34,6 +34,7 @@ export default function ProductsPage() {
         const url = new URL(`${PAYLOAD_API}/api/products`)
         url.searchParams.set('locale', locale)
         url.searchParams.set('limit', '1000')
+        url.searchParams.set('sort', 'common_name_en')
 
         const res = await fetch(url.toString())
         if (!res.ok) throw new Error('Failed to fetch products')

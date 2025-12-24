@@ -5,7 +5,7 @@ import { useTranslations, useLocale } from 'next-intl'
 import HeroSection from '@/components/ui/HeroSection'
 import TeamMemberCard from '@/components/cards/TeamMemberCard'
 import { Link } from '@/i18n/navigation'
-import { EmployeeDto } from '@/../types/dto/employee.dto'
+import { EmployeeDto } from '@/types/employee.dto'
 
 export default function TeamsPage() {
   const t = useTranslations('TeamsPage')
