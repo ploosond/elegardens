@@ -1,4 +1,7 @@
 {
+  "Demo": {
+    "hello": "Hello"
+  },
   "Header": {
     "home": "Home",
     "about": "About Us",

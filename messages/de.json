@@ -1,4 +1,7 @@
 {
+  "Demo": {
+    "hello": "Halo"
+  },
   "Header": {
     "home": "Startseite",
     "about": "Über uns",
@@ -123,7 +126,7 @@
 
     "height": "Höhe",
     "diameter": "Durchmesser",
-    "hardy": "Winterhart",
+    "hardy": "Winterhärte",
     "light": "Licht",
 
     "related_products": "Ähnliche Produkte",

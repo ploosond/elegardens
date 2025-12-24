@@ -1,16 +1,21 @@
-import type { NextConfig } from 'next';
-import createNextIntlPlugin from 'next-intl/plugin';
+import { withPayload } from '@payloadcms/next/withPayload'
+import { NextConfig } from 'next'
+import createNextIntlPlugin from 'next-intl/plugin'
 
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'res.cloudinary.com',
+        hostname: 'placehold.net',
       },
     ],
   },
-};
 
-const withNextIntl = createNextIntlPlugin();
-export default withNextIntl(nextConfig);
+  experimental: {
+    reactCompiler: false,
+  },
+}
+
+const withNextIntl = createNextIntlPlugin()
+export default withNextIntl(withPayload(nextConfig))
