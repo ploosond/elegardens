@@ -5,6 +5,7 @@ import { buildConfig } from 'payload'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { Movie } from './globals/Movie'
+import { About } from './globals/About'
 import { Users } from '@/collections/Users'
 import { Media } from '@/collections/Media'
 import { Products } from '@/collections/Products'
@@ -28,7 +29,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  globals: [Movie],
+  globals: [Movie, About],
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',

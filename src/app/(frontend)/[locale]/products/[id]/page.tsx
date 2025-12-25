@@ -139,7 +139,7 @@ export default async function ProductDetailPage({
                 {primaryName}
               </h1>
               {secondaryName && (
-                <p className="-mt-1 mb-2 text-base italic text-primary/70">{secondaryName}</p>
+                <p className="-mt-1 mb-2 text-base italic text-secondary">{secondaryName}</p>
               )}
               <hr className="border-muted/60 mb-6 border-0 border-b-2" />
 

@@ -97,9 +97,11 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'upload-home-page-video': UploadHomePageVideo;
+    about: About;
   };
   globalsSelect: {
     'upload-home-page-video': UploadHomePageVideoSelect<false> | UploadHomePageVideoSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
   };
   locale: null;
   user: User & {
@@ -679,11 +681,115 @@ export interface UploadHomePageVideo {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: number;
+  roots_title_en: string;
+  roots_title_de: string;
+  roots_intro_en: string;
+  roots_intro_de: string;
+  roots_signature_en?: string | null;
+  roots_signature_de?: string | null;
+  milestones_title_en?: string | null;
+  milestones_title_de?: string | null;
+  milestones?:
+    | {
+        title_en: string;
+        title_de: string;
+        subtitle1_en?: string | null;
+        subtitle1_de?: string | null;
+        desc1_en?: string | null;
+        desc1_de?: string | null;
+        subtitle2_en?: string | null;
+        subtitle2_de?: string | null;
+        desc2_en?: string | null;
+        desc2_de?: string | null;
+        image?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  our_story_title_en?: string | null;
+  our_story_title_de?: string | null;
+  ceo_title_en?: string | null;
+  ceo_title_de?: string | null;
+  ceo_desc_en?: string | null;
+  ceo_desc_de?: string | null;
+  ceo_image?: (number | null) | Media;
+  mission_title_en?: string | null;
+  mission_title_de?: string | null;
+  mission_desc_en?: string | null;
+  mission_desc_de?: string | null;
+  vision_title_en?: string | null;
+  vision_title_de?: string | null;
+  vision_desc_en?: string | null;
+  vision_desc_de?: string | null;
+  values_title_en?: string | null;
+  values_title_de?: string | null;
+  values_desc_en?: string | null;
+  values_desc_de?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "upload-home-page-video_select".
  */
 export interface UploadHomePageVideoSelect<T extends boolean = true> {
   'feature-video'?: T;
   title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  roots_title_en?: T;
+  roots_title_de?: T;
+  roots_intro_en?: T;
+  roots_intro_de?: T;
+  roots_signature_en?: T;
+  roots_signature_de?: T;
+  milestones_title_en?: T;
+  milestones_title_de?: T;
+  milestones?:
+    | T
+    | {
+        title_en?: T;
+        title_de?: T;
+        subtitle1_en?: T;
+        subtitle1_de?: T;
+        desc1_en?: T;
+        desc1_de?: T;
+        subtitle2_en?: T;
+        subtitle2_de?: T;
+        desc2_en?: T;
+        desc2_de?: T;
+        image?: T;
+        id?: T;
+      };
+  our_story_title_en?: T;
+  our_story_title_de?: T;
+  ceo_title_en?: T;
+  ceo_title_de?: T;
+  ceo_desc_en?: T;
+  ceo_desc_de?: T;
+  ceo_image?: T;
+  mission_title_en?: T;
+  mission_title_de?: T;
+  mission_desc_en?: T;
+  mission_desc_de?: T;
+  vision_title_en?: T;
+  vision_title_de?: T;
+  vision_desc_en?: T;
+  vision_desc_de?: T;
+  values_title_en?: T;
+  values_title_de?: T;
+  values_desc_en?: T;
+  values_desc_de?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

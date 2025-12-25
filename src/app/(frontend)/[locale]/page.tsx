@@ -6,7 +6,6 @@ import { ArrowRight, Package, ShieldCheck, TreeDeciduous, TrendingUp } from 'luc
 import TeamMemberCard from '@/components/cards/TeamMemberCard'
 import ProductCard from '@/components/cards/ProductCard'
 import type { Employee, Product } from '@/payload-types'
-import type { ProbedImageSize } from 'payload'
 import { useTranslations, useLocale } from 'next-intl'
 
 export default function Home() {
