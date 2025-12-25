@@ -40,7 +40,7 @@ export const Products: CollectionConfig = {
           required: true,
           unique: true,
           index: true,
-          label: 'URL Slug',
+          label: 'Slug',
           admin: {
             description: 'rose-bushy (lowercase, hyphens only, no spaces or special characters)',
             width: '50%',

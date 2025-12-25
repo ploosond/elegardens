@@ -72,6 +72,7 @@ export interface Config {
     products: Product;
     employees: Employee;
     projects: Project;
+    blog: Blog;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     employees: EmployeesSelect<false> | EmployeesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    blog: BlogSelect<false> | BlogSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -238,21 +240,119 @@ export interface Employee {
  */
 export interface Project {
   id: number;
+  /**
+   * bahnhof-path (lowercase, hyphens only, no spaces or special characters)
+   */
+  slug: string;
+  position?: number | null;
   client: string;
-  title: string;
-  category?: string | null;
-  tagline?: string | null;
+  title_en: string;
+  title_de: string;
+  tagline_en?: string | null;
+  tagline_de?: string | null;
+  category_en: string;
+  category_de: string;
   image?: (number | null) | Media;
   sections?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
+    | (
+        | {
+            subtitle_en?: string | null;
+            subtitle_de?: string | null;
+            paragraphs: {
+              text_en: string;
+              text_de: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'text-block';
+          }
+        | {
+            image: number | Media;
+            caption?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'image-block';
+          }
+      )[]
     | null;
-  displayRank?: number | null;
+  /**
+   * 50-60 characters
+   */
+  metaTitle_en?: string | null;
+  /**
+   * 50-60 characters
+   */
+  metaTitle_de?: string | null;
+  /**
+   * 150-160 characters
+   */
+  metaDescription_en?: string | null;
+  /**
+   * 150-160 characters
+   */
+  metaDescription_de?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog".
+ */
+export interface Blog {
+  id: number;
+  /**
+   * blog-post-title (lowercase, hyphens only, no spaces or special characters)
+   */
+  slug: string;
+  position?: number | null;
+  title_en: string;
+  title_de: string;
+  summary_en?: string | null;
+  summary_de?: string | null;
+  author?: string | null;
+  publishedDate?: string | null;
+  coverImage?: (number | null) | Media;
+  sections?:
+    | (
+        | {
+            subtitle_en?: string | null;
+            subtitle_de?: string | null;
+            paragraphs: {
+              text_en: string;
+              text_de: string;
+              id?: string | null;
+            }[];
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'text-block';
+          }
+        | {
+            image: number | Media;
+            caption_en?: string | null;
+            caption_de?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'image-block';
+          }
+      )[]
+    | null;
+  /**
+   * 50-60 characters
+   */
+  metaTitle_en?: string | null;
+  /**
+   * 50-60 characters
+   */
+  metaTitle_de?: string | null;
+  /**
+   * 150-160 characters
+   */
+  metaDescription_en?: string | null;
+  /**
+   * 150-160 characters
+   */
+  metaDescription_de?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -299,6 +399,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: number | Project;
+      } | null)
+    | ({
+        relationTo: 'blog';
+        value: number | Blog;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -427,13 +531,96 @@ export interface EmployeesSelect<T extends boolean = true> {
  * via the `definition` "projects_select".
  */
 export interface ProjectsSelect<T extends boolean = true> {
+  slug?: T;
+  position?: T;
   client?: T;
-  title?: T;
-  category?: T;
-  tagline?: T;
+  title_en?: T;
+  title_de?: T;
+  tagline_en?: T;
+  tagline_de?: T;
+  category_en?: T;
+  category_de?: T;
   image?: T;
-  sections?: T;
-  displayRank?: T;
+  sections?:
+    | T
+    | {
+        'text-block'?:
+          | T
+          | {
+              subtitle_en?: T;
+              subtitle_de?: T;
+              paragraphs?:
+                | T
+                | {
+                    text_en?: T;
+                    text_de?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'image-block'?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  metaTitle_en?: T;
+  metaTitle_de?: T;
+  metaDescription_en?: T;
+  metaDescription_de?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog_select".
+ */
+export interface BlogSelect<T extends boolean = true> {
+  slug?: T;
+  position?: T;
+  title_en?: T;
+  title_de?: T;
+  summary_en?: T;
+  summary_de?: T;
+  author?: T;
+  publishedDate?: T;
+  coverImage?: T;
+  sections?:
+    | T
+    | {
+        'text-block'?:
+          | T
+          | {
+              subtitle_en?: T;
+              subtitle_de?: T;
+              paragraphs?:
+                | T
+                | {
+                    text_en?: T;
+                    text_de?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        'image-block'?:
+          | T
+          | {
+              image?: T;
+              caption_en?: T;
+              caption_de?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  metaTitle_en?: T;
+  metaTitle_de?: T;
+  metaDescription_en?: T;
+  metaDescription_de?: T;
   updatedAt?: T;
   createdAt?: T;
 }

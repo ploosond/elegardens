@@ -1,61 +1,35 @@
 import type { CollectionConfig } from 'payload'
 
-export const Projects: CollectionConfig = {
-  hooks: {
-    beforeChange: [
-      async ({ data, req, operation, originalDoc, collection }) => {
-        // Auto-increment position if not set
-        if (typeof data.position !== 'number' || data.position === 0) {
-          // Find max position in the collection
-          const results = await req.payload.find({
-            collection: 'projects',
-            limit: 1,
-            sort: '-position',
-            depth: 0,
-          })
-          const maxPosition = results?.docs?.[0]?.position || 0
-          data.position = maxPosition + 1
-        }
-
-        // Helper to get first paragraph text
-        const getFirstParagraph = (lang: string) => {
-          if (Array.isArray(data.sections)) {
-            for (const block of data.sections) {
-              if (
-                block.blockType === 'text-block' &&
-                Array.isArray(block.paragraphs) &&
-                block.paragraphs.length > 0
-              ) {
-                return block.paragraphs[0][`text_${lang}`] || ''
-              }
-            }
-          }
-          return ''
-        }
-
-        // Auto-generate SEO fields if empty
-        if (!data.metaTitle_en && data.title_en) {
-          data.metaTitle_en = data.title_en
-        }
-        if (!data.metaTitle_de && data.title_de) {
-          data.metaTitle_de = data.title_de
-        }
-        if (!data.metaDescription_en) {
-          data.metaDescription_en = getFirstParagraph('en')
-        }
-        if (!data.metaDescription_de) {
-          data.metaDescription_de = getFirstParagraph('de')
-        }
-        return data
-      },
-    ],
-  },
-  slug: 'projects',
+export const Blog: CollectionConfig = {
+  slug: 'blog',
   admin: {
     useAsTitle: 'title_en',
   },
   access: {
     read: () => true,
+  },
+  hooks: {
+    beforeChange: [
+      ({ data, originalDoc }) => {
+        // Helper to trim and limit string length
+        const trimTo = (str: string, len: number) => (str ? str.substring(0, len).trim() : '')
+        // English
+        if (!data.metaTitle_en || data.metaTitle_en === '') {
+          data.metaTitle_en = trimTo(data.title_en, 60)
+        }
+        if (!data.metaDescription_en || data.metaDescription_en === '') {
+          data.metaDescription_en = trimTo(data.summary_en, 160)
+        }
+        // German
+        if (!data.metaTitle_de || data.metaTitle_de === '') {
+          data.metaTitle_de = trimTo(data.title_de, 60)
+        }
+        if (!data.metaDescription_de || data.metaDescription_de === '') {
+          data.metaDescription_de = trimTo(data.summary_de, 160)
+        }
+        return data
+      },
+    ],
   },
   fields: [
     {
@@ -67,11 +41,11 @@ export const Projects: CollectionConfig = {
           required: true,
           unique: true,
           label: 'Slug',
-          localized: true,
           admin: {
-            description: 'bahnhof-path (lowercase, hyphens only, no spaces or special characters)',
+            description:
+              'blog-post-title (lowercase, hyphens only, no spaces or special characters)',
             width: '50%',
-            placeholder: 'bahnhof-path',
+            placeholder: 'blog-post-title',
           },
           validate: (value: any) => {
             if (!value) return 'Slug is required'
@@ -87,20 +61,6 @@ export const Projects: CollectionConfig = {
           type: 'number',
           defaultValue: 0,
           label: 'Position',
-          admin: {
-            width: '50%',
-          },
-        },
-      ],
-    },
-    {
-      type: 'row',
-      fields: [
-        {
-          name: 'client',
-          type: 'text',
-          required: true,
-          label: 'Client',
           admin: { width: '50%' },
         },
       ],
@@ -128,15 +88,15 @@ export const Projects: CollectionConfig = {
       type: 'row',
       fields: [
         {
-          name: 'tagline_en',
-          type: 'text',
-          label: 'Tagline (English)',
+          name: 'summary_en',
+          type: 'textarea',
+          label: 'Summary (English)',
           admin: { width: '50%' },
         },
         {
-          name: 'tagline_de',
-          type: 'text',
-          label: 'Tagline (German)',
+          name: 'summary_de',
+          type: 'textarea',
+          label: 'Summary (German)',
           admin: { width: '50%' },
         },
       ],
@@ -145,26 +105,24 @@ export const Projects: CollectionConfig = {
       type: 'row',
       fields: [
         {
-          name: 'category_en',
+          name: 'author',
           type: 'text',
-          required: true,
-          label: 'Category (English)',
+          label: 'Author',
           admin: { width: '50%' },
         },
         {
-          name: 'category_de',
-          type: 'text',
-          required: true,
-          label: 'Category (German)',
+          name: 'publishedDate',
+          type: 'date',
+          label: 'Published Date',
           admin: { width: '50%' },
         },
       ],
     },
     {
-      name: 'image',
+      name: 'coverImage',
       type: 'upload',
       relationTo: 'media',
-      label: 'Main Image',
+      label: 'Cover Image',
     },
     {
       name: 'sections',
@@ -241,16 +199,19 @@ export const Projects: CollectionConfig = {
               required: true,
             },
             {
-              name: 'caption',
+              name: 'caption_en',
               type: 'text',
-              label: 'Caption',
-              localized: true,
+              label: 'Caption (English)',
+            },
+            {
+              name: 'caption_de',
+              type: 'text',
+              label: 'Caption (German)',
             },
           ],
         },
       ],
     },
-
     {
       type: 'collapsible',
       label: 'SEO Settings (Optional)',

@@ -2,10 +2,10 @@
 
 import Image from 'next/image'
 import { useLocale } from 'next-intl'
-import { EmployeeDto } from '../../types/employee.dto'
+import type { Employee } from '@/payload-types'
 
 interface TeamMemberCardProps {
-  member: EmployeeDto
+  member: Employee
 }
 
 export default function TeamMemberCard({ member }: TeamMemberCardProps) {
@@ -13,7 +13,7 @@ export default function TeamMemberCard({ member }: TeamMemberCardProps) {
 
   return (
     <div className="group flex h-[320px] flex-col justify-start overflow-hidden rounded-sm border border-muted/10 bg-white/5 p-4 text-center shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-muted/20 hover:shadow-lg">
-      {member.profilePicture?.url ? (
+      {member.profilePicture && typeof member.profilePicture === 'object' && 'url' in member.profilePicture && member.profilePicture.url ? (
         <Image
           src={member.profilePicture.url}
           alt={`${member.first_name} ${member.last_name}`}

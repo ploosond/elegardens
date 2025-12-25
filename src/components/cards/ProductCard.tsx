@@ -2,13 +2,9 @@
 
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
-import type { ProductDto } from '../../types/product.dto'
+import type { Product } from '@/payload-types'
 
-interface ProductCardProps {
-  product: ProductDto
-}
-
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product }: { product: Product }) {
   const locale = useLocale()
   const t = useTranslations('ProductCard')
 
@@ -29,7 +25,13 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   // Alt text fallback
   const altText = primaryName
-  const imageUrl = product.images?.[0]?.url || 'https://placehold.net/product-400x600.png'
+  let imageUrl = 'https://placehold.net/product-400x600.png';
+  if (product.images && product.images.length > 0) {
+    const firstImage = product.images[0];
+    if (typeof firstImage === 'object' && firstImage !== null && 'url' in firstImage && firstImage.url) {
+      imageUrl = firstImage.url;
+    }
+  }
   const backgroundColor = product.color || '#6a844a'
 
   return (

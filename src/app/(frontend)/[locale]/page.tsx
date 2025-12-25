@@ -5,8 +5,8 @@ import { Link } from '@/i18n/navigation'
 import { ArrowRight, Package, ShieldCheck, TreeDeciduous, TrendingUp } from 'lucide-react'
 import TeamMemberCard from '@/components/cards/TeamMemberCard'
 import ProductCard from '@/components/cards/ProductCard'
-import { EmployeeDto } from '@/types/employee.dto'
-import { ProductDto } from '@/types/product.dto'
+import type { Employee, Product } from '@/payload-types'
+import type { ProbedImageSize } from 'payload'
 import { useTranslations, useLocale } from 'next-intl'
 
 export default function Home() {
@@ -18,12 +18,12 @@ export default function Home() {
   const [videoTitle, setVideoTitle] = useState('')
 
   // Products state
-  const [products, setProducts] = useState<ProductDto[]>([])
+  const [products, setProducts] = useState<Product[]>([])
   const [isLoadingProducts, setIsLoadingProducts] = useState(true)
   const [errorProducts, setErrorProducts] = useState<string | null>(null)
 
   // Employees state
-  const [employees, setEmployees] = useState<EmployeeDto[]>([])
+  const [employees, setEmployees] = useState<Employee[]>([])
   const [isLoadingEmployees, setIsLoadingEmployees] = useState(true)
   const [errorEmployees, setErrorEmployees] = useState<string | null>(null)
 
@@ -206,7 +206,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 gap-4 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
-            {products.slice(0, 6).map((product: ProductDto) => (
+            {products.slice(0, 6).map((product: Product) => (
               <ProductCard key={product.id} product={product} />
             ))}
           </div>
@@ -243,7 +243,7 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 sm:gap-8 lg:grid-cols-6">
-            {employees.slice(0, 6).map((member: EmployeeDto) => (
+            {employees.slice(0, 6).map((member: Employee) => (
               <TeamMemberCard key={member.id} member={member} />
             ))}
           </div>

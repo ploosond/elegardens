@@ -5,13 +5,13 @@ import { useTranslations, useLocale } from 'next-intl'
 import HeroSection from '@/components/ui/HeroSection'
 import TeamMemberCard from '@/components/cards/TeamMemberCard'
 import { Link } from '@/i18n/navigation'
-import { EmployeeDto } from '@/types/employee.dto'
+import type { Employee } from '@/payload-types'
 
 export default function TeamsPage() {
   const t = useTranslations('TeamsPage')
   const locale = useLocale()
   const [activeDepartment, setActiveDepartment] = useState<string | null>(null)
-  const [employees, setEmployees] = useState<EmployeeDto[]>([])
+  const [employees, setEmployees] = useState<Employee[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -71,7 +71,7 @@ export default function TeamsPage() {
   const departments = [
     ...new Set(
       sortedEmployees
-        .map((emp: EmployeeDto) => (locale === 'de' ? emp.department_de : emp.department_en))
+        .map((emp: Employee) => (locale === 'de' ? emp.department_de : emp.department_en))
         .filter(Boolean),
     ),
   ]
@@ -79,17 +79,17 @@ export default function TeamsPage() {
   // Filter team members based on selected department
   const filteredEmployees = activeDepartment
     ? sortedEmployees.filter(
-        (emp: EmployeeDto) =>
+        (emp: Employee) =>
           (locale === 'de' ? emp.department_de : emp.department_en) === activeDepartment,
       )
     : sortedEmployees
 
   // Split filtered employees into CEO(s) and others
   const ceos = filteredEmployees.filter(
-    (emp: EmployeeDto) => (locale === 'de' ? emp.role_de : emp.role_en) === 'CEO',
+    (emp: Employee) => (locale === 'de' ? emp.role_de : emp.role_en) === 'CEO',
   )
   const others = filteredEmployees.filter(
-    (emp: EmployeeDto) => (locale === 'de' ? emp.role_de : emp.role_en) !== 'CEO',
+    (emp: Employee) => (locale === 'de' ? emp.role_de : emp.role_en) !== 'CEO',
   )
 
   return (
@@ -134,7 +134,7 @@ export default function TeamsPage() {
           {/* CEO row */}
           {ceos.length > 0 && (
             <div className="flex flex-wrap justify-center mb-0">
-              {ceos.map((employee: EmployeeDto) => (
+              {ceos.map((employee: Employee) => (
                 <div
                   key={employee.id}
                   className="mb-6 w-full px-3 sm:mb-8 sm:w-1/2 sm:px-4 md:w-1/3 lg:w-1/6"
@@ -147,7 +147,7 @@ export default function TeamsPage() {
 
           {/* Other team members grid */}
           <div className="flex flex-wrap justify-center -mx-3 sm:-mx-4">
-            {others.map((employee: EmployeeDto) => (
+            {others.map((employee: Employee) => (
               <div
                 key={employee.id}
                 className="mb-6 w-full px-3 sm:mb-8 sm:w-1/2 sm:px-4 md:w-1/3 lg:w-1/6"
