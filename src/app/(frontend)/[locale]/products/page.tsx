@@ -6,9 +6,9 @@ import HeroSection from '@/components/ui/HeroSection'
 import ProductCard from '@/components/cards/ProductCard'
 import { useLocale, useTranslations } from 'next-intl'
 import SearchInput from '@/components/ui/SearchInput'
-import { useDebounce } from '@/../hooks/useDebounce'
+import { useDebounce } from '@/hooks/useDebounce'
 import Button from '@/components/ui/Button'
-import type { ProductDto } from '@/types/product.dto'
+import type { Product } from '@/payload-types'
 
 const PAYLOAD_API = process.env.NEXT_PUBLIC_PAYLOAD_URL
 
@@ -22,7 +22,7 @@ export default function ProductsPage() {
   const debouncedSearch = useDebounce(searchTerm, 300)
 
   // Products state
-  const [allProducts, setAllProducts] = useState<ProductDto[]>([])
+  const [allProducts, setAllProducts] = useState<Product[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 

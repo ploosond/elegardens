@@ -72,7 +72,7 @@ export interface Config {
     products: Product;
     employees: Employee;
     projects: Project;
-    blog: Blog;
+    blogs: Blog;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -85,7 +85,7 @@ export interface Config {
     products: ProductsSelect<false> | ProductsSelect<true>;
     employees: EmployeesSelect<false> | EmployeesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
-    blog: BlogSelect<false> | BlogSelect<true>;
+    blogs: BlogsSelect<false> | BlogsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -269,7 +269,8 @@ export interface Project {
           }
         | {
             image: number | Media;
-            caption?: string | null;
+            caption_en?: string | null;
+            caption_de?: string | null;
             id?: string | null;
             blockName?: string | null;
             blockType: 'image-block';
@@ -297,7 +298,7 @@ export interface Project {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blog".
+ * via the `definition` "blogs".
  */
 export interface Blog {
   id: number;
@@ -401,7 +402,7 @@ export interface PayloadLockedDocument {
         value: number | Project;
       } | null)
     | ({
-        relationTo: 'blog';
+        relationTo: 'blogs';
         value: number | Blog;
       } | null);
   globalSlug?: string | null;
@@ -563,7 +564,8 @@ export interface ProjectsSelect<T extends boolean = true> {
           | T
           | {
               image?: T;
-              caption?: T;
+              caption_en?: T;
+              caption_de?: T;
               id?: T;
               blockName?: T;
             };
@@ -577,9 +579,9 @@ export interface ProjectsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blog_select".
+ * via the `definition` "blogs_select".
  */
-export interface BlogSelect<T extends boolean = true> {
+export interface BlogsSelect<T extends boolean = true> {
   slug?: T;
   position?: T;
   title_en?: T;

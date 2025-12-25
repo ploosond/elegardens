@@ -7,6 +7,7 @@
     "about": "About Us",
     "products": "Products",
     "projects": "Projects",
+    "blogs": "Blogs",
     "teams": "Teams",
     "career": "Career",
     "location": "Location",
@@ -21,6 +22,7 @@
     "about": "About Us",
     "products": "Products",
     "projects": "Projects",
+    "blogs": "Blogs",
     "teams": "Teams",
     "career": "Career",
     "location": "Location",
@@ -139,8 +141,8 @@
     "hero_description": "Browse recent landscape and garden projects — from private patios to commercial landscapes — showcasing our design, planting, and long-term care approach.",
     "loading": "Loading...",
     "error": "Error",
-    "no_projects_title": "No projects found",
-    "no_projects_desc": "We haven't added any projects yet. Check back soon."
+    "no_projects_title": "Projects Coming Soon",
+    "no_projects_desc": "Our latest projects will be showcased here soon. Please check back to see inspiring landscapes and creative solutions from our team."
   },
   "ProjectPage": {
     "loading": "Loading...",
@@ -152,6 +154,23 @@
     "solution": "The solution",
     "result": "The result",
     "client": "Client"
+  },
+  "BlogsPage": {
+    "hero_title": "Our Insights",
+    "hero_highlight": "Blogs",
+    "hero_description": "Explore our latest articles, tips, and stories on gardening, sustainability, and the world of plants.",
+    "loading": "Loading...",
+    "error": "Error",
+    "no_blogs_title": "No Blogs Yet",
+    "no_blogs_desc": "Our latest blog articles will appear here soon. Please check back for updates and inspiration."
+  },
+  "BlogPage": {
+    "loading": "Loading...",
+    "blog_not_found": "Blog Not Found",
+    "blog_not_found_desc": "The blog post you are looking for does not exist. Please check the URL or browse our blogs.",
+    "back_to_blogs": "Back to Blogs",
+    "published": "Published",
+    "author": "Author"
   },
   "TeamsPage": {
     "hero_title": "Meet Our",

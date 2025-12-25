@@ -7,13 +7,13 @@ import Link from 'next/link'
 import BackButton from '@/components/ui/BackButton'
 import { useEffect, useState } from 'react'
 
-export default function ProjectDetailPage() {
+export default function BlogDetailPage() {
   const params = useParams()
-  const t = useTranslations('ProjectPage')
+  const t = useTranslations('BlogPage')
   const locale = useLocale()
   const slug = params.id
 
-  const [project, setProject] = useState<any>(null)
+  const [blog, setBlog] = useState<any>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
@@ -21,14 +21,14 @@ export default function ProjectDetailPage() {
     if (!slug) return
     setLoading(true)
     setError(false)
-    fetch(`/api/projects?where[slug][equals]=${slug}&depth=2`)
+    fetch(`/api/blogs?where[slug][equals]=${slug}&depth=2`)
       .then(async (res) => {
         if (!res.ok) throw new Error('Not found')
         const data = await res.json()
         if (data?.docs?.length > 0) {
-          setProject(data.docs[0])
+          setBlog(data.docs[0])
         } else {
-          setProject(null)
+          setBlog(null)
         }
       })
       .catch(() => {
@@ -51,53 +51,63 @@ export default function ProjectDetailPage() {
     )
   }
 
-  if (error || !project) {
+  if (error || !blog) {
     return (
       <div className="flex min-h-screen items-center justify-center">
         <div className="text-center">
-          <h2 className="text-2xl font-semibold text-text">{t('project_not_found')}</h2>
-          <p className="mt-4 text-text/70">{t('project_not_found_desc')}</p>
+          <h2 className="text-2xl font-semibold text-text">{t('blog_not_found')}</h2>
+          <p className="mt-4 text-text/70">{t('blog_not_found_desc')}</p>
           <Link
-            href={`/${locale}/projects`}
+            href={`/${locale}/blogs`}
             className="mt-6 inline-block rounded-md bg-primary px-6 py-3 text-on-dark hover:bg-primary-dark"
           >
-            {t('back_to_projects')}
+            {t('back_to_blogs')}
           </Link>
         </div>
       </div>
     )
   }
 
-  const sections = Array.isArray(project.sections) ? project.sections : []
+  const sections = Array.isArray(blog.sections) ? blog.sections : []
 
   return (
-    <article aria-labelledby="project-title" className="mx-auto px-4 pt-8 sm:px-6 sm:pt-12 lg:px-8">
+    <article aria-labelledby="blog-title" className="mx-auto px-4 pt-8 sm:px-6 sm:pt-12 lg:px-8">
       {/* Back Button */}
-      <BackButton href={`/${locale}/projects`} label={t('back_to_projects')} className="mb-6" />
+      <BackButton href={`/${locale}/blogs`} label={t('back_to_blogs')} className="mb-6" />
 
-      {/* Title above image for visibility */}
+      {/* Title and summary */}
       <header className="mb-6">
         <h1
-          id="project-title"
+          id="blog-title"
           className="text-3xl text-center font-bold leading-tight tracking-tight text-primary sm:text-4xl lg:text-5xl"
         >
-          {getLocalized(project, 'title')}
+          {getLocalized(blog, 'title')}
         </h1>
-        {getLocalized(project, 'tagline') && (
-          <p className="mt-2 text-center text-lg text-gray-600">
-            {getLocalized(project, 'tagline')}
-          </p>
+        {getLocalized(blog, 'summary') && (
+          <p className="mt-2 text-center text-lg text-gray-600">{getLocalized(blog, 'summary')}</p>
         )}
+        <div className="mt-2 flex flex-col items-center gap-2 text-sm text-gray-500">
+          {blog.publishedDate && (
+            <span>
+              {t('published')}: {new Date(blog.publishedDate).toLocaleDateString(locale)}
+            </span>
+          )}
+          {blog.author && (
+            <span>
+              {t('author')}: {blog.author}
+            </span>
+          )}
+        </div>
       </header>
 
-      {/* Larger hero image */}
-      {project.image && project.image.url && (
+      {/* Cover image */}
+      {blog.coverImage && blog.coverImage.url && (
         <div className="mx-auto mb-10 flex max-w-4xl justify-center">
           <div className="relative w-full overflow-hidden rounded border border-gray-200 bg-white shadow-lg">
             <div className="relative h-72 w-full sm:h-80 lg:h-96">
               <Image
-                src={project.image.url}
-                alt={getLocalized(project, 'title')}
+                src={blog.coverImage.url}
+                alt={getLocalized(blog, 'title')}
                 fill
                 sizes="(min-width: 1024px) 768px, (min-width: 640px) 640px, 100vw"
                 className="object-cover object-center"
@@ -150,7 +160,7 @@ export default function ProjectDetailPage() {
                       <div className="relative w-full max-w-xl h-64">
                         <Image
                           src={section.image.url}
-                          alt={getLocalized(section, 'caption') || getLocalized(project, 'title')}
+                          alt={getLocalized(section, 'caption') || getLocalized(blog, 'title')}
                           fill
                           sizes="(min-width: 1024px) 768px, (min-width: 640px) 640px, 100vw"
                           className="object-cover object-center rounded shadow"
@@ -173,16 +183,17 @@ export default function ProjectDetailPage() {
         {/* Aside / meta (starts at col 3, row 2) */}
         <aside className="lg:sticky lg:top-20">
           <div className="rounded-lg border border-gray-100 bg-white p-6 shadow-sm">
-            <div className="mb-4">
-              <span className="inline-block rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold uppercase tracking-wide text-primary">
-                {getLocalized(project, 'category')}
-              </span>
-            </div>
             <dl className="space-y-3 text-sm text-gray-600">
-              {project.client && (
+              {blog.author && (
                 <div>
-                  <dt className="font-medium text-text">{t('client')}</dt>
-                  <dd>{project.client}</dd>
+                  <dt className="font-medium text-text">{t('author')}</dt>
+                  <dd>{blog.author}</dd>
+                </div>
+              )}
+              {blog.publishedDate && (
+                <div>
+                  <dt className="font-medium text-text">{t('published')}</dt>
+                  <dd>{new Date(blog.publishedDate).toLocaleDateString(locale)}</dd>
                 </div>
               )}
             </dl>

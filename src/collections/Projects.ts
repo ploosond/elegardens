@@ -241,10 +241,14 @@ export const Projects: CollectionConfig = {
               required: true,
             },
             {
-              name: 'caption',
+              name: 'caption_en',
               type: 'text',
-              label: 'Caption',
-              localized: true,
+              label: 'Caption (English)',
+            },
+            {
+              name: 'caption_de',
+              type: 'text',
+              label: 'Caption (German)',
             },
           ],
         },

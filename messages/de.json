@@ -7,6 +7,7 @@
     "about": "Über uns",
     "products": "Produkte",
     "projects": "Projekte",
+    "blogs": "Blogs",
     "teams": "Teams",
     "career": "Karriere",
     "location": "Standort",
@@ -21,6 +22,7 @@
     "about": "Über uns",
     "products": "Produkte",
     "projects": "Projekte",
+    "blogs": "Blogs",
     "teams": "Teams",
     "career": "Karriere",
     "location": "Standort",
@@ -139,8 +141,8 @@
     "hero_description": "Entdecken Sie aktuelle Landschafts- und Gartenprojekte – von privaten Terrassen bis zu gewerblichen Anlagen – und erleben Sie unser Konzept für Gestaltung, Bepflanzung und nachhaltige Pflege.",
     "loading": "Laden...",
     "error": "Fehler",
-    "no_projects_title": "Keine Projekte gefunden",
-    "no_projects_desc": "Wir haben noch keine Projekte hinzugefügt. Schauen Sie bald wieder vorbei."
+    "no_projects_title": "Projekte demnächst verfügbar",
+    "no_projects_desc": "Unsere neuesten Projekte werden hier bald präsentiert. Schauen Sie wieder vorbei und lassen Sie sich von inspirierenden Landschaften und kreativen Lösungen unseres Teams begeistern."
   },
   "ProjectPage": {
     "loading": "Laden...",
@@ -152,6 +154,23 @@
     "solution": "Die Lösung",
     "result": "Das Ergebnis",
     "client": "Kunde"
+  },
+  "BlogsPage": {
+    "hero_title": "Unsere Einblicke",
+    "hero_highlight": "Blogs",
+    "hero_description": "Entdecken Sie unsere neuesten Artikel, Tipps und Geschichten rund um Garten, Nachhaltigkeit und Pflanzenwelt.",
+    "loading": "Lädt...",
+    "error": "Fehler",
+    "no_blogs_title": "Noch keine Blogs",
+    "no_blogs_desc": "Unsere neuesten Blogartikel erscheinen bald hier. Schauen Sie für Updates und Inspirationen wieder vorbei."
+  },
+  "BlogPage": {
+    "loading": "Lädt...",
+    "blog_not_found": "Blog nicht gefunden",
+    "blog_not_found_desc": "Der gesuchte Blogartikel existiert nicht. Bitte überprüfen Sie die URL oder stöbern Sie in unseren Blogs.",
+    "back_to_blogs": "Zurück zu den Blogs",
+    "published": "Veröffentlicht",
+    "author": "Autor"
   },
   "TeamsPage": {
     "hero_title": "Lernen Sie unser",

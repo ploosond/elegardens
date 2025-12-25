@@ -14,7 +14,7 @@ import ProductCard from '@/components/cards/ProductCard'
 
 const PAYLOAD_API = process.env.NEXT_PUBLIC_PAYLOAD_URL
 
-import type { ProductDto } from '@/types/product.dto'
+import type { Product } from '@/payload-types'
 import { Link } from '@/i18n/navigation'
 
 async function getProduct(slug: string, locale: string) {
@@ -48,7 +48,7 @@ async function getRelatedProducts(locale: string, currentSlug: string) {
 
     if (!res.ok) return []
     const data = await res.json()
-    return data.docs?.filter((p: ProductDto) => p.slug !== currentSlug) || []
+    return data.docs?.filter((p: Product) => p.slug !== currentSlug) || []
   } catch (error) {
     console.error('Error fetching related products:', error)
     return []
@@ -77,11 +77,11 @@ export default async function ProductDetailPage({
 }) {
   const { locale, id: slug } = await params
   const t = await getTranslations('ProductPage')
-  const product: ProductDto | null = await getProduct(slug, locale)
+  const product: Product | null = await getProduct(slug, locale)
   if (!product) {
     notFound()
   }
-  const relatedProducts: ProductDto[] = await getRelatedProducts(locale, slug)
+  const relatedProducts: Product[] = await getRelatedProducts(locale, slug)
 
   const enName = product.common_name_en?.trim() || ''
   const deName = product.common_name_de?.trim() || ''
@@ -102,7 +102,18 @@ export default async function ProductDetailPage({
   const lightEN = product.light_en.trim()
   const lightDE = product.light_de.trim()
   const productLight = locale === 'de' ? lightDE || lightEN : lightEN || lightDE
-  const imageUrl = product.images?.[0]?.url || 'https://placehold.net/product-400x600.png'
+  let imageUrl = 'https://placehold.net/product-400x600.png'
+  if (product.images && product.images.length > 0) {
+    const firstImage = product.images[0]
+    if (
+      typeof firstImage === 'object' &&
+      firstImage !== null &&
+      'url' in firstImage &&
+      firstImage.url
+    ) {
+      imageUrl = firstImage.url
+    }
+  }
 
   return (
     <div>
@@ -187,7 +198,7 @@ export default async function ProductDetailPage({
               </Link>
             </div>
             <div className="grid grid-cols-2 gap-4 gap-y-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
-              {relatedProducts.map((product: ProductDto) => (
+              {relatedProducts.map((product: Product) => (
                 <ProductCard key={product.id} product={product} />
               ))}
             </div>

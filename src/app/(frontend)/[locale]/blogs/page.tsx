@@ -2,39 +2,39 @@
 
 import Link from 'next/link'
 import HeroSection from '@/components/ui/HeroSection'
-import ProjectCard from '@/components/cards/ProjectCard'
+import BlogCard from '@/components/cards/BlogCard'
 import { useLocale, useTranslations } from 'next-intl'
 import { useEffect, useMemo, useState } from 'react'
 
 const PAYLOAD_API = process.env.NEXT_PUBLIC_PAYLOAD_URL
 
-export default function ProjectsPage() {
-  const t = useTranslations('ProjectsPage')
+export default function BlogsPage() {
+  const t = useTranslations('BlogsPage')
   const locale = useLocale()
 
   // Pagination
   const [page, setPage] = useState(1)
 
-  // Projects state
-  const [allProjects, setAllProjects] = useState<any[]>([])
+  // Blogs state
+  const [allBlogs, setAllBlogs] = useState<any[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // Fetch projects from Payload
+  // Fetch blogs from Payload
   useEffect(() => {
-    async function fetchProjects() {
+    async function fetchBlogs() {
       try {
         setIsLoading(true)
-        const url = new URL(`${PAYLOAD_API}/api/projects`)
+        const url = new URL(`${PAYLOAD_API}/api/blogs`)
         url.searchParams.set('locale', locale)
         url.searchParams.set('limit', '1000')
-        url.searchParams.set('sort', 'position')
+        url.searchParams.set('sort', '-publishedDate')
 
         const res = await fetch(url.toString())
-        if (!res.ok) throw new Error('Failed to fetch projects')
+        if (!res.ok) throw new Error('Failed to fetch blogs')
 
         const data = await res.json()
-        setAllProjects(data.docs || [])
+        setAllBlogs(data.docs || [])
         setError(null)
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred')
@@ -43,15 +43,15 @@ export default function ProjectsPage() {
       }
     }
 
-    fetchProjects()
+    fetchBlogs()
   }, [locale])
 
   // Client-side pagination
   const itemsPerPage = 12
-  const totalPages = Math.ceil(allProjects.length / itemsPerPage)
+  const totalPages = Math.ceil(allBlogs.length / itemsPerPage)
   const startIndex = (page - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
-  const paginatedProjects = allProjects.slice(startIndex, endIndex)
+  const paginatedBlogs = allBlogs.slice(startIndex, endIndex)
 
   // Calculate visible page numbers (max 3)
   const visiblePages = useMemo(() => {
@@ -88,18 +88,18 @@ export default function ProjectsPage() {
         description={t('hero_description')}
       />
 
-      {/* Project Grid */}
+      {/* Blog Grid */}
       <div className="mx-auto px-4 py-8 sm:px-6 sm:py-12">
-        {paginatedProjects.length === 0 ? (
+        {paginatedBlogs.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-lg font-semibold text-gray-900">{t('no_projects_title')}</p>
-            <p className="mt-2 text-gray-500">{t('no_projects_desc')}</p>
+            <p className="text-lg font-semibold text-gray-900">{t('no_blogs_title')}</p>
+            <p className="mt-2 text-gray-500">{t('no_blogs_desc')}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {paginatedProjects.map((project) => (
-              <Link key={project.id} href={`/${locale}/projects/${project.slug}`}>
-                <ProjectCard project={project} />
+            {paginatedBlogs.map((blog) => (
+              <Link key={blog.id} href={`/${locale}/blogs/${blog.slug}`}>
+                <BlogCard blog={blog} />
               </Link>
             ))}
           </div>
