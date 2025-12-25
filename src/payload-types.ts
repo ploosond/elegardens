@@ -93,8 +93,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'upload-home-page-video': UploadHomePageVideo;
+  };
+  globalsSelect: {
+    'upload-home-page-video': UploadHomePageVideoSelect<false> | UploadHomePageVideoSelect<true>;
+  };
   locale: null;
   user: User & {
     collection: 'users';
@@ -472,6 +476,28 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "upload-home-page-video".
+ */
+export interface UploadHomePageVideo {
+  id: number;
+  'feature-video'?: (number | null) | Media;
+  title?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "upload-home-page-video_select".
+ */
+export interface UploadHomePageVideoSelect<T extends boolean = true> {
+  'feature-video'?: T;
+  title?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

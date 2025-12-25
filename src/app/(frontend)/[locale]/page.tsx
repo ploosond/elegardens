@@ -13,6 +13,10 @@ export default function Home() {
   const t = useTranslations('HomePage')
   const locale = useLocale()
 
+  // Video state
+  const [videoUrl, setVideoUrl] = useState('')
+  const [videoTitle, setVideoTitle] = useState('')
+
   // Products state
   const [products, setProducts] = useState<ProductDto[]>([])
   const [isLoadingProducts, setIsLoadingProducts] = useState(true)
@@ -22,6 +26,23 @@ export default function Home() {
   const [employees, setEmployees] = useState<EmployeeDto[]>([])
   const [isLoadingEmployees, setIsLoadingEmployees] = useState(true)
   const [errorEmployees, setErrorEmployees] = useState<string | null>(null)
+
+  // Fetch video from Movie global
+  useEffect(() => {
+    async function fetchMovie() {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/globals/upload-home-page-video`,
+      )
+      const data = await res.json()
+      if (data['feature-video'] && data['feature-video'].url) {
+        setVideoUrl(data['feature-video'].url)
+      }
+      if (data.title) {
+        setVideoTitle(data.title)
+      }
+    }
+    fetchMovie()
+  }, [])
 
   // Fetch products from Payload
   useEffect(() => {
@@ -69,9 +90,6 @@ export default function Home() {
     fetchEmployees()
   }, [locale])
 
-  const videoUrl =
-    'https://res.cloudinary.com/dl2zglwft/video/upload/v1762458652/main_video_qxbvq1.mp4'
-
   if (isLoadingProducts || isLoadingEmployees) {
     return (
       <div className="flex min-h-screen items-center justify-center">
@@ -98,6 +116,8 @@ export default function Home() {
           <video
             className="h-full w-full object-cover"
             src={videoUrl}
+            title={videoTitle}
+            aria-label={videoTitle}
             autoPlay
             muted
             loop
