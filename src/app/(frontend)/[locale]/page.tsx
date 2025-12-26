@@ -11,6 +11,7 @@ async function getProducts(locale: string): Promise<Product[]> {
     url.searchParams.set('locale', locale)
     url.searchParams.set('limit', '10')
     url.searchParams.set('sort', 'common_name_en')
+    url.searchParams.set('depth', '2')
 
     const res = await fetch(url.toString(), {
       next: { revalidate: 3600 },
