@@ -24,6 +24,7 @@ interface HomeClientProps {
   employees: Employee[]
   videoUrl: string
   videoTitle: string
+  posterUrl?: string
   bannerData: BannerData | null
 }
 
@@ -32,6 +33,7 @@ export default function HomeClient({
   employees,
   videoUrl,
   videoTitle,
+  posterUrl,
   bannerData,
 }: HomeClientProps) {
   const t = useTranslations('HomePage')
@@ -51,7 +53,7 @@ export default function HomeClient({
             speed={bannerData.speed}
           />
         )}
-        <HomeVideo videoUrl={videoUrl} videoTitle={videoTitle} />
+        <HomeVideo videoUrl={videoUrl} videoTitle={videoTitle} posterUrl={posterUrl} />
 
         <div className="relative z-10 flex h-full items-center pt-12 md:pt-20">
           <div className="mx-auto w-full px-4 text-center sm:px-6 lg:px-8">

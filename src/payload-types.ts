@@ -101,12 +101,10 @@ export interface Config {
   fallbackLocale: null;
   globals: {
     'announcement-banner': AnnouncementBanner;
-    'upload-home-page-video': UploadHomePageVideo;
     about: About;
   };
   globalsSelect: {
     'announcement-banner': AnnouncementBannerSelect<false> | AnnouncementBannerSelect<true>;
-    'upload-home-page-video': UploadHomePageVideoSelect<false> | UploadHomePageVideoSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
   };
   locale: null;
@@ -823,17 +821,6 @@ export interface AnnouncementBanner {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "upload-home-page-video".
- */
-export interface UploadHomePageVideo {
-  id: number;
-  'feature-video'?: (number | null) | Media;
-  title?: string | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "about".
  */
 export interface About {
@@ -903,17 +890,6 @@ export interface AnnouncementBannerSelect<T extends boolean = true> {
   showOnDesktop?: T;
   showOnMobile?: T;
   speed?: T;
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "upload-home-page-video_select".
- */
-export interface UploadHomePageVideoSelect<T extends boolean = true> {
-  'feature-video'?: T;
-  title?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

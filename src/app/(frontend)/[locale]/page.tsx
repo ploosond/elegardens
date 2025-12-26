@@ -45,29 +45,37 @@ async function getEmployees(locale: string): Promise<Employee[]> {
   }
 }
 
-async function getVideoGlobal() {
-  try {
-    const res = await fetch(`${PAYLOAD_API}/api/globals/upload-home-page-video`, {
-      next: { revalidate: 3600 },
-    })
-
-    if (!res.ok) return { videoUrl: '', videoTitle: '' }
-    const data = await res.json()
-
-    const videoUrl =
-      data['feature-video'] &&
-      typeof data['feature-video'] === 'object' &&
-      data['feature-video'].url
-        ? data['feature-video'].url
-        : ''
-
-    return {
-      videoUrl,
-      videoTitle: data.title || '',
+// Get video URL from environment variable (Cloudinary URL)
+function getVideoData() {
+  const videoUrl = process.env.NEXT_PUBLIC_HOME_VIDEO_URL || ''
+  
+  // Generate poster/thumbnail URL from Cloudinary video URL
+  // Cloudinary can extract a frame from video by using /image/upload/ instead of /video/upload/
+  // and adding so_0 (start offset at 0 seconds) to get the first frame
+  let posterUrl = ''
+  if (videoUrl) {
+    try {
+      // Extract the path after /video/upload/
+      const urlMatch = videoUrl.match(/\/video\/upload\/(.+)/)
+      if (urlMatch) {
+        const pathAfterUpload = urlMatch[1]
+        // Replace /video/upload/ with /image/upload/ and add thumbnail transformation
+        // so_0 = start offset 0 seconds (first frame), w_1920 = width, h_1080 = height, c_fill = crop fill
+        posterUrl = videoUrl.replace(
+          '/video/upload/',
+          '/image/upload/so_0,w_1920,h_1080,c_fill,q_auto,f_auto/'
+        )
+      }
+    } catch (error) {
+      // If URL parsing fails, leave posterUrl empty
+      console.error('Error generating poster URL:', error)
     }
-  } catch (error) {
-    console.error('Error fetching video global:', error)
-    return { videoUrl: '', videoTitle: '' }
+  }
+
+  return {
+    videoUrl,
+    videoTitle: process.env.NEXT_PUBLIC_HOME_VIDEO_TITLE || 'Elegardens',
+    posterUrl,
   }
 }
 
@@ -133,13 +141,15 @@ export async function generateMetadata({
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
 
-  // Fetch all data in parallel
-  const [products, employees, videoData, bannerData] = await Promise.all([
+  // Fetch data in parallel (no video API call needed)
+  const [products, employees, bannerData] = await Promise.all([
     getProducts(locale),
     getEmployees(locale),
-    getVideoGlobal(),
     getAnnouncementBanner(locale),
   ])
+
+  // Get video data from environment variable (instant, no API call)
+  const videoData = getVideoData()
 
   return (
     <HomeClient
@@ -147,6 +157,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       employees={employees}
       videoUrl={videoData.videoUrl}
       videoTitle={videoData.videoTitle}
+      posterUrl={videoData.posterUrl}
       bannerData={bannerData}
     />
   )
