@@ -1,12 +1,53 @@
-import HeroSection from '@/components/ui/HeroSection';
-import { useTranslations } from 'next-intl';
+import HeroSection from '@/components/ui/HeroSection'
+import RichText from '@/components/ui/RichText'
+import { getTranslations } from 'next-intl/server'
+import type { Metadata } from 'next'
 
-export default function PolicyPage() {
-  const t = useTranslations('PolicyPage');
+const PAYLOAD_API = process.env.NEXT_PUBLIC_PAYLOAD_URL
+
+async function getPrivacyPolicy(locale: string) {
+  try {
+    const res = await fetch(`${PAYLOAD_API}/api/globals/privacy-policy?locale=${locale}`, {
+      next: { revalidate: 3600 }, // Cache for 1 hour
+    })
+
+    if (!res.ok) return null
+    return await res.json()
+  } catch (error) {
+    console.error('Error fetching privacy policy:', error)
+    return null
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'PolicyPage' })
+
+  return {
+    title: `${t('hero_title')} ${t('hero_highlight')} - Elegardens`,
+    description: t('hero_description'),
+  }
+}
+
+export default async function PolicyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'PolicyPage' })
+  const policy = await getPrivacyPolicy(locale)
+
+  // Get sections from Payload CMS, or fallback to empty array
+  const sections = policy?.sections || []
 
   return (
     <div>
-      {/* Hero Section */}
+      {/* Hero Section - using translations */}
       <HeroSection
         title={t('hero_title')}
         highlight={t('hero_highlight')}
@@ -14,101 +55,35 @@ export default function PolicyPage() {
       />
 
       {/* Policy Content */}
-      <section className='py-8 sm:py-12'>
-        <div className='mx-auto max-w-4xl px-4 sm:px-6'>
-          <div className='space-y-8 text-justify'>
-            {/* Section 1 */}
-            <div>
-              <h2 className='mb-4 text-xl font-semibold text-secondary md:text-2xl'>
-                {t('section1_title')}
-              </h2>
-              <p className='text-base text-text'>{t('section1_content')}</p>
-            </div>
+      <section className="py-8 sm:py-12">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6">
+          <div className="space-y-8 text-justify">
+            {sections.length === 0 ? (
+              <p className="text-center text-text">No privacy policy content available.</p>
+            ) : (
+              sections.map((section: any, index: number) => {
+                const sectionTitle =
+                  section[`title_${locale}`] || section.title_en || `Section ${index + 1}`
+                const sectionContent =
+                  section[`content_${locale}`] || section.content_en || null
 
-            {/* Section 2 */}
-            <div>
-              <h2 className='mb-4 text-xl font-semibold text-secondary md:text-2xl'>
-                {t('section2_title')}
-              </h2>
-              <div className='space-y-4'>
-                <p className='text-base text-text'>
-                  <strong className='text-text'>
-                    {t('section2_question1')}
-                  </strong>
-                  <br />
-                  {t('section2_answer1')}
-                </p>
-                <p className='text-base text-text'>
-                  <strong className='text-text'>
-                    {t('section2_question2')}
-                  </strong>
-                  <br />
-                  {t('section2_answer2')}
-                </p>
-              </div>
-            </div>
-
-            {/* Section 3 */}
-            <div>
-              <h2 className='mb-4 text-xl font-semibold text-secondary md:text-2xl'>
-                {t('section3_title')}
-              </h2>
-              <p className='text-base text-text'>{t('section3_content')}</p>
-            </div>
-
-            {/* Section 4 */}
-            <div>
-              <h2 className='mb-4 text-xl font-semibold text-secondary md:text-2xl'>
-                {t('section4_title')}
-              </h2>
-              <div className='space-y-4'>
-                <p className='text-base text-text'>
-                  <strong className='text-text'>
-                    {t('section4_subtitle')}
-                  </strong>
-                  <br />
-                  {t('section4_content')}
-                </p>
-                <p className='text-base text-text'>
-                  <strong className='text-text'>
-                    {t('section4_cookie_types')}
-                  </strong>
-                </p>
-                <ul className='list-disc list-inside space-y-2 text-base text-text ml-4'>
-                  <li>
-                    <strong>{t('section4_necessary')}</strong>
-                  </li>
-                  <li>
-                    <strong>{t('section4_marketing')}</strong>
-                  </li>
-                </ul>
-                <p className='text-base text-text mt-4'>
-                  {t('section4_consent')}
-                </p>
-              </div>
-            </div>
-
-            {/* Section 5 */}
-            <div>
-              <h2 className='mb-4 text-xl font-semibold text-secondary md:text-2xl'>
-                {t('section5_title')}
-              </h2>
-              <p className='text-base text-text mb-4'>{t('section5_content')}</p>
-              <ul className='list-disc list-inside space-y-2 text-base text-text ml-4'>
-                <li>{t('section5_right1')}</li>
-                <li>{t('section5_right2')}</li>
-                <li>{t('section5_right3')}</li>
-                <li>{t('section5_right4')}</li>
-                <li>{t('section5_right5')}</li>
-                <li>{t('section5_right6')}</li>
-              </ul>
-              <p className='text-base text-text mt-4'>
-                {t('section5_contact')}
-              </p>
-            </div>
+                return (
+                  <div key={index}>
+                    <h2 className="mb-4 text-xl font-semibold text-secondary md:text-2xl">
+                      {sectionTitle}
+                    </h2>
+                    {sectionContent && (
+                      <div className="text-base text-text">
+                        <RichText data={sectionContent} />
+                      </div>
+                    )}
+                  </div>
+                )
+              })
+            )}
           </div>
         </div>
       </section>
     </div>
-  );
+  )
 }
