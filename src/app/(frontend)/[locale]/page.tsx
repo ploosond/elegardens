@@ -81,8 +81,10 @@ function getVideoData() {
 
 async function getAnnouncementBanner(locale: string) {
   try {
+    // Use 30 second cache for balance between performance and freshness
+    // Banner changes will appear within 30 seconds instead of 1 hour
     const res = await fetch(`${PAYLOAD_API}/api/globals/announcement-banner?locale=${locale}`, {
-      next: { revalidate: 3600 },
+      next: { revalidate: 30 }, // Cache for 30 seconds - good balance
     })
 
     if (!res.ok) return null
