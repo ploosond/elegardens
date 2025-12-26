@@ -12,6 +12,9 @@ import { Products } from '@/collections/Products'
 import { Employees } from '@/collections/Employees'
 import { Projects } from '@/collections/Projects'
 import { Blogs } from '@/collections//Blogs'
+import { ContactSubmissions } from '@/collections/ContactSubmissions'
+import { NewsletterSubscribers } from '@/collections/NewsletterSubscribers'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -23,7 +26,19 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Products, Employees, Projects, Blogs],
+  email: nodemailerAdapter({
+    defaultFromAddress: 'info@yoursite.com',
+    defaultFromName: 'Elegardens',
+    transportOptions: {
+      host: process.env.SMTP_HOST,
+      port: 587,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    },
+  }),
+  collections: [Users, Media, Products, Employees, Projects, Blogs, ContactSubmissions, NewsletterSubscribers],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {

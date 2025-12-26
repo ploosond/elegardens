@@ -25,7 +25,6 @@ export const Products: CollectionConfig = {
   admin: {
     useAsTitle: 'common_name_en',
     defaultColumns: ['common_name_en', 'slug', 'color', 'updatedAt'],
-    group: 'Content',
   },
   access: {
     read: () => true,

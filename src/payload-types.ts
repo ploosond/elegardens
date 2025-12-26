@@ -73,6 +73,8 @@ export interface Config {
     employees: Employee;
     projects: Project;
     blogs: Blog;
+    'contact-submissions': ContactSubmission;
+    'newsletter-subscribers': NewsletterSubscriber;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -86,6 +88,8 @@ export interface Config {
     employees: EmployeesSelect<false> | EmployeesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
+    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
+    'newsletter-subscribers': NewsletterSubscribersSelect<false> | NewsletterSubscribersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -361,6 +365,70 @@ export interface Blog {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions".
+ */
+export interface ContactSubmission {
+  id: number;
+  firstname: string;
+  lastname: string;
+  /**
+   * Contact email address
+   */
+  email: string;
+  /**
+   * Optional phone number
+   */
+  phone?: string | null;
+  /**
+   * Message from the contact form
+   */
+  message: string;
+  /**
+   * Status of the contact submission
+   */
+  status?: ('new' | 'read' | 'replied' | 'archived') | null;
+  /**
+   * Internal notes about this submission
+   */
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-subscribers".
+ */
+export interface NewsletterSubscriber {
+  id: number;
+  /**
+   * Subscriber email address
+   */
+  email: string;
+  /**
+   * User has given consent to receive newsletters
+   */
+  consent?: boolean | null;
+  /**
+   * Subscription status
+   */
+  status?: ('active' | 'unsubscribed' | 'bounced') | null;
+  /**
+   * Date and time of subscription
+   */
+  subscribedAt?: string | null;
+  /**
+   * Date and time of unsubscription (if applicable)
+   */
+  unsubscribedAt?: string | null;
+  /**
+   * Internal notes about this subscriber
+   */
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -406,6 +474,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'blogs';
         value: number | Blog;
+      } | null)
+    | ({
+        relationTo: 'contact-submissions';
+        value: number | ContactSubmission;
+      } | null)
+    | ({
+        relationTo: 'newsletter-subscribers';
+        value: number | NewsletterSubscriber;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -625,6 +701,35 @@ export interface BlogsSelect<T extends boolean = true> {
   metaTitle_de?: T;
   metaDescription_en?: T;
   metaDescription_de?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions_select".
+ */
+export interface ContactSubmissionsSelect<T extends boolean = true> {
+  firstname?: T;
+  lastname?: T;
+  email?: T;
+  phone?: T;
+  message?: T;
+  status?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "newsletter-subscribers_select".
+ */
+export interface NewsletterSubscribersSelect<T extends boolean = true> {
+  email?: T;
+  consent?: T;
+  status?: T;
+  subscribedAt?: T;
+  unsubscribedAt?: T;
+  notes?: T;
   updatedAt?: T;
   createdAt?: T;
 }
