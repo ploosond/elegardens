@@ -1,5 +1,3 @@
-'use server'
-
 import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
 import { notFound } from 'next/navigation'
@@ -64,9 +62,19 @@ export async function generateMetadata({
   const product = await getProduct(id, locale)
   if (!product) return {}
 
+  const metaTitle =
+    locale === 'de'
+      ? product.metaTitle_de || product.common_name_de || product.common_name_en
+      : product.metaTitle_en || product.common_name_en || product.common_name_de
+
+  const metaDescription =
+    locale === 'de'
+      ? product.metaDescription_de || product.description_de || product.description_en
+      : product.metaDescription_en || product.description_en || product.description_de
+
   return {
-    title: product.seo?.metaTitle || product.common_name,
-    description: product.seo?.metaDescription || '',
+    title: metaTitle || 'Product',
+    description: metaDescription || '',
   }
 }
 

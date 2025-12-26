@@ -1,72 +1,73 @@
-'use client'
-
-import { useParams } from 'next/navigation'
-import { useTranslations, useLocale } from 'next-intl'
 import Image from 'next/image'
+import { getTranslations } from 'next-intl/server'
+import { notFound } from 'next/navigation'
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import BackButton from '@/components/ui/BackButton'
-import { useEffect, useState } from 'react'
 
-export default function ProjectDetailPage() {
-  const params = useParams()
-  const t = useTranslations('ProjectPage')
-  const locale = useLocale()
-  const slug = params.id
+const PAYLOAD_API = process.env.NEXT_PUBLIC_PAYLOAD_URL
 
-  const [project, setProject] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
+async function getProject(slug: string, locale: string) {
+  try {
+    const url = new URL(`${PAYLOAD_API}/api/projects`)
+    url.searchParams.set('where[slug][equals]', slug)
+    url.searchParams.set('locale', locale)
+    url.searchParams.set('depth', '2')
 
-  useEffect(() => {
-    if (!slug) return
-    setLoading(true)
-    setError(false)
-    fetch(`/api/projects?where[slug][equals]=${slug}&depth=2`)
-      .then(async (res) => {
-        if (!res.ok) throw new Error('Not found')
-        const data = await res.json()
-        if (data?.docs?.length > 0) {
-          setProject(data.docs[0])
-        } else {
-          setProject(null)
-        }
-      })
-      .catch(() => {
-        setError(true)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [slug])
+    const res = await fetch(url.toString(), {
+      next: { revalidate: 3600 },
+    })
+
+    if (!res.ok) return null
+    const data = await res.json()
+    return data.docs?.[0] || null
+  } catch (error) {
+    console.error('Error fetching project:', error)
+    return null
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { locale: string; id: string }
+}): Promise<Metadata> {
+  const { locale, id } = await params
+  const project = await getProject(id, locale)
+  if (!project) return {}
+
+  const metaTitle =
+    locale === 'de'
+      ? project.metaTitle_de || project.title_de || project.title_en
+      : project.metaTitle_en || project.title_en || project.title_de
+
+  const metaDescription =
+    locale === 'de'
+      ? project.metaDescription_de || project.tagline_de || project.tagline_en
+      : project.metaDescription_en || project.tagline_en || project.tagline_de
+
+  return {
+    title: metaTitle || 'Project',
+    description: metaDescription || '',
+  }
+}
+
+export default async function ProjectDetailPage({
+  params,
+}: {
+  params: { locale: string; id: string }
+}) {
+  const { locale, id: slug } = await params
+  const t = await getTranslations('ProjectPage')
+  const project = await getProject(slug, locale)
+
+  if (!project) {
+    notFound()
+  }
 
   // Helper to get localized field
   const getLocalized = (obj: any, base: string) =>
-    obj?.[`${base}_${locale}`] || obj?.[base + '_en'] || ''
-
-  if (loading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <h2 className="text-2xl font-semibold text-text">{t('loading')}</h2>
-      </div>
-    )
-  }
-
-  if (error || !project) {
-    return (
-      <div className="flex min-h-screen items-center justify-center">
-        <div className="text-center">
-          <h2 className="text-2xl font-semibold text-text">{t('project_not_found')}</h2>
-          <p className="mt-4 text-text/70">{t('project_not_found_desc')}</p>
-          <Link
-            href={`/${locale}/projects`}
-            className="mt-6 inline-block rounded-md bg-primary px-6 py-3 text-on-dark hover:bg-primary-dark"
-          >
-            {t('back_to_projects')}
-          </Link>
-        </div>
-      </div>
-    )
-  }
+    obj?.[`${base}_${locale}`] || obj?.[`${base}_en`] || ''
 
   const sections = Array.isArray(project.sections) ? project.sections : []
 
@@ -84,9 +85,7 @@ export default function ProjectDetailPage() {
           {getLocalized(project, 'title')}
         </h1>
         {getLocalized(project, 'tagline') && (
-          <p className="mt-2 text-center text-lg text-gray-600">
-            {getLocalized(project, 'tagline')}
-          </p>
+          <p className="mt-2 text-center text-lg text-gray-600">{getLocalized(project, 'tagline')}</p>
         )}
       </header>
 
@@ -101,7 +100,7 @@ export default function ProjectDetailPage() {
                 fill
                 sizes="(min-width: 1024px) 768px, (min-width: 640px) 640px, 100vw"
                 className="object-cover object-center"
-                priority={false}
+                priority
               />
             </div>
           </div>
@@ -159,9 +158,7 @@ export default function ProjectDetailPage() {
                     </div>
                   )}
                   {getLocalized(section, 'caption') && (
-                    <p className="text-center text-gray-500 italic">
-                      {getLocalized(section, 'caption')}
-                    </p>
+                    <p className="text-center text-gray-500 italic">{getLocalized(section, 'caption')}</p>
                   )}
                 </section>
               )
