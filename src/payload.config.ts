@@ -16,6 +16,7 @@ import { Blogs } from '@/collections//Blogs'
 import { ContactSubmissions } from '@/collections/ContactSubmissions'
 import { NewsletterSubscribers } from '@/collections/NewsletterSubscribers'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -61,5 +62,15 @@ export default buildConfig({
     },
   }),
   sharp,
-  plugins: [],
+  plugins: [
+    uploadthingStorage({
+      collections: {
+        media: true,
+      },
+      options: {
+        token: process.env.UPLOADTHING_TOKEN,
+        acl: 'public-read',
+      },
+    }),
+  ],
 })
