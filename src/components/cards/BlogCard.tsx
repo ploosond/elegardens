@@ -12,7 +12,7 @@ export default function BlogCard({ blog }: { blog: Blog }) {
     'url' in blog.coverImage &&
     blog.coverImage.url
       ? blog.coverImage.url
-      : 'https://placehold.net/product-400x600.png'
+      : '/place_holder.png'
   const author = blog.author || ''
   const publishedDate = blog.publishedDate
     ? new Date(blog.publishedDate).toLocaleDateString(locale)

@@ -34,7 +34,7 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
   }, [debouncedSearch, initialProducts])
 
   // Client-side pagination
-  const itemsPerPage = 12
+  const itemsPerPage = 30
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
   const startIndex = (page - 1) * itemsPerPage
   const endIndex = startIndex + itemsPerPage
@@ -144,4 +144,3 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
     </>
   )
 }
-

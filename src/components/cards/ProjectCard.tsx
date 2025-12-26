@@ -20,7 +20,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             'url' in project.image &&
             project.image.url
               ? project.image.url
-              : 'https://placehold.net/product-400x600.png'
+              : '/place_holder.png'
           }
           alt={project.title_en || project.title_de || 'Project'}
           fill

@@ -25,11 +25,16 @@ export default function ProductCard({ product }: { product: Product }) {
 
   // Alt text fallback
   const altText = primaryName
-  let imageUrl = 'https://placehold.net/product-400x600.png';
+  let imageUrl = '/place_holder.png'
   if (product.images && product.images.length > 0) {
-    const firstImage = product.images[0];
-    if (typeof firstImage === 'object' && firstImage !== null && 'url' in firstImage && firstImage.url) {
-      imageUrl = firstImage.url;
+    const firstImage = product.images[0]
+    if (
+      typeof firstImage === 'object' &&
+      firstImage !== null &&
+      'url' in firstImage &&
+      firstImage.url
+    ) {
+      imageUrl = firstImage.url
     }
   }
   const backgroundColor = product.color || '#6a844a'

@@ -110,7 +110,7 @@ export default async function ProductDetailPage({
   const lightEN = product.light_en.trim()
   const lightDE = product.light_de.trim()
   const productLight = locale === 'de' ? lightDE || lightEN : lightEN || lightDE
-  let imageUrl = 'https://placehold.net/product-400x600.png'
+  let imageUrl = '/place_holder.png'
   if (product.images && product.images.length > 0) {
     const firstImage = product.images[0]
     if (
