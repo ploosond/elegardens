@@ -4,7 +4,25 @@ import { ColorPicker } from '../fields/color'
 export const Products: CollectionConfig = {
   hooks: {
     beforeChange: [
-      async ({ data }) => {
+      async ({ data, operation, req }) => {
+        // Auto-increment number if not provided (for new products)
+        if (!data.number && operation === 'create') {
+          const payload = req.payload
+          const existingProducts = await payload.find({
+            collection: 'products',
+            limit: 1,
+            sort: '-number',
+          })
+
+          // Get the highest number and increment by 1
+          const maxNumber =
+            existingProducts.docs.length > 0 && existingProducts.docs[0].number
+              ? existingProducts.docs[0].number
+              : 0
+          data.number = maxNumber + 1
+        }
+
+        // Auto-generate meta fields if not provided
         if (!data.metaTitle_en && data.common_name_en) {
           data.metaTitle_en = data.common_name_en
         }
@@ -33,6 +51,17 @@ export const Products: CollectionConfig = {
     {
       type: 'row',
       fields: [
+        {
+          name: 'number',
+          type: 'number',
+          label: 'Product Number',
+          admin: {
+            description: 'Auto-generated product number',
+            width: '25%',
+            readOnly: true,
+            hidden: true,
+          },
+        },
         {
           name: 'slug',
           type: 'text',

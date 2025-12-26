@@ -186,6 +186,10 @@ export interface Media {
 export interface Product {
   id: number;
   /**
+   * Auto-generated product number
+   */
+  number?: number | null;
+  /**
    * rose-bushy (lowercase, hyphens only, no spaces or special characters)
    */
   slug: string;
@@ -573,6 +577,7 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
+  number?: T;
   slug?: T;
   common_name_en?: T;
   common_name_de?: T;
