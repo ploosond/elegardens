@@ -100,10 +100,12 @@ export interface Config {
   };
   fallbackLocale: null;
   globals: {
+    'announcement-banner': AnnouncementBanner;
     'upload-home-page-video': UploadHomePageVideo;
     about: About;
   };
   globalsSelect: {
+    'announcement-banner': AnnouncementBannerSelect<false> | AnnouncementBannerSelect<true>;
     'upload-home-page-video': UploadHomePageVideoSelect<false> | UploadHomePageVideoSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
   };
@@ -775,6 +777,50 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "announcement-banner".
+ */
+export interface AnnouncementBanner {
+  id: number;
+  enabled?: boolean | null;
+  /**
+   * Add multiple announcements. Each announcement has both English and German text side by side.
+   */
+  announcements?:
+    | {
+        text_en?: string | null;
+        text_de?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Background color of the banner (hex format, e.g., #0b7a43)
+   */
+  backgroundColor?: string | null;
+  /**
+   * Text color of the banner (hex format, e.g., #ffffff)
+   */
+  textColor?: string | null;
+  /**
+   * Semi Bold: Subtle emphasis. Bold: Recommended for most announcements. Extra Bold: Maximum visibility for urgent messages.
+   */
+  fontWeight?: ('semibold' | 'bold' | 'extrabold') | null;
+  /**
+   * Display banner on desktop devices (md breakpoint and above)
+   */
+  showOnDesktop?: boolean | null;
+  /**
+   * Display banner on mobile devices (below md breakpoint)
+   */
+  showOnMobile?: boolean | null;
+  /**
+   * Speed of the scrolling animation
+   */
+  speed?: ('slow' | 'medium' | 'fast') | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "upload-home-page-video".
  */
 export interface UploadHomePageVideo {
@@ -835,6 +881,29 @@ export interface About {
   values_desc_de?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "announcement-banner_select".
+ */
+export interface AnnouncementBannerSelect<T extends boolean = true> {
+  enabled?: T;
+  announcements?:
+    | T
+    | {
+        text_en?: T;
+        text_de?: T;
+        id?: T;
+      };
+  backgroundColor?: T;
+  textColor?: T;
+  fontWeight?: T;
+  showOnDesktop?: T;
+  showOnMobile?: T;
+  speed?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

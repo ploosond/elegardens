@@ -5,23 +5,52 @@ import { ArrowRight, Package, ShieldCheck, TreeDeciduous, TrendingUp } from 'luc
 import TeamMemberCard from '@/components/cards/TeamMemberCard'
 import ProductCard from '@/components/cards/ProductCard'
 import HomeVideo from './HomeVideo'
+import AnnouncementBanner from '@/components/ui/AnnouncementBanner'
 import type { Employee, Product } from '@/payload-types'
 import { useTranslations } from 'next-intl'
+
+interface BannerData {
+  announcements: string[]
+  backgroundColor: string
+  textColor: string
+  fontWeight: 'semibold' | 'bold' | 'extrabold'
+  showOnDesktop: boolean
+  showOnMobile: boolean
+  speed: 'slow' | 'medium' | 'fast'
+}
 
 interface HomeClientProps {
   products: Product[]
   employees: Employee[]
   videoUrl: string
   videoTitle: string
+  bannerData: BannerData | null
 }
 
-export default function HomeClient({ products, employees, videoUrl, videoTitle }: HomeClientProps) {
+export default function HomeClient({
+  products,
+  employees,
+  videoUrl,
+  videoTitle,
+  bannerData,
+}: HomeClientProps) {
   const t = useTranslations('HomePage')
 
   return (
     <div>
       {/* Hero Section with Video */}
       <section className="relative h-[50vh] w-full overflow-hidden md:h-[calc(100vh-4rem)]">
+        {bannerData && bannerData.announcements && bannerData.announcements.length > 0 && (
+          <AnnouncementBanner
+            announcements={bannerData.announcements}
+            backgroundColor={bannerData.backgroundColor}
+            textColor={bannerData.textColor}
+            fontWeight={bannerData.fontWeight}
+            showOnDesktop={bannerData.showOnDesktop}
+            showOnMobile={bannerData.showOnMobile}
+            speed={bannerData.speed}
+          />
+        )}
         <HomeVideo videoUrl={videoUrl} videoTitle={videoTitle} />
 
         <div className="relative z-10 flex h-full items-center pt-12 md:pt-20">

@@ -71,6 +71,51 @@ async function getVideoGlobal() {
   }
 }
 
+async function getAnnouncementBanner(locale: string) {
+  try {
+    const res = await fetch(`${PAYLOAD_API}/api/globals/announcement-banner?locale=${locale}`, {
+      next: { revalidate: 3600 },
+    })
+
+    if (!res.ok) return null
+    const data = await res.json()
+
+    // Check if banner is enabled
+    if (!data.enabled) return null
+
+    // Get announcements array (now contains both en and de in each item)
+    const announcements = data.announcements || []
+
+    // Return null if no announcements
+    if (!announcements || announcements.length === 0) return null
+
+    // Extract text based on locale from each announcement object
+    const announcementTexts = announcements
+      .map((item: { text_en?: string; text_de?: string }) => {
+        if (locale === 'de') {
+          return item.text_de || item.text_en || ''
+        }
+        return item.text_en || item.text_de || ''
+      })
+      .filter((text: string) => Boolean(text))
+
+    if (announcementTexts.length === 0) return null
+
+    return {
+      announcements: announcementTexts,
+      backgroundColor: data.backgroundColor || '#0b7a43',
+      textColor: data.textColor || '#ffffff',
+      fontWeight: (data.fontWeight || 'bold') as 'semibold' | 'bold' | 'extrabold',
+      showOnDesktop: data.showOnDesktop !== false,
+      showOnMobile: data.showOnMobile !== false,
+      speed: (data.speed || 'medium') as 'slow' | 'medium' | 'fast',
+    }
+  } catch (error) {
+    console.error('Error fetching announcement banner:', error)
+    return null
+  }
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -89,10 +134,11 @@ export default async function HomePage({ params }: { params: { locale: string } 
   const { locale } = await params
 
   // Fetch all data in parallel
-  const [products, employees, videoData] = await Promise.all([
+  const [products, employees, videoData, bannerData] = await Promise.all([
     getProducts(locale),
     getEmployees(locale),
     getVideoGlobal(),
+    getAnnouncementBanner(locale),
   ])
 
   return (
@@ -101,6 +147,7 @@ export default async function HomePage({ params }: { params: { locale: string } 
       employees={employees}
       videoUrl={videoData.videoUrl}
       videoTitle={videoData.videoTitle}
+      bannerData={bannerData}
     />
   )
 }

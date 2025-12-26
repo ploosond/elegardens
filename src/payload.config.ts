@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url'
 import sharp from 'sharp'
 import { Movie } from './globals/Movie'
 import { About } from './globals/About'
+import { AnnouncementBanner } from './globals/AnnouncementBanner'
 import { Users } from '@/collections/Users'
 import { Media } from '@/collections/Media'
 import { Products } from '@/collections/Products'
@@ -38,13 +39,22 @@ export default buildConfig({
       },
     },
   }),
-  collections: [Users, Media, Products, Employees, Projects, Blogs, ContactSubmissions, NewsletterSubscribers],
+  collections: [
+    Users,
+    Media,
+    Products,
+    Employees,
+    Projects,
+    Blogs,
+    ContactSubmissions,
+    NewsletterSubscribers,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  globals: [Movie, About],
+  globals: [AnnouncementBanner, Movie, About],
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',

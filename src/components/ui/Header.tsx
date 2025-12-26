@@ -54,7 +54,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="group relative inline-block overflow-hidden rounded-full border border-transparent px-3 py-2  text-sm font-semibold uppercase text-text transition-all duration-300 hover:border-muted"
+                  className="group relative inline-block overflow-hidden rounded-full border border-transparent px-3 py-2  text-sm font-bold uppercase text-text transition-all duration-300 hover:border-muted"
                   onClick={() => setMenuOpen(false)}
                 >
                   <span className="relative z-10">{item.name}</span>
@@ -100,7 +100,7 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className="block px-6 py-2  text-sm font-semibold uppercase text-text hover:bg-muted"
+              className="block px-6 py-2  text-base font-semibold uppercase text-text hover:bg-muted"
               onClick={() => setMenuOpen(false)}
             >
               {item.name}
