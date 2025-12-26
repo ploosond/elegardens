@@ -29,7 +29,7 @@ async function getEmployees(locale: string): Promise<Employee[]> {
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'TeamsPage' })
@@ -40,11 +40,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function TeamsPage({
-  params,
-}: {
-  params: { locale: string }
-}) {
+export default async function TeamsPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const t = await getTranslations('TeamsPage')
   const employees = await getEmployees(locale)

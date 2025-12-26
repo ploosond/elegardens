@@ -28,7 +28,7 @@ async function getProjects(locale: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'ProjectsPage' })
@@ -42,7 +42,7 @@ export async function generateMetadata({
 export default async function ProjectsPage({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
   const t = await getTranslations('ProjectsPage')

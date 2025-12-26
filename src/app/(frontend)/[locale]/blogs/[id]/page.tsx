@@ -30,7 +30,7 @@ async function getBlog(slug: string, locale: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string; id: string }
+  params: Promise<{ locale: string; id: string }>
 }): Promise<Metadata> {
   const { locale, id } = await params
   const blog = await getBlog(id, locale)
@@ -55,7 +55,7 @@ export async function generateMetadata({
 export default async function BlogDetailPage({
   params,
 }: {
-  params: { locale: string; id: string }
+  params: Promise<{ locale: string; id: string }>
 }) {
   const { locale, id: slug } = await params
   const t = await getTranslations('BlogPage')
@@ -170,7 +170,9 @@ export default async function BlogDetailPage({
                     </div>
                   )}
                   {getLocalized(section, 'caption') && (
-                    <p className="text-center text-gray-500 italic">{getLocalized(section, 'caption')}</p>
+                    <p className="text-center text-gray-500 italic">
+                      {getLocalized(section, 'caption')}
+                    </p>
                   )}
                 </section>
               )

@@ -56,7 +56,7 @@ async function getRelatedProducts(locale: string, currentSlug: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string; id: string }
+  params: Promise<{ locale: string; id: string }>
 }): Promise<Metadata> {
   const { locale, id } = await params
   const product = await getProduct(id, locale)
@@ -81,7 +81,7 @@ export async function generateMetadata({
 export default async function ProductDetailPage({
   params,
 }: {
-  params: { locale: string; id: string }
+  params: Promise<{ locale: string; id: string }>
 }) {
   const { locale, id: slug } = await params
   const t = await getTranslations('ProductPage')

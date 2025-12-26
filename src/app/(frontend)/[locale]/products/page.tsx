@@ -29,7 +29,7 @@ async function getProducts(locale: string): Promise<Product[]> {
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'ProductsPage' })
@@ -43,7 +43,7 @@ export async function generateMetadata({
 export default async function ProductsPage({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
   const t = await getTranslations('ProductsPage')

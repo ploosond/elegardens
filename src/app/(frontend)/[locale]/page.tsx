@@ -119,7 +119,7 @@ async function getAnnouncementBanner(locale: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: { locale: string }
+  params: Promise<{ locale: string }>
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'HomePage' })
@@ -130,7 +130,7 @@ export async function generateMetadata({
   }
 }
 
-export default async function HomePage({ params }: { params: { locale: string } }) {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
 
   // Fetch all data in parallel
