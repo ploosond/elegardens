@@ -7,6 +7,25 @@ export const Clients: CollectionConfig = {
     useAsTitle: 'clientId',
     defaultColumns: ['clientId', 'companyName', 'email', 'status', 'updatedAt'],
   },
+  hooks: {
+    beforeLogin: [
+      async ({ user, req }) => {
+        // Check if client account is active before allowing login
+        // The user object may not have all fields, so we fetch the full client
+        if (user && user.id) {
+          const fullClient = await req.payload.findByID({
+            collection: 'clients',
+            id: user.id,
+          })
+          
+          if (fullClient.status !== 'active') {
+            throw new Error('Your account is inactive. Please contact support.')
+          }
+        }
+        return user
+      },
+    ],
+  },
   access: {
     create: ({ req: { user } }) => {
       // Only admins can create clients

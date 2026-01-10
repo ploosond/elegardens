@@ -285,5 +285,25 @@
     "customize": "Customize",
     "necessary": "Necessary",
     "marketing": "Marketing"
+  },
+  "ClientLogin": {
+    "title": "Client Login",
+    "description": "Sign in to access your account and place orders",
+    "email_label": "Email Address",
+    "email_placeholder": "Enter your email",
+    "password_label": "Password",
+    "password_placeholder": "Enter your password",
+    "submit_button": "Sign In",
+    "help_text": "Need help?",
+    "contact_link": "Contact Support",
+    "error_generic": "Login failed. Please check your credentials and try again.",
+    "error_network": "Network error. Please try again later."
+  },
+  "ClientDashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome back",
+    "logout": "Logout",
+    "loading": "Loading...",
+    "error": "Error loading dashboard"
   }
 }

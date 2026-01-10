@@ -285,5 +285,25 @@
     "customize": "Anpassen",
     "necessary": "Erforderlich",
     "marketing": "Marketing"
+  },
+  "ClientLogin": {
+    "title": "Kunden-Login",
+    "description": "Melden Sie sich an, um auf Ihr Konto zuzugreifen und Bestellungen aufzugeben",
+    "email_label": "E-Mail-Adresse",
+    "email_placeholder": "Geben Sie Ihre E-Mail ein",
+    "password_label": "Passwort",
+    "password_placeholder": "Geben Sie Ihr Passwort ein",
+    "submit_button": "Anmelden",
+    "help_text": "Benötigen Sie Hilfe?",
+    "contact_link": "Support kontaktieren",
+    "error_generic": "Anmeldung fehlgeschlagen. Bitte überprüfen Sie Ihre Anmeldedaten und versuchen Sie es erneut.",
+    "error_network": "Netzwerkfehler. Bitte versuchen Sie es später erneut."
+  },
+  "ClientDashboard": {
+    "title": "Dashboard",
+    "welcome": "Willkommen zurück",
+    "logout": "Abmelden",
+    "loading": "Lädt...",
+    "error": "Fehler beim Laden des Dashboards"
   }
 }

@@ -64,6 +64,7 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    clients: ClientAuthOperations;
   };
   blocks: {};
   collections: {
@@ -75,6 +76,8 @@ export interface Config {
     blogs: Blog;
     'contact-submissions': ContactSubmission;
     'newsletter-subscribers': NewsletterSubscriber;
+    clients: Client;
+    orders: Order;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -90,6 +93,8 @@ export interface Config {
     blogs: BlogsSelect<false> | BlogsSelect<true>;
     'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
     'newsletter-subscribers': NewsletterSubscribersSelect<false> | NewsletterSubscribersSelect<true>;
+    clients: ClientsSelect<false> | ClientsSelect<true>;
+    orders: OrdersSelect<false> | OrdersSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -110,15 +115,37 @@ export interface Config {
     'privacy-policy': PrivacyPolicySelect<false> | PrivacyPolicySelect<true>;
   };
   locale: null;
-  user: User & {
-    collection: 'users';
-  };
+  user:
+    | (User & {
+        collection: 'users';
+      })
+    | (Client & {
+        collection: 'clients';
+      });
   jobs: {
     tasks: unknown;
     workflows: unknown;
   };
 }
 export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface ClientAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -185,15 +212,14 @@ export interface Media {
  */
 export interface Product {
   id: number;
-  /**
-   * Auto-generated product number
-   */
-  number?: number | null;
+  productId: string;
   /**
    * rose-bushy (lowercase, hyphens only, no spaces or special characters)
    */
   slug: string;
   common_name: string;
+  availability: 'available' | 'out-of-stock';
+  quantity?: number | null;
   description_en: string;
   description_de: string;
   height: string;
@@ -435,6 +461,92 @@ export interface NewsletterSubscriber {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients".
+ */
+export interface Client {
+  id: number;
+  /**
+   * Unique username for client login (used for authentication)
+   */
+  clientId: string;
+  companyName: string;
+  contactPerson?: string | null;
+  phone?: string | null;
+  address: string;
+  status: 'active' | 'inactive';
+  notes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  /**
+   * Contact email address (also used for password reset)
+   */
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
+  password?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders".
+ */
+export interface Order {
+  id: number;
+  /**
+   * Auto-generated order number
+   */
+  orderNumber: string;
+  /**
+   * Client who placed this order
+   */
+  client: number | Client;
+  /**
+   * Auto-populated from client
+   */
+  companyName: string;
+  /**
+   * Order date in format: week number-date (e.g., 21-0107)
+   */
+  orderDate?: string | null;
+  /**
+   * Requested delivery date (client input)
+   */
+  deliveryDate: string;
+  items: {
+    product: number | Product;
+    /**
+     * Quantity ordered
+     */
+    quantity: number;
+    id?: string | null;
+  }[];
+  /**
+   * Current order status
+   */
+  status: 'pending' | 'confirmed' | 'processing' | 'completed' | 'cancelled';
+  /**
+   * Notes from client with order
+   */
+  notes?: string | null;
+  /**
+   * Internal admin notes
+   */
+  adminNotes?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -488,12 +600,25 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'newsletter-subscribers';
         value: number | NewsletterSubscriber;
+      } | null)
+    | ({
+        relationTo: 'clients';
+        value: number | Client;
+      } | null)
+    | ({
+        relationTo: 'orders';
+        value: number | Order;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'clients';
+        value: number | Client;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -503,10 +628,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'clients';
+        value: number | Client;
+      };
   key?: string | null;
   value?:
     | {
@@ -576,9 +706,11 @@ export interface MediaSelect<T extends boolean = true> {
  * via the `definition` "products_select".
  */
 export interface ProductsSelect<T extends boolean = true> {
-  number?: T;
+  productId?: T;
   slug?: T;
   common_name?: T;
+  availability?: T;
+  quantity?: T;
   description_en?: T;
   description_de?: T;
   height?: T;
@@ -737,6 +869,58 @@ export interface NewsletterSubscribersSelect<T extends boolean = true> {
   subscribedAt?: T;
   unsubscribedAt?: T;
   notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "clients_select".
+ */
+export interface ClientsSelect<T extends boolean = true> {
+  clientId?: T;
+  companyName?: T;
+  contactPerson?: T;
+  phone?: T;
+  address?: T;
+  status?: T;
+  notes?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  email?: T;
+  resetPasswordToken?: T;
+  resetPasswordExpiration?: T;
+  salt?: T;
+  hash?: T;
+  loginAttempts?: T;
+  lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "orders_select".
+ */
+export interface OrdersSelect<T extends boolean = true> {
+  orderNumber?: T;
+  client?: T;
+  companyName?: T;
+  orderDate?: T;
+  deliveryDate?: T;
+  items?:
+    | T
+    | {
+        product?: T;
+        quantity?: T;
+        id?: T;
+      };
+  status?: T;
+  notes?: T;
+  adminNotes?: T;
   updatedAt?: T;
   createdAt?: T;
 }
