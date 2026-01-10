@@ -1,6 +1,6 @@
 [
   {
-    "number": 1,
+    "productId": "PROD-001",
     "slug": "achillea-filipendulina",
     "common_name": "Achillea filipendulina",
     "description_en": "Achillea filipendulina, commonly known as Fernleaf Yarrow, is a tall, upright perennial prized for its vibrant yellow flower clusters and soft, fern-like foliage. Blooming from early summer to fall, it adds long-lasting color and texture to borders and wildflower gardens. Its flowers are excellent for cutting and drying. Highly drought-tolerant once established, it's a favorite in low-maintenance and pollinator-friendly gardens. The plant resists deer and rabbits, making it ideal for a variety of landscapes. Its architectural form and prolonged blooming season make it a versatile addition to both traditional and modern garden designs.",
@@ -9,10 +9,12 @@
     "diameter": "45–60",
     "hardiness": "-28",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 89
   },
   {
-    "number": 2,
+    "productId": "PROD-002",
     "slug": "achillea-millefolium",
     "common_name": "Achillea millefolium",
     "description_en": "Achillea millefolium 'Rot' is a robust, upright perennial prized for its intense red, flat-topped flower clusters and finely textured, aromatic foliage. Flowering abundantly from early to late summer, this cultivar brings long-lasting color and structure to perennial borders, meadow plantings, and modern landscape designs. Known for its resilience and adaptability, 'Rot' performs exceptionally well in full sun and well-drained soils. It is a valuable plant for pollinator-friendly gardens, erosion control, and drought-tolerant landscapes. Its bold blooms also make excellent cut or dried flowers, adding ornamental value beyond the garden.",
@@ -21,10 +23,12 @@
     "diameter": "40–60",
     "hardiness": "-26",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 11
   },
   {
-    "number": 3,
+    "productId": "PROD-003",
     "slug": "achillea-tomentosa",
     "common_name": "Achillea tomentosa",
     "description_en": "Achillea tomentosa is a low-growing, mat-forming perennial prized for its soft, silvery-green, woolly foliage and bright yellow flower clusters. This compact yarrow creates an attractive groundcover and blooms profusely in early to mid-summer, adding vibrant color and texture to rock gardens, borders, and dry landscapes. Ideal for hot, sunny locations, it thrives in poor, well-drained soils and tolerates drought, making it a smart choice for low-maintenance and water-wise gardening. Its dense foliage helps suppress weeds and stabilize soil on slopes or rocky ground.",
@@ -33,10 +37,12 @@
     "diameter": "30–45",
     "hardiness": "-24",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 39
   },
   {
-    "number": 4,
+    "productId": "PROD-004",
     "slug": "ajuga-reptans-braunherz",
     "common_name": "Ajuga reptans 'Braunherz",
     "description_en": "Ajuga reptans 'Braunherz' is a vigorous, low-growing groundcover known for its striking, bronze-purple foliage and dense, carpet-like growth. In spring to early summer, it produces short spikes of deep blue flowers that contrast beautifully with the dark leaves, offering seasonal interest and pollinator appeal. This cultivar is ideal for shaded or partially shaded areas, including underplantings, borders, and woodland gardens. Its fast-spreading habit makes it effective for erosion control on banks and slopes, while its rich foliage color adds year-round ornamental value.",
@@ -45,10 +51,12 @@
     "diameter": "30–60",
     "hardiness": "-28",
     "light_en": "partial-sun",
-    "light_de": "partial-sun"
+    "light_de": "partial-sun",
+    "availability": "out-of-stock",
+    "quantity": 49
   },
   {
-    "number": 5,
+    "productId": "PROD-005",
     "slug": "alcea-rosea-pleniflora-gelb",
     "common_name": "Alcea rosea 'Pleniflora, gelb",
     "description_en": "Alcea rosea 'Pleniflora', commonly known as Yellow Double Hollyhock, is a classic cottage garden favorite with tall, spire-like stems covered in fully double, soft yellow blooms. These eye-catching flowers create a vertical accent and bloom from mid to late summer. Perfect for the back of borders or along fences, they attract bees and butterflies. Despite their elegant look, they are tough and can handle a variety of soil conditions. They work beautifully in informal gardens and make great cut flowers. Staking may be needed in windy areas due to their height.",
@@ -57,10 +65,12 @@
     "diameter": "60–90",
     "hardiness": "-28",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 52
   },
   {
-    "number": 6,
+    "productId": "PROD-006",
     "slug": "alcea-rosea-pleniflora-rosa",
     "common_name": "Alcea rosea 'Pleniflora', Rosa",
     "description_en": "Alcea rosea 'Pleniflora', Rosa variety, features stunning fully double rose-pink blooms that rise on tall flower spikes, bringing vertical drama to garden beds. Blooming in mid to late summer, it adds a romantic, vintage charm to cottage-style gardens. Pollinator-friendly and eye-catching, it attracts bees and butterflies while providing excellent cut flowers. It thrives best in sunny spots with well-drained soil. Although hardy, it may need support to prevent leaning in windy conditions. Perfect for borders, walls, or as a summer focal point.",
@@ -69,10 +79,12 @@
     "diameter": "60–90",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 96
   },
   {
-    "number": 7,
+    "productId": "PROD-007",
     "slug": "alcea-rosea-pleniflora-rot",
     "common_name": "Alcea rosea 'Pleniflora', rot",
     "description_en": "lcea rosea 'Pleniflora', Rot variety, showcases bold, fully double deep red blooms on tall, stately flower spikes. Blooming from mid to late summer, it brings striking vertical structure and rich color to garden beds and borders. A favorite in cottage and country-style gardens, it draws bees, butterflies, and admiration alike. It performs best in well-drained soil with regular sun exposure. Though robust, taller plants may require staking for support in windy areas. Also makes a stunning cut flower for summer bouquets.",
@@ -81,10 +93,12 @@
     "diameter": "60–90",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 68
   },
   {
-    "number": 8,
+    "productId": "PROD-008",
     "slug": "alcea-rosea-pleniflora-weiss",
     "common_name": "Alcea rosea 'Pleniflora', weiß",
     "description_en": "Alcea rosea 'Pleniflora', Weiß, is an elegant Hollyhock variety featuring fully double, pure white blooms that glow against green foliage. Blooming in mid to late summer, it adds a serene and classic touch to garden designs. This tall perennial is perfect for borders, walls, or as a vertical accent in cottage-style gardens. Loved by bees and butterflies, it also provides excellent cut flowers. It prefers well-drained soil and sunny locations but tolerates partial shade. Staking may be required for stability in open or windy areas.",
@@ -93,10 +107,12 @@
     "diameter": "60–90",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 11
   },
   {
-    "number": 9,
+    "productId": "PROD-009",
     "slug": "alchemilla-mollis",
     "common_name": "Alchemilla mollis",
     "description_en": "Alchemilla mollis, commonly known as Lady’s Mantle, is a charming perennial valued for its soft, scalloped leaves and delicate, frothy yellow-green flowers. Blooming from late spring to early summer, it creates a graceful, flowing effect along borders and paths. Its foliage catches dew and raindrops beautifully, adding texture and visual interest. Ideal for ground cover, edging, or underplanting roses and shrubs. It’s low-maintenance, deer-resistant, and thrives in both formal and informal gardens.",
@@ -105,10 +121,12 @@
     "diameter": "45–60",
     "hardiness": "-34",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 73
   },
   {
-    "number": 10,
+    "productId": "PROD-010",
     "slug": "anemone-japonica-honorine-jobert",
     "common_name": "Anemone japonica 'Honorine Jobert",
     "description_en": "Anemone japonica 'Honorine Jobert' is a graceful perennial with elegant, pure white, single-petaled flowers that rise on tall, slender stems. Blooming from late summer into autumn, it brings brightness and movement to partially shaded garden areas. Its golden stamens and dark green foliage create a stunning contrast that draws the eye. Excellent for mixed borders, woodland gardens, or as a late-season focal point. This variety is long-lived, low-maintenance, and thrives in rich, well-drained soil.",
@@ -117,10 +135,12 @@
     "diameter": "60–75",
     "hardiness": "-29",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 74
   },
   {
-    "number": 11,
+    "productId": "PROD-011",
     "slug": "anemone-japonica-prinz-heinrich",
     "common_name": "Anemone japonica 'Prinz Heinrich",
     "description_en": "Anemone japonica 'Prinz Heinrich' is a striking Japanese Anemone variety with semi-double, deep pink to reddish-purple blooms. Flowering from late summer into early autumn, it brings rich color and vertical elegance to shaded or partially shaded borders. Its tall, wiry stems and dark green, lobed foliage create a beautiful contrast in the late-season garden. This perennial is ideal for woodland gardens, mixed borders, and naturalistic plantings. It’s hardy, long-lasting, and requires minimal care once established.",
@@ -129,10 +149,12 @@
     "diameter": "50–60",
     "hardiness": "-29",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 5
   },
   {
-    "number": 12,
+    "productId": "PROD-012",
     "slug": "aquilegia-caerulea-biedermeier",
     "common_name": "Aquilegia caerulea 'Biedermeier",
     "description_en": "Aquilegia caerulea 'Biedermeier' is a charming perennial featuring delicate, multi-layered double flowers in soft shades of blue and white. Blooming in late spring to early summer, it adds a whimsical and elegant touch to shaded or partially shaded gardens. Its finely divided foliage provides a graceful backdrop, and it’s perfect for woodland borders or cottage gardens. This variety is easy to grow, deer-resistant, and attracts hummingbirds and bees.",
@@ -141,10 +163,12 @@
     "diameter": "30–45",
     "hardiness": "-34",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 88
   },
   {
-    "number": 13,
+    "productId": "PROD-013",
     "slug": "aquilegia-caerulea-earlybird-red-yellow",
     "common_name": "Aquilegia caerulea Earlybird 'Red Yellow'",
     "description_en": "Aquilegia caerulea Earlybird 'Red Yellow' is a compact and eye-catching columbine variety with striking bi-colored flowers—bright red outer petals surrounding a golden-yellow center. Blooming in late spring to early summer, it brings vibrant color to garden beds, borders, and containers. This early-flowering cultivar is loved by hummingbirds and bees and adds a cheerful touch to cottage and woodland-style gardens. Its compact size and strong stems make it ideal for small spaces and floral displays.",
@@ -153,10 +177,12 @@
     "diameter": "20–25",
     "hardiness": "-34",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 26
   },
   {
-    "number": 14,
+    "productId": "PROD-014",
     "slug": "arenaria-montana",
     "common_name": "Arenaria montana",
     "description_en": "Arenaria montana, or Mountain Sandwort, is a low-growing evergreen perennial that forms dense mats of bright green foliage topped with clusters of star-like white flowers in late spring. It’s perfect for rock gardens, ground cover, or edging paths. This hardy plant thrives in well-drained soil and adds year-round texture to sunny or partially shaded areas. It’s drought-tolerant and low-maintenance, ideal for naturalistic and alpine garden settings.",
@@ -165,10 +191,12 @@
     "diameter": "30–45",
     "hardiness": "-20",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 80
   },
   {
-    "number": 15,
+    "productId": "PROD-015",
     "slug": "armeria-maritima",
     "common_name": "Armeria maritima",
     "description_en": "Armeria maritima, also known as Sea Thrift or Sea Pink, is a compact, evergreen perennial forming neat clumps of grass-like foliage topped with round clusters of pink to purple flowers. Blooming from spring through early summer, it brings bright, cheerful color to borders, rock gardens, and coastal landscapes. Tolerant of poor, sandy soils and salt spray, it’s ideal for seaside or dry, sunny gardens. Its tidy form and resilience make it perfect for edging, paths, or containers.",
@@ -177,10 +205,12 @@
     "diameter": "20–30",
     "hardiness": "-28",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 81
   },
   {
-    "number": 16,
+    "productId": "PROD-016",
     "slug": "aster-alpinus-rosa",
     "common_name": "Aster alpinus, rosa",
     "description_en": "Aster alpinus, Rosa, is a low-growing perennial with soft pink, daisy-like flowers and sunny yellow centers that bloom in late spring. Its early flowering habit and compact form make it perfect for rock gardens, borders, and alpine plantings. Attractive to bees and butterflies, this hardy plant thrives in well-drained, sunny locations. It’s drought-tolerant, low-maintenance, and ideal for creating cheerful spring displays in small garden spaces",
@@ -189,10 +219,12 @@
     "diameter": "20–30",
     "hardiness": "-34",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 39
   },
   {
-    "number": 17,
+    "productId": "PROD-017",
     "slug": "aster-alpinus-violet",
     "common_name": "Aster alpinus, Violet",
     "description_en": "Aster alpinus, Violet, is a compact alpine perennial that produces striking violet-purple, daisy-like flowers with golden centers in late spring to early summer. Its neat, clumping habit makes it ideal for rock gardens, low borders, and alpine beds. One of the earliest-blooming asters, it brings vibrant color just as the garden wakes up. Drought-tolerant and pollinator-friendly, this hardy plant thrives in full sun and well-drained soil.",
@@ -201,10 +233,12 @@
     "diameter": "20–30",
     "hardiness": "-34",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 3
   },
   {
-    "number": 18,
+    "productId": "PROD-018",
     "slug": "aster-dumosus-jenny",
     "common_name": "Aster dumosus 'Jenny",
     "description_en": "Aster dumosus 'Jenny' is a compact, bushy perennial that bursts into bloom with rich, deep pink to reddish-pink daisy-like flowers from late summer to autumn. Its dense form and vibrant color make it a standout choice for borders, containers, and small gardens. This variety attracts bees and butterflies, adding life and movement to the late-season garden. It is low-maintenance, mildew-resistant, and maintains a tidy mound without flopping.",
@@ -213,10 +247,12 @@
     "diameter": "40–50",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 31
   },
   {
-    "number": 19,
+    "productId": "PROD-019",
     "slug": "aster-dumosus-profanton-kippenberg",
     "common_name": "Aster dumosus 'Prof.Anton Kippenberg",
     "description_en": "Aster dumosus 'Prof. Anton Kippenberg' is a compact, mound-forming perennial known for its profusion of small, lavender-blue, daisy-like flowers with sunny yellow centers. Blooming from late summer into autumn, it brings vibrant, long-lasting color to borders and containers. This low-growing aster is ideal for edging and front-of-border plantings, and it attracts bees and butterflies. Its tidy habit and reliable flowering make it a favorite for low-maintenance, late-season displays.",
@@ -225,10 +261,12 @@
     "diameter": "40–50",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 94
   },
   {
-    "number": 20,
+    "productId": "PROD-020",
     "slug": "aster-dumosus-schneekissen",
     "common_name": "Aster dumosus 'Schneekissen",
     "description_en": "Aster dumosus 'Schneekissen', also known as 'Snow Cushion', is a compact autumn-flowering perennial with a neat, bushy form. It produces masses of small, pure white daisy-like flowers with yellow centers from late summer through fall. Ideal for borders, rock gardens, and containers, it adds brightness to the garden when many other plants are fading. This variety is pollinator-friendly, easy to care for, and maintains a tidy shape throughout the season.",
@@ -237,10 +275,12 @@
     "diameter": "40–50",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 35
   },
   {
-    "number": 21,
+    "productId": "PROD-021",
     "slug": "astilbe-chinensis-varpumila",
     "common_name": "Astilbe chinensis var.pumila",
     "description_en": "Astilbe chinensis var. pumila is a compact, dwarf variety of Chinese Astilbe, prized for its fine-textured, fern-like foliage and delicate, feathery plumes of soft pink flowers. Blooming in mid to late summer, it adds a graceful, airy texture to shaded garden spots. Ideal for woodland gardens, borders, and moist, shady areas, it thrives in humus-rich, well-drained soil. This variety is low-maintenance, deer-resistant, and perfect for adding subtle color and elegance to small spaces.",
@@ -249,10 +289,12 @@
     "diameter": "30–40",
     "hardiness": "-29",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 99
   },
   {
-    "number": 22,
+    "productId": "PROD-022",
     "slug": "astilbe-x-arendsii-rot",
     "common_name": "Astilbe x arendsii, rot",
     "description_en": "Astilbe x arendsii, Rot, is a stunning hybrid perennial featuring vibrant red, plume-like flower clusters that bloom from mid to late summer. Its ferny, dark green foliage provides an attractive backdrop for the fiery blooms, adding bold color and texture to shaded garden areas. Perfect for woodland borders, shady beds, and moist soils, this variety thrives in rich, well-drained conditions. It’s deer-resistant, low-maintenance, and excellent for adding dramatic color to shady spots.",
@@ -261,10 +303,12 @@
     "diameter": "40–60",
     "hardiness": "-29",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 96
   },
   {
-    "number": 23,
+    "productId": "PROD-023",
     "slug": "astilbe-x-arendsii-weiss",
     "common_name": "Astilbe x arendsii, Weiß",
     "description_en": "Astilbe x arendsii, Weiß, is a graceful hybrid perennial showcasing elegant white plume-like flowers that bloom from mid to late summer. Its lush, fern-like green foliage provides a beautiful contrast, brightening shaded garden areas with its fresh appearance. Ideal for woodland borders, moist shady beds, and alongside water features, this variety thrives in rich, well-drained soil. It’s low-maintenance, deer-resistant, and adds delicate texture and lightness to shaded garden spots.",
@@ -273,10 +317,12 @@
     "diameter": "40–60",
     "hardiness": "-29",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 79
   },
   {
-    "number": 24,
+    "productId": "PROD-024",
     "slug": "aubrieta-x-cult-blau",
     "common_name": "Aubrieta x cult., blau",
     "description_en": "Aubrieta x cult., Blau is a vigorous, low-growing perennial that forms dense mats of small, rounded leaves topped with vibrant blue-purple flowers in spring. It’s perfect for rock gardens, walls, and as ground cover in sunny spots. This early bloomer attracts pollinators and is valued for its long-lasting, colorful floral display. It thrives in well-drained soil and is drought-tolerant once established, making it an excellent choice for low-maintenance gardens.",
@@ -285,10 +331,12 @@
     "diameter": "30–45",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 7
   },
   {
-    "number": 25,
+    "productId": "PROD-025",
     "slug": "aubrieta-x-cult-rot",
     "common_name": "Aubrieta x cult., rot",
     "description_en": "Aubrieta x cult., Rot is a charming, low-growing perennial that forms dense mats of bright green foliage, adorned with vibrant red-purple flowers in early spring. Perfect for rock gardens, walls, and ground cover, it adds a splash of warm color to sunny garden spots. This hardy and drought-tolerant plant thrives in well-drained soil and is excellent for naturalizing or edging paths. It attracts pollinators and provides long-lasting springtime interest.",
@@ -297,10 +345,12 @@
     "diameter": "30–45",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 7
   },
   {
-    "number": 26,
+    "productId": "PROD-026",
     "slug": "bergenia-cordifolia",
     "common_name": "Bergenia cordifolia",
     "description_en": "Bergenia cordifolia, commonly known as Heartleaf Bergenia or Elephant Ears, is a hardy perennial with large, glossy, heart-shaped leaves and clusters of bright pink to magenta flowers in early spring. Its bold foliage often develops attractive reddish hues in cooler weather, adding year-round interest. Ideal for shady borders, woodland gardens, and ground cover, it thrives in moist, well-drained soil. Low-maintenance and deer-resistant, Bergenia cordifolia is perfect for adding texture and color to shaded garden areas.",
@@ -309,10 +359,12 @@
     "diameter": "45–60",
     "hardiness": "-34",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 57
   },
   {
-    "number": 27,
+    "productId": "PROD-027",
     "slug": "calamintha-nepeta-sspnepeta",
     "common_name": "Calamintha nepeta ssp.nepeta",
     "description_en": "Calamintha nepeta ssp. nepeta, commonly known as Lesser Calamint, is a fragrant, low-growing perennial with aromatic gray-green leaves and delicate lilac to pale purple tubular flowers that bloom from mid to late summer. It’s great for attracting pollinators like bees and butterflies. This drought-tolerant herb thrives in well-drained, sunny locations and is perfect for borders, herb gardens, and rockeries. Its compact habit and long flowering period make it a versatile and low-maintenance addition to Mediterranean and cottage-style gardens.",
@@ -321,10 +373,12 @@
     "diameter": "40–50",
     "hardiness": "-20",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 82
   },
   {
-    "number": 28,
+    "productId": "PROD-028",
     "slug": "campanula-carp-blau",
     "common_name": "Campanula carp., blau",
     "description_en": "Campanula carpatica, Blau (Carpathian Bellflower), is a charming, compact perennial with vibrant blue, bell-shaped flowers that bloom from late spring to early summer. Its neat, mounded foliage and colorful blooms make it perfect for rock gardens, borders, and container planting. This hardy plant thrives in well-drained soil and full sun to partial shade, offering long-lasting floral interest. It’s low-maintenance, drought-tolerant, and attracts pollinators.",
@@ -333,10 +387,12 @@
     "diameter": "30–40",
     "hardiness": "-29",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 35
   },
   {
-    "number": 29,
+    "productId": "PROD-029",
     "slug": "campanula-carp-weiss",
     "common_name": "Campanula carp., weiß",
     "description_en": "Campanula carpatica, Weiß (Carpathian Bellflower) is a compact, hardy perennial that produces charming white, bell-shaped flowers from late spring to early summer. Its neat, rounded foliage and bright blooms make it perfect for rock gardens, borders, and containers. Thriving in well-drained soil and full sun to partial shade, this low-maintenance plant adds lasting beauty and attracts pollinators to your garden.",
@@ -345,10 +401,12 @@
     "diameter": "30–40",
     "hardiness": "-29",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 50
   },
   {
-    "number": 30,
+    "productId": "PROD-030",
     "slug": "campanula-glomerata",
     "common_name": "Campanula glomerata",
     "description_en": "Campanula glomerata, commonly known as Clustered Bellflower, is a vigorous perennial producing dense clusters of deep violet-blue, bell-shaped flowers from late spring to early summer. Its upright, clumping habit adds vertical interest to borders and wildflower gardens. This hardy plant thrives in full sun to partial shade and well-drained soil, attracting bees and butterflies. It’s low-maintenance and ideal for naturalistic and cottage garden settings.",
@@ -357,10 +415,12 @@
     "diameter": "30–50",
     "hardiness": "-29",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 81
   },
   {
-    "number": 31,
+    "productId": "PROD-031",
     "slug": "campanula-glomerata-weiss",
     "common_name": "Campanula glomerata, weiß",
     "description_en": "Campanula glomerata, Weiß (White Clustered Bellflower) is a striking perennial that produces dense clusters of pure white, bell-shaped flowers from late spring to early summer. Its upright, clumping growth habit adds elegant height and texture to borders and cottage gardens. Thriving in full sun to partial shade and well-drained soil, this hardy plant attracts pollinators and offers low-maintenance beauty for naturalistic landscapes.",
@@ -369,10 +429,12 @@
     "diameter": "30–50",
     "hardiness": "-29",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 43
   },
   {
-    "number": 32,
+    "productId": "PROD-032",
     "slug": "campanula-persicif-blau",
     "common_name": "Campanula persicif., blau",
     "description_en": "Campanula persicifolia, Blau (Peach-leaved Bellflower) is a graceful perennial with tall, slender stems topped by elegant, blue bell-shaped flowers. Blooming from early to mid-summer, it brings vertical interest and soft color to borders and natural-style gardens. Its narrow, glossy foliage resembles peach leaves, giving it a light and airy appearance. Easy to grow and pollinator-friendly, it thrives in well-drained soil with plenty of sunlight or partial shade.",
@@ -381,10 +443,12 @@
     "diameter": "30–45",
     "hardiness": "-34",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 82
   },
   {
-    "number": 33,
+    "productId": "PROD-033",
     "slug": "campanula-portenschlagiana",
     "common_name": "Campanula portenschlagiana",
     "description_en": "Campanula portenschlagiana, also known as Dalmatian Bellflower, is a vigorous, low-growing perennial that forms dense mats of trailing foliage covered in violet-blue, star-shaped flowers from late spring through summer. Ideal for rock gardens, walls, borders, and containers, it quickly fills gaps with vibrant color. This hardy, easy-care plant is perfect for ground cover and thrives in sunny or partially shaded areas with well-drained soil.",
@@ -393,10 +457,12 @@
     "diameter": "30–45",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 7
   },
   {
-    "number": 34,
+    "productId": "PROD-034",
     "slug": "campanula-poscharskyana",
     "common_name": "Campanula poscharskyana",
     "description_en": "Campanula poscharskyana, also known as Trailing Bellflower or Serbian Bellflower, is a fast-spreading, low-growing perennial with star-shaped, lavender-blue flowers that bloom from late spring to early autumn. Its cascading habit makes it ideal for walls, rock gardens, containers, and ground cover. This vigorous and easy-care plant thrives in various conditions and is perfect for filling gaps or softening edges. It attracts pollinators and is well-suited for naturalistic and informal garden styles.",
@@ -405,10 +471,12 @@
     "diameter": "40–60",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 75
   },
   {
-    "number": 35,
+    "productId": "PROD-035",
     "slug": "carex-oshimensis-evergold",
     "common_name": "Carex oshimensis 'Evergold",
     "description_en": "Carex oshimensis 'Evergold' is a compact, ornamental sedge with striking arching leaves striped in creamy yellow and green. This evergreen grass-like perennial brings year-round texture and color to borders, containers, and shady garden areas. Low-maintenance and clump-forming, it’s ideal for edging or mass planting, and thrives in moist, well-drained soil.",
@@ -417,10 +485,12 @@
     "diameter": "30–40",
     "hardiness": "-20",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 5
   },
   {
-    "number": 36,
+    "productId": "PROD-036",
     "slug": "carex-remota",
     "common_name": "Carex remota",
     "description_en": "Carex remota, commonly known as Remote Sedge, is a fine-textured, clump-forming sedge native to moist woodlands and streambanks. Its narrow, arching green leaves and delicate form add a naturalistic, airy touch to shaded garden areas. Perfect for damp borders, woodland gardens, or natural planting schemes, it thrives in moisture-retentive soil and low-light conditions.",
@@ -429,10 +499,12 @@
     "diameter": "30–40",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 47
   },
   {
-    "number": 37,
+    "productId": "PROD-037",
     "slug": "cerastium-tomentosum-silberteppich",
     "common_name": "Cerastium tomentosum 'Silberteppich",
     "description_en": "Cerastium tomentosum 'Silberteppich', also known as Snow-in-Summer, is a low-growing, mat-forming perennial with silvery-gray foliage and masses of small, white star-shaped flowers in late spring to early summer. It forms a dense, weed-suppressing ground cover that shines in sunny, dry spots. Perfect for rock gardens, edging, and slopes, it’s drought-tolerant, fast-spreading, and adds a bright, silvery contrast to green plantings.",
@@ -441,10 +513,12 @@
     "diameter": "30–60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 5
   },
   {
-    "number": 38,
+    "productId": "PROD-038",
     "slug": "chrysanthemum-hort-hygerrie-hoek",
     "common_name": "Chrysanthemum Hort.-Hy.'Gerrie Hoek'",
     "description_en": "Gerrie Hoek' is a beautiful garden chrysanthemum variety with soft pink, semi-double blooms and a classic daisy shape. Flowering in late summer to autumn, it brings warm, gentle color to borders, beds, and containers when many plants are fading. This compact, bushy perennial is low-maintenance and loved by pollinators, making it a great choice for autumn interest in sunny garden spots.",
@@ -453,10 +527,12 @@
     "diameter": "40–60",
     "hardiness": "-23",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 9
   },
   {
-    "number": 39,
+    "productId": "PROD-039",
     "slug": "chrysanthemum-x-hortfeuerzauber",
     "common_name": "Chrysanthemum x hort.'Feuerzauber'",
     "description_en": "Chrysanthemum 'Feuerzauber' is a striking garden mum with intense, fiery red-orange blooms that light up the garden in late summer and autumn. Its vibrant color and dense, mounded growth make it perfect for borders, seasonal displays, and containers. This variety is easy to care for, long-flowering, and a favorite for adding bold autumn color to sunny spots. Also attractive to pollinators.",
@@ -465,10 +541,12 @@
     "diameter": "40–60",
     "hardiness": "-23",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 56
   },
   {
-    "number": 40,
+    "productId": "PROD-040",
     "slug": "coreopsis-grandiflora",
     "common_name": "Coreopsis grandiflora",
     "description_en": "Coreopsis grandiflora, also known as Large-flowered Tickseed, is a cheerful perennial with bright yellow, daisy-like blooms that appear from early summer into autumn. Its upright, bushy habit and long flowering period make it ideal for borders, wildflower gardens, and pollinator-friendly plantings. Easy to grow and drought-tolerant, this sun-loving plant thrives in poor to moderately fertile soil and adds vibrant, long-lasting color to any garden.",
@@ -477,10 +555,12 @@
     "diameter": "30–50",
     "hardiness": "-29",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 76
   },
   {
-    "number": 41,
+    "productId": "PROD-041",
     "slug": "coreopsis-lanceolata-sterntaler",
     "common_name": "Coreopsis lanceolata 'Sterntaler",
     "description_en": "Coreopsis lanceolata 'Sterntaler' is a charming perennial with bright yellow, star-shaped flowers that bloom profusely from late spring to summer. Its lance-shaped green foliage forms a neat mound, adding structure and vibrant color to borders and rock gardens. This sun-loving, drought-tolerant variety thrives in well-drained soil and is ideal for low-maintenance, pollinator-friendly gardens.",
@@ -489,10 +569,12 @@
     "diameter": "30–40",
     "hardiness": "-29",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 49
   },
   {
-    "number": 42,
+    "productId": "PROD-042",
     "slug": "cortaderia-selloana-rosea",
     "common_name": "Cortaderia selloana 'Rosea",
     "description_en": "Cortaderia selloana 'Rosea', commonly known as Pink Pampas Grass, is a striking ornamental grass with tall, graceful plumes in soft pink hues that bloom from late summer into autumn. Its dense, arching foliage creates a bold architectural feature in borders and landscapes. This drought-tolerant, low-maintenance grass thrives in full sun and well-drained soil, adding texture and color with year-round interest.",
@@ -501,10 +583,12 @@
     "diameter": "100–150",
     "hardiness": "-10",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 58
   },
   {
-    "number": 43,
+    "productId": "PROD-043",
     "slug": "cotula-squalida",
     "common_name": "Cotula squalida",
     "description_en": "Cotula squalida is a low-growing, mat-forming perennial with finely divided, fern-like foliage and small, bright yellow, button-like flowers that bloom from spring through summer. Ideal as a ground cover or for rock gardens, it adds a soft texture and cheerful color to sunny, well-drained spots. This hardy, drought-tolerant plant thrives in poor soils and is easy to maintain, making it a great choice for naturalistic and low-maintenance gardens.",
@@ -513,10 +597,12 @@
     "diameter": "30–50",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 51
   },
   {
-    "number": 44,
+    "productId": "PROD-044",
     "slug": "delosperma-congestum",
     "common_name": "Delosperma congestum",
     "description_en": "Delosperma congestum, also known as Ice Plant, is a compact, mat-forming succulent with fleshy green leaves and bright yellow, daisy-like flowers that bloom from late spring to early autumn. Perfect for rock gardens, gravel beds, and dry slopes, it offers vibrant color and a carpet-like texture. Highly drought-tolerant and low-maintenance, it thrives in hot, sunny locations with well-drained soil.",
@@ -525,10 +611,12 @@
     "diameter": "30–40",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 97
   },
   {
-    "number": 45,
+    "productId": "PROD-045",
     "slug": "delosperma-nubigwow-hot-pink-wonder",
     "common_name": "Delosperma nubig.'WoW Hot Pink Wonder",
     "description_en": "Delosperma 'WoW Hot Pink Wonder' is a stunning ice plant variety known for its vivid, hot pink daisy-like flowers that bloom continuously from late spring to autumn. Its dense, succulent foliage forms a colorful, evergreen mat, ideal for sunny rock gardens, borders, and containers. Drought-tolerant and low-maintenance, this hardy ground cover brings intense color and texture to dry, well-drained soils.",
@@ -537,10 +625,12 @@
     "diameter": "30–40",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 41
   },
   {
-    "number": 46,
+    "productId": "PROD-046",
     "slug": "delosperma-nubigwow-white-wonder",
     "common_name": "Delosperma nubig.'WoW White Wonder",
     "description_en": "Delosperma 'WoW White Wonder' is a striking ice plant variety that produces a profusion of pure white, daisy-like flowers over glossy, succulent foliage. Blooming from late spring to early autumn, it creates a brilliant, evergreen carpet perfect for rock gardens, borders, and containers. Heat- and drought-tolerant, this low-growing ground cover thrives in well-drained soil and full sun, offering long-lasting color with minimal care.",
@@ -549,10 +639,12 @@
     "diameter": "30–40",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 92
   },
   {
-    "number": 47,
+    "productId": "PROD-047",
     "slug": "delosperma-sutherlandii",
     "common_name": "Delosperma sutherlandii",
     "description_en": "Delosperma sutherlandii is a vibrant, mat-forming succulent known for its abundant, vivid pink to magenta daisy-like flowers that bloom from late spring through summer. Its fleshy green foliage forms a dense, evergreen carpet, perfect for rock gardens, borders, or dry slopes. This hardy, drought-tolerant ground cover thrives in hot, sunny spots with well-drained soil and requires minimal maintenance once established.",
@@ -561,10 +653,12 @@
     "diameter": "30–40",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 50
   },
   {
-    "number": 48,
+    "productId": "PROD-048",
     "slug": "delosperma-x-cultfire-spinner",
     "common_name": "Delosperma x cult.'Fire Spinner",
     "description_en": "Delosperma 'Fire Spinner' is a dazzling ice plant hybrid with tri-colored blooms in fiery shades of orange, magenta, and white that appear from late spring through summer. Its low-growing, succulent foliage spreads quickly to form a colorful, evergreen ground cover. Ideal for rock gardens, borders, or containers, this variety thrives in sunny, dry conditions and brings bold, eye-catching color with minimal care.",
@@ -573,10 +667,12 @@
     "diameter": "30–40",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 44
   },
   {
-    "number": 49,
+    "productId": "PROD-049",
     "slug": "delphinium-pacific-dunkelblau",
     "common_name": "Delphinium Pacific, dunkelblau",
     "description_en": "Delphinium Pacific, dunkelblau, is a tall, majestic perennial producing dense spires of rich dark blue flowers with contrasting centers in early to mid-summer. Perfect for the back of borders or cottage-style gardens, it adds vertical drama and classic elegance to garden designs. This variety prefers cool, moist, well-drained soil and benefits from staking in windy locations. Loved by pollinators and perfect for cut flowers.",
@@ -585,10 +681,12 @@
     "diameter": "40–60",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 74
   },
   {
-    "number": 50,
+    "productId": "PROD-050",
     "slug": "delphinium-pacific-rosa",
     "common_name": "Delphinium Pacific, rosa",
     "description_en": "Delphinium Pacific, rosa, features tall spires of soft pink blooms that bring elegance and gentle color to summer gardens. Flowering in early to mid-summer, this variety is perfect for creating romantic, vertical accents in borders, cottage gardens, or floral displays. It thrives in sunny locations with rich, well-drained soil and benefits from staking in exposed spots. A magnet for bees and butterflies, and excellent as a cut flower.",
@@ -597,10 +695,12 @@
     "diameter": "40–60",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 10
   },
   {
-    "number": 51,
+    "productId": "PROD-051",
     "slug": "delphinium-pacific-weiss",
     "common_name": "Delphinium Pacific, weiß",
     "description_en": "Delphinium Pacific, weiß, showcases tall, elegant spikes of pure white flowers that brighten garden borders and floral arrangements in early to mid-summer. This classic perennial adds vertical grace and a fresh, clean look to cottage and mixed borders. Thriving in rich, well-drained soil with full sun to partial shade, it benefits from staking to support its tall stems. Loved by pollinators and perfect for cutting.",
@@ -609,10 +709,12 @@
     "diameter": "40–60",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 60
   },
   {
-    "number": 52,
+    "productId": "PROD-052",
     "slug": "dianthus-deltoides-albus",
     "common_name": "Dianthus deltoides 'Albus'",
     "description_en": "Dianthus deltoides 'Albus' is a charming low-growing perennial featuring clusters of pure white, fragrant, star-shaped flowers that bloom from late spring to early summer. Its fine, grassy foliage forms neat mats, making it perfect for rock gardens, borders, and ground cover in sunny spots. This hardy and drought-tolerant plant thrives in well-drained soil and adds delicate, long-lasting beauty to any garden setting.",
@@ -621,10 +723,12 @@
     "diameter": "30–40",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 64
   },
   {
-    "number": 53,
+    "productId": "PROD-053",
     "slug": "dianthus-deltoides-rot",
     "common_name": "Dianthus deltoides, rot",
     "description_en": "Dianthus deltoides, rot, is a vibrant, low-growing perennial that produces clusters of bright red, fragrant, star-shaped flowers from late spring to early summer. Its fine, grassy foliage forms compact mats, making it an excellent choice for rock gardens, borders, and ground cover in sunny locations. Hardy and drought-tolerant, this easy-care plant thrives in well-drained soil and adds a striking splash of color to any garden.",
@@ -633,10 +737,12 @@
     "diameter": "30–40",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 22
   },
   {
-    "number": 54,
+    "productId": "PROD-054",
     "slug": "dianthus-x-cult-vivid-bright-light",
     "common_name": "Dianthus x cult. 'Vivid Bright Light'",
     "description_en": "Dianthus 'Vivid Bright Light' is a vibrant, compact perennial with striking bright pink flowers edged in white, blooming from late spring through summer. Its fragrant blooms and neat, evergreen foliage make it perfect for borders, containers, and rock gardens. This hardy variety thrives in well-drained soil and full sun, providing long-lasting color and charm to any garden setting.",
@@ -645,10 +751,12 @@
     "diameter": "25–35",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 85
   },
   {
-    "number": 55,
+    "productId": "PROD-055",
     "slug": "doronicum-orientale",
     "common_name": "Doronicum orientale",
     "description_en": "Doronicum orientale, also known as Leopard’s Bane, is a charming perennial that produces bright yellow, daisy-like flowers in early spring. Its bold blooms stand on sturdy stems above lush, heart-shaped foliage, making it a perfect early-season brightener for shaded or partially shaded borders and woodland gardens. This easy-care plant thrives in moist, well-drained soil and adds cheerful color when many other plants are still dormant.",
@@ -657,10 +765,12 @@
     "diameter": "30–40",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 1
   },
   {
-    "number": 56,
+    "productId": "PROD-056",
     "slug": "echinacea-purpurea-cheyenne-spirit",
     "common_name": "Echinacea purpurea 'Cheyenne Spirit",
     "description_en": "Echinacea 'Cheyenne Spirit' is a stunning, vibrant coneflower variety that showcases a mix of fiery orange, red, pink, and yellow petals with a prominent cone-shaped center. Blooming from mid-summer to early autumn, it attracts pollinators like bees and butterflies, adding both color and wildlife value to gardens. This hardy perennial thrives in full sun and well-drained soil, making it ideal for borders, wildflower meadows, and naturalistic plantings.",
@@ -669,10 +779,12 @@
     "diameter": "40–60",
     "hardiness": "-29",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 78
   },
   {
-    "number": 57,
+    "productId": "PROD-057",
     "slug": "echinacea-purpurea-rot",
     "common_name": "Echinacea purpurea, rot",
     "description_en": "Echinacea purpurea in vibrant red produces large, daisy-like flowers with prominent spiky cones that bloom from mid-summer to early autumn. This striking perennial attracts pollinators and adds bold color and structure to perennial borders and wildflower gardens. It thrives in full sun and well-drained soil, offering easy care and drought tolerance once established",
@@ -681,10 +793,12 @@
     "diameter": "40–60",
     "hardiness": "-29",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 71
   },
   {
-    "number": 58,
+    "productId": "PROD-058",
     "slug": "echinacea-purpurea-weiss",
     "common_name": "Echinacea purpurea, weiß",
     "description_en": "Echinacea purpurea, weiß, is an elegant perennial with large, pure white, daisy-like blooms and striking golden cone centers. Flowering from mid-summer to early autumn, it attracts bees, butterflies, and other pollinators while adding a fresh, clean touch to borders and naturalistic plantings. This hardy, low-maintenance plant thrives in sunny spots with well-drained soil and is highly drought-tolerant once established.",
@@ -693,10 +807,12 @@
     "diameter": "40-60",
     "hardiness": "-29",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 72
   },
   {
-    "number": 59,
+    "productId": "PROD-059",
     "slug": "echinops-ritro",
     "common_name": "Echinops ritro",
     "description_en": "Echinops ritro, commonly known as Globe Thistle, is a striking perennial with perfectly spherical, steel-blue flower heads that bloom in mid to late summer. Its spiny, silvery-green foliage adds texture and contrast, making it a standout in mixed borders and naturalistic plantings. Highly attractive to bees and butterflies, this drought-tolerant plant thrives in poor, well-drained soils and brings bold structure to the garden with minimal care.",
@@ -705,10 +821,12 @@
     "diameter": "40-60",
     "hardiness": "-34",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 4
   },
   {
-    "number": 60,
+    "productId": "PROD-060",
     "slug": "erigeron-karvinskianus-bluetenmeer",
     "common_name": "Erigeron karvinskianus 'Blütenmeer'",
     "description_en": "Erigeron karvinskianus 'Blütenmeer', also known as Mexican Fleabane, is a charming perennial that produces a profusion of small, daisy-like flowers that open white and gradually turn pink. Blooming from late spring until autumn, it creates a long-lasting “sea of blossoms” ideal for borders, rock gardens, walls, and containers. This easy-care plant thrives in sunny, well-drained locations and is loved for its resilience, self-seeding nature, and extended flowering season.",
@@ -717,10 +835,12 @@
     "diameter": "30-40",
     "hardiness": "-15",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 53
   },
   {
-    "number": 61,
+    "productId": "PROD-061",
     "slug": "erodium-reichardii",
     "common_name": "Erodium reichardii",
     "description_en": "Erodium reichardii is a compact, mat-forming perennial with delicate pink, veined flowers that bloom from late spring to early autumn. Its small, rounded, slightly hairy leaves form a dense carpet, making it perfect for rock gardens, edging, and containers. This charming, low-maintenance plant thrives in well-drained soil and sunny positions, offering long-lasting color and ground cover in small garden spaces.",
@@ -729,10 +849,12 @@
     "diameter": "20–30",
     "hardiness": "-15",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 59
   },
   {
-    "number": 62,
+    "productId": "PROD-062",
     "slug": "eryngium-planum",
     "common_name": "Eryngium planum",
     "description_en": "Eryngium planum, also known as Flat Sea Holly, is a striking perennial with spiky, steel-blue flowers and silvery stems that bloom from mid to late summer. Its architectural form and unique texture make it a standout in borders, gravel gardens, and dried arrangements. Highly attractive to bees and butterflies, this drought-tolerant plant thrives in poor, well-drained soils and full sun, adding bold structure with minimal maintenance.",
@@ -741,10 +863,12 @@
     "diameter": "30–50",
     "hardiness": "-28",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 42
   },
   {
-    "number": 63,
+    "productId": "PROD-063",
     "slug": "festuca-valesiaca-glaucantha",
     "common_name": "Festuca valesiaca 'Glaucantha",
     "description_en": "Festuca valesiaca 'Glaucantha' is a compact ornamental grass with fine, needle-like foliage in a beautiful bluish-green shade. Forming neat, rounded clumps, it adds texture and contrast to borders, rock gardens, and containers. Drought-tolerant and low-maintenance, it thrives in well-drained soils and sunny locations, offering year-round visual interest and subtle movement in the wind.",
@@ -753,10 +877,12 @@
     "diameter": "25–30",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 70
   },
   {
-    "number": 64,
+    "productId": "PROD-064",
     "slug": "fuchsia-x-hybrmadame-cornelissen",
     "common_name": "Fuchsia x hybr.'Madame Cornelissen'",
     "description_en": "Fuchsia 'Madame Cornelissen' is an elegant, bushy hybrid with striking red and white, pendulous, bell-shaped flowers that bloom continuously from late spring to autumn. Its vibrant, bicolor blossoms make it a favorite for hanging baskets, containers, and shaded borders. Thriving in cooler, partially shaded spots with moist, well-drained soil, this variety brings a touch of grace and vivid color to summer displays.",
@@ -765,10 +891,12 @@
     "diameter": "30–50",
     "hardiness": "-5",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 91
   },
   {
-    "number": 65,
+    "productId": "PROD-065",
     "slug": "gaillardia-x-grandiflora-burgunder",
     "common_name": "Gaillardia x grandiflora 'Burgunder",
     "description_en": "Gaillardia × grandiflora 'Burgunder' is a bold, sun-loving perennial with large, daisy-like blooms in a rich burgundy-red shade. Flowering from early summer to autumn, it brings long-lasting color and a warm, vibrant feel to borders and cottage gardens. This drought-tolerant plant thrives in well-drained soil and full sun, making it an excellent choice for low-maintenance, pollinator-friendly plantings.",
@@ -777,10 +905,12 @@
     "diameter": "30–40",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 83
   },
   {
-    "number": 66,
+    "productId": "PROD-066",
     "slug": "gaillardia-x-grandiflora-kobold",
     "common_name": "Gaillardia x grandiflora 'Kobold'",
     "description_en": "Gaillardia × grandiflora 'Kobold' is a compact and vibrant perennial with cheerful, daisy-like flowers in fiery shades of red, orange, and yellow. Blooming from early summer well into autumn, it brings a burst of warmth and color to borders, rock gardens, and containers. This hardy, drought-tolerant variety thrives in full sun and well-drained soil, attracting bees and butterflies while requiring minimal care.",
@@ -789,10 +919,12 @@
     "diameter": "25–30",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 92
   },
   {
-    "number": 67,
+    "productId": "PROD-067",
     "slug": "gaura-lindheimerii-siskiyou-pink",
     "common_name": "Gaura lindheimerii 'Siskiyou Pink",
     "description_en": "Gaura lindheimerii 'Siskiyou Pink' is a graceful perennial with airy spikes of soft pink, butterfly-like flowers that dance in the breeze from early summer to autumn. Its slender stems and fine foliage create a light, romantic effect, perfect for cottage gardens and mixed borders. Drought-tolerant and easy to grow, it thrives in sunny, well-drained spots, adding movement and long-lasting color to the garden.",
@@ -801,10 +933,12 @@
     "diameter": "40–60",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 69
   },
   {
-    "number": 68,
+    "productId": "PROD-068",
     "slug": "gaura-lindheimerii-whirling-butterflies",
     "common_name": "Gaura lindheimerii 'Whirling Butterflies",
     "description_en": "Gaura 'Whirling Butterflies' is a delicate perennial featuring airy spikes of white flowers tinged with pink, resembling fluttering butterflies from early summer to autumn. Its slender stems and fine foliage add graceful movement to borders, cottage gardens, and containers. This drought-tolerant, easy-care plant thrives in sunny, well-drained locations and provides long-lasting garden interest.",
@@ -813,10 +947,12 @@
     "diameter": "40–60",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 3
   },
   {
-    "number": 69,
+    "productId": "PROD-069",
     "slug": "geranium-sanguineum-max-frei",
     "common_name": "Geranium sanguineum 'Max Frei",
     "description_en": "Geranium sanguineum 'Max Frei' is a vigorous, low-growing perennial that produces vibrant magenta-pink flowers from late spring to early summer. Its deeply lobed, bright green foliage forms dense mats, making it excellent for ground cover, borders, and rock gardens. This hardy, drought-tolerant plant thrives in full sun to partial shade and well-drained soil, adding long-lasting color and texture to garden spaces.",
@@ -825,10 +961,12 @@
     "diameter": "40–50",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 28
   },
   {
-    "number": 70,
+    "productId": "PROD-070",
     "slug": "geranium-sanguineum",
     "common_name": "Geranium sanguineum",
     "description_en": "Geranium sanguineum, commonly known as Bloody Cranesbill, is a hardy perennial with vibrant magenta to deep pink flowers that bloom from late spring to mid-summer. Its finely divided, lush green foliage forms a dense ground cover, ideal for borders, rock gardens, and wildflower meadows. Thriving in full sun to partial shade and well-drained soil, it is drought-tolerant and easy to maintain, providing long-lasting color and texture.",
@@ -837,10 +975,12 @@
     "diameter": "40–50",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 24
   },
   {
-    "number": 71,
+    "productId": "PROD-071",
     "slug": "geranium-wallichianum-rozanne",
     "common_name": "Geranium wallichianum 'Rozanne",
     "description_en": "Geranium wallichianum 'Rozanne' is a vigorous, long-flowering perennial renowned for its large, vibrant violet-blue flowers with delicate white centers, blooming from late spring to autumn. Its lush, deeply lobed foliage creates an attractive ground cover, perfect for borders, containers, and cottage gardens. This hardy and low-maintenance plant thrives in full sun to partial shade and well-drained soil, providing extended color and pollinator-friendly blooms.",
@@ -849,10 +989,12 @@
     "diameter": "60–80",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 78
   },
   {
-    "number": 72,
+    "productId": "PROD-072",
     "slug": "geranium-x-cantabrigiense-biokovo",
     "common_name": "Geranium x cantabrigiense 'Biokovo",
     "description_en": "Geranium × cantabrigiense 'Biokovo' is a vigorous groundcover perennial with soft pink, cup-shaped flowers that bloom from late spring to early summer. Its dense, evergreen foliage provides excellent coverage, making it ideal for borders, rock gardens, and slopes. This hardy and low-maintenance plant thrives in full sun to partial shade and well-drained soil, adding year-round texture and seasonal color.",
@@ -861,10 +1003,12 @@
     "diameter": "60-80",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 64
   },
   {
-    "number": 73,
+    "productId": "PROD-073",
     "slug": "geranium-x-cantabrigiense-cambridge",
     "common_name": "Geranium x cantabrigiense 'Cambridge",
     "description_en": "Geranium × cantabrigiense 'Cambridge' is a vigorous, low-growing groundcover with charming pale pink to white flowers blooming from late spring to early summer. Its dense, glossy green foliage forms an attractive carpet, making it ideal for borders, rockeries, and slopes. This hardy and easy-care perennial thrives in full sun to partial shade and well-drained soil, providing excellent erosion control and seasonal color.",
@@ -873,10 +1017,12 @@
     "diameter": "60–80",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 18
   },
   {
-    "number": 74,
+    "productId": "PROD-074",
     "slug": "geum-chiloense-lady-stratheden",
     "common_name": "Geum chiloense 'Lady Stratheden",
     "description_en": "Geum chiloense 'Lady Stratheden' is a vibrant perennial featuring bright orange-red, cup-shaped flowers with yellow centers, blooming from late spring to mid-summer. Its fresh green foliage forms a neat mound, perfect for adding bold color and texture to borders and cottage gardens. This hardy variety thrives in full sun to partial shade and well-drained soil, offering easy care and long-lasting visual appeal.",
@@ -885,10 +1031,12 @@
     "diameter": "30–40",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 76
   },
   {
-    "number": 75,
+    "productId": "PROD-075",
     "slug": "geum-chiloense-mrs-bradshaw",
     "common_name": "Geum chiloense 'Mrs Bradshaw",
     "description_en": "Geum chiloense 'Mrs Bradshaw' is a charming perennial with bright orange-red, bell-shaped flowers that bloom from late spring to summer. Its attractive green foliage forms a compact mound, adding vibrant color and texture to borders and mixed beds. This hardy plant thrives in full sun to partial shade and prefers well-drained soil, making it an easy-care addition to your garden.",
@@ -897,10 +1045,12 @@
     "diameter": "30–40",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 22
   },
   {
-    "number": 76,
+    "productId": "PROD-076",
     "slug": "gypsophila-paniculata-weiss",
     "common_name": "Gypsophila paniculata, weiß",
     "description_en": "Gypsophila paniculata, commonly known as Baby's Breath, is a delicate perennial featuring airy clusters of small, pure white flowers from mid-summer to early autumn. Its fine, branching stems create a soft, cloud-like effect, making it ideal for borders, cut flower arrangements, and wildflower gardens. This drought-tolerant plant thrives in full sun and well-drained soil, adding elegance and texture with minimal maintenance.",
@@ -909,10 +1059,12 @@
     "diameter": "50-70",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 53
   },
   {
-    "number": 77,
+    "productId": "PROD-077",
     "slug": "helianthemum-x-cult-rot",
     "common_name": "Helianthemum x cult., rot",
     "description_en": "Helianthemum × cult., commonly known as Rock Rose, is a low-growing, evergreen shrub that produces vibrant red, cup-shaped flowers from late spring to early summer. Its dense, grey-green foliage provides an attractive contrast, making it ideal for rock gardens, borders, and sunny slopes. This drought-tolerant, hardy plant thrives in well-drained soil and full sun, adding bright color and year-round interest to garden spaces.",
@@ -921,10 +1073,12 @@
     "diameter": "40–50",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 90
   },
   {
-    "number": 78,
+    "productId": "PROD-078",
     "slug": "helianthemum-x-cult-weiss",
     "common_name": "Helianthemum x cult., weiß",
     "description_en": "Helianthemum × cult., commonly known as Rock Rose, is a compact, evergreen shrub featuring bright white, cup-shaped flowers that bloom from late spring to early summer. Its dense, grey-green foliage creates an attractive backdrop, perfect for rock gardens, borders, and sunny slopes. This drought-tolerant and hardy plant thrives in full sun and well-drained soil, offering year-round interest and low maintenance.",
@@ -933,10 +1087,12 @@
     "diameter": "40–50",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 67
   },
   {
-    "number": 79,
+    "productId": "PROD-079",
     "slug": "hemerocallis-x-cultstella-de-oro",
     "common_name": "Hemerocallis x cult.'Stella de Oro",
     "description_en": "Hemerocallis 'Stella de Oro' is a popular daylily cultivar known for its compact size and vibrant golden-yellow, trumpet-shaped flowers. Blooming repeatedly from late spring through summer, it provides continuous color and texture to borders, containers, and perennial gardens. This low-maintenance, hardy plant thrives in full sun to partial shade and adapts well to various soil types, making it a versatile choice for gardeners.",
@@ -945,10 +1101,12 @@
     "diameter": "40–50",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 57
   },
   {
-    "number": 80,
+    "productId": "PROD-080",
     "slug": "heuchera-micrantha-palace-purple-gen",
     "common_name": "Heuchera micrantha 'Palace Purple', gen",
     "description_en": "Heuchera micrantha 'Palace Purple' is a striking perennial known for its rich, deep purple foliage that forms dense mounds, adding bold color and texture to shaded garden areas. It produces delicate, airy sprays of small bell-shaped flowers in late spring to early summer. This shade-loving plant thrives in well-drained soil and partial to full shade, making it an excellent choice for borders, woodland gardens, and containers.",
@@ -957,10 +1115,12 @@
     "diameter": "40–50",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 79
   },
   {
-    "number": 81,
+    "productId": "PROD-081",
     "slug": "heuchera-sanguinea-leuchtkaefer",
     "common_name": "Heuchera sanguinea 'Leuchtkäfer",
     "description_en": "Heuchera sanguinea 'Leuchtkäfer' is a vibrant perennial known for its bright red flowers held on tall, slender stems above a mound of attractive, rounded green leaves. Blooming from late spring to summer, it adds a splash of color and vertical interest to shaded borders and containers. This adaptable plant prefers partial shade to half shade and well-drained soil, thriving with minimal care and offering excellent garden versatility.",
@@ -969,10 +1129,12 @@
     "diameter": "30–40",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 72
   },
   {
-    "number": 82,
+    "productId": "PROD-082",
     "slug": "hosta-x-fortunei-aureomarginata",
     "common_name": "Hosta x fortunei 'Aureomarginata",
     "description_en": "Hosta × fortunei 'Aureomarginata' is a shade-loving perennial prized for its striking green leaves edged with bright yellow margins, creating a bold foliage contrast. It produces pale lavender flowers in summer, attracting pollinators and enhancing shady borders and woodland gardens. This low-maintenance plant thrives in partial to full shade and moist, well-drained soil, adding year-round interest and texture.",
@@ -981,10 +1143,12 @@
     "diameter": "60–80",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 42
   },
   {
-    "number": 83,
+    "productId": "PROD-083",
     "slug": "hosta-fortunei-francee",
     "common_name": "Hosta × fortunei 'Francee'",
     "description_en": "Hosta × fortunei 'Francee' is a classic shade perennial admired for its lush green leaves bordered with creamy white edges, creating a striking variegated appearance. It produces lavender flowers in midsummer that add subtle charm to shady garden areas. This hardy, low-maintenance plant thrives in partial to full shade and prefers moist, well-drained soil, ideal for borders, woodland gardens, and containers.",
@@ -993,10 +1157,12 @@
     "diameter": "60–80",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 45
   },
   {
-    "number": 84,
+    "productId": "PROD-084",
     "slug": "hosta-x-fortunei-gold-standard",
     "common_name": "Hosta x fortunei 'Gold Standard",
     "description_en": "Hosta × fortunei 'Gold Standard' is a standout shade perennial featuring large, heart-shaped leaves with vibrant golden-yellow centers and dark green margins. Its striking foliage brightens up shady garden corners and adds texture to borders and woodland settings. In summer, it produces pale lavender flowers that attract pollinators, thriving best in partial to full shade with moist, well-drained soil.",
@@ -1005,10 +1171,12 @@
     "diameter": "60–80",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 29
   },
   {
-    "number": 85,
+    "productId": "PROD-085",
     "slug": "hosta-x-tardiana-halcyon",
     "common_name": "Hosta x tardiana 'Halcyon",
     "description_en": "Hosta × tardiana 'Halcyon' is a popular shade-loving perennial known for its striking blue-gray, heart-shaped leaves that form a neat mound. It produces pale lavender flowers in midsummer, adding gentle color to shady borders and woodland gardens. This hardy and low-maintenance plant thrives in partial to full shade and prefers moist, well-drained soil, making it a reliable choice for shade gardens.",
@@ -1017,10 +1185,12 @@
     "diameter": "60–80",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 29
   },
   {
-    "number": 86,
+    "productId": "PROD-086",
     "slug": "iberis-sempervirens-schneeflocke",
     "common_name": "Iberis sempervirens 'Schneeflocke",
     "description_en": "Iberis sempervirens 'Schneeflocke', also known as Evergreen Candytuft, is a low-growing perennial with dense clusters of pure white flowers that bloom profusely in spring. Its evergreen, dark green foliage provides year-round interest, making it ideal for rock gardens, borders, and groundcover. This hardy plant thrives in full sun to partial shade and well-drained soil, offering easy maintenance and excellent erosion control.",
@@ -1029,10 +1199,12 @@
     "diameter": "40–50",
     "hardiness": "-20",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 51
   },
   {
-    "number": 87,
+    "productId": "PROD-087",
     "slug": "isotoma-fluviatilis",
     "common_name": "Isotoma fluviatilis",
     "description_en": "Isotoma fluviatilis, commonly known as Blue Star Creeper, is a low-growing, spreading perennial featuring delicate sky-blue, star-shaped flowers from late spring to summer. Its dense mat of small green leaves makes it an excellent groundcover for filling gaps between stepping stones, borders, or rock gardens. This hardy, drought-tolerant plant thrives in full sun to partial shade and well-drained soil, adding charm and color with minimal upkeep.",
@@ -1041,10 +1213,12 @@
     "diameter": "30–50",
     "hardiness": "-20",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 46
   },
   {
-    "number": 88,
+    "productId": "PROD-088",
     "slug": "jasione-laevis",
     "common_name": "Jasione laevis",
     "description_en": "Jasione laevis, also known as Sheep’s-bit, is a charming perennial featuring striking globe-shaped clusters of blue to violet flowers blooming from late spring to summer. Its slender, upright stems and narrow leaves add texture and height to borders, rock gardens, and wildflower meadows. This hardy and low-maintenance plant thrives in full sun to partial shade with well-drained soil, making it an excellent choice for naturalistic garden settings.",
@@ -1053,10 +1227,12 @@
     "diameter": "20–30",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 80
   },
   {
-    "number": 89,
+    "productId": "PROD-089",
     "slug": "kniphofia-uvaria",
     "common_name": "Kniphofia uvaria",
     "description_en": "Kniphofia uvaria, commonly known as Red Hot Poker, is a striking perennial with tall spikes of tubular flowers that transition from fiery red at the top to vibrant orange and yellow below. Blooming from late spring to summer, it adds dramatic vertical interest and bold color to garden borders and wildlife-friendly landscapes. This drought-tolerant, hardy plant thrives in full sun and well-drained soil, attracting hummingbirds and pollinators.",
@@ -1065,10 +1241,12 @@
     "diameter": "30–50",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 62
   },
   {
-    "number": 90,
+    "productId": "PROD-090",
     "slug": "lavandula-angustifolia-munstead",
     "common_name": "Lavandula angustifolia 'Munstead'",
     "description_en": "Lavandula angustifolia 'Munstead' is a classic lavender variety prized for its compact form and fragrant, deep violet-blue flower spikes that bloom from mid to late summer. Its aromatic gray-green foliage complements the flowers, making it ideal for borders, herb gardens, and containers. This drought-tolerant and hardy shrub thrives in full sun with well-drained soil, attracting pollinators and providing lasting beauty.",
@@ -1077,10 +1255,12 @@
     "diameter": "50–60",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 19
   },
   {
-    "number": 91,
+    "productId": "PROD-091",
     "slug": "lavandula-angustifolia-rosea",
     "common_name": "Lavandula angustifolia 'Rosea",
     "description_en": "Lavandula angustifolia 'Rosea' is a charming lavender variety known for its soft pinkish-purple flower spikes that bloom from mid to late summer. Its fragrant, gray-green foliage adds texture and aroma to herb gardens, borders, and containers. This hardy, drought-tolerant plant thrives in full sun and well-drained soil, attracting pollinators and offering long-lasting garden appeal.",
@@ -1089,10 +1269,12 @@
     "diameter": "50–60",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 87
   },
   {
-    "number": 92,
+    "productId": "PROD-092",
     "slug": "lavandula-x-intermedia-edelweiss",
     "common_name": "Lavandula x intermedia 'Edelweiß",
     "description_en": "Lavandula × intermedia 'Edelweiß' is a hybrid lavender known for its elegant pure white flower spikes that bloom from mid to late summer. Its aromatic gray-green foliage creates a beautiful contrast and adds texture to herb gardens, borders, and containers. This hardy and drought-tolerant plant thrives in full sun and well-drained soil, attracting pollinators and providing long-lasting color and fragrance.",
@@ -1101,10 +1283,12 @@
     "diameter": "60–80",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 4
   },
   {
-    "number": 93,
+    "productId": "PROD-093",
     "slug": "lavatera-x-olbia-burgundy-wine",
     "common_name": "Lavatera x olbia 'Burgundy Wine",
     "description_en": "avatera × olbia 'Burgundy Wine' is a striking perennial shrub featuring large, deep burgundy-pink flowers with a delicate, funnel shape that bloom from summer to early autumn. Its soft, grey-green foliage creates a lush backdrop, adding color and texture to borders and cottage gardens. This hardy, low-maintenance plant thrives in full sun and well-drained soil, attracting pollinators and providing a long flowering season.",
@@ -1113,10 +1297,12 @@
     "diameter": "60–80",
     "hardiness": "-15",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 11
   },
   {
-    "number": 94,
+    "productId": "PROD-094",
     "slug": "leontopodium-alpinum",
     "common_name": "Leontopodium alpinum",
     "description_en": "Leontopodium alpinum, commonly known as Edelweiss, is an iconic alpine perennial celebrated for its unique star-shaped, woolly white flowers that bloom in summer. Its silvery-gray foliage adds a soft texture and complements rock gardens, alpine beds, and sunny borders. This hardy, drought-tolerant plant thrives in full sun with well-drained, rocky soil, making it ideal for mountain-style or low-maintenance gardens.",
@@ -1125,10 +1311,12 @@
     "diameter": "20–30",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 0
   },
   {
-    "number": 95,
+    "productId": "PROD-095",
     "slug": "leucanthemum-x-superbalaska-gen",
     "common_name": "Leucanthemum x superb.'Alaska', gen",
     "description_en": "Leucanthemum × superbum 'Alaska', known as the classic Shasta Daisy, features large, bright white petals surrounding sunny yellow centers. Blooming from early summer to autumn, it brings cheerful and timeless beauty to borders and perennial gardens. This robust and hardy perennial thrives in full sun and well-drained soil, offering easy care and long-lasting floral displays.",
@@ -1137,10 +1325,12 @@
     "diameter": "40–60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 45
   },
   {
-    "number": 96,
+    "productId": "PROD-096",
     "slug": "leucanthemum-xsuperb-dwarf-snow-lady",
     "common_name": "Leucanthemum x.superb. 'Dwarf Snow Lady",
     "description_en": "Leucanthemum × superbum 'Dwarf Snow Lady' is a compact Shasta Daisy variety featuring pure white petals and bright yellow centers. Blooming from early summer to autumn, it adds a fresh, clean look to rock gardens, borders, and containers. This hardy and low-maintenance perennial thrives in full sun and well-drained soil, ideal for smaller spaces needing long-lasting floral charm.",
@@ -1149,10 +1339,12 @@
     "diameter": "30–40",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 47
   },
   {
-    "number": 97,
+    "productId": "PROD-097",
     "slug": "liatris-spicata",
     "common_name": "Liatris spicata",
     "description_en": "Liatris spicata, also known as Blazing Star or Gayfeather, is a tall perennial featuring dense spikes of vibrant purple flowers that bloom from mid to late summer. Its upright form adds vertical interest and attracts butterflies and pollinators to borders and wildflower gardens. This hardy, drought-tolerant plant thrives in full sun and well-drained soil, making it an excellent choice for naturalistic and cottage-style landscapes.",
@@ -1161,10 +1353,12 @@
     "diameter": "30–40",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 28
   },
   {
-    "number": 98,
+    "productId": "PROD-098",
     "slug": "liatris-spicata-weiss",
     "common_name": "Liatris spicata, weiß",
     "description_en": "Liatris spicata 'Weiß' is a striking perennial with tall spikes of pure white flowers that bloom from mid to late summer. Its elegant, upright form adds vertical interest and brightens borders, cottage gardens, and wildflower meadows. This hardy, drought-tolerant plant thrives in full sun with well-drained soil and attracts pollinators like butterflies and bees.",
@@ -1173,10 +1367,12 @@
     "diameter": "30–40",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 10
   },
   {
-    "number": 99,
+    "productId": "PROD-099",
     "slug": "lithodora-diffusa-heavenly-blue",
     "common_name": "Lithodora diffusa 'Heavenly Blue'",
     "description_en": "Lithodora diffusa 'Heavenly Blue' is a low-growing evergreen perennial known for its vibrant, sky-blue star-shaped flowers that bloom profusely from spring through summer. Its dense, dark green foliage forms a neat mat, making it ideal for rock gardens, borders, and groundcover. This hardy, drought-tolerant plant thrives in full sun to partial shade with well-drained, acidic soil.",
@@ -1185,10 +1381,12 @@
     "diameter": "40–50",
     "hardiness": "-15",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 36
   },
   {
-    "number": 100,
+    "productId": "PROD-100",
     "slug": "lobelia-splendens-queen-victoria",
     "common_name": "Lobelia splendens 'Queen Victoria",
     "description_en": "Lobelia splendens 'Queen Victoria' is a vibrant annual with rich, deep purple-blue flowers that bloom profusely from summer to early autumn. Its compact growth habit makes it perfect for containers, borders, and hanging baskets, adding a bold splash of color. This sun-loving plant prefers moist, well-drained soil and thrives in full sun to partial shade.",
@@ -1197,10 +1395,12 @@
     "diameter": "20–30",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 79
   },
   {
-    "number": 101,
+    "productId": "PROD-101",
     "slug": "lupinus-polyphyllus-blau",
     "common_name": "Lupinus polyphyllus, blau",
     "description_en": "Lupinus polyphyllus, commonly known as Blue Lupine, features tall spikes of vibrant blue pea-like flowers that bloom from late spring to mid-summer. Its deeply divided palmate leaves add texture and lush greenery to cottage gardens and mixed borders. This hardy perennial thrives in full sun with well-drained soil and attracts pollinators like bees and butterflies.",
@@ -1209,10 +1409,12 @@
     "diameter": "40-60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 35
   },
   {
-    "number": 102,
+    "productId": "PROD-102",
     "slug": "lupinus-polyphyllus-gelb",
     "common_name": "Lupinus polyphyllus, gelb",
     "description_en": "Lupinus polyphyllus 'Gelb' is a striking perennial featuring tall spikes of bright yellow pea-like flowers that bloom from late spring to mid-summer. Its lush, deeply divided palmate leaves add a vibrant texture to cottage gardens and mixed borders. This hardy plant thrives in full sun and well-drained soil, attracting bees and butterflies to your garden.",
@@ -1221,10 +1423,12 @@
     "diameter": "40-60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 75
   },
   {
-    "number": 103,
+    "productId": "PROD-103",
     "slug": "lupinus-polyphyllus-rosa",
     "common_name": "Lupinus polyphyllus, rosa",
     "description_en": "Lupinus polyphyllus 'Rosa' is a beautiful perennial showcasing tall spikes of soft pink pea-like flowers that bloom from late spring to mid-summer. Its lush, deeply divided palmate leaves provide a rich green backdrop, enhancing mixed borders and cottage gardens. This hardy plant thrives in full sun with well-drained soil, attracting pollinators such as bees and butterflies.",
@@ -1233,10 +1437,12 @@
     "diameter": "40-60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 47
   },
   {
-    "number": 104,
+    "productId": "PROD-104",
     "slug": "lupinus-polyphyllus-rot",
     "common_name": "Lupinus polyphyllus, rot",
     "description_en": "Lupinus polyphyllus 'Rot' features tall spikes of vibrant red pea-like flowers that bloom from late spring to mid-summer. Its deeply divided palmate leaves add lush texture and color to cottage gardens and perennial borders. This hardy perennial thrives in full sun and well-drained soil, attracting pollinators like bees and butterflies.",
@@ -1245,10 +1451,12 @@
     "diameter": "40–60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 36
   },
   {
-    "number": 105,
+    "productId": "PROD-105",
     "slug": "lupinus-polyphyllus-weiss",
     "common_name": "Lupinus polyphyllus, weiß",
     "description_en": "Lupinus polyphyllus 'Rot' features tall spikes of vibrant red pea-like flowers that bloom from late spring to mid-summer. Its deeply divided palmate leaves add lush texture and color to cottage gardens and perennial borders. This hardy perennial thrives in full sun and well-drained soil, attracting pollinators like bees and butterflies.",
@@ -1257,10 +1465,12 @@
     "diameter": "40–60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 19
   },
   {
-    "number": 106,
+    "productId": "PROD-106",
     "slug": "malva-moschata-rosa",
     "common_name": "Malva moschata, rosa",
     "description_en": "Malva moschata 'Rosa', commonly known as Musk Mallow, features charming soft pink, cup-shaped flowers that bloom profusely from early summer to autumn. Its airy, mounded foliage adds texture and a delicate presence to cottage gardens, borders, and wildflower meadows. This hardy perennial thrives in full sun to partial shade and well-drained soil, attracting pollinators such as bees and butterflies.",
@@ -1269,10 +1479,12 @@
     "diameter": "40-50",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 93
   },
   {
-    "number": 107,
+    "productId": "PROD-107",
     "slug": "malva-sylvestris-zebrina",
     "common_name": "Malva sylvestris 'Zebrina",
     "description_en": "Malva sylvestris 'Zebrina' is a striking perennial with large, purple-pink flowers adorned with distinctive darker purple stripes, creating a beautiful zebra-like pattern. Blooming from mid-summer to early autumn, it adds vibrant color and texture to borders and cottage gardens. This hardy plant thrives in full sun to partial shade and well-drained soil, attracting pollinators like bees and butterflies.",
@@ -1281,10 +1493,12 @@
     "diameter": "50–60",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 75
   },
   {
-    "number": 108,
+    "productId": "PROD-108",
     "slug": "mazus-reptans",
     "common_name": "Mazus reptans",
     "description_en": "Mazus reptans is a low-growing, spreading perennial groundcover known for its dense mats of small, bright green leaves and delicate purple-blue tubular flowers that bloom from late spring to early summer. Ideal for rock gardens, borders, and between stepping stones, it provides excellent soil coverage and erosion control. This hardy plant thrives in full sun to partial shade and prefers moist, well-drained soil",
@@ -1293,10 +1507,12 @@
     "diameter": "30–50",
     "hardiness": "-20",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 42
   },
   {
-    "number": 109,
+    "productId": "PROD-109",
     "slug": "monarda-didyma-rot",
     "common_name": "Monarda didyma, rot",
     "description_en": "Monarda didyma 'Rot', commonly known as Bee Balm or Scarlet Bergamot, displays striking bright red, tubular flowers that bloom profusely from mid to late summer. Its aromatic foliage adds a pleasant scent and attracts pollinators like bees, butterflies, and hummingbirds. This hardy perennial thrives in full sun to partial shade and prefers moist, well-drained soil.",
@@ -1305,10 +1521,12 @@
     "diameter": "50-60",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 90
   },
   {
-    "number": 110,
+    "productId": "PROD-110",
     "slug": "nepeta-x-faassenii",
     "common_name": "Nepeta x faassenii",
     "description_en": "Nepeta × faassenii, also known as Catmint, is a hardy perennial featuring aromatic gray-green foliage and abundant spikes of small, lavender-blue flowers that bloom from late spring to early autumn. It’s excellent for borders, rock gardens, and pollinator-friendly gardens. This low-maintenance plant thrives in full sun and well-drained soil, tolerating drought once established.",
@@ -1317,10 +1535,12 @@
     "diameter": "40–60",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 97
   },
   {
-    "number": 111,
+    "productId": "PROD-111",
     "slug": "nepeta-x-faassenii-walkers-low",
     "common_name": "Nepeta x faassenii 'Walker's Low",
     "description_en": "Nepeta × faassenii 'Walker's Low' is a popular catmint variety prized for its aromatic, gray-green foliage and long-lasting spikes of soft lavender-blue flowers from late spring through autumn. It’s an excellent choice for borders, rock gardens, and pollinator-friendly landscapes. This hardy, drought-tolerant perennial thrives in full sun with well-drained soil and requires minimal maintenance.",
@@ -1329,10 +1549,12 @@
     "diameter": "60-80",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 7
   },
   {
-    "number": 112,
+    "productId": "PROD-112",
     "slug": "oenothera-fruticosa",
     "common_name": "Oenothera fruticosa",
     "description_en": "Oenothera fruticosa, commonly known as Fragrant Evening Primrose, is a perennial shrub with bright yellow, cup-shaped flowers that bloom from late spring to summer. It adds a cheerful splash of color and a subtle fragrance to borders and wildflower gardens. This hardy plant thrives in full sun and well-drained soil, attracting pollinators like bees and moths.",
@@ -1341,10 +1563,12 @@
     "diameter": "50–60",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 38
   },
   {
-    "number": 113,
+    "productId": "PROD-113",
     "slug": "papaver-nudicaule",
     "common_name": "Papaver nudicaule",
     "description_en": "Papaver nudicaule, commonly known as Iceland Poppy, features delicate, papery flowers in shades of white, yellow, orange, and pink that bloom from late spring through summer. Its finely divided foliage adds an airy texture to borders and cottage gardens. This hardy perennial prefers full sun and well-drained soil, thriving in cooler climates.",
@@ -1353,10 +1577,12 @@
     "diameter": "30–40",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 99
   },
   {
-    "number": 114,
+    "productId": "PROD-114",
     "slug": "papaver-orientale-rot",
     "common_name": "Papaver orientale, rot",
     "description_en": "Papaver orientale 'Rot', commonly known as Oriental Poppy, produces large, showy, bright red flowers with a striking black center, blooming in late spring to early summer. Its deeply lobed, bluish-green foliage adds attractive texture to perennial borders and cottage gardens. This hardy perennial prefers full sun and well-drained soil, thriving in temperate climates.",
@@ -1365,10 +1591,12 @@
     "diameter": "45–60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 25
   },
   {
-    "number": 115,
+    "productId": "PROD-115",
     "slug": "pennisetum-alopecuroides-hameln",
     "common_name": "Pennisetum alopecuroides 'Hameln",
     "description_en": "Pennisetum alopecuroides 'Hameln' is an elegant ornamental grass forming dense, arching clumps of narrow green leaves that turn golden in autumn. It produces fluffy, bottlebrush-like flower spikes from late summer to autumn, adding texture and movement to garden borders and containers. This hardy grass thrives in full sun to partial shade and well-drained soil.",
@@ -1377,10 +1605,12 @@
     "diameter": "60–80",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 21
   },
   {
-    "number": 116,
+    "productId": "PROD-116",
     "slug": "pennisetum-alopecuroides-varviridescens",
     "common_name": "Pennisetum alopecuroides var.viridescens",
     "description_en": "Pennisetum alopecuroides var. viridescens is a graceful ornamental grass characterized by lush, arching green foliage that turns golden bronze in autumn. It produces soft, fluffy flower spikes from late summer to fall, adding elegant texture and movement to garden borders and containers. This hardy perennial thrives in full sun to partial shade and prefers well-drained soil.",
@@ -1389,10 +1619,12 @@
     "diameter": "50–70",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 68
   },
   {
-    "number": 117,
+    "productId": "PROD-117",
     "slug": "penstemon-barbatus",
     "common_name": "Penstemon barbatus",
     "description_en": "Penstemon barbatus, also known as Beardlip Penstemon, features tall spikes of tubular red flowers that bloom from late spring to summer, attracting hummingbirds and pollinators. Its slender, lance-shaped leaves provide a lush green backdrop, making it a striking addition to borders and wildflower gardens. This drought-tolerant perennial thrives in full sun and well-drained soil.",
@@ -1401,10 +1633,12 @@
     "diameter": "30–50",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 34
   },
   {
-    "number": 118,
+    "productId": "PROD-118",
     "slug": "penstemon-x-cult-rot",
     "common_name": "Penstemon x cult., rot",
     "description_en": "Penstemon x cult. 'Rot' is a vibrant hybrid perennial with striking red tubular flowers that bloom from late spring through summer. Its upright growth and lance-shaped green foliage make it a standout in borders and pollinator-friendly gardens. This drought-tolerant plant thrives in full sun and well-drained soil, attracting hummingbirds and bees.",
@@ -1413,10 +1647,12 @@
     "diameter": "30–50",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 4
   },
   {
-    "number": 119,
+    "productId": "PROD-119",
     "slug": "phlox-paniculata-bright-eyes",
     "common_name": "Phlox paniculata 'Bright Eyes",
     "description_en": "Phlox paniculata 'Bright Eyes' is a striking perennial that produces dense clusters of pure white flowers with vivid magenta-red centers, blooming from mid to late summer. Its fragrant blooms attract butterflies and hummingbirds, making it perfect for vibrant borders and cottage gardens. This hardy plant thrives in full sun to partial shade and well-drained soil.",
@@ -1425,10 +1661,12 @@
     "diameter": "50–70",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 67
   },
   {
-    "number": 120,
+    "productId": "PROD-120",
     "slug": "phlox-paniculata-rot",
     "common_name": "Phlox paniculata, rot",
     "description_en": "Phlox paniculata 'Rot' is a vibrant perennial with dense clusters of bright red flowers blooming from mid to late summer. Its fragrant blossoms attract butterflies and hummingbirds, adding lively color and scent to garden borders and perennial beds. This hardy plant thrives in full sun to partial shade and prefers well-drained soil.",
@@ -1437,10 +1675,12 @@
     "diameter": "50–70",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 37
   },
   {
-    "number": 121,
+    "productId": "PROD-121",
     "slug": "phlox-paniculata-weiss",
     "common_name": "Phlox paniculata, weiß",
     "description_en": "Phlox paniculata 'Weiß' is a charming perennial showcasing large clusters of pure white flowers that bloom from mid to late summer. Its fragrant blossoms attract butterflies and hummingbirds, making it a delightful addition to borders and cottage gardens. This hardy plant thrives in full sun to partial shade and well-drained soil.",
@@ -1449,10 +1689,12 @@
     "diameter": "50–70",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 27
   },
   {
-    "number": 122,
+    "productId": "PROD-122",
     "slug": "phlox-subulata-amazing-grace",
     "common_name": "Phlox subulata 'Amazing Grace'",
     "description_en": "Phlox subulata 'Amazing Grace' is a low-growing, spreading groundcover known for its vibrant pink flowers that bloom abundantly in early spring. Its needle-like evergreen foliage forms a dense mat, perfect for rock gardens, slopes, and borders. This hardy perennial thrives in full sun and well-drained soil.",
@@ -1461,10 +1703,12 @@
     "diameter": "30-50",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 6
   },
   {
-    "number": 123,
+    "productId": "PROD-123",
     "slug": "phlox-subulata-emerald-cushion-blue",
     "common_name": "Phlox subulata 'Emerald Cushion Blue'",
     "description_en": "Phlox subulata 'Emerald Cushion Blue' is a vigorous, low-growing groundcover featuring dense, emerald green needle-like foliage and a profusion of soft blue flowers in early spring. Ideal for rock gardens, slopes, and borders, it creates a beautiful carpet of color. This hardy perennial thrives in full sun and well-drained soil.",
@@ -1473,10 +1717,12 @@
     "diameter": "40–60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 84
   },
   {
-    "number": 124,
+    "productId": "PROD-124",
     "slug": "phlox-subulata-macdaniels-cushion",
     "common_name": "Phlox subulata 'MacDaniel's Cushion",
     "description_en": "Phlox subulata 'MacDaniel's Cushion' is a compact, evergreen groundcover known for its dense mats of needle-like foliage and vibrant magenta-pink flowers in early spring. Perfect for rock gardens, slopes, and borders, it provides year-round interest with colorful blooms and lush greenery. This hardy perennial thrives in full sun and well-drained soil.",
@@ -1485,10 +1731,12 @@
     "diameter": "40–60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 28
   },
   {
-    "number": 125,
+    "productId": "PROD-125",
     "slug": "phlox-subulata-zwergenteppich",
     "common_name": "Phlox subulata 'Zwergenteppich",
     "description_en": "Phlox subulata 'Zwergenteppich' is a compact, low-growing evergreen groundcover forming a dense mat of fine, needle-like foliage. In early spring, it produces a stunning display of vibrant pink flowers that carpet the ground, making it ideal for rock gardens, borders, and slopes. This hardy perennial adds year-round interest and excellent erosion control. It thrives best in full sun and well-drained soil.",
@@ -1497,10 +1745,12 @@
     "diameter": "40–60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 36
   },
   {
-    "number": 126,
+    "productId": "PROD-126",
     "slug": "potentilla-atrosanguinea",
     "common_name": "Potentilla atrosanguinea",
     "description_en": "Potentilla atrosanguinea is a charming perennial shrub that produces vibrant dark red to reddish-purple flowers from late spring to summer. Its dense, green foliage offers a neat and bushy appearance, making it ideal for borders, rock gardens, and low hedges. This hardy plant thrives in full sun and well-drained soil.",
@@ -1509,10 +1759,12 @@
     "diameter": "40–60",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 70
   },
   {
-    "number": 127,
+    "productId": "PROD-127",
     "slug": "prunella-grandiflora",
     "common_name": "Prunella grandiflora",
     "description_en": "Prunella grandiflora is a charming perennial known for its dense spikes of violet-blue flowers blooming from early summer to autumn. Its lush green foliage forms low mounds, making it an excellent choice for groundcover, borders, and rock gardens. This hardy plant prefers full sun to partial shade and well-drained soil.",
@@ -1521,10 +1773,12 @@
     "diameter": "30–40",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 81
   },
   {
-    "number": 128,
+    "productId": "PROD-128",
     "slug": "pulsatilla-vulgaris",
     "common_name": "Pulsatilla vulgaris",
     "description_en": "Pulsatilla vulgaris, commonly known as the Pasque Flower, is an early spring-blooming perennial with striking, bell-shaped violet to purple flowers and silky, feathery seed heads. Its finely divided foliage adds delicate texture to rock gardens and sunny borders. This hardy plant thrives in full sun and well-drained, sandy soils.",
@@ -1533,10 +1787,12 @@
     "diameter": "20–30",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 15
   },
   {
-    "number": 129,
+    "productId": "PROD-129",
     "slug": "pulsatilla-vulgaris-rot",
     "common_name": "Pulsatilla vulgaris, rot",
     "description_en": "Pulsatilla vulgaris 'Rot' is a captivating early spring perennial featuring deep red, bell-shaped flowers with a soft, silky texture. Its finely divided foliage adds delicate greenery, making it a charming choice for rock gardens and sunny borders. This hardy plant prefers full sun and well-drained, sandy soil.",
@@ -1545,10 +1801,12 @@
     "diameter": "20–30",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 71
   },
   {
-    "number": 130,
+    "productId": "PROD-130",
     "slug": "rosmarinus-officinalis-capri",
     "common_name": "Rosmarinus officinalis 'Capri",
     "description_en": "Rosmarinus officinalis 'Capri' is a fragrant, evergreen herb known for its compact growth and needle-like leaves. This variety produces pale blue flowers and is ideal for culinary use, gardens, and containers. It thrives in full sun and well-drained soil, adding Mediterranean charm to any space. A drought-tolerant and hardy plant, it can withstand mild winters.",
@@ -1557,10 +1815,12 @@
     "diameter": "50–70",
     "hardiness": "-10",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 18
   },
   {
-    "number": 131,
+    "productId": "PROD-131",
     "slug": "rudbeckia-fulgida-sullivantii-goldsturm",
     "common_name": "Rudbeckia fulgida sullivantii 'Goldsturm",
     "description_en": "Rudbeckia fulgida sullivantii 'Goldsturm' is a vigorous perennial with bright golden-yellow daisy-like flowers featuring dark brown centers. Blooming from mid to late summer, it attracts pollinators and adds cheerful color to borders and meadows. Its robust foliage provides excellent garden structure. This hardy plant thrives in full sun and well-drained soil.",
@@ -1569,10 +1829,12 @@
     "diameter": "40–60",
     "hardiness": "-30",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 10
   },
   {
-    "number": 132,
+    "productId": "PROD-132",
     "slug": "sagina-subulata",
     "common_name": "Sagina subulata",
     "description_en": "Sagina subulata, commonly known as Irish Moss, is a low-growing evergreen groundcover forming a dense, bright green carpet. In late spring, it produces tiny white star-shaped flowers, perfect for rock gardens, pathways, and between stepping stones. This hardy plant thrives in full sun to partial shade and well-drained soil.",
@@ -1581,10 +1843,12 @@
     "diameter": "30–50",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 71
   },
   {
-    "number": 133,
+    "productId": "PROD-133",
     "slug": "salvia-nemorosa-caradonna",
     "common_name": "Salvia nemorosa 'Caradonna'",
     "description_en": "Salvia nemorosa 'Caradonna' is a popular perennial featuring striking deep violet-blue flower spikes atop dark purple stems from late spring through summer. Its aromatic, gray-green foliage adds texture and color contrast to garden beds and borders. This drought-tolerant, hardy plant attracts pollinators and thrives in full sun with well-drained soil.",
@@ -1593,10 +1857,12 @@
     "diameter": "30–40",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 63
   },
   {
-    "number": 134,
+    "productId": "PROD-134",
     "slug": "salvia-nemorosa",
     "common_name": "Salvia nemorosa",
     "description_en": "Salvia nemorosa is a versatile perennial producing dense spikes of violet-blue flowers from late spring to early summer. Its aromatic, lance-shaped foliage adds texture and fragrance to borders, cottage gardens, and mixed perennial beds. This hardy plant attracts pollinators and thrives in full sun to half shade with well-drained soil.",
@@ -1605,10 +1871,12 @@
     "diameter": "30–50",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 81
   },
   {
-    "number": 135,
+    "productId": "PROD-135",
     "slug": "salvia-nemorosa-rosa",
     "common_name": "Salvia nemorosa, rosa",
     "description_en": "Salvia nemorosa 'Rose Queen' is a compact perennial featuring dense spikes of soft pink flowers from late spring to early summer. Its aromatic, dark green foliage adds texture and color contrast to borders, cottage gardens, and perennial beds. This hardy plant thrives in full sun to half shade and attracts pollinators.",
@@ -1617,10 +1885,12 @@
     "diameter": "30–40",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 6
   },
   {
-    "number": 136,
+    "productId": "PROD-136",
     "slug": "saponaria-ocymoides",
     "common_name": "Saponaria ocymoides",
     "description_en": "Saponaria ocymoides, also known as Rock Soapwort, is a low-growing, mat-forming perennial with aromatic, gray-green foliage. In late spring to early summer, it produces clusters of small, bright pink star-shaped flowers. Ideal for rock gardens, walls, and as a groundcover, this hardy plant thrives in full sun and well-drained soil.",
@@ -1629,10 +1899,12 @@
     "diameter": "40–60",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 11
   },
   {
-    "number": 137,
+    "productId": "PROD-137",
     "slug": "saxifraga-x-arendsii-rot",
     "common_name": "Saxifraga x arendsii, rot",
     "description_en": "Saxifraga x arendsii 'Rot' is a charming perennial known for its vibrant red, star-shaped flowers that bloom in dense clusters during spring. Its evergreen rosette foliage creates a lush, low-growing carpet ideal for rock gardens, borders, and alpine settings. This hardy plant thrives in full sun to partial shade with well-drained soil.",
@@ -1641,10 +1913,12 @@
     "diameter": "30–40",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 40
   },
   {
-    "number": 138,
+    "productId": "PROD-138",
     "slug": "saxifraga-x-arendsii-weiss",
     "common_name": "Saxifraga x arendsii, weiß",
     "description_en": "Saxifraga x arendsii 'Weiß' is a beautiful perennial featuring clusters of pure white, star-shaped flowers blooming in spring. Its evergreen rosettes form a dense, low-growing groundcover perfect for rock gardens and alpine borders. This hardy plant thrives in full sun to partial shade and prefers well-drained soil.",
@@ -1653,10 +1927,12 @@
     "diameter": "30–40",
     "hardiness": "-30",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 56
   },
   {
-    "number": 139,
+    "productId": "PROD-139",
     "slug": "scabiosa-japonica-blue-diamonds",
     "common_name": "Scabiosa japonica 'Blue Diamonds",
     "description_en": "Scabiosa japonica 'Blue Diamonds' is a graceful perennial showcasing delicate, soft blue to lavender flowers with pincushion-like blooms from late spring to early autumn. Its airy, mounding habit and fine-textured foliage make it a lovely addition to borders and cottage gardens. This hardy plant thrives in full sun and well-drained soil.",
@@ -1665,10 +1941,12 @@
     "diameter": "30–40",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 26
   },
   {
-    "number": 140,
+    "productId": "PROD-140",
     "slug": "scabiosa-japonica-pink-diamonds",
     "common_name": "Scabiosa japonica 'Pink Diamonds",
     "description_en": "Scabiosa japonica 'Pink Diamonds' is a charming perennial featuring soft pink, pincushion-like flowers that bloom from late spring to early autumn. Its airy, mounded foliage adds texture and elegance to borders and cottage gardens. This hardy plant thrives in full sun and well-drained soil.",
@@ -1677,10 +1955,12 @@
     "diameter": "30–40",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 96
   },
   {
-    "number": 141,
+    "productId": "PROD-141",
     "slug": "sedum-acre",
     "common_name": "Sedum acre",
     "description_en": "edum acre is a low-growing succulent known for its dense mats of tiny, fleshy leaves and bright yellow star-shaped flowers that bloom in summer. This hardy ground cover thrives in well-drained, rocky, or sandy soils and is excellent for rock gardens, borders, or green roofs. It requires minimal water once established and is highly drought-tolerant. Sedum acre adds vibrant color and texture to dry, sunny spots and helps prevent soil erosion with its creeping habit. It provides year-round greenery and adapts well to various conditions. Best suited for full sun but can tolerate half shade in hotter climates.",
@@ -1689,10 +1969,12 @@
     "diameter": "20–30",
     "hardiness": "-34",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 82
   },
   {
-    "number": 142,
+    "productId": "PROD-142",
     "slug": "sedum-floriferum-weihenstephaner-gold",
     "common_name": "Sedum floriferum 'Weihenstephaner Gold",
     "description_en": "Sedum floriferum 'Weihenstephaner Gold' is a low-growing succulent with vibrant golden-yellow foliage that brightens any landscape. It blooms small white star-shaped flowers in summer, adding seasonal interest. This hardy plant thrives in well-drained soils and requires minimal care. Ideal for rock gardens, borders, and containers, it is drought-tolerant and low maintenance. Prefers full sun but tolerates half shade.",
@@ -1701,10 +1983,12 @@
     "diameter": "30–40",
     "hardiness": "-34",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 31
   },
   {
-    "number": 143,
+    "productId": "PROD-143",
     "slug": "sedum-reflexum-angelina",
     "common_name": "Sedum reflexum 'Angelina'",
     "description_en": "Sedum reflexum 'Angelina' is a vibrant, low-growing succulent with needle-like, lime-green foliage that turns golden-yellow in bright sunlight. It produces tiny yellow flowers in late summer, enhancing its decorative appeal. This hardy plant is drought-tolerant and thrives in well-drained soil, making it perfect for rock gardens and containers. Its spreading habit helps cover ground quickly with rich color. Best suited for full sun to half shade locations.",
@@ -1713,10 +1997,12 @@
     "diameter": "30–45",
     "hardiness": "-34",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 16
   },
   {
-    "number": 144,
+    "productId": "PROD-144",
     "slug": "sedum-spathulifolium-cape-blanco",
     "common_name": "Sedum spathulifolium 'Cape Blanco'",
     "description_en": "Sedum spathulifolium 'Cape Blanco' features thick, silvery-gray succulent leaves that form dense mats, creating a striking contrast in any garden. In late spring, it produces small, bright yellow star-shaped flowers that attract pollinators. This hardy, drought-tolerant plant thrives in well-drained soil and is ideal for rock gardens, borders, and containers. Its compact growth habit makes it perfect for ground cover in sunny to partially shaded areas. Low maintenance and resilient, it adds year-round texture and color.",
@@ -1725,10 +2011,12 @@
     "diameter": "25–35",
     "hardiness": "-28",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 2
   },
   {
-    "number": 145,
+    "productId": "PROD-145",
     "slug": "sedum-spurium-purpur-winter",
     "common_name": "Sedum spurium 'Purpur Winter",
     "description_en": "Sedum spurium 'Purpur Winter' is a low-growing succulent known for its rich purple foliage that deepens in cooler weather, adding vibrant color to gardens year-round. It produces small pink flowers in summer, enhancing its ornamental appeal. This hardy plant thrives in well-drained soil and is drought-tolerant, making it ideal for rock gardens, borders, and ground cover. Its spreading habit helps control erosion and fill spaces quickly. Prefers full sun but tolerates half shade.",
@@ -1737,10 +2025,12 @@
     "diameter": "30–50",
     "hardiness": "-34",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 36
   },
   {
-    "number": 146,
+    "productId": "PROD-146",
     "slug": "sedum-telephium-herbstfreude",
     "common_name": "Sedum telephium 'Herbstfreude'",
     "description_en": "Sedum telephium 'Herbstfreude', also known as Autumn Joy, is a robust and reliable perennial prized for its large, flat clusters of pink flowers that gradually turn to deep red as the season progresses. Flowering from late summer to autumn, it adds long-lasting color and structure to borders and rock gardens. Its succulent, grey-green foliage provides interest even after flowering, making it a garden favorite for pollinators and year-round appeal.",
@@ -1749,10 +2039,12 @@
     "diameter": "40–50",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 51
   },
   {
-    "number": 147,
+    "productId": "PROD-147",
     "slug": "sidalcea-malviflora-partygirl",
     "common_name": "Sidalcea malviflora 'Partygirl'",
     "description_en": "Sidalcea malviflora 'Partygirl' is a charming perennial with tall spikes of bright pink, hollyhock-like flowers that bloom from early to mid-summer. Its upright, elegant growth makes it an eye-catching feature in borders, cottage gardens, or naturalistic plantings. Loved by bees and butterflies, it adds both beauty and ecological value to any garden setting.",
@@ -1761,10 +2053,12 @@
     "diameter": "30–40",
     "hardiness": "-20",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 20
   },
   {
-    "number": 148,
+    "productId": "PROD-148",
     "slug": "solidago-x-cultgoldkind-gen",
     "common_name": "Solidago x cult.'Goldkind', gen.",
     "description_en": "Solidago x cult. 'Goldkind', also known as Goldenrod, is a compact and vigorous perennial with bright golden-yellow flower plumes that appear in late summer. Its upright growth and abundant blooms make it a valuable plant for borders, wildflower gardens, or naturalistic plantings. It is easy to grow, attracts pollinators, and provides a strong splash of color when many other perennials are fading.",
@@ -1773,10 +2067,12 @@
     "diameter": "40–50",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 6
   },
   {
-    "number": 149,
+    "productId": "PROD-149",
     "slug": "stipa-tenuissima-ponytails",
     "common_name": "Stipa tenuissima 'Ponytails'",
     "description_en": "Stipa tenuissima 'Ponytails', also known as Mexican Feather Grass, is a graceful ornamental grass with fine, silky leaves and airy flower heads that sway beautifully in the wind. Its soft, flowing habit adds movement and texture to borders, gravel gardens, or containers. Easy to care for and drought-tolerant, it is perfect for naturalistic and modern plantings alike.",
@@ -1785,10 +2081,12 @@
     "diameter": "30–40",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 36
   },
   {
-    "number": 150,
+    "productId": "PROD-150",
     "slug": "tanacetum-coccineum-robinsons-rot",
     "common_name": "Tanacetum coccineum 'Robinsons Rot'",
     "description_en": "Tanacetum coccineum 'Robinsons Rot', also known as the Painted Daisy, is a charming perennial that delights with its vivid carmine-red flowers and golden-yellow centers. Blooming in early summer, it brings bold color to borders, cottage gardens, and wildflower plantings. Easy to care for and very attractive to pollinators, this perennial adds cheer and elegance to any sunny spot.",
@@ -1797,10 +2095,12 @@
     "diameter": "30–40",
     "hardiness": "-23",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "available",
+    "quantity": 21
   },
   {
-    "number": 151,
+    "productId": "PROD-151",
     "slug": "thymus-praecox-albus",
     "common_name": "Thymus praecox 'Albus'",
     "description_en": "Thymus praecox 'Albus' is a low-growing, mat-forming perennial thyme that enchants with its tiny white flowers in early summer. It creates a fragrant carpet that works beautifully as ground cover, between paving stones, or in rock gardens. This hardy, drought-tolerant plant is loved by pollinators and adds both beauty and aroma to sunny areas.",
@@ -1809,10 +2109,12 @@
     "diameter": "20–30",
     "hardiness": "-28",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 81
   },
   {
-    "number": 152,
+    "productId": "PROD-152",
     "slug": "thymus-praecox",
     "common_name": "Thymus praecox",
     "description_en": "Thymus praecox is a low-growing, mat-forming perennial thyme valued for its fragrant, aromatic foliage and tiny flowers that bloom in late spring to early summer. It creates a dense, attractive groundcover, perfect for rock gardens, borders, and spaces between paving stones. This hardy, drought-tolerant plant attracts pollinators and adds both beauty and aroma to sunny garden spots.",
@@ -1821,10 +2123,12 @@
     "diameter": "20–30",
     "hardiness": "-28",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 29
   },
   {
-    "number": 153,
+    "productId": "PROD-153",
     "slug": "thymus-serpyllum",
     "common_name": "Thymus serpyllum",
     "description_en": "Thymus serpyllum, commonly known as Wild Thyme, is a low-growing, mat-forming perennial with aromatic, tiny leaves and small pink to purple flowers that bloom from late spring to early summer. Ideal as a groundcover, it brightens rock gardens, borders, and pathways while attracting pollinators. This hardy, drought-tolerant plant thrives in sunny, well-drained locations.",
@@ -1833,10 +2137,12 @@
     "diameter": "20–30",
     "hardiness": "-28",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 98
   },
   {
-    "number": 154,
+    "productId": "PROD-154",
     "slug": "thymus-x-citridodorus-aureus",
     "common_name": "Thymus x citridodorus 'Aureus'",
     "description_en": "Thymus × citriodorus 'Aureus', commonly known as Lemon Thyme, is a low-growing, aromatic perennial with golden-green foliage and small lilac-pink flowers in early summer. Its lemon-scented leaves add fragrance and color to borders, rock gardens, and containers. Hardy and drought-tolerant, it thrives in sunny, well-drained locations and is highly attractive to pollinators.",
@@ -1845,10 +2151,12 @@
     "diameter": "30–40",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 52
   },
   {
-    "number": 155,
+    "productId": "PROD-155",
     "slug": "trollius-chinensis-golden-queen",
     "common_name": "Trollius chinensis 'Golden Queen'",
     "description_en": "Trollius chinensis 'Golden Queen', also known as Chinese Globe Flower, is a striking perennial with large, bright golden-yellow, globular flowers that bloom from late spring to early summer. Its finely divided, lush green foliage provides texture and structure to moist borders and perennial beds. This hardy plant thrives in full sun to half shade and attracts pollinators.",
@@ -1857,10 +2165,12 @@
     "diameter": "40–50",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 91
   },
   {
-    "number": 156,
+    "productId": "PROD-156",
     "slug": "verbena-bonariensis",
     "common_name": "Verbena bonariensis",
     "description_en": "Verbena bonariensis, commonly known as Tall Verbena, is a tall, airy perennial producing clusters of small, vibrant purple flowers from midsummer to early autumn. Its slender stems and delicate foliage create a graceful, vertical accent in borders, cottage gardens, and pollinator-friendly plantings. This hardy, drought-tolerant plant thrives in full sun.",
@@ -1869,10 +2179,12 @@
     "diameter": "40–60",
     "hardiness": "-15",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 84
   },
   {
-    "number": 157,
+    "productId": "PROD-157",
     "slug": "verbena-rigida",
     "common_name": "Verbena rigida",
     "description_en": "Verbena rigida, also known as Slender Vervain, is a perennial featuring clusters of vivid violet-purple flowers that bloom from early summer to autumn. Its upright growth and long flowering period make it perfect for borders, rock gardens, and pollinator-friendly plantings. This hardy, sun-loving plant is drought-tolerant and adds continuous color to the garden.",
@@ -1881,10 +2193,12 @@
     "diameter": "40–50",
     "hardiness": "-20",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "out-of-stock",
+    "quantity": 58
   },
   {
-    "number": 158,
+    "productId": "PROD-158",
     "slug": "veronica-repens",
     "common_name": "Veronica repens",
     "description_en": "Veronica repens, also known as Creeping Speedwell, is a low-growing, mat-forming perennial with small, bright blue flowers that bloom in late spring to early summer. Its dense, evergreen foliage makes it ideal as a groundcover for rock gardens, borders, and pathways. This hardy plant thrives in full sun to half shade and is easy to maintain.",
@@ -1893,10 +2207,12 @@
     "diameter": "20–40",
     "hardiness": "-25",
     "light_en": "partial-shade",
-    "light_de": "partial-shade"
+    "light_de": "partial-shade",
+    "availability": "out-of-stock",
+    "quantity": 13
   },
   {
-    "number": 159,
+    "productId": "PROD-159",
     "slug": "veronica-spicata-ulster-dwarf-blue",
     "common_name": "Veronica spicata 'Ulster Dwarf Blue'",
     "description_en": "Veronica spicata 'Ulster Dwarf Blue' is a compact perennial producing dense spikes of vibrant blue flowers from early to late summer. Its upright, tidy growth habit makes it ideal for borders, rock gardens, and pollinator-friendly plantings. This hardy plant thrives in full sun and well-drained soil, providing long-lasting color and texture.",
@@ -1905,6 +2221,8 @@
     "diameter": "20–30",
     "hardiness": "-25",
     "light_en": "full-sun",
-    "light_de": "full-sun"
+    "light_de": "full-sun",
+    "availability": "available",
+    "quantity": 48
   }
 ]

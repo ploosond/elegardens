@@ -4,24 +4,7 @@ import { ColorPicker } from '../fields/color'
 export const Products: CollectionConfig = {
   hooks: {
     beforeChange: [
-      async ({ data, operation, req }) => {
-        // Auto-increment number if not provided (for new products)
-        if (!data.number && operation === 'create') {
-          const payload = req.payload
-          const existingProducts = await payload.find({
-            collection: 'products',
-            limit: 1,
-            sort: '-number',
-          })
-
-          // Get the highest number and increment by 1
-          const maxNumber =
-            existingProducts.docs.length > 0 && existingProducts.docs[0].number
-              ? existingProducts.docs[0].number
-              : 0
-          data.number = maxNumber + 1
-        }
-
+      async ({ data }) => {
         // Auto-generate meta fields if not provided
         if (!data.metaTitle_en && data.common_name) {
           data.metaTitle_en = data.common_name
@@ -52,14 +35,14 @@ export const Products: CollectionConfig = {
       type: 'row',
       fields: [
         {
-          name: 'number',
-          type: 'number',
-          label: 'Product Number',
+          name: 'productId',
+          type: 'text',
+          required: true,
+          unique: true,
+          label: 'Product ID',
           admin: {
-            description: 'Auto-generated product number',
             width: '25%',
-            readOnly: true,
-            hidden: true,
+            placeholder: 'PROD-001',
           },
         },
         {
@@ -96,6 +79,33 @@ export const Products: CollectionConfig = {
       admin: {
         placeholder: 'Rose Bush',
       },
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'availability',
+          type: 'select',
+          label: 'Availability',
+          required: true,
+          defaultValue: 'available',
+          options: [
+            { label: 'Available', value: 'available' },
+            { label: 'Out of Stock', value: 'out-of-stock' },
+          ],
+          admin: {
+            width: '50%',
+          },
+        },
+        {
+          name: 'quantity',
+          type: 'number',
+          label: 'Quantity (Internal)',
+          admin: {
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       type: 'row',

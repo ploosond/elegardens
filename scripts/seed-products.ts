@@ -31,14 +31,20 @@ async function run() {
 
     for (const product of products) {
       try {
-        console.log(`Creating: ${product.slug} (${product.number})`)
+        // Ensure availability is set (default to 'available' if not present)
+        const productData: any = {
+          ...product,
+          availability: (product as any).availability || 'available',
+        }
+        
+        console.log(`Creating: ${product.slug} (${productData.productId})`)
         await payload.create({
           collection: 'products',
-          data: product as any,
+          data: productData,
         })
       } catch (error: any) {
         console.error(`\n❌ Failed to create product:`)
-        console.error(`   Number: ${product.number}`)
+        console.error(`   Product ID: ${(product as any).productId}`)
         console.error(`   Slug: ${product.slug}`)
         console.error(
           `   Name: ${

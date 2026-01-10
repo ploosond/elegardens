@@ -15,6 +15,8 @@ import { Projects } from '@/collections/Projects'
 import { Blogs } from '@/collections//Blogs'
 import { ContactSubmissions } from '@/collections/ContactSubmissions'
 import { NewsletterSubscribers } from '@/collections/NewsletterSubscribers'
+import { Clients } from '@/collections/Clients'
+import { Orders } from '@/collections/Orders'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { uploadthingStorage } from '@payloadcms/storage-uploadthing'
 
@@ -49,6 +51,8 @@ export default buildConfig({
     Blogs,
     ContactSubmissions,
     NewsletterSubscribers,
+    Clients,
+    Orders,
   ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
