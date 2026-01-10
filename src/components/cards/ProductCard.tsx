@@ -8,23 +8,11 @@ export default function ProductCard({ product }: { product: Product }) {
   const locale = useLocale()
   const t = useTranslations('ProductCard')
 
-  // Get available names (flat fields)
-  const enName = product.common_name_en?.trim() || ''
-  const deName = product.common_name_de?.trim() || ''
-
-  // Determine primary and secondary names
-  const primaryName = locale === 'de' ? deName || enName : enName || deName
-  const secondaryName =
-    locale === 'de'
-      ? enName && enName !== primaryName
-        ? enName
-        : null
-      : deName && deName !== primaryName
-      ? deName
-      : null
+  // Get product name
+  const productName = product.common_name?.trim() || ''
 
   // Alt text fallback
-  const altText = primaryName
+  const altText = productName
   let imageUrl = '/place_holder.png'
   if (product.images && product.images.length > 0) {
     const firstImage = product.images[0]
@@ -58,11 +46,8 @@ export default function ProductCard({ product }: { product: Product }) {
       >
         <div>
           <p className="line-clamp-2 text-sm font-black tracking-tight text-on-dark md:text-base">
-            {primaryName}
+            {productName}
           </p>
-          {secondaryName && (
-            <p className="line-clamp-1 text-xs italic text-on-dark md:text-sm">{secondaryName}</p>
-          )}
         </div>
         {/* CTAs */}
         <div className="mt-2 grid grid-cols-2 gap-2">

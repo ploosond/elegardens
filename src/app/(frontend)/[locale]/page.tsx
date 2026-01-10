@@ -8,9 +8,10 @@ const PAYLOAD_API = process.env.NEXT_PUBLIC_PAYLOAD_URL
 async function getProducts(locale: string): Promise<Product[]> {
   try {
     const url = new URL(`${PAYLOAD_API}/api/products`)
-    url.searchParams.set('locale', locale)
+    // Products collection doesn't use Payload's locale system - it uses _en/_de fields
+    // url.searchParams.set('locale', locale)
     url.searchParams.set('limit', '10')
-    url.searchParams.set('sort', 'common_name_en')
+    url.searchParams.set('sort', 'common_name')
     url.searchParams.set('depth', '2')
 
     const res = await fetch(url.toString(), {

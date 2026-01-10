@@ -9,18 +9,24 @@ const PAYLOAD_API = process.env.NEXT_PUBLIC_PAYLOAD_URL
 async function getProducts(locale: string): Promise<Product[]> {
   try {
     const url = new URL(`${PAYLOAD_API}/api/products`)
-    url.searchParams.set('locale', locale)
+    // Don't filter by locale - products are not locale-specific
+    // url.searchParams.set('locale', locale)
     url.searchParams.set('limit', '1000')
-    url.searchParams.set('sort', 'common_name_en')
+    url.searchParams.set('sort', 'common_name')
     url.searchParams.set('depth', '2')
 
     const res = await fetch(url.toString(), {
       next: { revalidate: 3600 },
     })
 
-    if (!res.ok) return []
+    if (!res.ok) {
+      console.error('Failed to fetch products:', res.status, res.statusText)
+      return []
+    }
     const data = await res.json()
-    return data.docs || []
+    const products = data.docs || []
+    console.log(`[${locale}] Fetched ${products.length} products`)
+    return products
   } catch (error) {
     console.error('Error fetching products:', error)
     return []

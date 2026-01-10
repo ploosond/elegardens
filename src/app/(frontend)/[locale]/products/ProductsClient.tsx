@@ -27,9 +27,8 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
     if (!debouncedSearch) return initialProducts
     const term = debouncedSearch.toLowerCase()
     return initialProducts.filter((product) => {
-      const nameEN = (product.common_name_en || '').toLowerCase()
-      const nameDE = (product.common_name_de || '').toLowerCase()
-      return nameEN.includes(term) || nameDE.includes(term)
+      const name = (product.common_name || '').toLowerCase()
+      return name.includes(term)
     })
   }, [debouncedSearch, initialProducts])
 

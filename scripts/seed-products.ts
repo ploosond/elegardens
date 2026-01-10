@@ -40,7 +40,13 @@ async function run() {
         console.error(`\n❌ Failed to create product:`)
         console.error(`   Number: ${product.number}`)
         console.error(`   Slug: ${product.slug}`)
-        console.error(`   Name: ${product.common_name_en || product.common_name_de}`)
+        console.error(
+          `   Name: ${
+            (product as any).common_name ||
+            (product as any).common_name_en ||
+            (product as any).common_name_de
+          }`,
+        )
         console.error(`   Error: ${error.message || JSON.stringify(error)}`)
         throw error // Stop on first error to identify the duplicate
       }

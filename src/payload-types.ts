@@ -193,8 +193,7 @@ export interface Product {
    * rose-bushy (lowercase, hyphens only, no spaces or special characters)
    */
   slug: string;
-  common_name_en?: string | null;
-  common_name_de?: string | null;
+  common_name: string;
   description_en: string;
   description_de: string;
   height: string;
@@ -579,8 +578,7 @@ export interface MediaSelect<T extends boolean = true> {
 export interface ProductsSelect<T extends boolean = true> {
   number?: T;
   slug?: T;
-  common_name_en?: T;
-  common_name_de?: T;
+  common_name?: T;
   description_en?: T;
   description_de?: T;
   height?: T;

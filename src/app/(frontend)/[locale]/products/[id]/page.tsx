@@ -19,7 +19,8 @@ async function getProduct(slug: string, locale: string) {
   try {
     const url = new URL(`${PAYLOAD_API}/api/products`)
     url.searchParams.set('where[slug][equals]', slug)
-    url.searchParams.set('locale', locale)
+    // Products collection doesn't use Payload's locale system
+    // url.searchParams.set('locale', locale)
 
     const res = await fetch(url.toString(), {
       next: { revalidate: 3600 },
@@ -37,7 +38,8 @@ async function getProduct(slug: string, locale: string) {
 async function getRelatedProducts(locale: string, currentSlug: string) {
   try {
     const url = new URL(`${PAYLOAD_API}/api/products`)
-    url.searchParams.set('locale', locale)
+    // Products collection doesn't use Payload's locale system
+    // url.searchParams.set('locale', locale)
     url.searchParams.set('limit', '6')
 
     const res = await fetch(url.toString(), {
@@ -64,8 +66,8 @@ export async function generateMetadata({
 
   const metaTitle =
     locale === 'de'
-      ? product.metaTitle_de || product.common_name_de || product.common_name_en
-      : product.metaTitle_en || product.common_name_en || product.common_name_de
+      ? product.metaTitle_de || product.common_name
+      : product.metaTitle_en || product.common_name
 
   const metaDescription =
     locale === 'de'
@@ -91,18 +93,8 @@ export default async function ProductDetailPage({
   }
   const relatedProducts: Product[] = await getRelatedProducts(locale, slug)
 
-  const enName = product.common_name_en?.trim() || ''
-  const deName = product.common_name_de?.trim() || ''
-  const primaryName = locale === 'de' ? deName || enName : enName || deName
-  const secondaryName =
-    locale === 'de'
-      ? enName && enName !== primaryName
-        ? enName
-        : null
-      : deName && deName !== primaryName
-      ? deName
-      : null
-  const altText = primaryName
+  const productName = product.common_name?.trim() || ''
+  const altText = productName
   // Required fields (no optional chaining)
   const descEN = product.description_en.trim()
   const descDE = product.description_de.trim()
@@ -144,11 +136,8 @@ export default async function ProductDetailPage({
           <div className="flex flex-col">
             <div className="mb-10">
               <h1 className="mb-2 font-poppins text-2xl font-semibold text-primary sm:text-3xl">
-                {primaryName}
+                {productName}
               </h1>
-              {secondaryName && (
-                <p className="-mt-1 mb-2 text-base italic text-secondary">{secondaryName}</p>
-              )}
               <hr className="border-muted/60 mb-6 border-0 border-b-2" />
 
               <div className="grid w-full grid-cols-2 gap-x-8 gap-y-6 rounded-lg bg-white p-6 shadow-lg sm:grid-cols-2 lg:grid-cols-2">

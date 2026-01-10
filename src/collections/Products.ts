@@ -23,14 +23,14 @@ export const Products: CollectionConfig = {
         }
 
         // Auto-generate meta fields if not provided
-        if (!data.metaTitle_en && data.common_name_en) {
-          data.metaTitle_en = data.common_name_en
+        if (!data.metaTitle_en && data.common_name) {
+          data.metaTitle_en = data.common_name
         }
         if (!data.metaDescription_en && data.description_en) {
           data.metaDescription_en = data.description_en
         }
-        if (!data.metaTitle_de && data.common_name_de) {
-          data.metaTitle_de = data.common_name_de
+        if (!data.metaTitle_de && data.common_name) {
+          data.metaTitle_de = data.common_name
         }
         if (!data.metaDescription_de && data.description_de) {
           data.metaDescription_de = data.description_de
@@ -41,8 +41,8 @@ export const Products: CollectionConfig = {
   },
   slug: 'products',
   admin: {
-    useAsTitle: 'common_name_en',
-    defaultColumns: ['common_name_en', 'slug', 'color', 'updatedAt'],
+    useAsTitle: 'common_name',
+    defaultColumns: ['common_name', 'slug', 'color', 'updatedAt'],
   },
   access: {
     read: () => true,
@@ -89,39 +89,13 @@ export const Products: CollectionConfig = {
       ],
     },
     {
-      type: 'row',
-      fields: [
-        {
-          name: 'common_name_en',
-          type: 'text',
-          label: 'Product Name (English)',
-          validate: (val: any, { siblingData }: any) => {
-            if (!val && !siblingData?.common_name_de) {
-              return 'At least one product name (English or German) is required.'
-            }
-            return true
-          },
-          admin: {
-            width: '50%',
-            placeholder: 'Rose Bush',
-          },
-        },
-        {
-          name: 'common_name_de',
-          type: 'text',
-          label: 'Product Name (German)',
-          validate: (val: any, { siblingData }: any) => {
-            if (!val && !siblingData?.common_name_en) {
-              return 'At least one product name (English or German) is required.'
-            }
-            return true
-          },
-          admin: {
-            width: '50%',
-            placeholder: 'Rosenstrauch',
-          },
-        },
-      ],
+      name: 'common_name',
+      type: 'text',
+      label: 'Product Name',
+      required: true,
+      admin: {
+        placeholder: 'Rose Bush',
+      },
     },
     {
       type: 'row',
