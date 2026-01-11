@@ -1,9 +1,8 @@
 import type { Metadata } from 'next'
 import { Raleway } from 'next/font/google'
 import './globals.css'
-import Header from '@/components/ui/Header'
-import Footer from '@/components/ui/Footer'
 import ConsentManager from '@/components/ui/ConsentManager'
+import ConditionalHeaderFooter from '@/components/ui/ConditionalHeaderFooter'
 import { NextIntlClientProvider, hasLocale } from 'next-intl'
 import { notFound } from 'next/navigation'
 import { routing } from '@/i18n/routing'
@@ -37,9 +36,9 @@ export default async function RootLayout({
     <html lang="en">
       <body className={`${raleway.className} antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <Header />
-          <ConsentManager>{children}</ConsentManager>
-          <Footer />
+          <ConditionalHeaderFooter>
+            <ConsentManager>{children}</ConsentManager>
+          </ConditionalHeaderFooter>
         </NextIntlClientProvider>
       </body>
     </html>
