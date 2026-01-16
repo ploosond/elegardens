@@ -1,26 +1,30 @@
-'use client'
+"use client";
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from "react";
 
 interface HomeVideoProps {
-  videoUrl: string
-  videoTitle: string
-  posterUrl?: string
+  videoUrl: string;
+  videoTitle: string;
+  posterUrl?: string;
 }
 
-export default function HomeVideo({ videoUrl, videoTitle, posterUrl }: HomeVideoProps) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [canPlay, setCanPlay] = useState(false)
-  const videoRef = useRef<HTMLVideoElement>(null)
+export default function HomeVideo({
+  videoUrl,
+  videoTitle,
+  posterUrl,
+}: HomeVideoProps) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [canPlay, setCanPlay] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     // Preload video metadata immediately
     if (videoRef.current && videoUrl) {
-      videoRef.current.load()
+      videoRef.current.load();
     }
-  }, [videoUrl])
+  }, [videoUrl]);
 
-  if (!videoUrl) return null
+  if (!videoUrl) return null;
 
   return (
     <div className="absolute inset-0 -z-10">
@@ -28,7 +32,7 @@ export default function HomeVideo({ videoUrl, videoTitle, posterUrl }: HomeVideo
       {posterUrl && (
         <div
           className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-700 ${
-            canPlay ? 'opacity-0' : 'opacity-100'
+            canPlay ? "opacity-0" : "opacity-100"
           }`}
           style={{ backgroundImage: `url(${posterUrl})` }}
         />
@@ -43,7 +47,7 @@ export default function HomeVideo({ videoUrl, videoTitle, posterUrl }: HomeVideo
       <video
         ref={videoRef}
         className={`h-full w-full object-cover transition-opacity duration-700 ${
-          canPlay ? 'opacity-100' : 'opacity-0'
+          canPlay ? "opacity-100" : "opacity-0"
         }`}
         src={videoUrl}
         title={videoTitle}
@@ -56,24 +60,24 @@ export default function HomeVideo({ videoUrl, videoTitle, posterUrl }: HomeVideo
         playsInline
         onLoadedMetadata={() => {
           // Video metadata loaded - can start showing
-          setIsLoading(false)
+          setIsLoading(false);
         }}
         onCanPlay={() => {
           // Video can start playing - smooth transition
-          setCanPlay(true)
-          setIsLoading(false)
+          setCanPlay(true);
+          setIsLoading(false);
         }}
         onLoadedData={() => {
           // Fallback - ensure loading state is cleared
-          setIsLoading(false)
-          if (!canPlay) setCanPlay(true)
+          setIsLoading(false);
+          if (!canPlay) setCanPlay(true);
         }}
         onError={() => {
-          setIsLoading(false)
-          console.error('Video failed to load')
+          setIsLoading(false);
+          console.error("Video failed to load");
         }}
       />
       <div className="absolute inset-0 bg-black/40" />
     </div>
-  )
+  );
 }

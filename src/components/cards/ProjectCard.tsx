@@ -1,13 +1,13 @@
-import Image from 'next/image'
-import type { Project } from '@/payload-types'
-import { useLocale } from 'next-intl'
+import Image from "next/image";
+import type { Project } from "@/payload-types";
+import { useLocale } from "next-intl";
 
 interface ProjectCardProps {
-  project: Project
+  project: Project;
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
-  const locale = useLocale()
+  const locale = useLocale();
 
   return (
     <article className="group flex h-full transform cursor-pointer flex-col overflow-hidden rounded-sm border border-muted/10 bg-white/5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-muted/20 hover:shadow-lg focus:outline-none focus-visible:-translate-y-1 focus-visible:shadow-lg focus-visible:ring-4 focus-visible:ring-primary/20">
@@ -16,13 +16,13 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         <Image
           src={
             project.image &&
-            typeof project.image === 'object' &&
-            'url' in project.image &&
+            typeof project.image === "object" &&
+            "url" in project.image &&
             project.image.url
               ? project.image.url
-              : '/place_holder.png'
+              : "/place_holder.png"
           }
-          alt={project.title_en || project.title_de || 'Project'}
+          alt={project.title_en || project.title_de || "Project"}
           fill
           sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
           className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -41,7 +41,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           <div className="min-w-0 flex-1">
             <div className="mb-2 flex items-center gap-2">
               <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-primary">
-                {locale === 'de' ? project.category_de : project.category_en}
+                {locale === "de" ? project.category_de : project.category_en}
               </span>
             </div>
             <p className="mb-1 text-xs uppercase tracking-widest text-secondary">
@@ -49,14 +49,14 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             </p>
 
             <h3 className="line-clamp-2 text-lg font-semibold leading-tight text-primary">
-              {locale === 'de' ? project.title_de : project.title_en}
+              {locale === "de" ? project.title_de : project.title_en}
             </h3>
           </div>
         </div>
         <p className="line-clamp-3 text-sm text-text">
-          {locale === 'de' ? project.tagline_de : project.tagline_en}
+          {locale === "de" ? project.tagline_de : project.tagline_en}
         </p>
       </div>
     </article>
-  )
+  );
 }

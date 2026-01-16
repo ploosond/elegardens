@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import type { ReactNode } from "react";
 
 interface LogoutButtonProps {
   onClick: () => void;
@@ -8,8 +8,8 @@ interface LogoutButtonProps {
 
 export default function LogoutButton({
   onClick,
-  children = 'Logout',
-  className = '',
+  children = "Logout",
+  className = "",
 }: LogoutButtonProps) {
   return (
     <button

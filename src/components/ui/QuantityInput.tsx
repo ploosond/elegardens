@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { Plus, Minus } from 'lucide-react'
+import { useState, useEffect } from "react";
+import { Plus, Minus } from "lucide-react";
 
 interface QuantityInputProps {
-  value: number
-  onChange: (value: number) => void
-  min?: number
-  max?: number
-  disabled?: boolean
-  className?: string
+  value: number;
+  onChange: (value: number) => void;
+  min?: number;
+  max?: number;
+  disabled?: boolean;
+  className?: string;
 }
 
 export default function QuantityInput({
@@ -18,71 +18,71 @@ export default function QuantityInput({
   min = 0,
   max,
   disabled = false,
-  className = '',
+  className = "",
 }: QuantityInputProps) {
-  const [inputValue, setInputValue] = useState(value.toString())
+  const [inputValue, setInputValue] = useState(value.toString());
 
   useEffect(() => {
-    setInputValue(value.toString())
-  }, [value])
+    setInputValue(value.toString());
+  }, [value]);
 
   const handleIncrement = () => {
-    if (disabled) return
-    const newValue = max !== undefined ? Math.min(value + 1, max) : value + 1
-    onChange(newValue)
-  }
+    if (disabled) return;
+    const newValue = max !== undefined ? Math.min(value + 1, max) : value + 1;
+    onChange(newValue);
+  };
 
   const handleDecrement = () => {
-    if (disabled) return
-    const newValue = Math.max(value - 1, min)
-    onChange(newValue)
-  }
+    if (disabled) return;
+    const newValue = Math.max(value - 1, min);
+    onChange(newValue);
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputVal = e.target.value
-    setInputValue(inputVal)
+    const inputVal = e.target.value;
+    setInputValue(inputVal);
 
     // Allow empty input while typing
-    if (inputVal === '') {
-      return
+    if (inputVal === "") {
+      return;
     }
 
-    const numValue = parseInt(inputVal, 10)
-    if (!isNaN(numValue)) {
-      let finalValue = Math.max(numValue, min)
+    const numValue = parseInt(inputVal, 10);
+    if (!Number.isNaN(numValue)) {
+      let finalValue = Math.max(numValue, min);
       if (max !== undefined) {
-        finalValue = Math.min(finalValue, max)
+        finalValue = Math.min(finalValue, max);
       }
-      onChange(finalValue)
+      onChange(finalValue);
     }
-  }
+  };
 
   const handleBlur = () => {
     // Ensure value is valid on blur
-    if (inputValue === '' || isNaN(parseInt(inputValue, 10))) {
-      setInputValue(value.toString())
+    if (inputValue === "" || Number.isNaN(parseInt(inputValue, 10))) {
+      setInputValue(value.toString());
     } else {
-      let finalValue = parseInt(inputValue, 10)
-      finalValue = Math.max(finalValue, min)
+      let finalValue = parseInt(inputValue, 10);
+      finalValue = Math.max(finalValue, min);
       if (max !== undefined) {
-        finalValue = Math.min(finalValue, max)
+        finalValue = Math.min(finalValue, max);
       }
-      onChange(finalValue)
-      setInputValue(finalValue.toString())
+      onChange(finalValue);
+      setInputValue(finalValue.toString());
     }
-  }
+  };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.currentTarget.blur()
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault()
-      handleIncrement()
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault()
-      handleDecrement()
+    if (e.key === "Enter") {
+      e.currentTarget.blur();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      handleIncrement();
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      handleDecrement();
     }
-  }
+  };
 
   return (
     <div className={`flex items-center gap-2 ${className}`}>
@@ -117,5 +117,5 @@ export default function QuantityInput({
         <Plus className="h-4 w-4" />
       </button>
     </div>
-  )
+  );
 }

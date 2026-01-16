@@ -2,82 +2,98 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "@/i18n/navigation";
-import B2BProductRow from "@/components/cards/B2BProductRow";
+import B2BPotRow from "@/components/cards/B2BPotRow";
 import { useTranslations } from "next-intl";
 import Button from "@/components/ui/Button";
 import { useCart } from "@/contexts/CartContext";
 import { useDebounce } from "@/hooks/useDebounce";
 import { X } from "lucide-react";
-import type { Product } from "@/payload-types";
+import type { Pot } from "@/payload-types";
 
-interface ProductsClientProps {
-  initialProducts: Product[];
+interface PotsClientProps {
+  initialPots: Pot[];
 }
 
 type AvailabilityFilter = "all" | "available" | "out-of-stock";
 
-export default function ProductsClient({
-  initialProducts,
-}: ProductsClientProps) {
-  const t = useTranslations("ProductsPage");
-  const tB2B = useTranslations("B2BProducts");
+export default function PotsClient({ initialPots }: PotsClientProps) {
+  const t = useTranslations("PotsPage");
+  const tB2B = useTranslations("B2BPots");
   const router = useRouter();
   const { getTotalItems, getTotalProducts } = useCart();
 
   // Filter state
-  const [productIdSearch, setProductIdSearch] = useState("");
-  const [productNameSearch, setProductNameSearch] = useState("");
+  const [potIdSearch, setPotIdSearch] = useState("");
+  const [potNameSearch, setPotNameSearch] = useState("");
+  const [sizeFilter, setSizeFilter] = useState("");
   const [availabilityFilter, setAvailabilityFilter] =
     useState<AvailabilityFilter>("all");
 
   // Debounce search inputs
-  const debouncedProductIdSearch = useDebounce(productIdSearch, 300);
-  const debouncedProductNameSearch = useDebounce(productNameSearch, 300);
+  const debouncedPotIdSearch = useDebounce(potIdSearch, 300);
+  const debouncedPotNameSearch = useDebounce(potNameSearch, 300);
 
-  // Filter products
-  const filteredProducts = useMemo(() => {
-    let filtered = initialProducts;
+  // Filter pots
+  const filteredPots = useMemo(() => {
+    let filtered = initialPots;
 
-    // Filter by Product ID
-    if (debouncedProductIdSearch) {
-      const term = debouncedProductIdSearch.toLowerCase();
-      filtered = filtered.filter((product) =>
-        (product.productId || "").toLowerCase().includes(term),
+    // Filter by Pot ID
+    if (debouncedPotIdSearch) {
+      const term = debouncedPotIdSearch.toLowerCase();
+      filtered = filtered.filter((pot) =>
+        (pot.potId || "").toLowerCase().includes(term),
       );
     }
 
-    // Filter by Product Name
-    if (debouncedProductNameSearch) {
-      const term = debouncedProductNameSearch.toLowerCase();
-      filtered = filtered.filter((product) =>
-        (product.common_name || "").toLowerCase().includes(term),
+    // Filter by Pot Name
+    if (debouncedPotNameSearch) {
+      const term = debouncedPotNameSearch.toLowerCase();
+      filtered = filtered.filter((pot) =>
+        (pot.name || "").toLowerCase().includes(term),
       );
+    }
+
+    // Filter by Size
+    if (sizeFilter) {
+      filtered = filtered.filter((pot) => pot.size === sizeFilter);
     }
 
     // Filter by Availability
     if (availabilityFilter !== "all") {
       filtered = filtered.filter(
-        (product) => product.availability === availabilityFilter,
+        (pot) => pot.availability === availabilityFilter,
       );
     }
 
     return filtered;
   }, [
-    debouncedProductIdSearch,
-    debouncedProductNameSearch,
+    debouncedPotIdSearch,
+    debouncedPotNameSearch,
+    sizeFilter,
     availabilityFilter,
-    initialProducts,
+    initialPots,
   ]);
+
+  // Get unique sizes for filter
+  const availableSizes = useMemo(() => {
+    const sizes = new Set(
+      initialPots
+        .map((pot) => pot.size)
+        .filter((size): size is string => Boolean(size)),
+    );
+    return Array.from(sizes).sort();
+  }, [initialPots]);
 
   const totalItems = getTotalItems();
   const totalProducts = getTotalProducts();
 
   const hasActiveFilters =
-    productIdSearch || productNameSearch || availabilityFilter !== "all";
+    potIdSearch || potNameSearch || sizeFilter || availabilityFilter !== "all";
 
   const clearFilters = () => {
-    setProductIdSearch("");
-    setProductNameSearch("");
+    setPotIdSearch("");
+    setPotNameSearch("");
+    setSizeFilter("");
     setAvailabilityFilter("all");
   };
 
@@ -110,24 +126,24 @@ export default function ProductsClient({
         <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:gap-4">
           {/* Search Inputs */}
           <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-end">
-            {/* Product ID Search */}
+            {/* Pot ID Search */}
             <div className="w-full sm:w-32">
               <label className="mb-1 block text-xs font-medium text-text/70">
-                {tB2B("filter_product_id")}
+                {tB2B("filter_pot_id")}
               </label>
               <div className="relative">
                 <input
                   type="text"
-                  value={productIdSearch}
-                  onChange={(e) => setProductIdSearch(e.target.value)}
+                  value={potIdSearch}
+                  onChange={(e) => setPotIdSearch(e.target.value)}
                   placeholder={tB2B("search_by_id_placeholder")}
                   className="w-full rounded-md border border-muted bg-bg px-3 py-2 text-sm text-text placeholder:text-text/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                 />
-                {productIdSearch && (
+                {potIdSearch && (
                   <button
-                    onClick={() => setProductIdSearch("")}
+                    onClick={() => setPotIdSearch("")}
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-text/50 hover:text-text"
-                    aria-label="Clear Product ID search"
+                    aria-label="Clear Pot ID search"
                   >
                     <X className="h-4 w-4" />
                   </button>
@@ -135,30 +151,51 @@ export default function ProductsClient({
               </div>
             </div>
 
-            {/* Product Name Search */}
+            {/* Pot Name Search */}
             <div className="w-full sm:w-64">
               <label className="mb-1 block text-xs font-medium text-text/70">
-                {tB2B("filter_product_name")}
+                {tB2B("filter_pot_name")}
               </label>
               <div className="relative">
                 <input
                   type="text"
-                  value={productNameSearch}
-                  onChange={(e) => setProductNameSearch(e.target.value)}
+                  value={potNameSearch}
+                  onChange={(e) => setPotNameSearch(e.target.value)}
                   placeholder={tB2B("search_by_name_placeholder")}
                   className="w-full rounded-md border border-muted bg-bg px-3 py-2 text-sm text-text placeholder:text-text/50 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                 />
-                {productNameSearch && (
+                {potNameSearch && (
                   <button
-                    onClick={() => setProductNameSearch("")}
+                    onClick={() => setPotNameSearch("")}
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-text/50 hover:text-text"
-                    aria-label="Clear Product Name search"
+                    aria-label="Clear Pot Name search"
                   >
                     <X className="h-4 w-4" />
                   </button>
                 )}
               </div>
             </div>
+
+            {/* Size Filter */}
+            {availableSizes.length > 0 && (
+              <div className="w-full sm:w-auto">
+                <label className="mb-1 block text-xs font-medium text-text/70 sm:mb-0">
+                  {tB2B("filter_size")}
+                </label>
+                <select
+                  value={sizeFilter}
+                  onChange={(e) => setSizeFilter(e.target.value)}
+                  className="rounded-md border border-muted bg-bg px-3 py-2 text-sm text-text focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
+                >
+                  <option value="">{tB2B("filter_all_sizes")}</option>
+                  {availableSizes.map((size) => (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
 
             {/* Availability Filter */}
             <div className="w-full sm:w-auto">
@@ -218,18 +255,18 @@ export default function ProductsClient({
         {hasActiveFilters && (
           <div className="mt-4 text-sm text-text/70">
             {tB2B("showing_results", {
-              count: filteredProducts.length,
-              total: initialProducts.length,
+              count: filteredPots.length,
+              total: initialPots.length,
             })}
           </div>
         )}
       </div>
 
-      {/* Products Table - All products on one page */}
-      {filteredProducts.length === 0 ? (
+      {/* Pots Table - All pots on one page */}
+      {filteredPots.length === 0 ? (
         <div className="rounded-lg border border-muted bg-bg p-12 text-center">
-          <h3 className="mb-2 text-xl font-medium">{t("no_products_title")}</h3>
-          <p className="mb-4 text-text/70">{t("no_products_desc")}</p>
+          <h3 className="mb-2 text-xl font-medium">{t("no_pots_title")}</h3>
+          <p className="mb-4 text-text/70">{t("no_pots_desc")}</p>
         </div>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-muted bg-bg">
@@ -237,10 +274,13 @@ export default function ProductsClient({
             <thead className="bg-muted/50 sticky top-0 z-10">
               <tr>
                 <th className="px-4 py-3 text-left text-sm font-semibold text-text">
-                  {tB2B("product_id")}
+                  {tB2B("pot_id")}
                 </th>
                 <th className="px-4 py-3 text-left text-sm font-semibold text-text">
-                  {tB2B("product_name")}
+                  {tB2B("pot_name")}
+                </th>
+                <th className="px-4 py-3 text-left text-sm font-semibold text-text">
+                  {tB2B("size")}
                 </th>
                 <th className="px-4 py-3 text-left text-sm font-semibold text-text">
                   {tB2B("availability")}
@@ -254,8 +294,8 @@ export default function ProductsClient({
               </tr>
             </thead>
             <tbody>
-              {filteredProducts.map((product) => (
-                <B2BProductRow key={product.id} product={product} />
+              {filteredPots.map((pot) => (
+                <B2BPotRow key={pot.id} pot={pot} />
               ))}
             </tbody>
           </table>

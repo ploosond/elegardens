@@ -1,65 +1,65 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { useRouter } from '@/i18n/navigation'
-import { useTranslations } from 'next-intl'
-import Button from '@/components/ui/Button'
-import Input from '@/components/ui/Input'
-import { Mail, Lock, AlertCircle } from 'lucide-react'
+import { useState } from "react";
+import { useRouter } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
+import Button from "@/components/ui/Button";
+import Input from "@/components/ui/Input";
+import { Mail, Lock, AlertCircle } from "lucide-react";
 
 interface LoginClientProps {
-  locale: string
+  locale: string;
 }
 
 export default function LoginClient({ locale }: LoginClientProps) {
-  const t = useTranslations('ClientLogin')
-  const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  const t = useTranslations("ClientLogin");
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError('')
-    setLoading(true)
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
     try {
-      const response = await fetch('/api/client/login', {
-        method: 'POST',
+      const response = await fetch("/api/client/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        credentials: 'include', // Important: include cookies
+        credentials: "include", // Important: include cookies
         body: JSON.stringify({
           email,
           password,
         }),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok || !data.success) {
-        setError(data.error || t('error_generic'))
-        setLoading(false)
-        return
+        setError(data.error || t("error_generic"));
+        setLoading(false);
+        return;
       }
 
       // Store user data in localStorage for client-side access
       if (data.user) {
-        localStorage.setItem('client_user', JSON.stringify(data.user))
+        localStorage.setItem("client_user", JSON.stringify(data.user));
       }
 
       // Small delay to ensure cookie is set before redirect
-      await new Promise(resolve => setTimeout(resolve, 100))
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
-      router.push('/client/dashboard')
+      router.push("/client/dashboard");
     } catch (err: any) {
-      console.error('Login error:', err)
-      setError(t('error_network'))
-      setLoading(false)
+      console.error("Login error:", err);
+      setError(t("error_network"));
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -73,8 +73,8 @@ export default function LoginClient({ locale }: LoginClientProps) {
       <div>
         <Input
           type="email"
-          label={t('email_label')}
-          placeholder={t('email_placeholder')}
+          label={t("email_label")}
+          placeholder={t("email_placeholder")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -86,8 +86,8 @@ export default function LoginClient({ locale }: LoginClientProps) {
       <div>
         <Input
           type="password"
-          label={t('password_label')}
-          placeholder={t('password_placeholder')}
+          label={t("password_label")}
+          placeholder={t("password_placeholder")}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
@@ -102,18 +102,18 @@ export default function LoginClient({ locale }: LoginClientProps) {
         disabled={loading}
         className="w-full"
       >
-        {t('submit_button')}
+        {t("submit_button")}
       </Button>
 
       <p className="text-center text-xs text-text/60">
-        {t('help_text')}{' '}
+        {t("help_text")}{" "}
         <a
           href={`/${locale}/contact`}
           className="font-semibold text-primary hover:underline"
         >
-          {t('contact_link')}
+          {t("contact_link")}
         </a>
       </p>
     </form>
-  )
+  );
 }

@@ -1,17 +1,17 @@
-'use client'
+"use client";
 
-import { usePathname } from 'next/navigation'
-import Header from './Header'
-import Footer from './Footer'
+import { usePathname } from "next/navigation";
+import Header from "./Header";
+import Footer from "./Footer";
 
 export default function ConditionalHeaderFooter({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const pathname = usePathname()
+  const pathname = usePathname();
   // Check if route is a client route (with or without locale prefix)
-  const isClientRoute = pathname?.includes('/client')
+  const isClientRoute = pathname?.includes("/client");
 
   return (
     <>
@@ -19,5 +19,5 @@ export default function ConditionalHeaderFooter({
       {children}
       {!isClientRoute && <Footer />}
     </>
-  )
+  );
 }

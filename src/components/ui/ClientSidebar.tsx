@@ -1,76 +1,91 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { usePathname, useRouter, Link } from '@/i18n/navigation'
-import { useLocale, useTranslations } from 'next-intl'
-import { User, Package, ShoppingCart, ShoppingBag, LogOut, Menu, X, Languages } from 'lucide-react'
-import Button from './Button'
+import { useState, useEffect } from "react";
+import { usePathname, useRouter, Link } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import {
+  User,
+  Leaf,
+  Box,
+  ShoppingCart,
+  ShoppingBag,
+  LogOut,
+  Menu,
+  X,
+  Languages,
+} from "lucide-react";
+import Button from "./Button";
 
 export default function ClientSidebar() {
-  const t = useTranslations('ClientSidebar')
-  const tHeader = useTranslations('Header')
-  const pathname = usePathname()
-  const router = useRouter()
-  const currentLocale = useLocale()
-  const nextLocale = currentLocale === 'de' ? 'en' : 'de'
-  const [isOpen, setIsOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const t = useTranslations("ClientSidebar");
+  const tHeader = useTranslations("Header");
+  const pathname = usePathname();
+  const router = useRouter();
+  const currentLocale = useLocale();
+  const nextLocale = currentLocale === "de" ? "en" : "de";
+  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   // Close sidebar on mobile when route changes
   useEffect(() => {
-    setIsOpen(false)
-  }, [pathname])
+    setIsOpen(false);
+  }, []);
 
   const handleLogout = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
-      const response = await fetch('/api/client/logout', {
-        method: 'POST',
-        credentials: 'include',
-      })
+      const response = await fetch("/api/client/logout", {
+        method: "POST",
+        credentials: "include",
+      });
 
       if (response.ok) {
-        localStorage.removeItem('client_user')
-        router.push('/client/login')
+        localStorage.removeItem("client_user");
+        router.push("/client/login");
       }
     } catch (error) {
-      console.error('Logout error:', error)
-      localStorage.removeItem('client_user')
-      router.push('/client/login')
+      console.error("Logout error:", error);
+      localStorage.removeItem("client_user");
+      router.push("/client/login");
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const navItems = [
     {
-      name: t('account'),
-      href: '/client/dashboard',
+      name: t("account"),
+      href: "/client/dashboard",
       icon: User,
     },
     {
-      name: t('products'),
-      href: '/client/products',
-      icon: Package,
+      name: t("plants"),
+      href: "/client/products",
+      icon: Leaf,
     },
     {
-      name: t('orders'),
-      href: '/client/orders',
-      icon: ShoppingCart,
+      name: t("pots"),
+      href: "/client/pots",
+      icon: Box,
     },
     {
-      name: t('cart'),
-      href: '/client/cart',
+      name: t("cart"),
+      href: "/client/cart",
       icon: ShoppingBag,
     },
-  ]
+    {
+      name: t("orders"),
+      href: "/client/orders",
+      icon: ShoppingCart,
+    },
+  ];
 
   const isActive = (href: string) => {
-    if (href === '/client/dashboard') {
-      return pathname === '/client/dashboard'
+    if (href === "/client/dashboard") {
+      return pathname === "/client/dashboard";
     }
-    return pathname.startsWith(href)
-  }
+    return pathname.startsWith(href);
+  };
 
   return (
     <>
@@ -94,40 +109,42 @@ export default function ClientSidebar() {
       {/* Sidebar */}
       <aside
         className={`fixed left-0 top-0 z-40 h-screen w-64 transform border-r border-muted bg-bg transition-transform duration-300 ease-in-out lg:translate-x-0 ${
-          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+          isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         }`}
       >
         <div className="flex h-full flex-col pt-4">
           {/* Navigation items */}
           <nav className="flex-1 space-y-1 px-4 py-4">
             {navItems.map((item) => {
-              const Icon = item.icon
-              const active = isActive(item.href)
+              const Icon = item.icon;
+              const active = isActive(item.href);
               return (
                 <button
                   key={item.href}
                   onClick={() => router.push(item.href)}
                   className={`group relative flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left transition-colors ${
-                    active ? 'bg-primary/10 text-primary' : 'text-text hover:bg-muted'
+                    active
+                      ? "bg-primary/10 text-primary"
+                      : "text-text hover:bg-muted"
                   }`}
                 >
                   <Icon className="h-5 w-5" />
                   <span className="flex-1 font-medium">{item.name}</span>
                 </button>
-              )
+              );
             })}
           </nav>
 
           {/* Language Switcher and Logout */}
           <div className="border-t border-muted p-4 space-y-3">
             <Link
-              href={pathname || '/'}
+              href={pathname || "/"}
               locale={nextLocale}
               className="inline-flex w-full items-center justify-center rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow transition-colors duration-150 hover:bg-blue-700"
-              title={tHeader('languageSwitcher')}
+              title={tHeader("languageSwitcher")}
             >
               <Languages className="mr-2 h-4 w-4" />
-              {nextLocale === 'de' ? 'DEU' : 'ENG'}
+              {nextLocale === "de" ? "DEU" : "ENG"}
             </Link>
             <Button
               onClick={handleLogout}
@@ -136,11 +153,11 @@ export default function ClientSidebar() {
               icon={<LogOut className="h-4 w-4" />}
               className="w-full bg-red-600 hover:bg-red-700 text-white border-red-600"
             >
-              {t('logout')}
+              {t("logout")}
             </Button>
           </div>
         </div>
       </aside>
     </>
-  )
+  );
 }

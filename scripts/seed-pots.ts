@@ -2,7 +2,7 @@ import { getPayload } from "payload";
 import config from "@payload-config";
 import { hasFlag, seedBatch } from "./seed-utils";
 
-import products from "../data/products.json";
+import pots from "../data/pots.json";
 
 async function run() {
   try {
@@ -10,9 +10,9 @@ async function run() {
 
     const clear = hasFlag("clear");
 
-    type ProductSeed = {
-      productId: string;
-      slug: string;
+    type PotSeed = {
+      potId: string;
+      name: string;
       availability?: "available" | "out-of-stock";
       [key: string]: unknown;
     };
@@ -20,22 +20,20 @@ async function run() {
     const randomAvailability = (): "available" | "out-of-stock" =>
       Math.random() < 0.5 ? "available" : "out-of-stock";
 
-    const { created, updated } = await seedBatch<ProductSeed>({
+    const { created, updated } = await seedBatch<PotSeed>({
       payload,
-      collection: "products",
-      items: products as ProductSeed[],
-      uniqueField: "productId",
-      label: (p: ProductSeed) => `${p.slug} (${p.productId})`,
-      transform: (p: ProductSeed) => ({
+      collection: "pots",
+      items: pots as PotSeed[],
+      uniqueField: "potId",
+      label: (p: PotSeed) => `${p.name} (${p.potId})`,
+      transform: (p: PotSeed) => ({
         ...p,
         availability: randomAvailability(),
       }),
       clear,
     });
 
-    console.log(
-      `\n✅ Products seeded. Created: ${created}, Updated: ${updated}`,
-    );
+    console.log(`\n✅ Pots seeded. Created: ${created}, Updated: ${updated}`);
   } catch (error: unknown) {
     console.error("Error details:");
     try {

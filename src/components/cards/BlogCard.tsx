@@ -1,22 +1,22 @@
-import Image from 'next/image'
-import { useLocale } from 'next-intl'
-import type { Blog } from '@/payload-types'
+import Image from "next/image";
+import { useLocale } from "next-intl";
+import type { Blog } from "@/payload-types";
 
 export default function BlogCard({ blog }: { blog: Blog }) {
-  const locale = useLocale()
-  const title = locale === 'de' ? blog.title_de : blog.title_en
-  const summary = locale === 'de' ? blog.summary_de : blog.summary_en
+  const locale = useLocale();
+  const title = locale === "de" ? blog.title_de : blog.title_en;
+  const summary = locale === "de" ? blog.summary_de : blog.summary_en;
   const imageUrl =
     blog.coverImage &&
-    typeof blog.coverImage === 'object' &&
-    'url' in blog.coverImage &&
+    typeof blog.coverImage === "object" &&
+    "url" in blog.coverImage &&
     blog.coverImage.url
       ? blog.coverImage.url
-      : '/place_holder.png'
-  const author = blog.author || ''
+      : "/place_holder.png";
+  const author = blog.author || "";
   const publishedDate = blog.publishedDate
     ? new Date(blog.publishedDate).toLocaleDateString(locale)
-    : ''
+    : "";
 
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-sm border border-muted/10 bg-white/5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-muted/20 hover:shadow-lg">
@@ -35,7 +35,9 @@ export default function BlogCard({ blog }: { blog: Blog }) {
         />
       </div>
       <div className="flex flex-1 flex-col gap-4 p-5">
-        <h3 className="line-clamp-2 text-lg font-semibold leading-tight text-primary">{title}</h3>
+        <h3 className="line-clamp-2 text-lg font-semibold leading-tight text-primary">
+          {title}
+        </h3>
         <p className="line-clamp-3 text-sm text-text">{summary}</p>
         <div className="mt-auto flex items-center justify-between text-xs text-secondary">
           <span>{author}</span>
@@ -43,5 +45,5 @@ export default function BlogCard({ blog }: { blog: Blog }) {
         </div>
       </div>
     </article>
-  )
+  );
 }

@@ -1,34 +1,34 @@
-import type { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
-import { redirect } from '@/i18n/navigation'
-import { getAuthenticatedClient } from '@/lib/auth-client'
-import CartClient from './CartClient'
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
+import { redirect } from "@/i18n/navigation";
+import { getAuthenticatedClient } from "@/lib/auth-client";
+import CartClient from "./CartClient";
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
-  const { locale } = await params
-  const t = await getTranslations({ locale, namespace: 'ClientCart' })
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "ClientCart" });
 
   return {
-    title: t('title'),
-  }
+    title: t("title"),
+  };
 }
 
 export default async function ClientCartPage({
   params,
 }: {
-  params: Promise<{ locale: string }>
+  params: Promise<{ locale: string }>;
 }) {
-  const { locale } = await params
+  const { locale } = await params;
 
   // Check authentication
-  const client = await getAuthenticatedClient()
+  const client = await getAuthenticatedClient();
   if (!client) {
-    redirect({ href: '/client/login', locale })
+    redirect({ href: "/client/login", locale });
   }
 
-  return <CartClient client={client} locale={locale} />
+  return <CartClient client={client} locale={locale} />;
 }

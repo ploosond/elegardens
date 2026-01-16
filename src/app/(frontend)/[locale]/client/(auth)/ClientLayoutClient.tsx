@@ -1,15 +1,16 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import ClientSidebar from '@/components/ui/ClientSidebar'
-import { CartProvider } from '@/contexts/CartContext'
+import ClientSidebar from "@/components/ui/ClientSidebar";
+import { CartProvider } from "@/contexts/CartContext";
 
 interface ClientLayoutClientProps {
-  children: React.ReactNode
-  locale: string
+  children: React.ReactNode;
+  locale: string;
 }
 
-export default function ClientLayoutClient({ children }: ClientLayoutClientProps) {
+export default function ClientLayoutClient({
+  children,
+}: ClientLayoutClientProps) {
   return (
     <CartProvider>
       <div className="flex min-h-screen bg-bg">
@@ -19,5 +20,5 @@ export default function ClientLayoutClient({ children }: ClientLayoutClientProps
         </main>
       </div>
     </CartProvider>
-  )
+  );
 }

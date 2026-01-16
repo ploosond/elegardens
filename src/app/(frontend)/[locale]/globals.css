@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 :root {
   --background: #ffffff;
@@ -43,32 +43,32 @@ body {
 /* Rich Text List Styling - Ensure bullets are visible */
 .rich-text-content ul,
 .rich-text-content ol {
-  list-style-position: outside !important;
-  padding-left: 1.5rem !important;
-  margin-left: 0 !important;
+  list-style-position: outside;
+  padding-left: 1.5rem;
+  margin-left: 0;
 }
 
 .rich-text-content ul {
-  list-style-type: disc !important;
+  list-style-type: disc;
 }
 
 .rich-text-content ol {
-  list-style-type: decimal !important;
+  list-style-type: decimal;
 }
 
 .rich-text-content li {
-  display: list-item !important;
-  margin-bottom: 0.5rem !important;
-  padding-left: 0.25rem !important;
+  display: list-item;
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
 }
 
 /* Override Tailwind prose styles that might hide list markers */
 .rich-text-content.prose ul,
 .rich-text-content.prose ol {
-  list-style-type: disc !important;
-  padding-left: 1.5rem !important;
+  list-style-type: disc;
+  padding-left: 1.5rem;
 }
 
 .rich-text-content.prose ol {
-  list-style-type: decimal !important;
+  list-style-type: decimal;
 }

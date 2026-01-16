@@ -1,56 +1,60 @@
-'use client'
+"use client";
 
-import { useMemo, useState, useEffect } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import ProductCard from '@/components/cards/ProductCard'
-import { useLocale, useTranslations } from 'next-intl'
-import SearchInput from '@/components/ui/SearchInput'
-import { useDebounce } from '@/hooks/useDebounce'
-import Button from '@/components/ui/Button'
-import type { Product } from '@/payload-types'
+import { useMemo, useState, useEffect } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import ProductCard from "@/components/cards/ProductCard";
+import { useLocale, useTranslations } from "next-intl";
+import SearchInput from "@/components/ui/SearchInput";
+import { useDebounce } from "@/hooks/useDebounce";
+import Button from "@/components/ui/Button";
+import type { Product } from "@/payload-types";
 
 interface ProductsClientProps {
-  initialProducts: Product[]
+  initialProducts: Product[];
 }
 
-export default function ProductsClient({ initialProducts }: ProductsClientProps) {
-  const t = useTranslations('ProductsPage')
-  const locale = useLocale()
+export default function ProductsClient({
+  initialProducts,
+}: ProductsClientProps) {
+  const t = useTranslations("ProductsPage");
+  const _locale = useLocale();
 
   // Pagination + Search
-  const [page, setPage] = useState(1)
-  const [searchTerm, setSearchTerm] = useState('')
-  const debouncedSearch = useDebounce(searchTerm, 300)
+  const [page, setPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const debouncedSearch = useDebounce(searchTerm, 300);
 
   // Client-side filtering
   const filteredProducts = useMemo(() => {
-    if (!debouncedSearch) return initialProducts
-    const term = debouncedSearch.toLowerCase()
+    if (!debouncedSearch) return initialProducts;
+    const term = debouncedSearch.toLowerCase();
     return initialProducts.filter((product) => {
-      const name = (product.common_name || '').toLowerCase()
-      return name.includes(term)
-    })
-  }, [debouncedSearch, initialProducts])
+      const name = (product.common_name || "").toLowerCase();
+      return name.includes(term);
+    });
+  }, [debouncedSearch, initialProducts]);
 
   // Client-side pagination
-  const itemsPerPage = 30
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage)
-  const startIndex = (page - 1) * itemsPerPage
-  const endIndex = startIndex + itemsPerPage
-  const paginatedProducts = filteredProducts.slice(startIndex, endIndex)
+  const itemsPerPage = 30;
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const startIndex = (page - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedProducts = filteredProducts.slice(startIndex, endIndex);
 
   // Calculate visible page numbers (max 3)
   const visiblePages = useMemo(() => {
-    if (totalPages <= 3) return Array.from({ length: totalPages }, (_, i) => i + 1)
-    if (page === 1) return [1, 2, 3]
-    if (page === totalPages) return [totalPages - 2, totalPages - 1, totalPages]
-    return [page - 1, page, page + 1]
-  }, [page, totalPages])
+    if (totalPages <= 3)
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    if (page === 1) return [1, 2, 3];
+    if (page === totalPages)
+      return [totalPages - 2, totalPages - 1, totalPages];
+    return [page - 1, page, page + 1];
+  }, [page, totalPages]);
 
   // Reset to page 1 when search changes
   useEffect(() => {
-    if (debouncedSearch) setPage(1)
-  }, [debouncedSearch])
+    if (debouncedSearch) setPage(1);
+  }, [debouncedSearch]);
 
   return (
     <>
@@ -59,8 +63,10 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <SearchInput
             value={searchTerm}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
-            placeholder={t('search_placeholder')}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchTerm(e.target.value)
+            }
+            placeholder={t("search_placeholder")}
           />
         </div>
       </div>
@@ -73,10 +79,12 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
               {/* Item count summary */}
               <div className="mb-4 flex items-center justify-between text-sm text-text">
                 {searchTerm ? (
-                  <span>{t('results', { count: filteredProducts.length })}</span>
+                  <span>
+                    {t("results", { count: filteredProducts.length })}
+                  </span>
                 ) : (
                   <span>
-                    {t('showing', {
+                    {t("showing", {
                       from: startIndex + 1,
                       to: Math.min(endIndex, filteredProducts.length),
                       total: filteredProducts.length,
@@ -86,9 +94,13 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
               </div>
               {filteredProducts.length === 0 ? (
                 <div className="rounded-lg bg-muted py-12 text-center">
-                  <h3 className="mb-2 text-xl font-medium">{t('no_products_title')}</h3>
-                  <p className="mb-4 text-text/70">{t('no_products_desc')}</p>
-                  <Button onClick={() => setSearchTerm('')}>{t('clear_filters')}</Button>
+                  <h3 className="mb-2 text-xl font-medium">
+                    {t("no_products_title")}
+                  </h3>
+                  <p className="mb-4 text-text/70">{t("no_products_desc")}</p>
+                  <Button onClick={() => setSearchTerm("")}>
+                    {t("clear_filters")}
+                  </Button>
                 </div>
               ) : (
                 <>
@@ -109,14 +121,14 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
                         className="px-4 py-2"
                         icon={<ChevronLeft className="h-4 w-4" />}
                       >
-                        {t('prev')}
+                        {t("prev")}
                       </Button>
                       {visiblePages.map((p) => (
                         <Button
                           key={p}
-                          variant={p === page ? 'primary' : 'secondary'}
+                          variant={p === page ? "primary" : "secondary"}
                           onClick={() => setPage(p)}
-                          aria-current={p === page ? 'page' : undefined}
+                          aria-current={p === page ? "page" : undefined}
                           className="px-4 py-2"
                         >
                           {p}
@@ -124,12 +136,14 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
                       ))}
                       <Button
                         variant="secondary"
-                        onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                        onClick={() =>
+                          setPage((p) => Math.min(totalPages, p + 1))
+                        }
                         disabled={page >= totalPages}
                         aria-label="Next page"
                         className="px-4 py-2"
                       >
-                        {t('next')}
+                        {t("next")}
                         <ChevronRight className="h-4 w-4 ml-2" />
                       </Button>
                     </div>
@@ -141,5 +155,5 @@ export default function ProductsClient({ initialProducts }: ProductsClientProps)
         </div>
       </section>
     </>
-  )
+  );
 }

@@ -1,57 +1,196 @@
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import { NextResponse } from 'next/server'
-import { getAuthenticatedClient } from '@/lib/auth-client'
+import configPromise from "@payload-config";
+import { getPayload } from "payload";
+import { NextResponse } from "next/server";
+import { getAuthenticatedClient } from "@/lib/auth-client";
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   try {
     // Check authentication
-    const client = await getAuthenticatedClient()
+    const client = await getAuthenticatedClient();
     if (!client) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Unauthorized',
+          error: "Unauthorized",
         },
-        { status: 401 }
-      )
+        { status: 401 },
+      );
     }
 
-    const body = await request.json()
-    const { deliveryDate, items, notes } = body
+    // Get query parameters
+    const { searchParams } = new URL(request.url);
+    const sort = searchParams.get("sort") || "-createdAt";
+    const limit = parseInt(searchParams.get("limit") || "100", 10);
+    const depth = parseInt(searchParams.get("depth") || "2", 10);
+
+    // Get Payload instance
+    const payload = await getPayload({
+      config: configPromise,
+    });
+
+    // Fetch orders for this client
+    // The access control in Orders collection will automatically filter by client
+    const orders = await payload.find({
+      collection: "orders",
+      where: {
+        client: {
+          equals: client.id,
+        },
+      },
+      sort,
+      limit,
+      depth,
+    });
+
+    return NextResponse.json({
+      success: true,
+      docs: orders.docs,
+      totalDocs: orders.totalDocs,
+      limit: orders.limit,
+      totalPages: orders.totalPages,
+      page: orders.page,
+      pagingCounter: orders.pagingCounter,
+      hasPrevPage: orders.hasPrevPage,
+      hasNextPage: orders.hasNextPage,
+      prevPage: orders.prevPage,
+      nextPage: orders.nextPage,
+    });
+  } catch (error: any) {
+    console.error("Error fetching orders:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        error: error.message || "Failed to fetch orders",
+      },
+      { status: 500 },
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    // Check authentication
+    const client = await getAuthenticatedClient();
+    if (!client) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Unauthorized",
+        },
+        { status: 401 },
+      );
+    }
+
+    const body = await request.json();
+    const { deliveryDate, items, notes } = body as {
+      deliveryDate: string;
+      items: Array<{
+        product?: number;
+        pot?: number;
+        quantity: number;
+      }>;
+      notes?: string;
+    };
 
     // Validate required fields
     if (!deliveryDate || !items || items.length === 0) {
       return NextResponse.json(
         {
           success: false,
-          error: 'Delivery date and at least one item are required',
+          error: "Delivery date and at least one item are required",
         },
-        { status: 400 }
-      )
+        { status: 400 },
+      );
+    }
+
+    // Validate items: require exactly one of product or pot, and valid quantity
+    for (const item of items) {
+      const hasProduct = !!item.product;
+      const hasPot = !!item.pot;
+      if (!hasProduct && !hasPot) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Each item must include either a product or a pot",
+          },
+          { status: 400 },
+        );
+      }
+      if (hasProduct && hasPot) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Each item must include only one: product or pot",
+          },
+          { status: 400 },
+        );
+      }
+      if (!item.quantity || item.quantity < 1) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: "Each item must have a quantity of at least 1",
+          },
+          { status: 400 },
+        );
+      }
     }
 
     // Get Payload instance
     const payload = await getPayload({
       config: configPromise,
-    })
+    });
+
+    // Normalize items to denormalized fields (no relationships stored)
+    const normalizedItems = await Promise.all(
+      items.map(async (item) => {
+        if (item.product) {
+          const product = await payload.findByID({
+            collection: "products",
+            id: item.product,
+          });
+          return {
+            itemId:
+              (product?.productId as string) ||
+              (product?.id ? `#${product.id}` : "N/A"),
+            itemName: (product?.common_name as string) || "Unknown Product",
+            quantity: item.quantity,
+          };
+        }
+        if (item.pot) {
+          const pot = await payload.findByID({
+            collection: "pots",
+            id: item.pot,
+          });
+          return {
+            itemId: (pot?.potId as string) || (pot?.id ? `#${pot.id}` : "N/A"),
+            itemName: (pot?.name as string) || "Unknown Pot",
+            quantity: item.quantity,
+          };
+        }
+        return {
+          itemId: "N/A",
+          itemName: "Unknown Item",
+          quantity: item.quantity,
+        };
+      }),
+    );
 
     // Create order
     // Note: orderNumber is auto-generated by beforeChange hook in Orders collection
     const order = await payload.create({
-      collection: 'orders',
+      collection: "orders",
+      draft: false,
       data: {
         client: client.id,
         companyName: client.companyName,
         deliveryDate,
-        items: items.map((item: any) => ({
-          product: item.product,
-          quantity: item.quantity,
-        })),
+        items: normalizedItems,
         notes: notes || undefined,
-        status: 'pending',
-      } as any, // Type assertion needed because orderNumber is auto-generated
-    })
+        status: "pending" as const,
+        // orderNumber will be auto-generated by hook
+      } as any,
+    });
 
     return NextResponse.json(
       {
@@ -61,16 +200,16 @@ export async function POST(request: Request) {
           orderNumber: order.orderNumber,
         },
       },
-      { status: 201 }
-    )
+      { status: 201 },
+    );
   } catch (error: any) {
-    console.error('Order creation error:', error)
+    console.error("Order creation error:", error);
     return NextResponse.json(
       {
         success: false,
-        error: error.message || 'Failed to create order',
+        error: error.message || "Failed to create order",
       },
-      { status: 500 }
-    )
+      { status: 500 },
+    );
   }
 }

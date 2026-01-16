@@ -272,10 +272,6 @@
     "section5_right6": "Right to object: You can object to processing of your personal data for certain purposes.",
     "section5_contact": "To exercise any of these rights, please contact us at info@elegardens.com."
   },
-  "ProductCard": {
-    "buy": "Buy",
-    "details": "Details"
-  },
   "CookieConsent": {
     "title": "We Value Your Privacy",
     "description": "This site uses cookies to improve your browsing experience, analyze site traffic, and show personalized content.",
@@ -309,7 +305,8 @@
   },
   "ClientSidebar": {
     "account": "Account",
-    "products": "Products",
+    "plants": "Plants",
+    "pots": "Pots",
     "orders": "Orders",
     "cart": "Cart",
     "logout": "Logout"
@@ -322,7 +319,17 @@
     "order_date": "Order Date",
     "delivery_date": "Delivery Date",
     "total_items": "Total Items",
-    "created_at": "Created"
+    "created_at": "Created",
+    "view_details": "View Details",
+    "hide_details": "Hide Details",
+    "order_items": "Order Items",
+    "item_id": "Item ID",
+    "quantity": "Quantity",
+    "no_items": "No items in this order",
+    "notes": "Notes",
+    "company_name": "Company Name",
+    "order_status": "Status",
+    "last_updated": "Last Updated"
   },
   "ClientCart": {
     "title": "Cart",
@@ -330,6 +337,7 @@
     "empty_title": "Your cart is empty",
     "empty_desc": "Add products to your cart to get started.",
     "browse_products": "Browse Products",
+    "browse_pots": "Browse Pots",
     "quantity": "Quantity",
     "remove_item": "Remove item",
     "increase_quantity": "Increase quantity",
@@ -379,5 +387,49 @@
     "search_by_id_placeholder": "PROD-001",
     "search_by_name_placeholder": "Achillea filipendulina",
     "showing_results": "Showing {count} of {total} products"
+  },
+  "PotsPage": {
+    "hero_title": "Our Pot",
+    "hero_highlight": "Collection",
+    "hero_description": "Browse our selection of flower pots in various sizes.",
+    "no_pots_title": "No pots found",
+    "no_pots_desc": "Try adjusting your filters or search term."
+  },
+  "B2BPots": {
+    "view_table": "Table View",
+    "view_cards": "Card View",
+    "quantity": "Quantity",
+    "add_to_cart": "Add to Cart",
+    "update_cart": "Update Cart",
+    "in_cart": "In Cart: {quantity}",
+    "available": "Available",
+    "out_of_stock": "Out of Stock",
+    "clear_all": "Clear All",
+    "total_items": "Total Items: {count}",
+    "total_products": "Items in Cart: {count}",
+    "view_cart": "View Cart",
+    "filters": "Filters",
+    "all_pots": "All Pots",
+    "available_only": "Available Only",
+    "out_of_stock_only": "Out of Stock Only",
+    "clear_availability_filter": "Show All",
+    "found": "found",
+    "pot_id": "Pot ID",
+    "pot_name": "Pot Name",
+    "size": "Size",
+    "availability": "Availability",
+    "action": "Action",
+    "filter_pot_id": "Pot ID",
+    "filter_pot_name": "Pot Name",
+    "filter_size": "Size",
+    "filter_all_sizes": "All Sizes",
+    "filter_availability": "Availability",
+    "filter_all": "All",
+    "filter_available": "Available",
+    "filter_out_of_stock": "Out of Stock",
+    "clear_filters": "Clear Filters",
+    "search_by_id_placeholder": "POT-001",
+    "search_by_name_placeholder": "Terracotta Pot",
+    "showing_results": "Showing {count} of {total} pots"
   }
 }

@@ -71,6 +71,7 @@ export interface Config {
     users: User;
     media: Media;
     products: Product;
+    pots: Pot;
     employees: Employee;
     projects: Project;
     blogs: Blog;
@@ -88,6 +89,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
+    pots: PotsSelect<false> | PotsSelect<true>;
     employees: EmployeesSelect<false> | EmployeesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
@@ -251,6 +253,31 @@ export interface Product {
    * 150-160 characters
    */
   metaDescription_de?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pots".
+ */
+export interface Pot {
+  id: number;
+  potId: string;
+  /**
+   * Enter any name for the pot (e.g., sm, md, lg, xl, Small, Medium, etc.)
+   */
+  name: string;
+  /**
+   * Enter dimensions in the format: 10cm x 10cm
+   */
+  size?: string | null;
+  availability: 'available' | 'out-of-stock';
+  quantity?: number | null;
+  /**
+   * Upload a pot image
+   */
+  image?: (number | null) | Media;
+  description?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -502,31 +529,17 @@ export interface Client {
  */
 export interface Order {
   id: number;
-  /**
-   * Auto-generated order number
-   */
   orderNumber: string;
-  /**
-   * Client who placed this order
-   */
   client: number | Client;
-  /**
-   * Auto-populated from client
-   */
   companyName: string;
-  /**
-   * Order date in format: week number-date (e.g., 21-0107)
-   */
   orderDate?: string | null;
   /**
    * Requested delivery date (client input)
    */
   deliveryDate: string;
   items: {
-    product: number | Product;
-    /**
-     * Quantity ordered
-     */
+    itemId: string;
+    itemName: string;
     quantity: number;
     id?: string | null;
   }[];
@@ -580,6 +593,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'products';
         value: number | Product;
+      } | null)
+    | ({
+        relationTo: 'pots';
+        value: number | Pot;
       } | null)
     | ({
         relationTo: 'employees';
@@ -724,6 +741,21 @@ export interface ProductsSelect<T extends boolean = true> {
   metaTitle_de?: T;
   metaDescription_en?: T;
   metaDescription_de?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pots_select".
+ */
+export interface PotsSelect<T extends boolean = true> {
+  potId?: T;
+  name?: T;
+  size?: T;
+  availability?: T;
+  quantity?: T;
+  image?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -914,7 +946,8 @@ export interface OrdersSelect<T extends boolean = true> {
   items?:
     | T
     | {
-        product?: T;
+        itemId?: T;
+        itemName?: T;
         quantity?: T;
         id?: T;
       };

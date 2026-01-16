@@ -1,31 +1,31 @@
-'use client'
+"use client";
 
-import Image from 'next/image'
-import { useLocale, useTranslations } from 'next-intl'
-import type { Product } from '@/payload-types'
+import Image from "next/image";
+import { useLocale, useTranslations } from "next-intl";
+import type { Product } from "@/payload-types";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const locale = useLocale()
-  const t = useTranslations('ProductCard')
+  const locale = useLocale();
+  const t = useTranslations("ProductCard");
 
   // Get product name
-  const productName = product.common_name?.trim() || ''
+  const productName = product.common_name?.trim() || "";
 
   // Alt text fallback
-  const altText = productName
-  let imageUrl = '/place_holder.png'
+  const altText = productName;
+  let imageUrl = "/place_holder.png";
   if (product.images && product.images.length > 0) {
-    const firstImage = product.images[0]
+    const firstImage = product.images[0];
     if (
-      typeof firstImage === 'object' &&
+      typeof firstImage === "object" &&
       firstImage !== null &&
-      'url' in firstImage &&
+      "url" in firstImage &&
       firstImage.url
     ) {
-      imageUrl = firstImage.url
+      imageUrl = firstImage.url;
     }
   }
-  const backgroundColor = product.color || '#6a844a'
+  const backgroundColor = product.color || "#6a844a";
 
   return (
     <div className="group flex h-full flex-col overflow-hidden rounded-sm border border-muted/10 bg-white/5 shadow-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:border-muted/20 hover:shadow-lg">
@@ -55,16 +55,16 @@ export default function ProductCard({ product }: { product: Product }) {
             aria-hidden="true"
             className="inline-flex w-full items-center justify-center rounded-full border-2 border-on-dark/60 px-4 py-1 text-sm font-semibold text-on-dark/90 opacity-0 transition-colors hover:bg-white/15"
           >
-            {t('buy')}
+            {t("buy")}
           </span>
           <a
             href={`/${locale}/products/${product.slug}`}
             className="inline-flex w-full cursor-pointer items-center justify-center rounded-full border-2 border-on-dark/60 px-4 py-1 text-sm font-semibold text-on-dark/90 transition-colors hover:bg-white/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-on-dark/50"
           >
-            {t('details')}
+            {t("details")}
           </a>
         </div>
       </div>
     </div>
-  )
+  );
 }

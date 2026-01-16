@@ -272,10 +272,6 @@
     "section5_right6": "Widerspruchsrecht: Sie können der Verarbeitung Ihrer personenbezogenen Daten für bestimmte Zwecke widersprechen.",
     "section5_contact": "Um eines dieser Rechte auszuüben, kontaktieren Sie uns bitte unter info@elegardens.com."
   },
-  "ProductCard": {
-    "buy": "Kaufen",
-    "details": "Details"
-  },
   "CookieConsent": {
     "title": "Wir schätzen Ihre Privatsphäre",
     "description": "Diese Website verwendet Cookies, um Ihr Browsing-Erlebnis zu verbessern, den Website-Traffic zu analysieren und personalisierte Inhalte anzuzeigen.",
@@ -309,7 +305,8 @@
   },
   "ClientSidebar": {
     "account": "Konto",
-    "products": "Produkte",
+    "plants": "Pflanzen",
+    "pots": "Töpfe",
     "orders": "Bestellungen",
     "cart": "Warenkorb",
     "logout": "Abmelden"
@@ -322,7 +319,17 @@
     "order_date": "Bestelldatum",
     "delivery_date": "Lieferdatum",
     "total_items": "Gesamtanzahl",
-    "created_at": "Erstellt"
+    "created_at": "Erstellt",
+    "view_details": "Details anzeigen",
+    "hide_details": "Details ausblenden",
+    "order_items": "Bestellpositionen",
+    "item_id": "Artikel-ID",
+    "quantity": "Menge",
+    "no_items": "Keine Artikel in dieser Bestellung",
+    "notes": "Notizen",
+    "company_name": "Firmenname",
+    "order_status": "Status",
+    "last_updated": "Zuletzt aktualisiert"
   },
   "ClientCart": {
     "title": "Warenkorb",
@@ -330,6 +337,7 @@
     "empty_title": "Ihr Warenkorb ist leer",
     "empty_desc": "Fügen Sie Produkte zu Ihrem Warenkorb hinzu, um zu beginnen.",
     "browse_products": "Produkte durchsuchen",
+    "browse_pots": "Töpfe durchsuchen",
     "quantity": "Menge",
     "remove_item": "Artikel entfernen",
     "increase_quantity": "Menge erhöhen",
@@ -379,5 +387,49 @@
     "search_by_id_placeholder": "PROD-001",
     "search_by_name_placeholder": "Achillea filipendulina",
     "showing_results": "{count} von {total} Produkten angezeigt"
+  },
+  "PotsPage": {
+    "hero_title": "Unsere Topf",
+    "hero_highlight": "Kollektion",
+    "hero_description": "Durchsuchen Sie unsere Auswahl an Blumentöpfen in verschiedenen Größen.",
+    "no_pots_title": "Keine Töpfe gefunden",
+    "no_pots_desc": "Passen Sie Ihre Filter oder den Suchbegriff an."
+  },
+  "B2BPots": {
+    "view_table": "Tabellenansicht",
+    "view_cards": "Kartenansicht",
+    "quantity": "Menge",
+    "add_to_cart": "In den Warenkorb",
+    "update_cart": "Warenkorb aktualisieren",
+    "in_cart": "Im Warenkorb: {quantity}",
+    "available": "Verfügbar",
+    "out_of_stock": "Nicht vorrätig",
+    "clear_all": "Alle löschen",
+    "total_items": "Gesamtanzahl: {count}",
+    "total_products": "Artikel im Warenkorb: {count}",
+    "view_cart": "Warenkorb anzeigen",
+    "filters": "Filter",
+    "all_pots": "Alle Töpfe",
+    "available_only": "Nur Verfügbare",
+    "out_of_stock_only": "Nur Nicht Vorrätige",
+    "clear_availability_filter": "Alle anzeigen",
+    "found": "gefunden",
+    "pot_id": "Topf-ID",
+    "pot_name": "Topfname",
+    "size": "Größe",
+    "availability": "Verfügbarkeit",
+    "action": "Aktion",
+    "filter_pot_id": "Topf-ID",
+    "filter_pot_name": "Topfname",
+    "filter_size": "Größe",
+    "filter_all_sizes": "Alle Größen",
+    "filter_availability": "Verfügbarkeit",
+    "filter_all": "Alle",
+    "filter_available": "Verfügbar",
+    "filter_out_of_stock": "Nicht vorrätig",
+    "clear_filters": "Filter löschen",
+    "search_by_id_placeholder": "POT-001",
+    "search_by_name_placeholder": "Terrakotta-Topf",
+    "showing_results": "{count} von {total} Töpfen angezeigt"
   }
 }

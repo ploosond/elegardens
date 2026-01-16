@@ -1,36 +1,37 @@
-import type { Metadata } from 'next'
-import { Raleway } from 'next/font/google'
-import './globals.css'
-import ConsentManager from '@/components/ui/ConsentManager'
-import ConditionalHeaderFooter from '@/components/ui/ConditionalHeaderFooter'
-import { NextIntlClientProvider, hasLocale } from 'next-intl'
-import { notFound } from 'next/navigation'
-import { routing } from '@/i18n/routing'
-import { getMessages } from 'next-intl/server'
+import type { Metadata } from "next";
+import { Raleway } from "next/font/google";
+import "./globals.css";
+import ConsentManager from "@/components/ui/ConsentManager";
+import ConditionalHeaderFooter from "@/components/ui/ConditionalHeaderFooter";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
+import { getMessages } from "next-intl/server";
 
 const raleway = Raleway({
-  subsets: ['latin'],
-})
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
-  title: 'Ele Gardens – BIO-Certified Perennials, Sustainable Horticulture & Garden Design',
+  title:
+    "Ele Gardens – BIO-Certified Perennials, Sustainable Horticulture & Garden Design",
   description:
-    'Ele Gardens blends generations of horticultural expertise with sustainable innovation. We cultivate BIO-certified perennials that support biodiversity, delight customers, and perform reliably in gardens and retail. Discover our legacy, values, and commitment to a greener future.',
-}
+    "Ele Gardens blends generations of horticultural expertise with sustainable innovation. We cultivate BIO-certified perennials that support biodiversity, delight customers, and perform reliably in gardens and retail. Discover our legacy, values, and commitment to a greener future.",
+};
 
 export default async function RootLayout({
   children,
   params,
 }: Readonly<{
-  children: React.ReactNode
-  params: Promise<{ locale: string }>
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }>) {
-  const { locale } = await params
+  const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) {
-    notFound()
+    notFound();
   }
 
-  const messages = await getMessages()
+  const messages = await getMessages();
 
   return (
     <html lang="en">
@@ -42,5 +43,5 @@ export default async function RootLayout({
         </NextIntlClientProvider>
       </body>
     </html>
-  )
+  );
 }

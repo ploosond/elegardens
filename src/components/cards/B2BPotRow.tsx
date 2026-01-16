@@ -2,23 +2,23 @@
 
 import { useState, useEffect } from "react";
 import { useTranslations } from "next-intl";
-import type { Product } from "@/payload-types";
+import type { Pot } from "@/payload-types";
 import QuantityInput from "@/components/ui/QuantityInput";
 import AvailabilityBadge from "@/components/ui/AvailabilityBadge";
 import Button from "@/components/ui/Button";
 import { useCart } from "@/contexts/CartContext";
 
-interface B2BProductRowProps {
-  product: Product;
+interface B2BPotRowProps {
+  pot: Pot;
 }
 
-export default function B2BProductRow({ product }: B2BProductRowProps) {
-  const t = useTranslations("B2BProducts");
+export default function B2BPotRow({ pot }: B2BPotRowProps) {
+  const t = useTranslations("B2BPots");
   const { items, addItem, updateQuantity } = useCart();
   const [localQuantity, setLocalQuantity] = useState(0);
 
-  // Find if product is already in cart
-  const cartItem = items.find((item) => item.product?.id === product.id);
+  // Find if pot is already in cart
+  const cartItem = items.find((item) => item.pot?.id === pot.id);
   const cartQuantity = cartItem?.quantity || 0;
 
   // Sync local quantity with cart quantity
@@ -34,18 +34,18 @@ export default function B2BProductRow({ product }: B2BProductRowProps) {
     if (localQuantity > 0) {
       if (cartItem) {
         // Update existing item
-        updateQuantity(product.id, localQuantity, "product");
+        updateQuantity(pot.id, localQuantity, "pot");
       } else {
         // Add new item
-        addItem(product, localQuantity);
+        addItem(pot, localQuantity);
       }
     } else if (cartItem && localQuantity === 0) {
       // Remove from cart
-      updateQuantity(product.id, 0, "product");
+      updateQuantity(pot.id, 0, "pot");
     }
   };
 
-  const isOutOfStock = product.availability === "out-of-stock";
+  const isOutOfStock = pot.availability === "out-of-stock";
   const hasQuantity = localQuantity > 0 || cartQuantity > 0;
 
   return (
@@ -56,16 +56,17 @@ export default function B2BProductRow({ product }: B2BProductRowProps) {
     >
       <td className="px-4 py-3">
         <span className="font-mono text-sm font-semibold text-text">
-          {product.productId || `#${product.id}`}
+          {pot.potId || `#${pot.id}`}
         </span>
       </td>
       <td className="px-4 py-3">
-        <span className="text-text">
-          {product.common_name || "Unnamed Product"}
-        </span>
+        <span className="text-text">{pot.name || "Unnamed Pot"}</span>
       </td>
       <td className="px-4 py-3">
-        <AvailabilityBadge availability={product.availability || "available"} />
+        <span className="text-text">{pot.size || "N/A"}</span>
+      </td>
+      <td className="px-4 py-3">
+        <AvailabilityBadge availability={pot.availability || "available"} />
       </td>
       <td className="px-4 py-3">
         <QuantityInput

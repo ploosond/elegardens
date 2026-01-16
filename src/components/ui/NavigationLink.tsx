@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import { ReactNode } from 'react';
+import Link from "next/link";
+import type { ReactNode } from "react";
 
 interface NavigationLinkProps {
   href: string;
@@ -12,13 +12,13 @@ export default function NavigationLink({
   href,
   children,
   isActive = false,
-  className = '',
+  className = "",
 }: NavigationLinkProps) {
   return (
     <Link
       href={href}
       className={`rounded-md px-4 py-3 text-white font-semibold transition-colors ${
-        isActive ? 'bg-green-700' : 'bg-green-600 hover:bg-green-700'
+        isActive ? "bg-green-700" : "bg-green-600 hover:bg-green-700"
       } ${className}`}
     >
       {children}

@@ -1,26 +1,26 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Image from 'next/image'
-import { Link, usePathname } from '@/i18n/navigation'
-import { useLocale, useTranslations } from 'next-intl'
-import { ArrowUpRight, Languages, Menu, X } from 'lucide-react'
+import { useState } from "react";
+import Image from "next/image";
+import { Link, usePathname } from "@/i18n/navigation";
+import { useLocale, useTranslations } from "next-intl";
+import { ArrowUpRight, Languages, Menu, X } from "lucide-react";
 
 export default function Navbar() {
-  const t = useTranslations('Header')
-  const [menuOpen, setMenuOpen] = useState(false)
-  const pathname = usePathname()
-  const currentLocale = useLocale()
-  const nextLocale = currentLocale === 'de' ? 'en' : 'de'
+  const t = useTranslations("Header");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const currentLocale = useLocale();
+  const nextLocale = currentLocale === "de" ? "en" : "de";
 
   const navItems = [
-    { name: t('home'), href: '/' },
-    { name: t('about'), href: '/about' },
-    { name: t('products'), href: '/products' },
-    { name: t('projects'), href: '/projects' },
-    { name: t('blogs'), href: '/blogs' },
-    { name: t('teams'), href: '/teams' },
-  ]
+    { name: t("home"), href: "/" },
+    { name: t("about"), href: "/about" },
+    { name: t("products"), href: "/products" },
+    { name: t("projects"), href: "/projects" },
+    { name: t("blogs"), href: "/blogs" },
+    { name: t("teams"), href: "/teams" },
+  ];
 
   return (
     <>
@@ -67,13 +67,15 @@ export default function Navbar() {
             <div className="mr-2 flex items-center space-x-2 md:col-start-3 md:mr-0 md:justify-self-end">
               {/* Language toggle */}
               <Link
-                href={pathname || '/'}
+                href={pathname || "/"}
                 locale={nextLocale}
                 className="group flex items-center gap-1 rounded-full bg-muted px-3 py-1.5  text-xs font-semibold text-text transition hover:bg-muted/80"
-                title={t('languageSwitcher')}
+                title={t("languageSwitcher")}
               >
                 <Languages size={16} />
-                <span className="tracking-wide">{nextLocale === 'de' ? 'DEU' : 'ENG'}</span>
+                <span className="tracking-wide">
+                  {nextLocale === "de" ? "DEU" : "ENG"}
+                </span>
               </Link>
 
               {/* Contact button */}
@@ -82,7 +84,7 @@ export default function Navbar() {
                 className="group relative ml-2 hidden items-center gap-2 overflow-hidden rounded-full border border-primary px-4 py-1.5  transition-all duration-300 lg:flex"
               >
                 <span className="relative z-10 flex items-center gap-2 text-sm font-semibold text-text">
-                  {t('contact')}
+                  {t("contact")}
                   <ArrowUpRight
                     size={18}
                     className="transition-transform duration-300 group-hover:translate-x-1"
@@ -95,7 +97,9 @@ export default function Navbar() {
         </div>
 
         {/* Mobile menu */}
-        <div className={`md:hidden ${menuOpen ? 'block' : 'hidden'} space-y-2 border-t bg-bg py-3`}>
+        <div
+          className={`md:hidden ${menuOpen ? "block" : "hidden"} space-y-2 border-t bg-bg py-3`}
+        >
           {navItems.map((item) => (
             <Link
               key={item.href}
@@ -111,5 +115,5 @@ export default function Navbar() {
 
       <div className="h-16" aria-hidden="true" />
     </>
-  )
+  );
 }

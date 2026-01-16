@@ -1,11 +1,11 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig } from "payload";
 
 export const ContactSubmissions: CollectionConfig = {
-  slug: 'contact-submissions',
+  slug: "contact-submissions",
   admin: {
-    useAsTitle: 'email',
-    defaultColumns: ['firstname', 'lastname', 'email', 'phone', 'createdAt'],
-    group: 'Content',
+    useAsTitle: "email",
+    defaultColumns: ["firstname", "lastname", "email", "phone", "createdAt"],
+    group: "Content",
   },
   access: {
     read: () => true, // Allow reading for admin
@@ -15,91 +15,91 @@ export const ContactSubmissions: CollectionConfig = {
   },
   fields: [
     {
-      type: 'row',
+      type: "row",
       fields: [
         {
-          name: 'firstname',
-          type: 'text',
+          name: "firstname",
+          type: "text",
           required: true,
-          label: 'First Name',
+          label: "First Name",
           admin: {
-            width: '50%',
+            width: "50%",
           },
         },
         {
-          name: 'lastname',
-          type: 'text',
+          name: "lastname",
+          type: "text",
           required: true,
-          label: 'Last Name',
+          label: "Last Name",
           admin: {
-            width: '50%',
+            width: "50%",
           },
         },
       ],
     },
     {
-      name: 'email',
-      type: 'email',
+      name: "email",
+      type: "email",
       required: true,
-      label: 'Email',
+      label: "Email",
       admin: {
-        description: 'Contact email address',
+        description: "Contact email address",
       },
     },
     {
-      name: 'phone',
-      type: 'text',
-      label: 'Phone',
+      name: "phone",
+      type: "text",
+      label: "Phone",
       admin: {
-        description: 'Optional phone number',
+        description: "Optional phone number",
       },
     },
     {
-      name: 'message',
-      type: 'textarea',
+      name: "message",
+      type: "textarea",
       required: true,
-      label: 'Message',
+      label: "Message",
       admin: {
         rows: 5,
-        description: 'Message from the contact form',
+        description: "Message from the contact form",
       },
     },
     {
-      name: 'status',
-      type: 'select',
-      label: 'Status',
-      defaultValue: 'new',
+      name: "status",
+      type: "select",
+      label: "Status",
+      defaultValue: "new",
       options: [
         {
-          label: 'New',
-          value: 'new',
+          label: "New",
+          value: "new",
         },
         {
-          label: 'Read',
-          value: 'read',
+          label: "Read",
+          value: "read",
         },
         {
-          label: 'Replied',
-          value: 'replied',
+          label: "Replied",
+          value: "replied",
         },
         {
-          label: 'Archived',
-          value: 'archived',
+          label: "Archived",
+          value: "archived",
         },
       ],
       admin: {
-        description: 'Status of the contact submission',
+        description: "Status of the contact submission",
       },
     },
     {
-      name: 'notes',
-      type: 'textarea',
-      label: 'Admin Notes',
+      name: "notes",
+      type: "textarea",
+      label: "Admin Notes",
       admin: {
-        description: 'Internal notes about this submission',
+        description: "Internal notes about this submission",
         rows: 3,
       },
     },
   ],
   timestamps: true,
-}
+};
