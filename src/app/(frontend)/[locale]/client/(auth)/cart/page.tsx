@@ -31,5 +31,5 @@ export default async function ClientCartPage({
   }
 
   // Client is guaranteed to be non-null here due to the check above
-  return <CartClient client={client} locale={locale} />;
+  return <CartClient client={client!} locale={locale} />;
 }

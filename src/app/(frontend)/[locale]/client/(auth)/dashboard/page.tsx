@@ -36,5 +36,5 @@ export default async function ClientDashboardPage({
   }
 
   // Client is guaranteed to be non-null here due to the check above
-  return <DashboardClient client={client} locale={locale} />;
+  return <DashboardClient client={client!} locale={locale} />;
 }

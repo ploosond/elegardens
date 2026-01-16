@@ -31,7 +31,7 @@ export default function AboutPage() {
 
   // Helper for localized fields
   const get = (base: string) =>
-    about?.[`${base}_${locale}`] || about?.[`${base}_en`] || "";
+    (about as any)?.[`${base}_${locale}`] || (about as any)?.[`${base}_en`] || "";
 
   if (loading)
     return <div className="text-center py-20 text-xl">Loading...</div>;
@@ -94,7 +94,7 @@ export default function AboutPage() {
                     >
                       <Image
                         src={imageUrl}
-                        alt={ms[`title_${locale}`] || ms.title_en || ""}
+                        alt={(ms as any)[`title_${locale}`] || ms.title_en || ""}
                         fill
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className="object-cover"
@@ -107,22 +107,22 @@ export default function AboutPage() {
                     }`}
                   >
                     <h3 className="mb-4 text-xl font-extrabold text-secondary sm:mb-6 sm:text-2xl">
-                      {ms[`title_${locale}`] || ms.title_en}
+                      {(ms as any)[`title_${locale}`] || ms.title_en}
                     </h3>
-                    {ms[`subtitle1_${locale}`] && (
+                    {(ms as any)[`subtitle1_${locale}`] && (
                       <p className="mb-2 text-justify text-sm text-text sm:mb-4 sm:text-base">
                         <span className="font-bold text-text">
-                          {ms[`subtitle1_${locale}`] || ms.subtitle1_en}
+                          {(ms as any)[`subtitle1_${locale}`] || ms.subtitle1_en}
                         </span>{" "}
-                        {ms[`desc1_${locale}`] || ms.desc1_en}
+                        {(ms as any)[`desc1_${locale}`] || ms.desc1_en}
                       </p>
                     )}
-                    {ms[`subtitle2_${locale}`] && (
+                    {(ms as any)[`subtitle2_${locale}`] && (
                       <p className="text-justify text-sm text-text sm:text-base">
                         <span className="font-bold text-text">
-                          {ms[`subtitle2_${locale}`] || ms.subtitle2_en}
+                          {(ms as any)[`subtitle2_${locale}`] || ms.subtitle2_en}
                         </span>{" "}
-                        {ms[`desc2_${locale}`] || ms.desc2_en}
+                        {(ms as any)[`desc2_${locale}`] || ms.desc2_en}
                       </p>
                     )}
                   </div>

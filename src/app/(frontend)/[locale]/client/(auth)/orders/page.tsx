@@ -60,7 +60,7 @@ export default async function ClientOrdersPage({
   }
 
   // Client is guaranteed to be non-null here due to the check above
-  const orders = await getClientOrders(client.id);
+  const orders = await getClientOrders(client!.id);
 
   return <OrdersClient orders={orders} locale={locale} />;
 }
