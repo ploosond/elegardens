@@ -76,41 +76,41 @@ export default function CartClient({ client }: CartClientProps) {
     e.preventDefault();
     setSubmitting(true);
 
-    try {
-      // Prepare order data
-      const orderData = {
-        client: client.id,
-        companyName: client.companyName,
-        deliveryDate,
-        items: cartItems
-          .map((item) => {
-            if (item.product) {
-              return {
-                itemType: "product" as const,
-                product: item.product.id,
-                quantity: item.quantity,
-              };
-            } else if (item.pot) {
-              return {
-                itemType: "pot" as const,
-                pot: item.pot.id,
-                quantity: item.quantity,
-              };
-            }
-            return null;
-          })
-          .filter(
-            (
-              item,
-            ): item is
-              | { itemType: "product"; product: number; quantity: number }
-              | { itemType: "pot"; pot: number; quantity: number } =>
-              item !== null,
-          ),
-        notes: notes || undefined,
-        status: "pending",
-      };
+    // Store order data before clearing
+    const orderData = {
+      client: client.id,
+      companyName: client.companyName,
+      deliveryDate,
+      items: cartItems
+        .map((item) => {
+          if (item.product) {
+            return {
+              itemType: "product" as const,
+              product: item.product.id,
+              quantity: item.quantity,
+            };
+          } else if (item.pot) {
+            return {
+              itemType: "pot" as const,
+              pot: item.pot.id,
+              quantity: item.quantity,
+            };
+          }
+          return null;
+        })
+        .filter(
+          (
+            item,
+          ): item is
+            | { itemType: "product"; product: number; quantity: number }
+            | { itemType: "pot"; pot: number; quantity: number } =>
+            item !== null,
+        ),
+      notes: notes || undefined,
+      status: "pending",
+    };
 
+    try {
       const response = await fetch("/api/orders", {
         method: "POST",
         headers: {
@@ -125,17 +125,27 @@ export default function CartClient({ client }: CartClientProps) {
         throw new Error(errorData.error || "Failed to submit order");
       }
 
-      // Clear cart using context method
+      // Clear cart immediately for instant feedback
       clearCart();
+      
+      // Clear form fields immediately
+      setDeliveryDate("");
+      setNotes("");
 
-      // Redirect to orders page or success page
+      // Redirect immediately for smooth UX
       router.push("/client/orders");
+      
+      // Note: We don't set submitting to false here because we're redirecting
+      // The state will be reset when the component unmounts
     } catch (error) {
       console.error("Order submission error:", error);
       const errorMessage =
         error instanceof Error ? error.message : t("submit_error");
-      alert(errorMessage);
-    } finally {
+      
+      // Use a better error display instead of alert
+      // Show error in the UI (you could add a state for this)
+      alert(errorMessage); // Keep alert for now, but could be improved with a toast/notification
+      
       setSubmitting(false);
     }
   };

@@ -33,23 +33,27 @@ export default function ClientSidebar() {
 
   const handleLogout = async () => {
     setLoading(true);
-    try {
-      const response = await fetch("/api/client/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-
-      if (response.ok) {
-        localStorage.removeItem("client_user");
-        router.push("/client/login");
-      }
-    } catch (error) {
-      console.error("Logout error:", error);
-      localStorage.removeItem("client_user");
-      router.push("/client/login");
-    } finally {
+    
+    // Clear localStorage immediately for instant feedback
+    localStorage.removeItem("client_user");
+    localStorage.removeItem("client_cart");
+    
+    // Redirect immediately for smooth UX (optimistic update)
+    router.push("/client/login");
+    
+    // Handle logout API call in background (don't wait for it)
+    fetch("/api/client/logout", {
+      method: "POST",
+      credentials: "include",
+    }).catch((error) => {
+      // Silently handle errors - user is already logged out locally
+      console.error("Logout API error (non-critical):", error);
+    });
+    
+    // Reset loading state after a brief moment
+    setTimeout(() => {
       setLoading(false);
-    }
+    }, 300);
   };
 
   const navItems = [

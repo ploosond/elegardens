@@ -1,21 +1,17 @@
-import { AlertCircle } from "lucide-react";
-import { forwardRef } from "react";
+import { AlertCircle } from 'lucide-react'
+import { forwardRef } from 'react'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  icon?: React.ReactNode;
-  error?: string;
-  label?: string;
+  icon?: React.ReactNode
+  error?: string
+  label?: string
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ icon, error, label, className = "", ...props }, ref) => {
+  ({ icon, error, label, className = '', ...props }, ref) => {
     return (
       <div>
-        {label && (
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            {label}
-          </label>
-        )}
+        {label && <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>}
         <div className="relative">
           {icon && (
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -24,10 +20,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           <input
             ref={ref}
-            className={` ${
-              icon ? "pl-10" : "pl-4"
-            } pr-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary ${
-              error ? "border-red-500" : ""
+            className={` ${icon ? 'pl-10' : 'pl-4'} ${
+              props.type === 'date' ? 'pr-2' : 'pr-4'
+            } py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary ${
+              error ? 'border-red-500' : ''
             } ${className}`}
             {...props}
           />
@@ -39,10 +35,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </p>
         )}
       </div>
-    );
+    )
   },
-);
+)
 
-Input.displayName = "Input";
+Input.displayName = 'Input'
 
-export default Input;
+export default Input

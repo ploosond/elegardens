@@ -42,22 +42,31 @@ export default function LoginClient({ locale }: LoginClientProps) {
       if (!response.ok || !data.success) {
         setError(data.error || t("error_generic"));
         setLoading(false);
+        // Clear password on error for security
+        setPassword("");
         return;
       }
 
-      // Store user data in localStorage for client-side access
+      // Store user data in localStorage immediately
       if (data.user) {
         localStorage.setItem("client_user", JSON.stringify(data.user));
       }
 
-      // Small delay to ensure cookie is set before redirect
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      // Clear form immediately for smooth UX
+      setEmail("");
+      setPassword("");
 
+      // Redirect immediately - cookies are already set by the API
       router.push("/client/dashboard");
+      
+      // Note: We don't set loading to false here because we're redirecting
+      // The loading state will be reset when the component unmounts
     } catch (err: any) {
       console.error("Login error:", err);
       setError(t("error_network"));
       setLoading(false);
+      // Clear password on error for security
+      setPassword("");
     }
   };
 

@@ -1,6 +1,23 @@
 import type { CollectionConfig } from "payload";
 // Admin RowLabel component is referenced via import map string
 
+// Helper function to get ISO week number
+function getWeekNumber(date: Date): number {
+  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const dayNum = d.getUTCDay() || 7;
+  d.setUTCDate(d.getUTCDate() + 4 - dayNum);
+  const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+  return Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+}
+
+// Helper function to format date as YYYYMMDD
+function formatDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}${month}${day}`;
+}
+
 export const Orders: CollectionConfig = {
   slug: "orders",
   admin: {
@@ -18,34 +35,68 @@ export const Orders: CollectionConfig = {
       async ({ data, operation, req }) => {
         if (!data.orderNumber && operation === "create") {
           const payload = req.payload;
-          const year = new Date().getFullYear();
+          
+          // Get client information
+          let clientId = "ACME"; // Default fallback
+          if (data.client) {
+            const client = await req.payload.findByID({
+              collection: "clients",
+              id: typeof data.client === "object" ? data.client.id : data.client,
+            });
+            if (client?.clientId) {
+              clientId = client.clientId;
+            }
+            // Also set companyName if not already set
+            if (!data.companyName && client?.companyName) {
+              data.companyName = client.companyName;
+            }
+          }
 
+          // Get current date and calculate week number
+          const now = new Date();
+          const weekNumber = getWeekNumber(now);
+          const dateStr = formatDate(now);
+          const weekStr = `W${String(weekNumber).padStart(2, "0")}`;
+
+          // Build the prefix to search for existing orders
+          const orderPrefix = `${clientId}-${weekStr}-${dateStr}-`;
+
+          // Find existing orders with the same client, week, and date
           const existingOrders = await payload.find({
             collection: "orders",
             where: {
               orderNumber: {
-                contains: `ORD-${year}-`,
+                contains: orderPrefix,
               },
             },
-            limit: 1,
+            limit: 1000, // Get all orders for this client/week/date to count properly
             sort: "-orderNumber",
           });
 
-          let nextNumber = 1;
-          if (
-            existingOrders.docs.length > 0 &&
-            existingOrders.docs[0].orderNumber
-          ) {
-            const lastOrderNumber = existingOrders.docs[0].orderNumber;
-            const match = lastOrderNumber.match(/ORD-\d{4}-(\d+)/);
-            if (match) {
-              nextNumber = parseInt(match[1], 10) + 1;
+          // Extract order count from existing orders
+          let orderCount = 1;
+          if (existingOrders.docs.length > 0) {
+            // Find the highest order count for this prefix
+            const counts = existingOrders.docs
+              .map((order) => {
+                if (!order.orderNumber) return 0;
+                const match = order.orderNumber.match(
+                  new RegExp(`${orderPrefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(\\d+)`),
+                );
+                return match ? parseInt(match[1], 10) : 0;
+              })
+              .filter((count) => count > 0);
+            
+            if (counts.length > 0) {
+              orderCount = Math.max(...counts) + 1;
             }
           }
 
-          data.orderNumber = `ORD-${year}-${String(nextNumber).padStart(3, "0")}`;
+          // Generate order number: ACME-W03-20260116-001
+          data.orderNumber = `${orderPrefix}${String(orderCount).padStart(3, "0")}`;
         }
 
+        // Set companyName if not already set
         if (!data.companyName && data.client) {
           const client = await req.payload.findByID({
             collection: "clients",
@@ -56,6 +107,7 @@ export const Orders: CollectionConfig = {
           }
         }
 
+        // Set orderDate if not already set
         if (!data.orderDate && operation === "create") {
           data.orderDate = new Date().toISOString().split("T")[0];
         }
