@@ -20,7 +20,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           )}
           <input
             ref={ref}
-            className={` ${icon ? 'pl-10' : 'pl-4'} ${
+            className={`w-full ${icon ? 'pl-10' : 'pl-4'} ${
               props.type === 'date' ? 'pr-2' : 'pr-4'
             } py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary ${
               error ? 'border-red-500' : ''
