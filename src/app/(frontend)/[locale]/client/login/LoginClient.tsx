@@ -58,10 +58,10 @@ export default function LoginClient({ locale }: LoginClientProps) {
 
       // Redirect immediately - cookies are already set by the API
       router.push("/client/dashboard");
-      
+
       // Note: We don't set loading to false here because we're redirecting
       // The loading state will be reset when the component unmounts
-    } catch (err: any) {
+    } catch (err) {
       console.error("Login error:", err);
       setError(t("error_network"));
       setLoading(false);

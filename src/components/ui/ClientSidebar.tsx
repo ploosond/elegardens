@@ -33,14 +33,14 @@ export default function ClientSidebar() {
 
   const handleLogout = async () => {
     setLoading(true);
-    
+
     // Clear localStorage immediately for instant feedback
     localStorage.removeItem("client_user");
     localStorage.removeItem("client_cart");
-    
+
     // Redirect immediately for smooth UX (optimistic update)
     router.push("/client/login");
-    
+
     // Handle logout API call in background (don't wait for it)
     fetch("/api/client/logout", {
       method: "POST",
@@ -49,7 +49,7 @@ export default function ClientSidebar() {
       // Silently handle errors - user is already logged out locally
       console.error("Logout API error (non-critical):", error);
     });
-    
+
     // Reset loading state after a brief moment
     setTimeout(() => {
       setLoading(false);

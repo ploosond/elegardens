@@ -35,6 +35,6 @@ export default async function ClientDashboardPage({
     redirect({ href: "/client/login", locale });
   }
 
-  // TypeScript: client is guaranteed to be non-null here due to the check above
-  return <DashboardClient client={client!} locale={locale} />;
+  // Client is guaranteed to be non-null here due to the check above
+  return <DashboardClient client={client} locale={locale} />;
 }

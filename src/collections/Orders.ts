@@ -1,13 +1,16 @@
 import type { CollectionConfig } from "payload";
+import { sendOrderEmails } from "@/lib/email/order-email-service";
 // Admin RowLabel component is referenced via import map string
 
 // Helper function to get ISO week number
 function getWeekNumber(date: Date): number {
-  const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+  const d = new Date(
+    Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()),
+  );
   const dayNum = d.getUTCDay() || 7;
   d.setUTCDate(d.getUTCDate() + 4 - dayNum);
   const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
-  return Math.ceil((((d.getTime() - yearStart.getTime()) / 86400000) + 1) / 7);
+  return Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
 }
 
 // Helper function to format date as YYYYMMDD
@@ -35,13 +38,14 @@ export const Orders: CollectionConfig = {
       async ({ data, operation, req }) => {
         if (!data.orderNumber && operation === "create") {
           const payload = req.payload;
-          
+
           // Get client information
           let clientId = "ACME"; // Default fallback
           if (data.client) {
             const client = await req.payload.findByID({
               collection: "clients",
-              id: typeof data.client === "object" ? data.client.id : data.client,
+              id:
+                typeof data.client === "object" ? data.client.id : data.client,
             });
             if (client?.clientId) {
               clientId = client.clientId;
@@ -81,12 +85,14 @@ export const Orders: CollectionConfig = {
               .map((order) => {
                 if (!order.orderNumber) return 0;
                 const match = order.orderNumber.match(
-                  new RegExp(`${orderPrefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(\\d+)`),
+                  new RegExp(
+                    `${orderPrefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(\\d+)`,
+                  ),
                 );
                 return match ? parseInt(match[1], 10) : 0;
               })
               .filter((count) => count > 0);
-            
+
             if (counts.length > 0) {
               orderCount = Math.max(...counts) + 1;
             }
@@ -121,6 +127,7 @@ export const Orders: CollectionConfig = {
           try {
             const payload = req.payload;
 
+            // Get client data
             let clientData = null;
             if (doc.client) {
               const clientId =
@@ -131,52 +138,16 @@ export const Orders: CollectionConfig = {
               });
             }
 
-            const itemsWithDetails = (doc.items || []) as Array<{
-              itemId?: string;
-              itemName?: string;
-              quantity: number;
-            }>;
-
-            const adminEmail =
-              process.env.CONTACT_FORM_RECIPIENT ||
-              process.env.SMTP_USER ||
-              "admin@elegardens.com";
-
-            const emailSubject = `New Order Received: ${doc.orderNumber}`;
-            const emailBody = `
-New order has been received:
-
-Order Number: ${doc.orderNumber}
-Client: ${clientData?.companyName || "N/A"} (${clientData?.clientId || "N/A"})
-Contact: ${clientData?.email || "N/A"} | ${clientData?.phone || "N/A"}
-Order Date: ${doc.orderDate || "N/A"}
-Delivery Date: ${doc.deliveryDate || "N/A"}
-
-Items:
-${itemsWithDetails
-  .map(
-    (item, index) =>
-      `${index + 1}. ${item.itemName || "Unknown"} (ID: ${item.itemId || "N/A"}) - Quantity: ${
-        item.quantity
-      }`,
-  )
-  .join("\n")}
-
-${doc.notes ? `Client Notes: ${doc.notes}` : ""}
-
-View order in admin: ${
-              process.env.NEXT_PUBLIC_PAYLOAD_URL || "http://localhost:3000"
-            }/admin/collections/orders/${doc.id}
-            `.trim();
-
-            // Send email using Payload's email adapter
-            await payload.email.sendEmail({
-              to: adminEmail,
-              subject: emailSubject,
-              html: emailBody.replace(/\n/g, "<br>"),
-            });
+            // Send emails if client data is available
+            if (clientData) {
+              await sendOrderEmails(payload, doc as any, clientData as any);
+            } else {
+              console.warn(
+                "Client data not found for order, skipping email notification",
+              );
+            }
           } catch (error) {
-            console.error("Error sending order notification email:", error);
+            console.error("Error sending order notification emails:", error);
             // Don't fail the order creation if email fails
           }
         }

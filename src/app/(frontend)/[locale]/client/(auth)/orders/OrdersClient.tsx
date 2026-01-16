@@ -3,7 +3,14 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import type { Order } from "@/payload-types";
-import { Calendar, Package, Truck, ChevronDown, ChevronUp, FileText } from "lucide-react";
+import {
+  Calendar,
+  Package,
+  Truck,
+  ChevronDown,
+  ChevronUp,
+  FileText,
+} from "lucide-react";
 
 interface OrdersClientProps {
   orders: Order[];

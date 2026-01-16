@@ -74,53 +74,61 @@ export default function AboutPage() {
           </div>
 
           {Array.isArray(about?.milestones) &&
-            about.milestones.map((ms, i: number) => (
-              <div
-                key={i}
-                className="mt-8 grid grid-cols-1 md:min-h-[20rem] md:grid-cols-2 md:items-center md:gap-12"
-              >
-                {ms.image?.url && (
+            about.milestones.map((ms, i: number) => {
+              // Type guard for Media - check if it's an object with url property
+              const imageUrl =
+                ms.image && typeof ms.image === "object" && "url" in ms.image
+                  ? ms.image.url
+                  : null;
+
+              return (
+                <div
+                  key={`milestone-${i}-${ms.title_en || i}`}
+                  className="mt-8 grid grid-cols-1 md:min-h-[20rem] md:grid-cols-2 md:items-center md:gap-12"
+                >
+                  {imageUrl && (
+                    <div
+                      className={`relative h-64 w-full overflow-hidden rounded-md md:h-full ${
+                        i % 2 === 1 ? "md:order-2" : "md:order-1"
+                      }`}
+                    >
+                      <Image
+                        src={imageUrl}
+                        alt={ms[`title_${locale}`] || ms.title_en || ""}
+                        fill
+                        sizes="(max-width: 768px) 100vw, 50vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
                   <div
-                    className={`relative h-64 w-full overflow-hidden rounded-md md:h-full ${
-                      i % 2 === 1 ? "md:order-2" : "md:order-1"
+                    className={`flex flex-col justify-center px-4 py-4 sm:px-8 sm:py-6 md:px-0 ${
+                      i % 2 === 1 ? "md:order-1" : "md:order-2"
                     }`}
                   >
-                    <Image
-                      src={ms.image.url}
-                      alt={ms[`title_${locale}`] || ms.title_en}
-                      fill
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                      className="object-cover"
-                    />
+                    <h3 className="mb-4 text-xl font-extrabold text-secondary sm:mb-6 sm:text-2xl">
+                      {ms[`title_${locale}`] || ms.title_en}
+                    </h3>
+                    {ms[`subtitle1_${locale}`] && (
+                      <p className="mb-2 text-justify text-sm text-text sm:mb-4 sm:text-base">
+                        <span className="font-bold text-text">
+                          {ms[`subtitle1_${locale}`] || ms.subtitle1_en}
+                        </span>{" "}
+                        {ms[`desc1_${locale}`] || ms.desc1_en}
+                      </p>
+                    )}
+                    {ms[`subtitle2_${locale}`] && (
+                      <p className="text-justify text-sm text-text sm:text-base">
+                        <span className="font-bold text-text">
+                          {ms[`subtitle2_${locale}`] || ms.subtitle2_en}
+                        </span>{" "}
+                        {ms[`desc2_${locale}`] || ms.desc2_en}
+                      </p>
+                    )}
                   </div>
-                )}
-                <div
-                  className={`flex flex-col justify-center px-4 py-4 sm:px-8 sm:py-6 md:px-0 ${
-                    i % 2 === 1 ? "md:order-1" : "md:order-2"
-                  }`}
-                >
-                  <h3 className="mb-4 text-xl font-extrabold text-secondary sm:mb-6 sm:text-2xl">
-                    {ms[`title_${locale}`] || ms.title_en}
-                  </h3>
-                  {ms[`subtitle1_${locale}`] && (
-                    <p className="mb-2 text-justify text-sm text-text sm:mb-4 sm:text-base">
-                      <span className="font-bold text-text">
-                        {ms[`subtitle1_${locale}`] || ms.subtitle1_en}
-                      </span>{" "}
-                      {ms[`desc1_${locale}`] || ms.desc1_en}
-                    </p>
-                  )}
-                  {ms[`subtitle2_${locale}`] && (
-                    <p className="text-justify text-sm text-text sm:text-base">
-                      <span className="font-bold text-text">
-                        {ms[`subtitle2_${locale}`] || ms.subtitle2_en}
-                      </span>{" "}
-                      {ms[`desc2_${locale}`] || ms.desc2_en}
-                    </p>
-                  )}
                 </div>
-              </div>
-            ))}
+              );
+            })}
         </div>
       </section>
 
@@ -154,16 +162,19 @@ export default function AboutPage() {
             </div>
             {/* CEO Image */}
             <div className="relative order-1 min-h-[20rem] overflow-hidden rounded-md md:order-2 lg:min-h-[24rem]">
-              {about?.ceo_image?.url && (
-                <Image
-                  src={about.ceo_image.url}
-                  alt={get("ceo_title")}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  className="object-cover"
-                  priority={false}
-                />
-              )}
+              {about?.ceo_image &&
+                typeof about.ceo_image === "object" &&
+                "url" in about.ceo_image &&
+                about.ceo_image.url && (
+                  <Image
+                    src={about.ceo_image.url}
+                    alt={get("ceo_title")}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                    className="object-cover"
+                    priority={false}
+                  />
+                )}
               <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-black/10" />
               <div className="absolute bottom-6 left-6 w-[calc(100%-3rem)] text-on-dark md:w-auto">
                 <h3 className="text-lg font-bold">{get("ceo_title")}</h3>

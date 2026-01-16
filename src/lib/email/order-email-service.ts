@@ -1,0 +1,152 @@
+import type { Payload } from "payload";
+import type { Order, Client } from "@/payload-types";
+import type {
+  OrderEmailData,
+  ClientEmailData,
+  EmailTemplateData,
+} from "./types";
+import {
+  generateAdminOrderNotificationHTML,
+  generateAdminOrderNotificationText,
+} from "./templates/admin-order-notification";
+import {
+  generateClientOrderConfirmationHTML,
+  generateClientOrderConfirmationText,
+} from "./templates/client-order-confirmation";
+import { generateOrderExcel } from "../excel/order-excel-generator";
+
+/**
+ * Transform Order document to OrderEmailData
+ */
+function transformOrderToEmailData(order: Order): OrderEmailData {
+  return {
+    id: order.id,
+    orderNumber: order.orderNumber,
+    orderDate: order.orderDate || null,
+    deliveryDate: order.deliveryDate,
+    status: order.status,
+    items: order.items.map((item) => ({
+      itemId: item.itemId,
+      itemName: item.itemName,
+      quantity: item.quantity,
+    })),
+    notes: order.notes || null,
+    companyName: order.companyName,
+  };
+}
+
+/**
+ * Transform Client document to ClientEmailData
+ */
+function transformClientToEmailData(client: Client): ClientEmailData {
+  return {
+    id: client.id,
+    clientId: client.clientId,
+    companyName: client.companyName,
+    email: client.email,
+    contactPerson: client.contactPerson || null,
+    phone: client.phone || null,
+    address: client.address,
+  };
+}
+
+/**
+ * Send order confirmation emails (admin and client)
+ * @param payload - Payload instance
+ * @param order - Order document
+ * @param client - Client document
+ * @returns Promise with success status
+ */
+export async function sendOrderEmails(
+  payload: Payload,
+  order: Order,
+  client: Client,
+): Promise<{ adminEmailSent: boolean; clientEmailSent: boolean }> {
+  const result = {
+    adminEmailSent: false,
+    clientEmailSent: false,
+  };
+
+  try {
+    // Transform data for email templates
+    const orderData = transformOrderToEmailData(order);
+    const clientData = transformClientToEmailData(client);
+
+    // Prepare template data
+    const templateData: EmailTemplateData = {
+      order: orderData,
+      client: clientData,
+      adminPanelUrl:
+        process.env.NEXT_PUBLIC_PAYLOAD_URL || "http://localhost:3000",
+    };
+
+    // Generate Excel file
+    let excelBuffer: Buffer | null = null;
+    try {
+      excelBuffer = await generateOrderExcel(orderData, clientData);
+    } catch (excelError) {
+      console.error("Error generating Excel file:", excelError);
+      // Continue without attachment if Excel generation fails
+    }
+
+    // Prepare attachment if Excel was generated
+    const attachment = excelBuffer
+      ? [
+          {
+            filename: `order-${order.orderNumber}.xlsx`,
+            content: excelBuffer,
+            contentType:
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          },
+        ]
+      : undefined;
+
+    // Send admin email
+    try {
+      const adminEmail =
+        process.env.CONTACT_FORM_RECIPIENT ||
+        process.env.SMTP_USER ||
+        "admin@elegardens.com";
+
+      await payload.email.sendEmail({
+        to: adminEmail,
+        subject: `New Order Received: ${order.orderNumber}`,
+        html: generateAdminOrderNotificationHTML(templateData),
+        text: generateAdminOrderNotificationText(templateData),
+        attachments: attachment,
+      } as any); // Type assertion needed as Payload types may not include attachments
+
+      result.adminEmailSent = true;
+    } catch (adminError) {
+      console.error("Error sending admin email:", adminError);
+      // Don't throw - continue to try client email
+    }
+
+    // Send client confirmation email
+    try {
+      if (!client.email) {
+        console.warn(
+          "Client email not available, skipping client confirmation email",
+        );
+      } else {
+        await payload.email.sendEmail({
+          to: client.email,
+          subject: `Order Confirmation: ${order.orderNumber}`,
+          html: generateClientOrderConfirmationHTML(templateData),
+          text: generateClientOrderConfirmationText(templateData),
+          attachments: attachment,
+        } as any); // Type assertion needed as Payload types may not include attachments
+
+        result.clientEmailSent = true;
+      }
+    } catch (clientError) {
+      console.error("Error sending client email:", clientError);
+      // Don't throw - email failure shouldn't fail order creation
+    }
+  } catch (error) {
+    console.error("Error in sendOrderEmails:", error);
+    // Return partial results even if there was an error
+  }
+
+  return result;
+}

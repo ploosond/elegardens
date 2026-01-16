@@ -112,11 +112,15 @@ export default function ProductsClient({
           <div className="flex flex-1 flex-col gap-3 sm:flex-row sm:items-end">
             {/* Product ID Search */}
             <div className="w-full sm:w-32">
-              <label className="mb-1 block text-xs font-medium text-text/70">
+              <label
+                htmlFor="product-id-search"
+                className="mb-1 block text-xs font-medium text-text/70"
+              >
                 {tB2B("filter_product_id")}
               </label>
               <div className="relative">
                 <input
+                  id="product-id-search"
                   type="text"
                   value={productIdSearch}
                   onChange={(e) => setProductIdSearch(e.target.value)}
@@ -125,6 +129,7 @@ export default function ProductsClient({
                 />
                 {productIdSearch && (
                   <button
+                    type="button"
                     onClick={() => setProductIdSearch("")}
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-text/50 hover:text-text"
                     aria-label="Clear Product ID search"
@@ -137,11 +142,15 @@ export default function ProductsClient({
 
             {/* Product Name Search */}
             <div className="w-full sm:w-64">
-              <label className="mb-1 block text-xs font-medium text-text/70">
+              <label
+                htmlFor="product-name-search"
+                className="mb-1 block text-xs font-medium text-text/70"
+              >
                 {tB2B("filter_product_name")}
               </label>
               <div className="relative">
                 <input
+                  id="product-name-search"
                   type="text"
                   value={productNameSearch}
                   onChange={(e) => setProductNameSearch(e.target.value)}
@@ -150,6 +159,7 @@ export default function ProductsClient({
                 />
                 {productNameSearch && (
                   <button
+                    type="button"
                     onClick={() => setProductNameSearch("")}
                     className="absolute right-2 top-1/2 -translate-y-1/2 text-text/50 hover:text-text"
                     aria-label="Clear Product Name search"
@@ -162,11 +172,12 @@ export default function ProductsClient({
 
             {/* Availability Filter */}
             <div className="w-full sm:w-auto">
-              <label className="mb-1 block text-xs font-medium text-text/70 sm:mb-0">
+              <div className="mb-1 block text-xs font-medium text-text/70 sm:mb-0">
                 {tB2B("filter_availability")}
-              </label>
+              </div>
               <div className="flex gap-2">
                 <button
+                  type="button"
                   onClick={() => setAvailabilityFilter("all")}
                   className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                     availabilityFilter === "all"
@@ -177,6 +188,7 @@ export default function ProductsClient({
                   {tB2B("filter_all")}
                 </button>
                 <button
+                  type="button"
                   onClick={() => setAvailabilityFilter("available")}
                   className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                     availabilityFilter === "available"
@@ -187,6 +199,7 @@ export default function ProductsClient({
                   {tB2B("filter_available")}
                 </button>
                 <button
+                  type="button"
                   onClick={() => setAvailabilityFilter("out-of-stock")}
                   className={`rounded-full px-4 py-2 text-sm font-medium transition ${
                     availabilityFilter === "out-of-stock"

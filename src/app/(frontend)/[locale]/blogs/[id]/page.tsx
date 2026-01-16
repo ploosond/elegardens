@@ -137,11 +137,13 @@ export default async function BlogDetailPage({
           {sections.length === 0 && (
             <div className="text-gray-500">{t("no_sections")}</div>
           )}
-          {sections.map((section, index: number) => {
+          {sections.map((section: Record<string, unknown>, index: number) => {
+            const sectionKey = `section-${index}-${section.blockType || index}`;
+
             if (section.blockType === "text-block") {
               return (
                 <section
-                  key={`section-text-${index}`}
+                  key={sectionKey}
                   className={index < sections.length - 1 ? "mb-8" : ""}
                 >
                   {getLocalized(section, "subtitle") && (
@@ -151,32 +153,46 @@ export default async function BlogDetailPage({
                   )}
                   <div className="space-y-2">
                     {Array.isArray(section.paragraphs) &&
-                      section.paragraphs.map((para, textIndex: number) => (
-                        <p
-                          key={`text-${index}-${textIndex}`}
-                          className="mb-2 text-justify text-sm text-gray-700 sm:mb-4 sm:text-base"
-                        >
-                          {getLocalized(para, "text")}
-                        </p>
-                      ))}
+                      section.paragraphs.map(
+                        (para: Record<string, unknown>, textIndex: number) => {
+                          const paraKey = `para-${index}-${textIndex}-${getLocalized(para, "text")?.slice(0, 20) || textIndex}`;
+                          return (
+                            <p
+                              key={paraKey}
+                              className="mb-2 text-justify text-sm text-gray-700 sm:mb-4 sm:text-base"
+                            >
+                              {getLocalized(para, "text")}
+                            </p>
+                          );
+                        },
+                      )}
                   </div>
                 </section>
               );
             }
             if (section.blockType === "image-block") {
+              // Type guard for Media - check if it's an object with url property
+              const imageUrl =
+                section.image &&
+                typeof section.image === "object" &&
+                "url" in section.image
+                  ? (section.image as { url?: string }).url
+                  : null;
+
               return (
                 <section
-                  key={`section-image-${index}`}
+                  key={sectionKey}
                   className={index < sections.length - 1 ? "mb-8" : ""}
                 >
-                  {section.image?.url && (
+                  {imageUrl && (
                     <div className="mb-4 flex justify-center">
                       <div className="relative w-full max-w-xl h-64">
                         <Image
-                          src={section.image.url}
+                          src={imageUrl}
                           alt={
                             getLocalized(section, "caption") ||
-                            getLocalized(blog, "title")
+                            getLocalized(blog, "title") ||
+                            ""
                           }
                           fill
                           sizes="(min-width: 1024px) 768px, (min-width: 640px) 640px, 100vw"

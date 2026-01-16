@@ -9,10 +9,7 @@ interface DashboardClientProps {
   locale: string;
 }
 
-export default function DashboardClient({
-  client,
-  locale,
-}: DashboardClientProps) {
+export default function DashboardClient({ client }: DashboardClientProps) {
   const t = useTranslations("ClientDashboard");
 
   return (

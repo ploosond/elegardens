@@ -127,25 +127,25 @@ export default function CartClient({ client }: CartClientProps) {
 
       // Clear cart immediately for instant feedback
       clearCart();
-      
+
       // Clear form fields immediately
       setDeliveryDate("");
       setNotes("");
 
       // Redirect immediately for smooth UX
       router.push("/client/orders");
-      
+
       // Note: We don't set submitting to false here because we're redirecting
       // The state will be reset when the component unmounts
     } catch (error) {
       console.error("Order submission error:", error);
       const errorMessage =
         error instanceof Error ? error.message : t("submit_error");
-      
+
       // Use a better error display instead of alert
       // Show error in the UI (you could add a state for this)
       alert(errorMessage); // Keep alert for now, but could be improved with a toast/notification
-      
+
       setSubmitting(false);
     }
   };
@@ -288,7 +288,10 @@ export default function CartClient({ client }: CartClientProps) {
               />
             </div>
             <div>
-              <label htmlFor="notes" className="block text-sm font-medium text-text/70 mb-1">
+              <label
+                htmlFor="notes"
+                className="block text-sm font-medium text-text/70 mb-1"
+              >
                 {t("notes_label")}
               </label>
               <textarea
