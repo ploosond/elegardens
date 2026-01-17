@@ -3,9 +3,9 @@ import type { EmailTemplateData } from "../types";
 type Locale = "en" | "de";
 
 /**
- * Generate HTML email template for client order confirmation
+ * Generate HTML email template for order status confirmation (when status changes to 'confirmed')
  */
-export function generateClientOrderConfirmationHTML(
+export function generateOrderStatusConfirmedHTML(
   data: EmailTemplateData,
   locale: Locale = "en",
 ): string {
@@ -13,10 +13,12 @@ export function generateClientOrderConfirmationHTML(
 
   const translations = {
     en: {
-      title: "Thank You for Your Order!",
+      title: "Order Confirmed!",
       greeting: (companyName: string) => `Dear ${companyName},`,
       message:
-        "We have received your order and it is currently under review by our team. Once the review process is completed, you will receive a confirmation email.",
+        "We're happy to inform you that your order has been reviewed and confirmed.",
+      processingMessage:
+        "Our team will now proceed with processing your order. You will be notified once it is shipped.",
       orderSummary: "Order Details",
       orderNumber: "Order Number:",
       orderDate: "Order Date:",
@@ -26,17 +28,27 @@ export function generateClientOrderConfirmationHTML(
       productId: "Product ID",
       productName: "Product Name",
       quantity: "Quantity",
+      whatsNext: "What's Next?",
+      nextSteps: [
+        "Your order is confirmed and being prepared for delivery.",
+        "We will notify you once your order is ready for shipment.",
+        "If you have any questions, please don't hesitate to contact us.",
+      ],
+      needHelp: "Need Help?",
+      helpText: "If you have any questions about your order, please contact us at:",
       thankYou: "Thank you for choosing Elegardens. We appreciate your business!",
       bestRegards: "Best regards,",
       teamName: "The Elegardens Team",
       footer: "This is an automated confirmation email. Please do not reply to this message.",
-      placedOn: "Order placed on:",
+      confirmedOn: "Order confirmed on:",
     },
     de: {
-      title: "Vielen Dank für Ihre Bestellung!",
+      title: "Bestellung bestätigt!",
       greeting: (companyName: string) => `Sehr geehrte ${companyName},`,
       message:
-        "Wir haben Ihre Bestellung erhalten und sie wird derzeit von unserem Team geprüft. Sobald der Prüfprozess abgeschlossen ist, erhalten Sie eine Bestätigungs-E-Mail.",
+        "Wir freuen uns, Ihnen mitteilen zu können, dass Ihre Bestellung geprüft und bestätigt wurde.",
+      processingMessage:
+        "Unser Team wird nun mit der Bearbeitung Ihrer Bestellung fortfahren. Sie werden benachrichtigt, sobald sie versandt wurde.",
       orderSummary: "Bestelldetails",
       orderNumber: "Bestellnummer:",
       orderDate: "Bestelldatum:",
@@ -46,11 +58,19 @@ export function generateClientOrderConfirmationHTML(
       productId: "Produkt-ID",
       productName: "Produktname",
       quantity: "Menge",
+      whatsNext: "Was kommt als Nächstes?",
+      nextSteps: [
+        "Ihre Bestellung ist bestätigt und wird für die Lieferung vorbereitet.",
+        "Wir benachrichtigen Sie, sobald Ihre Bestellung versandbereit ist.",
+        "Wenn Sie Fragen haben, zögern Sie bitte nicht, uns zu kontaktieren.",
+      ],
+      needHelp: "Benötigen Sie Hilfe?",
+      helpText: "Wenn Sie Fragen zu Ihrer Bestellung haben, kontaktieren Sie uns bitte unter:",
       thankYou: "Vielen Dank, dass Sie Elegardens gewählt haben. Wir schätzen Ihr Geschäft!",
       bestRegards: "Mit freundlichen Grüßen,",
       teamName: "Das Elegardens Team",
       footer: "Dies ist eine automatische Bestätigungs-E-Mail. Bitte antworten Sie nicht auf diese Nachricht.",
-      placedOn: "Bestellung aufgegeben am:",
+      confirmedOn: "Bestellung bestätigt am:",
     },
   };
 
@@ -73,18 +93,10 @@ export function generateClientOrderConfirmationHTML(
     .join("");
 
   const dateFormat = locale === "de" ? "de-DE" : "en-US";
-  const statusText =
-    locale === "de"
-      ? order.status === "pending"
-        ? "Ausstehend"
-        : order.status === "confirmed"
-          ? "Bestätigt"
-          : order.status === "processing"
-            ? "In Bearbeitung"
-            : order.status === "completed"
-              ? "Abgeschlossen"
-              : "Storniert"
-      : order.status.charAt(0).toUpperCase() + order.status.slice(1);
+  const confirmedDate = new Date().toLocaleString(dateFormat, {
+    dateStyle: "long",
+    timeStyle: "short",
+  });
 
   return `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
@@ -98,6 +110,10 @@ export function generateClientOrderConfirmationHTML(
       
       <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
         ${escapeHtml(t.message)}
+      </p>
+
+      <p style="color: #333; font-size: 16px; line-height: 1.6; margin-bottom: 20px;">
+        ${escapeHtml(t.processingMessage)}
       </p>
 
       <div style="margin-top: 25px; background-color: #f9f9f9; padding: 20px; border-radius: 5px; border-left: 4px solid #6a844a;">
@@ -132,7 +148,9 @@ export function generateClientOrderConfirmationHTML(
             <td style="padding: 8px 0; font-weight: bold; color: #555;">${escapeHtml(
               t.status,
             )}</td>
-            <td style="padding: 8px 0; color: #333;">${escapeHtml(statusText)}</td>
+            <td style="padding: 8px 0; color: #333;">${escapeHtml(
+              locale === "de" ? "Bestätigt" : "Confirmed",
+            )}</td>
           </tr>
         </table>
       </div>
@@ -175,21 +193,16 @@ export function generateClientOrderConfirmationHTML(
 
       <p style="color: #999; font-size: 12px; margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
         ${escapeHtml(t.footer)}<br>
-        ${escapeHtml(t.placedOn)} ${escapeHtml(
-    new Date().toLocaleString(dateFormat, {
-      dateStyle: "long",
-      timeStyle: "short",
-    }),
-  )}
+        ${escapeHtml(t.confirmedOn)} ${escapeHtml(confirmedDate)}
       </p>
     </div>
   `;
 }
 
 /**
- * Generate plain text email template for client order confirmation
+ * Generate plain text email template for order status confirmation
  */
-export function generateClientOrderConfirmationText(
+export function generateOrderStatusConfirmedText(
   data: EmailTemplateData,
   locale: Locale = "en",
 ): string {
@@ -197,10 +210,12 @@ export function generateClientOrderConfirmationText(
 
   const translations = {
     en: {
-      title: "Thank You for Your Order!",
+      title: "Order Confirmed!",
       greeting: (companyName: string) => `Dear ${companyName},`,
       message:
-        "We have received your order and it is currently under review by our team. Once the review process is completed, you will receive a confirmation email.",
+        "We're happy to inform you that your order has been reviewed and confirmed.",
+      processingMessage:
+        "Our team will now proceed with processing your order. You will be notified once it is shipped.",
       orderSummary: "Order Details:",
       orderNumber: "Order Number:",
       orderDate: "Order Date:",
@@ -208,17 +223,27 @@ export function generateClientOrderConfirmationText(
       status: "Status:",
       orderItems: "Order Items:",
       quantity: "Quantity",
+      whatsNext: "What's Next?",
+      nextSteps: [
+        "Your order is confirmed and being prepared for delivery.",
+        "We will notify you once your order is ready for shipment.",
+        "If you have any questions, please don't hesitate to contact us.",
+      ],
+      needHelp: "Need Help?",
+      helpText: "If you have any questions about your order, please contact us at:",
       thankYou: "Thank you for choosing Elegardens. We appreciate your business!",
       bestRegards: "Best regards,",
       teamName: "The Elegardens Team",
       footer: "This is an automated confirmation email. Please do not reply to this message.",
-      placedOn: "Order placed on:",
+      confirmedOn: "Order confirmed on:",
     },
     de: {
-      title: "Vielen Dank für Ihre Bestellung!",
+      title: "Bestellung bestätigt!",
       greeting: (companyName: string) => `Sehr geehrte ${companyName},`,
       message:
-        "Wir haben Ihre Bestellung erhalten und sie wird derzeit von unserem Team geprüft. Sobald der Prüfprozess abgeschlossen ist, erhalten Sie eine Bestätigungs-E-Mail.",
+        "Wir freuen uns, Ihnen mitteilen zu können, dass Ihre Bestellung geprüft und bestätigt wurde.",
+      processingMessage:
+        "Unser Team wird nun mit der Bearbeitung Ihrer Bestellung fortfahren. Sie werden benachrichtigt, sobald sie versandt wurde.",
       orderSummary: "Bestelldetails:",
       orderNumber: "Bestellnummer:",
       orderDate: "Bestelldatum:",
@@ -226,11 +251,19 @@ export function generateClientOrderConfirmationText(
       status: "Status:",
       orderItems: "Bestellpositionen:",
       quantity: "Menge",
+      whatsNext: "Was kommt als Nächstes?",
+      nextSteps: [
+        "Ihre Bestellung ist bestätigt und wird für die Lieferung vorbereitet.",
+        "Wir benachrichtigen Sie, sobald Ihre Bestellung versandbereit ist.",
+        "Wenn Sie Fragen haben, zögern Sie bitte nicht, uns zu kontaktieren.",
+      ],
+      needHelp: "Benötigen Sie Hilfe?",
+      helpText: "Wenn Sie Fragen zu Ihrer Bestellung haben, kontaktieren Sie uns bitte unter:",
       thankYou: "Vielen Dank, dass Sie Elegardens gewählt haben. Wir schätzen Ihr Geschäft!",
       bestRegards: "Mit freundlichen Grüßen,",
       teamName: "Das Elegardens Team",
       footer: "Dies ist eine automatische Bestätigungs-E-Mail. Bitte antworten Sie nicht auf diese Nachricht.",
-      placedOn: "Bestellung aufgegeben am:",
+      confirmedOn: "Bestellung bestätigt am:",
     },
   };
 
@@ -244,18 +277,10 @@ export function generateClientOrderConfirmationText(
     .join("\n");
 
   const dateFormat = locale === "de" ? "de-DE" : "en-US";
-  const statusText =
-    locale === "de"
-      ? order.status === "pending"
-        ? "Ausstehend"
-        : order.status === "confirmed"
-          ? "Bestätigt"
-          : order.status === "processing"
-            ? "In Bearbeitung"
-            : order.status === "completed"
-              ? "Abgeschlossen"
-              : "Storniert"
-      : order.status.charAt(0).toUpperCase() + order.status.slice(1);
+  const confirmedDate = new Date().toLocaleString(dateFormat, {
+    dateStyle: "long",
+    timeStyle: "short",
+  });
 
   return `
 ${t.title}
@@ -264,11 +289,13 @@ ${t.greeting(data.client.companyName)}
 
 ${t.message}
 
+${t.processingMessage}
+
 ${t.orderSummary}
 ${t.orderNumber} ${order.orderNumber}
 ${t.orderDate} ${order.orderDate || new Date().toLocaleDateString(dateFormat)}
 ${t.deliveryDate} ${order.deliveryDate}
-${t.status} ${statusText}
+${t.status} ${locale === "de" ? "Bestätigt" : "Confirmed"}
 
 ${t.orderItems}
 ${itemsList}
@@ -280,10 +307,7 @@ ${t.teamName}
 
 ---
 ${t.footer}
-${t.placedOn} ${new Date().toLocaleString(dateFormat, {
-    dateStyle: "long",
-    timeStyle: "short",
-  })}
+${t.confirmedOn} ${confirmedDate}
   `.trim();
 }
 

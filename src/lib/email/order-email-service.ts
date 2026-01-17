@@ -13,7 +13,13 @@ import {
   generateClientOrderConfirmationHTML,
   generateClientOrderConfirmationText,
 } from "./templates/client-order-confirmation";
+import {
+  generateOrderStatusConfirmedHTML,
+  generateOrderStatusConfirmedText,
+} from "./templates/order-status-confirmed";
 import { generateOrderExcel } from "../excel/order-excel-generator";
+
+type Locale = "en" | "de";
 
 /**
  * Transform Order document to OrderEmailData
@@ -55,12 +61,14 @@ function transformClientToEmailData(client: Client): ClientEmailData {
  * @param payload - Payload instance
  * @param order - Order document
  * @param client - Client document
+ * @param locale - Locale for client email (defaults to 'en')
  * @returns Promise with success status
  */
 export async function sendOrderEmails(
   payload: Payload,
   order: Order,
   client: Client,
+  locale: Locale = "en",
 ): Promise<{ adminEmailSent: boolean; clientEmailSent: boolean }> {
   const result = {
     adminEmailSent: false,
@@ -129,11 +137,16 @@ export async function sendOrderEmails(
           "Client email not available, skipping client confirmation email",
         );
       } else {
+        const subject =
+          locale === "de"
+            ? `Bestellbestätigung: ${order.orderNumber}`
+            : `Order Confirmation: ${order.orderNumber}`;
+
         await payload.email.sendEmail({
           to: client.email,
-          subject: `Order Confirmation: ${order.orderNumber}`,
-          html: generateClientOrderConfirmationHTML(templateData),
-          text: generateClientOrderConfirmationText(templateData),
+          subject,
+          html: generateClientOrderConfirmationHTML(templateData, locale),
+          text: generateClientOrderConfirmationText(templateData, locale),
           attachments: attachment,
         } as any); // Type assertion needed as Payload types may not include attachments
 
@@ -149,4 +162,79 @@ export async function sendOrderEmails(
   }
 
   return result;
+}
+
+/**
+ * Send order status confirmation email to client when order status changes to 'confirmed'
+ * @param payload - Payload instance
+ * @param order - Order document
+ * @param client - Client document
+ * @param locale - Locale for email (defaults to 'en')
+ * @returns Promise with success status
+ */
+export async function sendOrderConfirmationEmail(
+  payload: Payload,
+  order: Order,
+  client: Client,
+  locale: Locale = "en",
+): Promise<boolean> {
+  try {
+    if (!client.email) {
+      console.warn(
+        "Client email not available, skipping order confirmation email",
+      );
+      return false;
+    }
+
+    // Transform data for email templates
+    const orderData = transformOrderToEmailData(order);
+    const clientData = transformClientToEmailData(client);
+
+    // Prepare template data
+    const templateData: EmailTemplateData = {
+      order: orderData,
+      client: clientData,
+      adminPanelUrl:
+        process.env.NEXT_PUBLIC_PAYLOAD_URL || "http://localhost:3000",
+    };
+
+    // Generate Excel file
+    let excelBuffer: Buffer | null = null;
+    try {
+      excelBuffer = await generateOrderExcel(orderData, clientData);
+    } catch (excelError) {
+      console.error("Error generating Excel file:", excelError);
+      // Continue without attachment if Excel generation fails
+    }
+
+    // Prepare attachment if Excel was generated
+    const attachment = excelBuffer
+      ? [
+          {
+            filename: `order-${order.orderNumber}.xlsx`,
+            content: excelBuffer,
+            contentType:
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          },
+        ]
+      : undefined;
+
+    const subject =
+      locale === "de"
+        ? `Bestellung bestätigt: ${order.orderNumber}`
+        : `Order Confirmed: ${order.orderNumber}`;
+
+    await payload.email.sendEmail({
+      to: client.email,
+      subject,
+      html: generateOrderStatusConfirmedHTML(templateData, locale),
+      text: generateOrderStatusConfirmedText(templateData, locale),
+      attachments: attachment,
+    } as any); // Type assertion needed as Payload types may not include attachments
+
+    return true;
+  } catch (error) {
+    console.error("Error sending order confirmation email:", error);
+    return false;
+  }
 }

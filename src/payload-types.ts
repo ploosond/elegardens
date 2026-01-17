@@ -13,53 +13,53 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | "Pacific/Midway"
-  | "Pacific/Niue"
-  | "Pacific/Honolulu"
-  | "Pacific/Rarotonga"
-  | "America/Anchorage"
-  | "Pacific/Gambier"
-  | "America/Los_Angeles"
-  | "America/Tijuana"
-  | "America/Denver"
-  | "America/Phoenix"
-  | "America/Chicago"
-  | "America/Guatemala"
-  | "America/New_York"
-  | "America/Bogota"
-  | "America/Caracas"
-  | "America/Santiago"
-  | "America/Buenos_Aires"
-  | "America/Sao_Paulo"
-  | "Atlantic/South_Georgia"
-  | "Atlantic/Azores"
-  | "Atlantic/Cape_Verde"
-  | "Europe/London"
-  | "Europe/Berlin"
-  | "Africa/Lagos"
-  | "Europe/Athens"
-  | "Africa/Cairo"
-  | "Europe/Moscow"
-  | "Asia/Riyadh"
-  | "Asia/Dubai"
-  | "Asia/Baku"
-  | "Asia/Karachi"
-  | "Asia/Tashkent"
-  | "Asia/Calcutta"
-  | "Asia/Dhaka"
-  | "Asia/Almaty"
-  | "Asia/Jakarta"
-  | "Asia/Bangkok"
-  | "Asia/Shanghai"
-  | "Asia/Singapore"
-  | "Asia/Tokyo"
-  | "Asia/Seoul"
-  | "Australia/Brisbane"
-  | "Australia/Sydney"
-  | "Pacific/Guam"
-  | "Pacific/Noumea"
-  | "Pacific/Auckland"
-  | "Pacific/Fiji";
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
 
 export interface Config {
   auth: {
@@ -75,14 +75,14 @@ export interface Config {
     employees: Employee;
     projects: Project;
     blogs: Blog;
-    "contact-submissions": ContactSubmission;
-    "newsletter-subscribers": NewsletterSubscriber;
+    'contact-submissions': ContactSubmission;
+    'newsletter-subscribers': NewsletterSubscriber;
     clients: Client;
     orders: Order;
-    "payload-kv": PayloadKv;
-    "payload-locked-documents": PayloadLockedDocument;
-    "payload-preferences": PayloadPreference;
-    "payload-migrations": PayloadMigration;
+    'payload-kv': PayloadKv;
+    'payload-locked-documents': PayloadLockedDocument;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
@@ -93,48 +93,36 @@ export interface Config {
     employees: EmployeesSelect<false> | EmployeesSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     blogs: BlogsSelect<false> | BlogsSelect<true>;
-    "contact-submissions":
-      | ContactSubmissionsSelect<false>
-      | ContactSubmissionsSelect<true>;
-    "newsletter-subscribers":
-      | NewsletterSubscribersSelect<false>
-      | NewsletterSubscribersSelect<true>;
+    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
+    'newsletter-subscribers': NewsletterSubscribersSelect<false> | NewsletterSubscribersSelect<true>;
     clients: ClientsSelect<false> | ClientsSelect<true>;
     orders: OrdersSelect<false> | OrdersSelect<true>;
-    "payload-kv": PayloadKvSelect<false> | PayloadKvSelect<true>;
-    "payload-locked-documents":
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
-    "payload-preferences":
-      | PayloadPreferencesSelect<false>
-      | PayloadPreferencesSelect<true>;
-    "payload-migrations":
-      | PayloadMigrationsSelect<false>
-      | PayloadMigrationsSelect<true>;
+    'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: number;
   };
   fallbackLocale: null;
   globals: {
-    "announcement-banner": AnnouncementBanner;
+    'announcement-banner': AnnouncementBanner;
     about: About;
-    "privacy-policy": PrivacyPolicy;
+    'privacy-policy': PrivacyPolicy;
   };
   globalsSelect: {
-    "announcement-banner":
-      | AnnouncementBannerSelect<false>
-      | AnnouncementBannerSelect<true>;
+    'announcement-banner': AnnouncementBannerSelect<false> | AnnouncementBannerSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
-    "privacy-policy": PrivacyPolicySelect<false> | PrivacyPolicySelect<true>;
+    'privacy-policy': PrivacyPolicySelect<false> | PrivacyPolicySelect<true>;
   };
   locale: null;
   user:
     | (User & {
-        collection: "users";
+        collection: 'users';
       })
     | (Client & {
-        collection: "clients";
+        collection: 'clients';
       });
   jobs: {
     tasks: unknown;
@@ -232,15 +220,15 @@ export interface Product {
    */
   slug: string;
   common_name: string;
-  availability: "available" | "out-of-stock";
+  availability: 'available' | 'out-of-stock';
   quantity?: number | null;
   description_en: string;
   description_de: string;
   height: string;
   diameter: string;
   hardiness: string;
-  light_en: "full-sun" | "partial-sun" | "partial-shade" | "full-shade";
-  light_de: "full-sun" | "partial-sun" | "partial-shade" | "full-shade";
+  light_en: 'full-sun' | 'partial-sun' | 'partial-shade' | 'full-shade';
+  light_de: 'full-sun' | 'partial-sun' | 'partial-shade' | 'full-shade';
   /**
    * Upload up to 6 product photos.
    */
@@ -283,7 +271,7 @@ export interface Pot {
    * Enter dimensions in the format: 10cm x 10cm
    */
   size?: string | null;
-  availability: "available" | "out-of-stock";
+  availability: 'available' | 'out-of-stock';
   quantity?: number | null;
   /**
    * Upload a pot image
@@ -342,7 +330,7 @@ export interface Project {
             }[];
             id?: string | null;
             blockName?: string | null;
-            blockType: "text-block";
+            blockType: 'text-block';
           }
         | {
             image: number | Media;
@@ -350,7 +338,7 @@ export interface Project {
             caption_de?: string | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: "image-block";
+            blockType: 'image-block';
           }
       )[]
     | null;
@@ -403,7 +391,7 @@ export interface Blog {
             }[];
             id?: string | null;
             blockName?: string | null;
-            blockType: "text-block";
+            blockType: 'text-block';
           }
         | {
             image: number | Media;
@@ -411,7 +399,7 @@ export interface Blog {
             caption_de?: string | null;
             id?: string | null;
             blockName?: string | null;
-            blockType: "image-block";
+            blockType: 'image-block';
           }
       )[]
     | null;
@@ -457,7 +445,7 @@ export interface ContactSubmission {
   /**
    * Status of the contact submission
    */
-  status?: ("new" | "read" | "replied" | "archived") | null;
+  status?: ('new' | 'read' | 'replied' | 'archived') | null;
   /**
    * Internal notes about this submission
    */
@@ -482,7 +470,7 @@ export interface NewsletterSubscriber {
   /**
    * Subscription status
    */
-  status?: ("active" | "unsubscribed" | "bounced") | null;
+  status?: ('active' | 'unsubscribed' | 'bounced') | null;
   /**
    * Date and time of subscription
    */
@@ -504,15 +492,12 @@ export interface NewsletterSubscriber {
  */
 export interface Client {
   id: number;
-  /**
-   * Unique username for client login (used for authentication)
-   */
   clientId: string;
   companyName: string;
   contactPerson?: string | null;
   phone?: string | null;
   address: string;
-  status: "active" | "inactive";
+  status: 'active' | 'inactive';
   notes?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -558,7 +543,7 @@ export interface Order {
   /**
    * Current order status
    */
-  status: "pending" | "confirmed" | "processing" | "completed" | "cancelled";
+  status: 'pending' | 'confirmed' | 'processing' | 'completed' | 'cancelled';
   /**
    * Notes from client with order
    */
@@ -567,6 +552,10 @@ export interface Order {
    * Internal admin notes
    */
   adminNotes?: string | null;
+  /**
+   * Language used when order was created
+   */
+  locale?: ('en' | 'de') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -595,57 +584,57 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: "users";
+        relationTo: 'users';
         value: number | User;
       } | null)
     | ({
-        relationTo: "media";
+        relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
-        relationTo: "products";
+        relationTo: 'products';
         value: number | Product;
       } | null)
     | ({
-        relationTo: "pots";
+        relationTo: 'pots';
         value: number | Pot;
       } | null)
     | ({
-        relationTo: "employees";
+        relationTo: 'employees';
         value: number | Employee;
       } | null)
     | ({
-        relationTo: "projects";
+        relationTo: 'projects';
         value: number | Project;
       } | null)
     | ({
-        relationTo: "blogs";
+        relationTo: 'blogs';
         value: number | Blog;
       } | null)
     | ({
-        relationTo: "contact-submissions";
+        relationTo: 'contact-submissions';
         value: number | ContactSubmission;
       } | null)
     | ({
-        relationTo: "newsletter-subscribers";
+        relationTo: 'newsletter-subscribers';
         value: number | NewsletterSubscriber;
       } | null)
     | ({
-        relationTo: "clients";
+        relationTo: 'clients';
         value: number | Client;
       } | null)
     | ({
-        relationTo: "orders";
+        relationTo: 'orders';
         value: number | Order;
       } | null);
   globalSlug?: string | null;
   user:
     | {
-        relationTo: "users";
+        relationTo: 'users';
         value: number | User;
       }
     | {
-        relationTo: "clients";
+        relationTo: 'clients';
         value: number | Client;
       };
   updatedAt: string;
@@ -659,11 +648,11 @@ export interface PayloadPreference {
   id: number;
   user:
     | {
-        relationTo: "users";
+        relationTo: 'users';
         value: number | User;
       }
     | {
-        relationTo: "clients";
+        relationTo: 'clients';
         value: number | Client;
       };
   key?: string | null;
@@ -806,7 +795,7 @@ export interface ProjectsSelect<T extends boolean = true> {
   sections?:
     | T
     | {
-        "text-block"?:
+        'text-block'?:
           | T
           | {
               subtitle_en?: T;
@@ -821,7 +810,7 @@ export interface ProjectsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        "image-block"?:
+        'image-block'?:
           | T
           | {
               image?: T;
@@ -855,7 +844,7 @@ export interface BlogsSelect<T extends boolean = true> {
   sections?:
     | T
     | {
-        "text-block"?:
+        'text-block'?:
           | T
           | {
               subtitle_en?: T;
@@ -870,7 +859,7 @@ export interface BlogsSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
-        "image-block"?:
+        'image-block'?:
           | T
           | {
               image?: T;
@@ -966,6 +955,7 @@ export interface OrdersSelect<T extends boolean = true> {
   status?: T;
   notes?: T;
   adminNotes?: T;
+  locale?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1037,7 +1027,7 @@ export interface AnnouncementBanner {
   /**
    * Semi Bold: Subtle emphasis. Bold: Recommended for most announcements. Extra Bold: Maximum visibility for urgent messages.
    */
-  fontWeight?: ("semibold" | "bold" | "extrabold") | null;
+  fontWeight?: ('semibold' | 'bold' | 'extrabold') | null;
   /**
    * Display banner on desktop devices (md breakpoint and above)
    */
@@ -1049,7 +1039,7 @@ export interface AnnouncementBanner {
   /**
    * Speed of the scrolling animation
    */
-  speed?: ("slow" | "medium" | "fast") | null;
+  speed?: ('slow' | 'medium' | 'fast') | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1123,15 +1113,8 @@ export interface PrivacyPolicy {
               version: number;
               [k: string]: unknown;
             }[];
-            direction: ("ltr" | "rtl") | null;
-            format:
-              | "left"
-              | "start"
-              | "center"
-              | "right"
-              | "end"
-              | "justify"
-              | "";
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
             indent: number;
             version: number;
           };
@@ -1145,15 +1128,8 @@ export interface PrivacyPolicy {
               version: number;
               [k: string]: unknown;
             }[];
-            direction: ("ltr" | "rtl") | null;
-            format:
-              | "left"
-              | "start"
-              | "center"
-              | "right"
-              | "end"
-              | "justify"
-              | "";
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
             indent: number;
             version: number;
           };
@@ -1266,6 +1242,7 @@ export interface Auth {
   [k: string]: unknown;
 }
 
-declare module "payload" {
+
+declare module 'payload' {
   export interface GeneratedTypes extends Config {}
 }

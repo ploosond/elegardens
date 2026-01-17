@@ -1,5 +1,8 @@
 import type { CollectionConfig } from "payload";
-import { sendOrderEmails } from "@/lib/email/order-email-service";
+import {
+  sendOrderEmails,
+  sendOrderConfirmationEmail,
+} from "@/lib/email/order-email-service";
 // Admin RowLabel component is referenced via import map string
 
 // Helper function to get ISO week number
@@ -36,6 +39,19 @@ export const Orders: CollectionConfig = {
   hooks: {
     beforeChange: [
       async ({ data, operation, req }) => {
+        // Store previous status for status change detection
+        if (operation === "update" && data.id) {
+          try {
+            const previousOrder = await req.payload.findByID({
+              collection: "orders",
+              id: data.id,
+            });
+            // Store previous status in request context for use in afterChange
+            (req as any).previousOrderStatus = previousOrder?.status;
+          } catch (error) {
+            console.error("Error fetching previous order status:", error);
+          }
+        }
         if (!data.orderNumber && operation === "create") {
           const payload = req.payload;
 
@@ -138,9 +154,19 @@ export const Orders: CollectionConfig = {
               });
             }
 
+            // Get locale from order (default to 'en' for backward compatibility)
+            const locale = (doc.locale === "de" || doc.locale === "en"
+              ? doc.locale
+              : "en") as "en" | "de";
+
             // Send emails if client data is available
             if (clientData) {
-              await sendOrderEmails(payload, doc as any, clientData as any);
+              await sendOrderEmails(
+                payload,
+                doc as any,
+                clientData as any,
+                locale,
+              );
             } else {
               console.warn(
                 "Client data not found for order, skipping email notification",
@@ -149,6 +175,58 @@ export const Orders: CollectionConfig = {
           } catch (error) {
             console.error("Error sending order notification emails:", error);
             // Don't fail the order creation if email fails
+          }
+        } else if (operation === "update" && doc) {
+          // Check if status changed to 'confirmed'
+          try {
+            const payload = req.payload;
+
+            // Get previous status from request context (set in beforeChange)
+            const previousStatus = (req as any).previousOrderStatus as
+              | string
+              | undefined;
+            const currentStatus = doc.status as string;
+
+            // Only send email if status changed TO 'confirmed' (not if it was already 'confirmed')
+            if (
+              currentStatus === "confirmed" &&
+              previousStatus !== "confirmed"
+            ) {
+              // Get client data
+              let clientData = null;
+              if (doc.client) {
+                const clientId =
+                  typeof doc.client === "object" ? doc.client.id : doc.client;
+                clientData = await payload.findByID({
+                  collection: "clients",
+                  id: clientId,
+                });
+              }
+
+              if (clientData) {
+                // Get locale from order (default to 'en' for backward compatibility)
+                const locale = (doc.locale === "de" || doc.locale === "en"
+                  ? doc.locale
+                  : "en") as "en" | "de";
+
+                await sendOrderConfirmationEmail(
+                  payload,
+                  doc as any,
+                  clientData as any,
+                  locale,
+                );
+              } else {
+                console.warn(
+                  "Client data not found for order, skipping confirmation email",
+                );
+              }
+            }
+          } catch (error) {
+            console.error(
+              "Error sending order confirmation email:",
+              error,
+            );
+            // Don't fail the order update if email fails
           }
         }
       },
@@ -292,6 +370,20 @@ export const Orders: CollectionConfig = {
       admin: {
         description: "Internal admin notes",
         rows: 3,
+      },
+    },
+    {
+      name: "locale",
+      type: "select",
+      label: "Order Language",
+      defaultValue: "en",
+      options: [
+        { label: "English", value: "en" },
+        { label: "German", value: "de" },
+      ],
+      admin: {
+        description: "Language used when order was created",
+        readOnly: true,
       },
     },
   ],

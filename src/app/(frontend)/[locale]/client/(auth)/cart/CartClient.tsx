@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import type { Client } from "@/payload-types";
@@ -18,6 +18,7 @@ interface CartClientProps {
 export default function CartClient({ client }: CartClientProps) {
   const t = useTranslations("ClientCart");
   const router = useRouter();
+  const locale = useLocale();
   const { items: cartItems, updateQuantity, removeItem, clearCart } = useCart();
   // Initialize delivery date as empty - user must select a date
   const [deliveryDate, setDeliveryDate] = useState("");
@@ -108,6 +109,7 @@ export default function CartClient({ client }: CartClientProps) {
         ),
       notes: notes || undefined,
       status: "pending",
+      locale: locale,
     };
 
     try {
