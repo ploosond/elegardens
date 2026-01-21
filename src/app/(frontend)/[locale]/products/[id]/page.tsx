@@ -23,7 +23,7 @@ async function getProduct(slug: string, _locale: string) {
     // url.searchParams.set('locale', locale)
 
     const res = await fetch(url.toString(), {
-      next: { revalidate: 3600 },
+      next: { revalidate: 0 },
     });
 
     if (!res.ok) return null;
@@ -43,7 +43,7 @@ async function getRelatedProducts(_locale: string, currentSlug: string) {
     url.searchParams.set("limit", "6");
 
     const res = await fetch(url.toString(), {
-      next: { revalidate: 3600 },
+      next: { revalidate: 0 },
     });
 
     if (!res.ok) return [];

@@ -14,7 +14,7 @@ async function getEmployees(locale: string): Promise<Employee[]> {
     url.searchParams.set("sort", "createdAt");
 
     const res = await fetch(url.toString(), {
-      next: { revalidate: 3600 },
+      next: { revalidate: 0 },
     });
 
     if (!res.ok) return [];
