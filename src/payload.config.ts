@@ -2,6 +2,7 @@ import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import path from "node:path";
 import { buildConfig } from "payload";
+import { migrations } from "./migrations";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
 import { About } from "./globals/About";
@@ -66,6 +67,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || "",
     },
+    prodMigrations: migrations,
   }),
   sharp,
   plugins: [

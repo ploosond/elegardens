@@ -44,3 +44,5 @@ next-env.d.ts
 how-to-palce-order.md
 
 .pnpm-store/
+
+DEPLOYMENT.md

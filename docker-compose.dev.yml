@@ -11,7 +11,10 @@ services:
     depends_on:
       - postgres
     env_file:
-      - .env.development
+      - .env
+    environment:
+      - DATABASE_URL=postgresql://payload:payload@postgres:5432/elegardens
+
 
   postgres:
     restart: always
