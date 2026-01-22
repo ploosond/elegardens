@@ -25,6 +25,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Increase Node.js memory limit for build process (1GB - works with 1GB RAM + 2GB swap)
+ENV NODE_OPTIONS="--max-old-space-size=1024"
+
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
