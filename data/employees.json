@@ -1,0 +1,169 @@
+[
+  {
+    "first_name": "Klaus",
+    "last_name": "Peters",
+    "email": "klaus.peters@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 - 0",
+    "role_en": "CEO",
+    "role_de": "Geschäftsführer",
+    "department_en": "Management",
+    "department_de": "Geschäftsführung"
+  },
+  {
+    "first_name": "Rafal",
+    "last_name": "Dudek",
+    "email": "rafal.dudek@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 - 0",
+    "role_en": "Production Head & Executive",
+    "role_de": "Produktionsleiter & Geschäftsführer",
+    "department_en": "Management",
+    "department_de": "Geschäftsführung"
+  },
+  {
+    "first_name": "Julia",
+    "last_name": "Schwarzer",
+    "email": "julia.schwarzer@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 - 20",
+    "role_en": "Sales Head",
+    "role_de": "Verkaufsleiterin",
+    "department_en": "Sales",
+    "department_de": "Verkauf"
+  },
+  {
+    "first_name": "Jens",
+    "last_name": "Eckermann",
+    "email": "jens.eckermann@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 - 23",
+    "role_en": "Sales Employee",
+    "role_de": "Vertriebsmitarbeiter",
+    "department_en": "Sales",
+    "department_de": "Verkauf"
+  },
+  {
+    "first_name": "Anna",
+    "last_name": "Kindner",
+    "email": "anna.kindner@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 - 30",
+    "role_en": "Sales, Logistics & Certification",
+    "role_de": "Verkauf, Logistik & Zertifizierung",
+    "department_en": "Sales & Logistics",
+    "department_de": "Verkauf & Logistik"
+  },
+  {
+    "first_name": "Nadine",
+    "last_name": "Roebrock",
+    "email": "nadine.roebrock@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 - 21",
+    "role_en": "Management Assistant",
+    "role_de": "Assistenz der Geschäftsführung",
+    "department_en": "Management",
+    "department_de": "Geschäftsführung"
+  },
+  {
+    "first_name": "Cornelia",
+    "last_name": "Wolter",
+    "email": "cornelia.wolter@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 - 11",
+    "role_en": "Empties & Management Assistant",
+    "role_de": "Leergutverwaltung & Assistenz",
+    "department_en": "Administration",
+    "department_de": "Verwaltung"
+  },
+  {
+    "first_name": "Frank",
+    "last_name": "Dercks",
+    "email": "frank.dercks@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 - 10",
+    "role_en": "Accounting & HR",
+    "role_de": "Buchhaltung & Personalwesen",
+    "department_en": "Accounting & HR",
+    "department_de": "Buchhaltung & Personalwesen"
+  },
+  {
+    "first_name": "Anil",
+    "last_name": "Patel",
+    "email": "anil.patel@stauden-peters.de",
+    "telephone": "+49 2826 9150-31",
+    "role_en": "Cultivation Planning & Purchasing",
+    "role_de": "Anbauplanung & Einkauf",
+    "department_en": "Purchasing & Controlling",
+    "department_de": "Einkauf & Controlling"
+  },
+  {
+    "first_name": "Mario",
+    "last_name": "Hermans",
+    "email": "mario.hermanns@stauden-peters.de",
+    "telephone": "+49 2826 9150-22",
+    "role_en": "HR Manager",
+    "role_de": "Personalleiter",
+    "department_en": "Human Resources",
+    "department_de": "Personalwesen"
+  },
+  {
+    "first_name": "Raimund",
+    "last_name": "Koken",
+    "email": "raimund.koken@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 – 27",
+    "role_en": "Production Manager",
+    "role_de": "Produktionsleiter",
+    "department_en": "Production",
+    "department_de": "Produktion"
+  },
+  {
+    "first_name": "Susanne",
+    "last_name": "Dikkers",
+    "email": "susanne.dikkers@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 - 14",
+    "role_en": "Sales & Mail Order",
+    "role_de": "Verkauf & Versandhandel",
+    "department_en": "Sales",
+    "department_de": "Verkauf"
+  },
+  {
+    "first_name": "Abdallah",
+    "last_name": "Osman",
+    "email": "abdallah.osman@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 – 25",
+    "role_en": "Hall Manager",
+    "role_de": "Hallenleiter",
+    "department_en": "Logistics",
+    "department_de": "Logistik"
+  },
+  {
+    "first_name": "Hem",
+    "last_name": "Khatri",
+    "telephone": "+49 (0)28 26 / 91 50 – 26",
+    "role_en": "Hall Manager",
+    "role_de": "Hallenleiter",
+    "department_en": "Logistics",
+    "department_de": "Logistik"
+  },
+  {
+    "first_name": "Silviya",
+    "last_name": "Chakarova",
+    "email": "silviya.chakarova@stauden-peters.de",
+    "telephone": "+49 (0)28 26 / 91 50 - 55",
+    "role_en": "Label Printing",
+    "role_de": "Etikettendruck",
+    "department_en": "Production",
+    "department_de": "Produktion"
+  },
+
+  {
+    "first_name": "Kiran",
+    "last_name": "Shah",
+    "role_en": "Inbound Logistics & Inventory",
+    "role_de": "Warenannahme & Inventur",
+    "department_en": "Logistics",
+    "department_de": "Logistik"
+  },
+  {
+    "first_name": "Kisita",
+    "last_name": "Ndongala",
+    "telephone": "+49 (0)28 26 / 91 50 – 29",
+    "role_en": "Inbound Logistics & Inventory",
+    "role_de": "Warenannahme & Inventur",
+    "department_en": "Logistics",
+    "department_de": "Logistik"
+  }
+]

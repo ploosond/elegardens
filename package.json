@@ -11,7 +11,8 @@
     "format": "biome format --write",
     "postinstall": "npx only-allow pnpm",
     "seed:products": "payload run scripts/seed-products.ts",
-    "seed:pots": "payload run scripts/seed-pots.ts"
+    "seed:pots": "payload run scripts/seed-pots.ts",
+    "seed:employees": "payload run scripts/seed-employees.ts"
   },
   "dependencies": {
     "@c15t/nextjs": "^1.8.1",
