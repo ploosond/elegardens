@@ -13,7 +13,7 @@ services:
     env_file:
       - .env
     environment:
-      - DATABASE_URL=postgresql://payload:payload@postgres:5432/elegardens
+      - DATABASE_URL=postgresql://payload:${POSTGRES_PASSWORD}@postgres:5432/elegardens
 
 
   postgres:
