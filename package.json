@@ -19,7 +19,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@innovixx/payload-color-picker-field": "^2.0.4",
     "@payloadcms/db-postgres": "^3.69.0",
-    "@payloadcms/email-nodemailer": "^3.69.0",
+    "@payloadcms/email-resend": "^3.69.0",
     "@payloadcms/next": "^3.69.0",
     "@payloadcms/richtext-lexical": "^3.69.0",
     "@payloadcms/storage-uploadthing": "^3.69.0",

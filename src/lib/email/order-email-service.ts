@@ -1,25 +1,25 @@
-import type { Payload } from "payload";
-import type { Order, Client } from "@/payload-types";
+import type { Payload } from 'payload';
+import type { Order, Client } from '@/payload-types';
 import type {
   OrderEmailData,
   ClientEmailData,
   EmailTemplateData,
-} from "./types";
+} from './types';
 import {
   generateAdminOrderNotificationHTML,
   generateAdminOrderNotificationText,
-} from "./templates/admin-order-notification";
+} from './templates/admin-order-notification';
 import {
   generateClientOrderConfirmationHTML,
   generateClientOrderConfirmationText,
-} from "./templates/client-order-confirmation";
+} from './templates/client-order-confirmation';
 import {
   generateOrderStatusConfirmedHTML,
   generateOrderStatusConfirmedText,
-} from "./templates/order-status-confirmed";
-import { generateOrderExcel } from "../excel/order-excel-generator";
+} from './templates/order-status-confirmed';
+import { generateOrderExcel } from '../excel/order-excel-generator';
 
-type Locale = "en" | "de";
+type Locale = 'en' | 'de';
 
 /**
  * Transform Order document to OrderEmailData
@@ -68,7 +68,7 @@ export async function sendOrderEmails(
   payload: Payload,
   order: Order,
   client: Client,
-  locale: Locale = "en",
+  locale: Locale = 'en',
 ): Promise<{ adminEmailSent: boolean; clientEmailSent: boolean }> {
   const result = {
     adminEmailSent: false,
@@ -85,7 +85,7 @@ export async function sendOrderEmails(
       order: orderData,
       client: clientData,
       adminPanelUrl:
-        process.env.NEXT_PUBLIC_PAYLOAD_URL || "http://localhost:3000",
+        process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000',
     };
 
     // Generate Excel file
@@ -93,28 +93,24 @@ export async function sendOrderEmails(
     try {
       excelBuffer = await generateOrderExcel(orderData, clientData);
     } catch (excelError) {
-      console.error("Error generating Excel file:", excelError);
+      console.error('Error generating Excel file:', excelError);
       // Continue without attachment if Excel generation fails
     }
 
     // Prepare attachment if Excel was generated
+    // Resend adapter expects: { filename, content: Buffer }
     const attachment = excelBuffer
       ? [
           {
             filename: `order-${order.orderNumber}.xlsx`,
             content: excelBuffer,
-            contentType:
-              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
           },
         ]
       : undefined;
 
     // Send admin email
     try {
-      const adminEmail =
-        process.env.CONTACT_FORM_RECIPIENT ||
-        process.env.SMTP_USER ||
-        "admin@elegardens.com";
+      const adminEmail = process.env.ORDERS_EMAIL_RECIPIENT;
 
       await payload.email.sendEmail({
         to: adminEmail,
@@ -126,7 +122,7 @@ export async function sendOrderEmails(
 
       result.adminEmailSent = true;
     } catch (adminError) {
-      console.error("Error sending admin email:", adminError);
+      console.error('Error sending admin email:', adminError);
       // Don't throw - continue to try client email
     }
 
@@ -134,11 +130,11 @@ export async function sendOrderEmails(
     try {
       if (!client.email) {
         console.warn(
-          "Client email not available, skipping client confirmation email",
+          'Client email not available, skipping client confirmation email',
         );
       } else {
         const subject =
-          locale === "de"
+          locale === 'de'
             ? `Bestellbestätigung: ${order.orderNumber}`
             : `Order Confirmation: ${order.orderNumber}`;
 
@@ -153,11 +149,11 @@ export async function sendOrderEmails(
         result.clientEmailSent = true;
       }
     } catch (clientError) {
-      console.error("Error sending client email:", clientError);
+      console.error('Error sending client email:', clientError);
       // Don't throw - email failure shouldn't fail order creation
     }
   } catch (error) {
-    console.error("Error in sendOrderEmails:", error);
+    console.error('Error in sendOrderEmails:', error);
     // Return partial results even if there was an error
   }
 
@@ -176,12 +172,12 @@ export async function sendOrderConfirmationEmail(
   payload: Payload,
   order: Order,
   client: Client,
-  locale: Locale = "en",
+  locale: Locale = 'en',
 ): Promise<boolean> {
   try {
     if (!client.email) {
       console.warn(
-        "Client email not available, skipping order confirmation email",
+        'Client email not available, skipping order confirmation email',
       );
       return false;
     }
@@ -195,7 +191,7 @@ export async function sendOrderConfirmationEmail(
       order: orderData,
       client: clientData,
       adminPanelUrl:
-        process.env.NEXT_PUBLIC_PAYLOAD_URL || "http://localhost:3000",
+        process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000',
     };
 
     // Generate Excel file
@@ -203,24 +199,23 @@ export async function sendOrderConfirmationEmail(
     try {
       excelBuffer = await generateOrderExcel(orderData, clientData);
     } catch (excelError) {
-      console.error("Error generating Excel file:", excelError);
+      console.error('Error generating Excel file:', excelError);
       // Continue without attachment if Excel generation fails
     }
 
     // Prepare attachment if Excel was generated
+    // Resend adapter expects: { filename, content: Buffer }
     const attachment = excelBuffer
       ? [
           {
             filename: `order-${order.orderNumber}.xlsx`,
             content: excelBuffer,
-            contentType:
-              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
           },
         ]
       : undefined;
 
     const subject =
-      locale === "de"
+      locale === 'de'
         ? `Bestellung bestätigt: ${order.orderNumber}`
         : `Order Confirmed: ${order.orderNumber}`;
 
@@ -234,7 +229,7 @@ export async function sendOrderConfirmationEmail(
 
     return true;
   } catch (error) {
-    console.error("Error sending order confirmation email:", error);
+    console.error('Error sending order confirmation email:', error);
     return false;
   }
 }

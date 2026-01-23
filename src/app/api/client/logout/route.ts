@@ -1,59 +1,65 @@
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    // Use Payload's REST API endpoint for proper cookie handling
-    const baseUrl =
-      process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
-    const logoutUrl = `${baseUrl}/api/clients/logout`;
+    // Use same-origin URL to avoid cross-origin/env inconsistencies
+    const logoutUrl = new URL('/api/clients/logout', request.url).toString();
+    const cookieHeader = request.headers.get('cookie') || '';
+    const hasCookie = cookieHeader.trim().length > 0;
 
-    // Forward cookies from the incoming request
-    const cookieHeader = request.headers.get("cookie") || "";
+    // If there is no auth cookie, skip upstream call to avoid 400 noise
+    if (!hasCookie) {
+      return NextResponse.json(
+        { success: true, message: 'Logged out successfully' },
+        { status: 200 },
+      );
+    }
 
     try {
       const logoutResponse = await fetch(logoutUrl, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
           Cookie: cookieHeader,
         },
       });
 
-      // Get the set-cookie header to clear the session
-      const setCookieHeader = logoutResponse.headers.get("set-cookie");
+      // Get all Set-Cookie headers to clear the session
+      const setCookieHeaders = logoutResponse.headers.getSetCookie();
 
       const response = NextResponse.json(
         {
           success: true,
-          message: "Logged out successfully",
+          message: 'Logged out successfully',
         },
         { status: 200 },
       );
 
-      // Forward the cookie clearing header if present
-      if (setCookieHeader) {
-        response.headers.set("Set-Cookie", setCookieHeader);
+      // Forward cookie clearing headers if present
+      if (setCookieHeaders && setCookieHeaders.length > 0) {
+        setCookieHeaders.forEach((cookie) => {
+          response.headers.append('Set-Cookie', cookie);
+        });
       }
 
       return response;
     } catch (logoutError: any) {
-      console.error("Logout error:", logoutError);
-      // Even if Payload logout fails, we'll still return success
-      // to clear any local state
+      console.error('Logout error:', logoutError);
+      // Even if Payload logout fails, return success to clear local state
       return NextResponse.json(
         {
           success: true,
-          message: "Logged out successfully",
+          message: 'Logged out successfully',
         },
         { status: 200 },
       );
     }
   } catch (error: any) {
-    console.error("Logout error:", error);
+    console.error('Logout error:', error);
     return NextResponse.json(
       {
         success: true,
-        message: "Logged out successfully",
+        message: 'Logged out successfully',
       },
       { status: 200 },
     );

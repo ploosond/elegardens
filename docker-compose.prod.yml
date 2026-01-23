@@ -1,16 +1,15 @@
 services:
-  next-payload:
+  payload:
     build: .
     image: elegardens:latest
     ports:
-      - "3000:3000"
+      - '3000:3000'
     depends_on:
       - postgres
     env_file:
       - .env
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=postgresql://payload:${POSTGRES_PASSWORD}@postgres:5432/elegardens
 
   postgres:
     restart: always
@@ -22,7 +21,7 @@ services:
     volumes:
       - pgdata_prod:/var/lib/postgresql/data
     ports:
-      - "5433:5432"
+      - '5433:5432'
 
 volumes:
   pgdata_prod:

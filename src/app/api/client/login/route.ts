@@ -1,11 +1,11 @@
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
-import { NextResponse } from 'next/server'
+import configPromise from '@payload-config';
+import { getPayload } from 'payload';
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const { email, password } = body
+    const body = await request.json();
+    const { email, password } = body;
 
     // Validate required fields
     if (!email || !password) {
@@ -15,11 +15,11 @@ export async function POST(request: Request) {
           error: 'Email and password are required',
         },
         { status: 400 },
-      )
+      );
     }
 
     // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return NextResponse.json(
         {
@@ -27,79 +27,45 @@ export async function POST(request: Request) {
           error: 'Invalid email format',
         },
         { status: 400 },
-      )
+      );
     }
 
-    // Get Payload instance
-    const payload = await getPayload({
+    // Ensure Payload is initialized (guarantees API routes are ready)
+    await getPayload({
       config: configPromise,
-    })
+    });
 
-    // Check if client exists and is active before attempting login
-    const clients = await payload.find({
-      collection: 'clients',
-      where: {
-        email: {
-          equals: email,
-        },
-      },
-      limit: 1,
-    })
-
-    if (clients.docs.length === 0) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Invalid email or password',
-        },
-        { status: 401 },
-      )
-    }
-
-    const client = clients.docs[0]
-
-    // Check if client account is active
-    if (client.status !== 'active') {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Your account is inactive. Please contact support.',
-        },
-        { status: 403 },
-      )
-    }
-
-    const baseUrl = process.env.SERVER_URL || 'http://localhost:3000'
-    const loginUrl = `${baseUrl}/api/clients/login`
+    // Use same-origin URL to avoid cross-origin and env inconsistencies
+    const loginUrl = new URL('/api/clients/login', request.url).toString();
 
     try {
-      const cookieHeader = request.headers.get('cookie') || ''
-
       const loginResponse = await fetch(loginUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Cookie: cookieHeader,
         },
         body: JSON.stringify({
           email,
           password,
         }),
-      })
+      });
+
+      const loginData = await loginResponse.json().catch(() => ({}) as any);
 
       if (!loginResponse.ok) {
-        const errorData = await loginResponse.json().catch(() => ({}))
+        const status = loginResponse.status || 401;
+        const message =
+          (loginData && (loginData.error || loginData.message)) ||
+          'Invalid email or password';
         return NextResponse.json(
           {
             success: false,
-            error: errorData.message || 'Invalid email or password',
+            error: message,
           },
-          { status: 401 },
-        )
+          { status },
+        );
       }
-
-      const loginData = await loginResponse.json()
-      const setCookieHeaders = loginResponse.headers.getSetCookie()
+      const setCookieHeaders = loginResponse.headers.getSetCookie();
 
       const response = NextResponse.json(
         {
@@ -115,34 +81,34 @@ export async function POST(request: Request) {
           token: loginData.token,
         },
         { status: 200 },
-      )
+      );
 
       // Forward session cookies
       if (setCookieHeaders && setCookieHeaders.length > 0) {
         setCookieHeaders.forEach((cookie) => {
-          response.headers.append('Set-Cookie', cookie)
-        })
+          response.headers.append('Set-Cookie', cookie);
+        });
       }
 
-      return response
+      return response;
     } catch (authError: any) {
-      console.error('Authentication error:', authError)
+      console.error('Authentication error:', authError);
       return NextResponse.json(
         {
           success: false,
           error: 'Authentication failed. Please try again.',
         },
         { status: 500 },
-      )
+      );
     }
   } catch (error: any) {
-    console.error('Login error:', error)
+    console.error('Login error:', error);
     return NextResponse.json(
       {
         success: false,
         error: error.message || 'An error occurred during login',
       },
       { status: 500 },
-    )
+    );
   }
 }

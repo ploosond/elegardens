@@ -1,6 +1,6 @@
-import configPromise from "@payload-config";
-import { getPayload } from "payload";
-import { NextResponse } from "next/server";
+import configPromise from '@payload-config';
+import { getPayload } from 'payload';
+import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: "Missing required fields",
+          error: 'Missing required fields',
         },
         { status: 400 },
       );
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
       return NextResponse.json(
         {
           success: false,
-          error: "Invalid email format",
+          error: 'Invalid email format',
         },
         { status: 400 },
       );
@@ -38,27 +38,24 @@ export async function POST(request: Request) {
     // Save submission to Payload CMS
     try {
       await payload.create({
-        collection: "contact-submissions",
+        collection: 'contact-submissions',
         data: {
           firstname,
           lastname,
           email,
           phone: phone || undefined,
           message,
-          status: "new",
+          status: 'new',
         },
       });
     } catch (dbError: any) {
       // Log the error but don't fail the request if email sending works
-      console.error("Error saving contact submission to database:", dbError);
+      console.error('Error saving contact submission to database:', dbError);
       // Continue with email sending even if DB save fails
     }
 
     // Get the recipient email from environment or use default
-    const recipientEmail =
-      process.env.CONTACT_FORM_RECIPIENT ||
-      process.env.SMTP_USER ||
-      "info@elegardens.com";
+    const recipientEmail = process.env.CONTACT_FORM_RECIPIENT;
 
     // Send email to the business
     await payload.email.sendEmail({
@@ -94,7 +91,7 @@ export async function POST(request: Request) {
                 </td>
               </tr>
               `
-                  : ""
+                  : ''
               }
             </table>
           </div>
@@ -102,7 +99,7 @@ export async function POST(request: Request) {
           <div style="margin-top: 25px;">
             <h2 style="color: #333; font-size: 18px; margin-bottom: 15px;">Message</h2>
             <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; border-left: 4px solid #6a844a; color: #333; white-space: pre-wrap; line-height: 1.6;">
-              ${message.replace(/\n/g, "<br>")}
+              ${message.replace(/\n/g, '<br>')}
             </div>
           </div>
 
@@ -110,9 +107,9 @@ export async function POST(request: Request) {
           
           <p style="color: #666; font-size: 12px; margin-top: 20px;">
             This email was sent from the contact form on your website.<br>
-            Received at: ${new Date().toLocaleString("en-US", {
-              dateStyle: "long",
-              timeStyle: "short",
+            Received at: ${new Date().toLocaleString('en-US', {
+              dateStyle: 'long',
+              timeStyle: 'short',
             })}
           </p>
         </div>
@@ -123,7 +120,7 @@ New Contact Form Submission
 Contact Information:
 Name: ${firstname} ${lastname}
 Email: ${email}
-${phone ? `Phone: ${phone}` : ""}
+${phone ? `Phone: ${phone}` : ''}
 
 Message:
 ${message}
@@ -136,12 +133,12 @@ Received at: ${new Date().toLocaleString()}
 
     // Optionally send a confirmation email to the user
     const sendConfirmation =
-      process.env.CONTACT_FORM_SEND_CONFIRMATION === "true";
+      process.env.CONTACT_FORM_SEND_CONFIRMATION === 'true';
 
     if (sendConfirmation) {
       await payload.email.sendEmail({
         to: email,
-        subject: "Thank you for contacting Elegardens",
+        subject: 'Thank you for contacting Elegardens',
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <h1 style="color: #6a844a;">Thank You for Your Message</h1>
@@ -149,7 +146,7 @@ Received at: ${new Date().toLocaleString()}
             <p>We have received your message and will get back to you as soon as possible.</p>
             <p>Your message:</p>
             <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin: 15px 0; color: #333; white-space: pre-wrap;">
-              ${message.replace(/\n/g, "<br>")}
+              ${message.replace(/\n/g, '<br>')}
             </div>
             <p>Best regards,<br>The Elegardens Team</p>
           </div>
@@ -174,18 +171,18 @@ The Elegardens Team
       {
         success: true,
         message:
-          "Your message has been sent successfully. We will get back to you soon!",
+          'Your message has been sent successfully. We will get back to you soon!',
       },
       { status: 200 },
     );
   } catch (error: any) {
-    console.error("Error processing contact form:", error);
+    console.error('Error processing contact form:', error);
     return NextResponse.json(
       {
         success: false,
-        error: "Failed to send message. Please try again later.",
+        error: 'Failed to send message. Please try again later.',
         details:
-          process.env.NODE_ENV === "development" ? error?.message : undefined,
+          process.env.NODE_ENV === 'development' ? error?.message : undefined,
       },
       { status: 500 },
     );

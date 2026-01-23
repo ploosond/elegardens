@@ -20,7 +20,7 @@ importers:
       '@payloadcms/db-postgres':
         specifier: ^3.69.0
         version: 3.69.0(@electric-sql/pglite@0.3.2)(@opentelemetry/api@1.9.0)(@prisma/client@7.0.1(prisma@7.0.1(@types/react@19.1.15)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.9.2))(typescript@5.9.2))(kysely@0.27.6)(mysql2@3.15.3)(payload@3.69.0(graphql@16.12.0)(typescript@5.9.2))(postgres@3.4.7)(prisma@7.0.1(@types/react@19.1.15)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.9.2))
-      '@payloadcms/email-nodemailer':
+      '@payloadcms/email-resend':
         specifier: ^3.69.0
         version: 3.69.0(payload@3.69.0(graphql@16.12.0)(typescript@5.9.2))
       '@payloadcms/next':
@@ -1566,8 +1566,8 @@ packages:
     peerDependencies:
       payload: 3.69.0
 
-  '@payloadcms/email-nodemailer@3.69.0':
-    resolution: {integrity: sha512-e5Zx1ybL7YuX2NByaUk+JkzDu+0HdAXaCEwkQ8z2XaWlUInWFrZ5NbEXYIx9IGWgo9Ua0JA+MGzdh9ZdhUSUoA==}
+  '@payloadcms/email-resend@3.69.0':
+    resolution: {integrity: sha512-9zlfxjNXJeQa+hMtNd+px+lQJikbWw5njke8bd60hGdH4vKLMO4Yy/Mc9Y+ssKrcJOi72+hG2wA+w02Xk/2UyA==}
     engines: {node: ^18.20.2 || >=20.9.0}
     peerDependencies:
       payload: 3.69.0
@@ -3562,10 +3562,6 @@ packages:
 
   node-fetch-native@1.6.7:
     resolution: {integrity: sha512-g9yhqoedzIUm0nTnTqAQvueMPVOuIY16bqgAJJC8XOOubYFNwz6IER9qs0Gq2Xd0+CecCKFjtdDTMA4u4xG06Q==}
-
-  nodemailer@7.0.9:
-    resolution: {integrity: sha512-9/Qm0qXIByEP8lEV2qOqcAW7bRpL8CR9jcTwk3NBnHJNmP9fIJ86g2fgmIXqHY+nj55ZEMwWqYAT2QTDpRUYiQ==}
-    engines: {node: '>=6.0.0'}
 
   normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -6205,9 +6201,8 @@ snapshots:
       - sql.js
       - sqlite3
 
-  '@payloadcms/email-nodemailer@3.69.0(payload@3.69.0(graphql@16.12.0)(typescript@5.9.2))':
+  '@payloadcms/email-resend@3.69.0(payload@3.69.0(graphql@16.12.0)(typescript@5.9.2))':
     dependencies:
-      nodemailer: 7.0.9
       payload: 3.69.0(graphql@16.12.0)(typescript@5.9.2)
 
   '@payloadcms/graphql@3.69.0(graphql@16.12.0)(payload@3.69.0(graphql@16.12.0)(typescript@5.9.2))(typescript@5.9.2)':
@@ -8396,8 +8391,6 @@ snapshots:
 
   node-fetch-native@1.6.7:
     optional: true
-
-  nodemailer@7.0.9: {}
 
   normalize-path@3.0.0: {}
 
