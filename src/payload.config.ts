@@ -65,6 +65,15 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || "",
+      // SSL configuration required for Supabase
+      ssl: process.env.DATABASE_URL?.includes('supabase') || process.env.DATABASE_URL?.includes('pooler.supabase.com')
+        ? { rejectUnauthorized: false }
+        : false,
+      // Serverless-optimized pool settings for Vercel
+      max: 1, // Minimal connections per serverless function instance
+      idleTimeoutMillis: 5000, // Close idle connections quickly (5 seconds)
+      connectionTimeoutMillis: 10000, // Timeout after 10 seconds if connection fails
+      allowExitOnIdle: true, // Allow process to exit when pool is idle (serverless-friendly)
     },
   }),
   sharp,
