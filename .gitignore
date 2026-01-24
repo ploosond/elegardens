@@ -45,4 +45,6 @@ how-to-palce-order.md
 
 .pnpm-store/
 
-DEPLOYMENT.md
+# Backups
+database-elegardens-prod-clean.sql
+database-elegardens-supabase.sql
