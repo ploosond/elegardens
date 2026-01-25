@@ -507,6 +507,49 @@ docker-compose -f docker-compose.prod.yml up -d --build
 docker exec -it elegardens-postgres-1 psql -U payload -d elegardens
 ```
 
+#### Seed Data in Docker
+
+To populate your database with initial data or refresh it in the production Docker environment:
+
+**1. Rebuild the Docker Image:**
+You must rebuild the Docker image whenever `Dockerfile` or `package.json` changes.
+```bash
+docker-compose -f docker-compose.prod.yml build
+# Or rebuild and restart all services
+docker-compose -f docker-compose.prod.yml up -d --build
+```
+
+**2. Run Migrations (if fresh setup):**
+For a fresh database setup, run Payload migrations first. This ensures your database schema is up-to-date.
+```bash
+docker exec -it elegardens-payload-1 pnpm payload migrate
+```
+
+**3. Run Seed Commands:**
+Use `docker exec` to run the seed scripts inside the running `payload` container.
+
+To seed all data:
+```bash
+docker exec -it elegardens-payload-1 pnpm seed:all
+```
+
+To seed individual collections (e.g., employees, pots, products, globals):
+```bash
+docker exec -it elegardens-payload-1 pnpm seed:employees
+docker exec -it elegardens-payload-1 pnpm seed:pots
+docker exec -it elegardens-payload-1 pnpm seed:products
+docker exec -it elegardens-payload-1 pnpm seed:globals
+```
+
+To clear existing data for specific collections before seeding, add the `-- --clear` flag:
+```bash
+docker exec -it elegardens-payload-1 pnpm seed:all -- --clear
+```
+
+**Notes:**
+- Ensure your `.env` file within the VPS has `DATABASE_URL` correctly configured to point to the `postgres` service (e.g., `postgresql://payload:your_secure_password_here@postgres:5432/elegardens`).
+- The `/app/media` directory inside the container is now configured as a Docker volume (`media_data`) in `docker-compose.prod.yml` to ensure persistence of uploaded files across container restarts.
+
 #### Backup database
 
 ```bash

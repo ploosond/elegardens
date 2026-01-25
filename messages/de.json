@@ -29,6 +29,7 @@
     "contact": "Kontakt",
     "careers": "Karriere",
     "privacy_policy": "Datenschutzerklärung",
+    "imprint": "Impressum",
     "contact_us": "Kontaktieren Sie uns",
     "address": "Drüller Weg 14, 47559 Kranenburg",
     "email": "info@elegardens.com",
@@ -271,6 +272,12 @@
     "section5_right5": "Datenübertragbarkeitsrecht: Sie können die Übertragung Ihrer Daten an einen anderen Diensteanbieter verlangen.",
     "section5_right6": "Widerspruchsrecht: Sie können der Verarbeitung Ihrer personenbezogenen Daten für bestimmte Zwecke widersprechen.",
     "section5_contact": "Um eines dieser Rechte auszuüben, kontaktieren Sie uns bitte unter info@elegardens.com."
+  },
+  "ImprintPage": {
+    "hero_title": "Impressum",
+    "hero_highlight": "Pflichtangaben",
+    "hero_description": "Anbieterkennzeichnung und gesetzlich erforderliche Informationen nach deutschem Telemediengesetz (TMG).",
+    "empty_state": "Kein Impressumsinhalt vorhanden."
   },
   "CookieConsent": {
     "title": "Wir schätzen Ihre Privatsphäre",

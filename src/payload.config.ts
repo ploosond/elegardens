@@ -8,6 +8,7 @@ import sharp from 'sharp';
 import { About } from './globals/About';
 import { AnnouncementBanner } from './globals/AnnouncementBanner';
 import { PrivacyPolicy } from './globals/PrivacyPolicy';
+import { Imprint } from './globals/Imprint';
 import { Users } from '@/collections/Users';
 import { Media } from '@/collections/Media';
 import { Products } from '@/collections/Products';
@@ -54,7 +55,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  globals: [AnnouncementBanner, About, PrivacyPolicy],
+  globals: [AnnouncementBanner, About, PrivacyPolicy, Imprint],
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',

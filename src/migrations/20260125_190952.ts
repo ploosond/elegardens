@@ -458,6 +458,22 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"created_at" timestamp(3) with time zone
   );
   
+  CREATE TABLE "imprint_sections" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" integer NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"title_en" varchar NOT NULL,
+  	"title_de" varchar NOT NULL,
+  	"content_en" jsonb NOT NULL,
+  	"content_de" jsonb NOT NULL
+  );
+  
+  CREATE TABLE "imprint" (
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"updated_at" timestamp(3) with time zone,
+  	"created_at" timestamp(3) with time zone
+  );
+  
   ALTER TABLE "users_sessions" ADD CONSTRAINT "users_sessions_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "products_rels" ADD CONSTRAINT "products_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "products_rels" ADD CONSTRAINT "products_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE cascade ON UPDATE no action;
@@ -498,6 +514,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "about_milestones" ADD CONSTRAINT "about_milestones_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."about"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "about" ADD CONSTRAINT "about_ceo_image_id_media_id_fk" FOREIGN KEY ("ceo_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "privacy_policy_sections" ADD CONSTRAINT "privacy_policy_sections_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."privacy_policy"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "imprint_sections" ADD CONSTRAINT "imprint_sections_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."imprint"("id") ON DELETE cascade ON UPDATE no action;
   CREATE INDEX "users_sessions_order_idx" ON "users_sessions" USING btree ("_order");
   CREATE INDEX "users_sessions_parent_id_idx" ON "users_sessions" USING btree ("_parent_id");
   CREATE INDEX "users_updated_at_idx" ON "users" USING btree ("updated_at");
@@ -606,7 +623,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "about_milestones_image_idx" ON "about_milestones" USING btree ("image_id");
   CREATE INDEX "about_ceo_image_idx" ON "about" USING btree ("ceo_image_id");
   CREATE INDEX "privacy_policy_sections_order_idx" ON "privacy_policy_sections" USING btree ("_order");
-  CREATE INDEX "privacy_policy_sections_parent_id_idx" ON "privacy_policy_sections" USING btree ("_parent_id");`)
+  CREATE INDEX "privacy_policy_sections_parent_id_idx" ON "privacy_policy_sections" USING btree ("_parent_id");
+  CREATE INDEX "imprint_sections_order_idx" ON "imprint_sections" USING btree ("_order");
+  CREATE INDEX "imprint_sections_parent_id_idx" ON "imprint_sections" USING btree ("_parent_id");`)
 }
 
 export async function down({ db, payload, req }: MigrateDownArgs): Promise<void> {
@@ -647,6 +666,8 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "about" CASCADE;
   DROP TABLE "privacy_policy_sections" CASCADE;
   DROP TABLE "privacy_policy" CASCADE;
+  DROP TABLE "imprint_sections" CASCADE;
+  DROP TABLE "imprint" CASCADE;
   DROP TYPE "public"."enum_products_availability";
   DROP TYPE "public"."enum_products_light_en";
   DROP TYPE "public"."enum_products_light_de";

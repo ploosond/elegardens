@@ -20,9 +20,10 @@ export async function getAuthenticatedClient(): Promise<Client | null> {
 
     const cookieHeader = headerCookie || storeCookieHeader;
 
-    // Use absolute localhost URL for server-side fetch in auth checks.
-    // Relative paths don't work in server components; must use http://localhost:3000.
-    const meUrl = 'http://localhost:3000/api/client/me';
+    // Use the configured server URL for server-side fetch in auth checks.
+    // Falls back to localhost for development
+    const baseUrl = process.env.SERVER_URL || 'http://localhost:3000';
+    const meUrl = `${baseUrl}/api/client/me`;
 
     const response = await fetch(meUrl, {
       method: 'GET',

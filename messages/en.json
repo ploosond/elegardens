@@ -29,6 +29,7 @@
     "contact": "Contact",
     "careers": "Careers",
     "privacy_policy": "Privacy Policy",
+    "imprint": "Imprint",
     "contact_us": "Contact Us",
     "address": "Drüller Weg 14, 47559 Kranenburg",
     "email": "info@elegardens.com",
@@ -271,6 +272,12 @@
     "section5_right5": "Right to data portability: You can request transfer of your data to another service provider.",
     "section5_right6": "Right to object: You can object to processing of your personal data for certain purposes.",
     "section5_contact": "To exercise any of these rights, please contact us at info@elegardens.com."
+  },
+  "ImprintPage": {
+    "hero_title": "Legal",
+    "hero_highlight": "Notice",
+    "hero_description": "Ownership and provider details for Elegardens as required under German Telemediengesetz (TMG).",
+    "empty_state": "No imprint content available."
   },
   "CookieConsent": {
     "title": "We Value Your Privacy",

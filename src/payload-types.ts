@@ -110,11 +110,13 @@ export interface Config {
     'announcement-banner': AnnouncementBanner;
     about: About;
     'privacy-policy': PrivacyPolicy;
+    imprint: Imprint;
   };
   globalsSelect: {
     'announcement-banner': AnnouncementBannerSelect<false> | AnnouncementBannerSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
     'privacy-policy': PrivacyPolicySelect<false> | PrivacyPolicySelect<true>;
+    imprint: ImprintSelect<false> | ImprintSelect<true>;
   };
   locale: null;
   user:
@@ -1141,6 +1143,52 @@ export interface PrivacyPolicy {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imprint".
+ */
+export interface Imprint {
+  id: number;
+  sections?:
+    | {
+        title_en: string;
+        title_de: string;
+        content_en: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        content_de: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "announcement-banner_select".
  */
 export interface AnnouncementBannerSelect<T extends boolean = true> {
@@ -1219,6 +1267,24 @@ export interface AboutSelect<T extends boolean = true> {
  * via the `definition` "privacy-policy_select".
  */
 export interface PrivacyPolicySelect<T extends boolean = true> {
+  sections?:
+    | T
+    | {
+        title_en?: T;
+        title_de?: T;
+        content_en?: T;
+        content_de?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imprint_select".
+ */
+export interface ImprintSelect<T extends boolean = true> {
   sections?:
     | T
     | {

@@ -85,7 +85,9 @@ export async function sendOrderEmails(
       order: orderData,
       client: clientData,
       adminPanelUrl:
-        process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000',
+        process.env.SERVER_URL ||
+        process.env.NEXT_PUBLIC_PAYLOAD_URL ||
+        'http://localhost:3000',
     };
 
     // Generate Excel file
@@ -191,7 +193,9 @@ export async function sendOrderConfirmationEmail(
       order: orderData,
       client: clientData,
       adminPanelUrl:
-        process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000',
+        process.env.SERVER_URL ||
+        process.env.NEXT_PUBLIC_PAYLOAD_URL ||
+        'http://localhost:3000',
     };
 
     // Generate Excel file

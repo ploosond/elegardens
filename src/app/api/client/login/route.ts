@@ -65,9 +65,15 @@ export async function POST(request: Request) {
       // Set the session cookie (Payload provides this)
       if (loginData.token) {
         // Payload sets cookies internally, but we can also set explicitly
+        // Note: secure should be true only for production HTTPS
+        // For mixed deployments (both HTTP IP and HTTPS domain), use process.env.COOKIE_SECURE
+        const isSecure =
+          process.env.COOKIE_SECURE === 'true' ||
+          (process.env.NODE_ENV === 'production' &&
+            process.env.FORCE_HTTPS !== 'false');
         response.cookies.set('payload-token', loginData.token, {
           httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
+          secure: isSecure,
           sameSite: 'lax',
           path: '/',
         });
