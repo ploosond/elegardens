@@ -20,7 +20,6 @@ import { NewsletterSubscribers } from '@/collections/NewsletterSubscribers';
 import { Clients } from '@/collections/Clients';
 import { Orders } from '@/collections/Orders';
 import { resendAdapter } from '@payloadcms/email-resend';
-import { uploadthingStorage } from '@payloadcms/storage-uploadthing';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -63,15 +62,4 @@ export default buildConfig({
     prodMigrations: migrations,
   }),
   sharp,
-  plugins: [
-    uploadthingStorage({
-      collections: {
-        media: true,
-      },
-      options: {
-        token: process.env.UPLOADTHING_TOKEN,
-        acl: 'public-read',
-      },
-    }),
-  ],
 });

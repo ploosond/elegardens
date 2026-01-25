@@ -31,10 +31,12 @@ export default async function RootLayout({
     notFound();
   }
 
+  // Get messages - getMessages() automatically uses the request config
+  // which gets the locale from the URL via middleware
   const messages = await getMessages();
 
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={`${raleway.className} antialiased`}>
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ConditionalHeaderFooter>

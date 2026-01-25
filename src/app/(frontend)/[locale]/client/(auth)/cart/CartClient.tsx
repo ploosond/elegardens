@@ -36,14 +36,14 @@ export default function CartClient({ client }: CartClientProps) {
         return firstImage.url;
       }
     }
-    if (item.pot?.image) {
-      const potImage = item.pot.image;
+    if (item.pot?.images && item.pot.images.length > 0) {
+      const firstImage = item.pot.images[0];
       if (
-        typeof potImage === "object" &&
-        potImage !== null &&
-        "url" in potImage
+        typeof firstImage === "object" &&
+        firstImage !== null &&
+        "url" in firstImage
       ) {
-        return potImage.url;
+        return firstImage.url;
       }
     }
     return "/place_holder.png";

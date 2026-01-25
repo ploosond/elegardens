@@ -195,7 +195,6 @@ export interface User {
  */
 export interface Media {
   id: number;
-  _key?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -274,9 +273,9 @@ export interface Pot {
   availability: 'available' | 'out-of-stock';
   quantity?: number | null;
   /**
-   * Upload a pot image
+   * Upload up to 6 pot images
    */
-  image?: (number | null) | Media;
+  images?: (number | Media)[] | null;
   description?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -706,7 +705,6 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
-  _key?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
@@ -755,7 +753,7 @@ export interface PotsSelect<T extends boolean = true> {
   size?: T;
   availability?: T;
   quantity?: T;
-  image?: T;
+  images?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;

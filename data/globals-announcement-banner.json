@@ -1,0 +1,26 @@
+{
+  "enabled": true,
+  "announcements": [
+    {
+      "id": "697514a2355c6e1e742358d7",
+      "text_en": "BIO-CERTIFIED SUSTAINABLE PERENNIALS",
+      "text_de": "BIO-ZERTIFIZIERTE NACHHALTIGE STAUDPFLANZEN"
+    },
+    {
+      "id": "697514a9355c6e1e742358d9",
+      "text_en": "SUPPORTING BIODIVERSITY IN YOUR GARDEN",
+      "text_de": "BIODIVERSITÄT IN IHREM GARTEN FÖRDERN"
+    },
+    {
+      "id": "697514b1355c6e1e742358db",
+      "text_en": "GENERATIONS OF HORTICULTURAL EXPERTISE",
+      "text_de": "GENERATIONEN VON GARTENBAU-EXPERTISE"
+    }
+  ],
+  "backgroundColor": "#0b7a43",
+  "textColor": "#ffffff",
+  "fontWeight": "bold",
+  "showOnDesktop": true,
+  "showOnMobile": true,
+  "speed": "medium"
+}

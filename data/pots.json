@@ -5,7 +5,8 @@
     "size": "10cm x 10cm",
     "availability": "available",
     "quantity": 100,
-    "description": "Small terracotta pot, perfect for small plants and seedlings."
+    "description": "Small terracotta pot, perfect for small plants and seedlings.",
+    "imagePath": "public/seed-images/pots/small.png"
   },
   {
     "potId": "POT-002",
@@ -13,7 +14,8 @@
     "size": "15cm x 15cm",
     "availability": "available",
     "quantity": 150,
-    "description": "Medium-sized terracotta pot, ideal for medium plants and herbs."
+    "description": "Medium-sized terracotta pot, ideal for medium plants and herbs.",
+    "imagePath": "public/seed-images/pots/medium.png"
   },
   {
     "potId": "POT-003",
@@ -21,7 +23,8 @@
     "size": "20cm x 20cm",
     "availability": "available",
     "quantity": 120,
-    "description": "Large terracotta pot, suitable for larger plants and shrubs."
+    "description": "Large terracotta pot, suitable for larger plants and shrubs.",
+    "imagePath": "public/seed-images/pots/large.png"
   },
   {
     "potId": "POT-004",
@@ -29,7 +32,8 @@
     "size": "25cm x 25cm",
     "availability": "available",
     "quantity": 80,
-    "description": "Extra large terracotta pot, perfect for mature plants and small trees."
+    "description": "Extra large terracotta pot, perfect for mature plants and small trees.",
+    "imagePath": "public/seed-images/pots/x-large.png"
   },
   {
     "potId": "POT-005",
@@ -37,6 +41,7 @@
     "size": "30cm x 30cm",
     "availability": "available",
     "quantity": 50,
-    "description": "Extra extra large terracotta pot, ideal for large trees and statement plants."
+    "description": "Extra extra large terracotta pot, ideal for large trees and statement plants.",
+    "imagePath": "public/seed-images/pots/xx-large.png"
   }
 ]

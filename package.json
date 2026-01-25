@@ -10,9 +10,12 @@
     "lint": "biome check",
     "format": "biome format --write",
     "postinstall": "npx only-allow pnpm",
+    "payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload",
     "seed:products": "payload run scripts/seed-products.ts",
+    "seed:employees": "payload run scripts/seed-employees.ts",
     "seed:pots": "payload run scripts/seed-pots.ts",
-    "seed:employees": "payload run scripts/seed-employees.ts"
+    "seed:globals": "payload run scripts/seed-globals.ts",
+    "seed:all": "pnpm seed:employees && pnpm seed:pots && pnpm seed:products && pnpm seed:globals"
   },
   "dependencies": {
     "@c15t/nextjs": "^1.8.1",
@@ -22,7 +25,6 @@
     "@payloadcms/email-resend": "^3.69.0",
     "@payloadcms/next": "^3.69.0",
     "@payloadcms/richtext-lexical": "^3.69.0",
-    "@payloadcms/storage-uploadthing": "^3.69.0",
     "@payloadcms/ui": "^3.69.0",
     "axios": "^1.12.2",
     "exceljs": "^4.4.0",
@@ -48,6 +50,7 @@
     "@types/pg": "^8.15.6",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^7.0.3",
     "dotenv": "^17.2.3",
     "tailwindcss": "^4",
     "tsx": "^4.21.0",

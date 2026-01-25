@@ -7,7 +7,8 @@
     "role_en": "CEO",
     "role_de": "Geschäftsführer",
     "department_en": "Management",
-    "department_de": "Geschäftsführung"
+    "department_de": "Geschäftsführung",
+    "imagePath": "public/seed-images/employees/klaus-peters.jpg"
   },
   {
     "first_name": "Rafal",
@@ -17,7 +18,8 @@
     "role_en": "Production Head & Executive",
     "role_de": "Produktionsleiter & Geschäftsführer",
     "department_en": "Management",
-    "department_de": "Geschäftsführung"
+    "department_de": "Geschäftsführung",
+    "imagePath": "public/seed-images/employees/rafal-dudek.jpg"
   },
   {
     "first_name": "Julia",
@@ -27,7 +29,8 @@
     "role_en": "Sales Head",
     "role_de": "Verkaufsleiterin",
     "department_en": "Sales",
-    "department_de": "Verkauf"
+    "department_de": "Verkauf",
+    "imagePath": "public/seed-images/employees/julia-schwarzer.jpg"
   },
   {
     "first_name": "Jens",
@@ -37,7 +40,8 @@
     "role_en": "Sales Employee",
     "role_de": "Vertriebsmitarbeiter",
     "department_en": "Sales",
-    "department_de": "Verkauf"
+    "department_de": "Verkauf",
+    "imagePath": "public/seed-images/employees/jens-eckermann.jpg"
   },
   {
     "first_name": "Anna",
@@ -47,7 +51,8 @@
     "role_en": "Sales, Logistics & Certification",
     "role_de": "Verkauf, Logistik & Zertifizierung",
     "department_en": "Sales & Logistics",
-    "department_de": "Verkauf & Logistik"
+    "department_de": "Verkauf & Logistik",
+    "imagePath": "public/seed-images/employees/anna-kinder.jpg"
   },
   {
     "first_name": "Nadine",
@@ -57,7 +62,8 @@
     "role_en": "Management Assistant",
     "role_de": "Assistenz der Geschäftsführung",
     "department_en": "Management",
-    "department_de": "Geschäftsführung"
+    "department_de": "Geschäftsführung",
+    "imagePath": "public/seed-images/employees/nadine-roebrock.jpg"
   },
   {
     "first_name": "Cornelia",
@@ -67,7 +73,8 @@
     "role_en": "Empties & Management Assistant",
     "role_de": "Leergutverwaltung & Assistenz",
     "department_en": "Administration",
-    "department_de": "Verwaltung"
+    "department_de": "Verwaltung",
+    "imagePath": "public/seed-images/employees/cornelia-wolter.jpg"
   },
   {
     "first_name": "Frank",
@@ -77,7 +84,8 @@
     "role_en": "Accounting & HR",
     "role_de": "Buchhaltung & Personalwesen",
     "department_en": "Accounting & HR",
-    "department_de": "Buchhaltung & Personalwesen"
+    "department_de": "Buchhaltung & Personalwesen",
+    "imagePath": "public/seed-images/employees/frank-dercks.jpg"
   },
   {
     "first_name": "Anil",
@@ -87,7 +95,8 @@
     "role_en": "Cultivation Planning & Purchasing",
     "role_de": "Anbauplanung & Einkauf",
     "department_en": "Purchasing & Controlling",
-    "department_de": "Einkauf & Controlling"
+    "department_de": "Einkauf & Controlling",
+    "imagePath": "public/seed-images/employees/anil-patel.jpg"
   },
   {
     "first_name": "Mario",
@@ -97,7 +106,8 @@
     "role_en": "HR Manager",
     "role_de": "Personalleiter",
     "department_en": "Human Resources",
-    "department_de": "Personalwesen"
+    "department_de": "Personalwesen",
+    "imagePath": "public/seed-images/employees/mario-hermans.jpg"
   },
   {
     "first_name": "Raimund",
@@ -107,7 +117,8 @@
     "role_en": "Production Manager",
     "role_de": "Produktionsleiter",
     "department_en": "Production",
-    "department_de": "Produktion"
+    "department_de": "Produktion",
+    "imagePath": "public/seed-images/employees/raimund-koken.jpg"
   },
   {
     "first_name": "Susanne",
@@ -117,7 +128,8 @@
     "role_en": "Sales & Mail Order",
     "role_de": "Verkauf & Versandhandel",
     "department_en": "Sales",
-    "department_de": "Verkauf"
+    "department_de": "Verkauf",
+    "imagePath": "public/seed-images/employees/susanne-dikkers.jpg"
   },
   {
     "first_name": "Abdallah",
@@ -127,7 +139,8 @@
     "role_en": "Hall Manager",
     "role_de": "Hallenleiter",
     "department_en": "Logistics",
-    "department_de": "Logistik"
+    "department_de": "Logistik",
+    "imagePath": "public/seed-images/employees/abdallah-osman.jpg"
   },
   {
     "first_name": "Hem",
@@ -136,7 +149,8 @@
     "role_en": "Hall Manager",
     "role_de": "Hallenleiter",
     "department_en": "Logistics",
-    "department_de": "Logistik"
+    "department_de": "Logistik",
+    "imagePath": "public/seed-images/employees/hem-khatri.jpg"
   },
   {
     "first_name": "Silviya",
@@ -146,9 +160,9 @@
     "role_en": "Label Printing",
     "role_de": "Etikettendruck",
     "department_en": "Production",
-    "department_de": "Produktion"
+    "department_de": "Produktion",
+    "imagePath": "public/seed-images/employees/silviya-chakarova.jpg"
   },
-
   {
     "first_name": "Kiran",
     "last_name": "Shah",
@@ -164,6 +178,7 @@
     "role_en": "Inbound Logistics & Inventory",
     "role_de": "Warenannahme & Inventur",
     "department_en": "Logistics",
-    "department_de": "Logistik"
+    "department_de": "Logistik",
+    "imagePath": "public/seed-images/employees/kisita-ndongala.jpg"
   }
 ]

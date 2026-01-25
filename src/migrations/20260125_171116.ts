@@ -38,7 +38,6 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   
   CREATE TABLE "media" (
   	"id" serial PRIMARY KEY NOT NULL,
-  	"_key" varchar,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"url" varchar,
@@ -90,10 +89,17 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"size" varchar,
   	"availability" "enum_pots_availability" DEFAULT 'available' NOT NULL,
   	"quantity" numeric,
-  	"image_id" integer,
   	"description" varchar,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+  );
+  
+  CREATE TABLE "pots_rels" (
+  	"id" serial PRIMARY KEY NOT NULL,
+  	"order" integer,
+  	"parent_id" integer NOT NULL,
+  	"path" varchar NOT NULL,
+  	"media_id" integer
   );
   
   CREATE TABLE "employees" (
@@ -455,7 +461,8 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "users_sessions" ADD CONSTRAINT "users_sessions_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "products_rels" ADD CONSTRAINT "products_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."products"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "products_rels" ADD CONSTRAINT "products_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE cascade ON UPDATE no action;
-  ALTER TABLE "pots" ADD CONSTRAINT "pots_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "pots_rels" ADD CONSTRAINT "pots_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."pots"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "pots_rels" ADD CONSTRAINT "pots_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "employees" ADD CONSTRAINT "employees_profile_picture_id_media_id_fk" FOREIGN KEY ("profile_picture_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "projects_blocks_text_block_paragraphs" ADD CONSTRAINT "projects_blocks_text_block_paragraphs_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."projects_blocks_text_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "projects_blocks_text_block" ADD CONSTRAINT "projects_blocks_text_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."projects"("id") ON DELETE cascade ON UPDATE no action;
@@ -508,9 +515,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "products_rels_path_idx" ON "products_rels" USING btree ("path");
   CREATE INDEX "products_rels_media_id_idx" ON "products_rels" USING btree ("media_id");
   CREATE UNIQUE INDEX "pots_pot_id_idx" ON "pots" USING btree ("pot_id");
-  CREATE INDEX "pots_image_idx" ON "pots" USING btree ("image_id");
   CREATE INDEX "pots_updated_at_idx" ON "pots" USING btree ("updated_at");
   CREATE INDEX "pots_created_at_idx" ON "pots" USING btree ("created_at");
+  CREATE INDEX "pots_rels_order_idx" ON "pots_rels" USING btree ("order");
+  CREATE INDEX "pots_rels_parent_idx" ON "pots_rels" USING btree ("parent_id");
+  CREATE INDEX "pots_rels_path_idx" ON "pots_rels" USING btree ("path");
+  CREATE INDEX "pots_rels_media_id_idx" ON "pots_rels" USING btree ("media_id");
   CREATE INDEX "employees_profile_picture_idx" ON "employees" USING btree ("profile_picture_id");
   CREATE INDEX "employees_updated_at_idx" ON "employees" USING btree ("updated_at");
   CREATE INDEX "employees_created_at_idx" ON "employees" USING btree ("created_at");
@@ -607,6 +617,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "products" CASCADE;
   DROP TABLE "products_rels" CASCADE;
   DROP TABLE "pots" CASCADE;
+  DROP TABLE "pots_rels" CASCADE;
   DROP TABLE "employees" CASCADE;
   DROP TABLE "projects_blocks_text_block_paragraphs" CASCADE;
   DROP TABLE "projects_blocks_text_block" CASCADE;

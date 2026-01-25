@@ -17,14 +17,30 @@ export function hasFlag(name: string): boolean {
 }
 
 export async function deleteAll(payload: Payload, collection: CollectionSlug) {
-  const existing = await payload.find({ collection, limit: 1000 });
-  if (existing.docs.length === 0) return 0;
+  let totalDeleted = 0;
+  let hasMore = true;
+  const limit = 1000;
 
-  for (const doc of existing.docs) {
-    const id = (doc as { id: string | number }).id;
-    await payload.delete({ collection, id });
+  while (hasMore) {
+    const existing = await payload.find({ collection, limit });
+    if (existing.docs.length === 0) {
+      hasMore = false;
+      break;
+    }
+
+    for (const doc of existing.docs) {
+      const id = (doc as { id: string | number }).id;
+      await payload.delete({ collection, id });
+      totalDeleted++;
+    }
+
+    // If we got fewer than the limit, we've reached the end
+    if (existing.docs.length < limit) {
+      hasMore = false;
+    }
   }
-  return existing.docs.length;
+
+  return totalDeleted;
 }
 
 export function getErrorMessage(error: unknown): string {
@@ -82,7 +98,7 @@ export async function seedBatch<T extends Record<string, unknown>>({
   items: T[];
   uniqueField: keyof T & string;
   label?: (item: T) => string;
-  transform?: (item: T) => T;
+  transform?: (item: T) => T | Promise<T>;
   clear?: boolean;
 }): Promise<UpsertResult> {
   const result: UpsertResult = { created: 0, updated: 0 };
@@ -96,7 +112,7 @@ export async function seedBatch<T extends Record<string, unknown>>({
   console.log(`\n🌱 Seeding ${items.length} ${collection}...`);
 
   for (const item of items) {
-    const data = transform ? transform(item) : item;
+    const data = transform ? await Promise.resolve(transform(item)) : item;
     const name = label ? label(item) : String(item[uniqueField]);
 
     try {

@@ -75,12 +75,14 @@ export const Pots: CollectionConfig = {
       ],
     },
     {
-      name: "image",
+      name: "images",
       type: "upload",
       relationTo: "media",
-      label: "Image",
+      label: "Images",
+      hasMany: true,
+      maxRows: 6,
       admin: {
-        description: "Upload a pot image",
+        description: "Upload up to 6 pot images",
       },
     },
     {

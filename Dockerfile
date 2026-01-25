@@ -47,6 +47,9 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
+# Enable pnpm for running seed commands
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 COPY --from=builder /app/public ./public
 
 # Set the correct permission for prerender cache
@@ -57,6 +60,18 @@ RUN chown nextjs:nodejs .next
 # https://nextjs.org/docs/advanced-features/output-file-tracing
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Copy seed scripts, data files, and package files for seeding
+COPY --from=builder --chown=nextjs:nodejs /app/scripts ./scripts
+COPY --from=builder --chown=nextjs:nodejs /app/data ./data
+COPY --from=builder --chown=nextjs:nodejs /app/package.json ./package.json
+COPY --from=builder --chown=nextjs:nodejs /app/pnpm-lock.yaml ./pnpm-lock.yaml
+COPY --from=builder --chown=nextjs:nodejs /app/src ./src
+COPY --from=builder --chown=nextjs:nodejs /app/tsconfig.json ./tsconfig.json
+
+# Install all dependencies (including dev) needed for Payload CLI and TypeScript seed scripts
+RUN pnpm install --frozen-lockfile && \
+    chown -R nextjs:nodejs /app/node_modules /app/scripts /app/data /app/src /app/package.json /app/pnpm-lock.yaml /app/tsconfig.json /app/public
 
 USER nextjs
 

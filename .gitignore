@@ -48,3 +48,6 @@ how-to-palce-order.md
 # Backups
 database-elegardens-prod-clean.sql
 database-elegardens-supabase.sql
+
+# Payload CMS uploaded media (generated content, not source files)
+/media
