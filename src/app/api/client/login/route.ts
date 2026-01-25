@@ -18,55 +18,33 @@ export async function POST(request: Request) {
       );
     }
 
-    // Validate email format
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Invalid email format',
-        },
-        { status: 400 },
-      );
-    }
-
-    // Ensure Payload is initialized (guarantees API routes are ready)
-    await getPayload({
+    // Use Payload's internal API directly (like admin login does)
+    // No external fetch required - this is the same pattern as /admin login
+    const payload = await getPayload({
       config: configPromise,
     });
 
-    // Use internal localhost URL to avoid TLS/proxy confusion.
-    // Inside the container, always call http://localhost:3000, not the external domain.
-    const loginUrl = 'http://localhost:3000/api/clients/login';
-
     try {
-      const loginResponse = await fetch(loginUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
+      // Call Payload's login API directly (same as admin auth)
+      const loginResult = await payload.login({
+        collection: 'clients',
+        data: {
           email,
           password,
-        }),
+        },
       });
 
-      const loginData = await loginResponse.json().catch(() => ({}) as any);
-
-      if (!loginResponse.ok) {
-        const status = loginResponse.status || 401;
-        const message =
-          (loginData && (loginData.error || loginData.message)) ||
-          'Invalid email or password';
+      if (!loginResult.user) {
         return NextResponse.json(
           {
             success: false,
-            error: message,
+            error: 'Invalid email or password',
           },
-          { status },
+          { status: 401 },
         );
       }
-      const setCookieHeaders = loginResponse.headers.getSetCookie();
+
+      const loginData = loginResult;
 
       const response = NextResponse.json(
         {
@@ -84,16 +62,36 @@ export async function POST(request: Request) {
         { status: 200 },
       );
 
-      // Forward session cookies
-      if (setCookieHeaders && setCookieHeaders.length > 0) {
-        setCookieHeaders.forEach((cookie) => {
-          response.headers.append('Set-Cookie', cookie);
+      // Set the session cookie (Payload provides this)
+      if (loginData.token) {
+        // Payload sets cookies internally, but we can also set explicitly
+        response.cookies.set('payload-token', loginData.token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          path: '/',
         });
       }
 
       return response;
     } catch (authError: any) {
       console.error('Authentication error:', authError);
+
+      // Check if it's an authentication error (wrong credentials)
+      if (
+        authError.name === 'AuthenticationError' ||
+        authError.status === 401
+      ) {
+        return NextResponse.json(
+          {
+            success: false,
+            error: authError.message || 'Invalid email or password',
+          },
+          { status: 401 },
+        );
+      }
+
+      // Other errors (server issues, etc.)
       return NextResponse.json(
         {
           success: false,

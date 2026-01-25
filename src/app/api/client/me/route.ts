@@ -1,42 +1,36 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import configPromise from '@payload-config';
+import { getPayload } from 'payload';
 
 /**
  * API route to check if client is authenticated
- * Proxies to Payload's /api/clients/me endpoint with proper cookie handling
+ * Uses Payload's internal API (like admin auth does)
  */
-export async function GET() {
+export async function GET(request: Request) {
   try {
     const cookieStore = await cookies();
+    const token = cookieStore.get('payload-token')?.value;
 
-    // Build cookie header string
-    const cookieArray: string[] = [];
-    cookieStore.getAll().forEach((cookie) => {
-      cookieArray.push(`${cookie.name}=${cookie.value}`);
-    });
-    const cookieHeader = cookieArray.join('; ');
-
-    // Use internal localhost URL to avoid TLS/proxy confusion.
-    // Inside the container, always call http://localhost:3000, not the external domain.
-    const meUrl = 'http://localhost:3000/api/clients/me';
-
-    const response = await fetch(meUrl, {
-      method: 'GET',
-      headers: {
-        Cookie: cookieHeader,
-      },
-      cache: 'no-store',
-    });
-
-    if (!response.ok) {
-      return NextResponse.json(
-        { error: 'Not authenticated' },
-        { status: response.status },
-      );
+    if (!token) {
+      return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
     }
 
-    const user = await response.json();
-    return NextResponse.json(user);
+    // Use Payload's internal API directly (same pattern as admin)
+    const payload = await getPayload({
+      config: configPromise,
+    });
+
+    // Verify the token and get the user from the clients collection
+    const { user } = await payload.auth({
+      headers: request.headers,
+    });
+
+    if (!user || user.collection !== 'clients' || user.status !== 'active') {
+      return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
+    }
+
+    return NextResponse.json({ user });
   } catch (_error) {
     return NextResponse.json(
       { error: 'Authentication check failed' },
