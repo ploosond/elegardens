@@ -35,8 +35,9 @@ export async function POST(request: Request) {
       config: configPromise,
     });
 
-    // Use same-origin URL to avoid cross-origin and env inconsistencies
-    const loginUrl = new URL('/api/clients/login', request.url).toString();
+    // Use internal localhost URL to avoid TLS/proxy confusion.
+    // Inside the container, always call http://localhost:3000, not the external domain.
+    const loginUrl = 'http://localhost:3000/api/clients/login';
 
     try {
       const loginResponse = await fetch(loginUrl, {

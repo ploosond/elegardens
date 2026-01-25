@@ -308,8 +308,159 @@ docker logs elegardens-postgres-1
 
 7. **Access your site:**
 
+- Frontend: `http://your-vps-ip:3000`
+- Admin: `http://your-vps-ip:3000/admin`
+
+### Domain & SSL Setup
+
+Once your VPS is running, configure a custom domain with HTTPS:
+
+#### 1. Configure DNS Records
+
+In your domain registrar's DNS management panel, add:
+
+- **A Record**: `@` → `your-vps-ip` (e.g., `165.232.121.96`)
+- **CNAME Record**: `www` → `yourdomain.com`
+
+Wait for DNS propagation (typically 5-60 minutes). Verify with:
+
+```bash
+dig yourdomain.com
+dig www.yourdomain.com
+```
+
+#### 2. Configure VPS Firewall
+
+Allow HTTP and HTTPS traffic:
+
+```bash
+ufw allow 80/tcp
+ufw allow 443/tcp
+ufw status
+```
+
+Expected output should show ports 22, 80, 443 (and optionally 3000).
+
+#### 3. Install Nginx
+
+```bash
+apt update && apt install -y nginx
+```
+
+#### 4. Create Nginx Configuration
+
+Create a new site configuration:
+
+```bash
+nano /etc/nginx/sites-available/yourdomain
+```
+
+Add the following configuration (replace `yourdomain.com` with your actual domain):
+
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+
+Save and exit (Ctrl+X, Y, Enter).
+
+#### 5. Enable the Site
+
+```bash
+ln -s /etc/nginx/sites-available/yourdomain /etc/nginx/sites-enabled/
+nginx -t
+systemctl reload nginx
+```
+
+Test by visiting `http://yourdomain.com` in your browser.
+
+#### 6. Install SSL Certificate (Let's Encrypt)
+
+Install Certbot:
+
+```bash
+apt install -y certbot python3-certbot-nginx
+```
+
+Obtain and configure SSL certificate:
+
+```bash
+certbot --nginx -d yourdomain.com -d www.yourdomain.com
+```
+
+Follow the prompts:
+
+- Enter your email address
+- Agree to terms of service
+- Choose whether to redirect HTTP to HTTPS (recommended: Yes)
+
+Certbot will automatically update your Nginx configuration and obtain a free SSL certificate.
+
+#### 7. Update Environment Variables
+
+Edit your production `.env` file to use HTTPS:
+
+```bash
+nano /root/elegardens/.env
+```
+
+Update these variables:
+
+```env
+SERVER_URL=https://yourdomain.com
+NEXT_PUBLIC_SERVER_URL=https://yourdomain.com
+NEXT_PUBLIC_PAYLOAD_URL=https://yourdomain.com
+```
+
+#### 8. Rebuild Docker Containers
+
+Apply the environment changes:
+
+```bash
+docker-compose -f docker-compose.prod.yml down
+docker-compose -f docker-compose.prod.yml up -d --build
+```
+
+#### 9. Verify Setup
+
+Visit your site:
+
 - Frontend: `https://yourdomain.com`
 - Admin: `https://yourdomain.com/admin`
+
+Check SSL certificate status:
+
+```bash
+certbot certificates
+```
+
+#### SSL Certificate Auto-Renewal
+
+Let's Encrypt certificates expire after 90 days. Certbot automatically sets up a renewal cron job. Verify it:
+
+```bash
+systemctl status certbot.timer
+```
+
+Test renewal (dry run):
+
+```bash
+certbot renew --dry-run
+```
 
 ### Production Maintenance
 

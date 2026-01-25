@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
+import { NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
 
 /**
  * API route to check if client is authenticated
@@ -14,25 +14,23 @@ export async function GET() {
     cookieStore.getAll().forEach((cookie) => {
       cookieArray.push(`${cookie.name}=${cookie.value}`);
     });
-    const cookieHeader = cookieArray.join("; ");
+    const cookieHeader = cookieArray.join('; ');
 
-    const baseUrl =
-      process.env.NEXT_PUBLIC_SERVER_URL ||
-      process.env.NEXT_PUBLIC_PAYLOAD_URL ||
-      "http://localhost:3000";
-    const meUrl = `${baseUrl}/api/clients/me`;
+    // Use internal localhost URL to avoid TLS/proxy confusion.
+    // Inside the container, always call http://localhost:3000, not the external domain.
+    const meUrl = 'http://localhost:3000/api/clients/me';
 
     const response = await fetch(meUrl, {
-      method: "GET",
+      method: 'GET',
       headers: {
         Cookie: cookieHeader,
       },
-      cache: "no-store",
+      cache: 'no-store',
     });
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: "Not authenticated" },
+        { error: 'Not authenticated' },
         { status: response.status },
       );
     }
@@ -41,7 +39,7 @@ export async function GET() {
     return NextResponse.json(user);
   } catch (_error) {
     return NextResponse.json(
-      { error: "Authentication check failed" },
+      { error: 'Authentication check failed' },
       { status: 500 },
     );
   }

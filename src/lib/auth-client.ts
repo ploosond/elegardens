@@ -1,5 +1,5 @@
-import { cookies, headers } from "next/headers";
-import type { Client } from "@/payload-types";
+import { cookies, headers } from 'next/headers';
+import type { Client } from '@/payload-types';
 
 /**
  * Get the authenticated client from the request
@@ -9,27 +9,27 @@ export async function getAuthenticatedClient(): Promise<Client | null> {
   try {
     // Get cookies from headers (most up-to-date) or cookie store
     const headersList = await headers();
-    const headerCookie = headersList.get("cookie") || "";
+    const headerCookie = headersList.get('cookie') || '';
 
     const cookieStore = await cookies();
     const cookieArray: string[] = [];
     cookieStore.getAll().forEach((cookie) => {
       cookieArray.push(`${cookie.name}=${cookie.value}`);
     });
-    const storeCookieHeader = cookieArray.join("; ");
+    const storeCookieHeader = cookieArray.join('; ');
 
     const cookieHeader = headerCookie || storeCookieHeader;
 
-    const baseUrl =
-      process.env.NEXT_PUBLIC_PAYLOAD_URL || "http://localhost:3000";
-    const meUrl = `${baseUrl}/api/client/me`;
+    // Use absolute localhost URL for server-side fetch in auth checks.
+    // Relative paths don't work in server components; must use http://localhost:3000.
+    const meUrl = 'http://localhost:3000/api/client/me';
 
     const response = await fetch(meUrl, {
-      method: "GET",
+      method: 'GET',
       headers: {
         Cookie: cookieHeader,
       },
-      cache: "no-store",
+      cache: 'no-store',
     });
 
     if (!response.ok) {
@@ -44,8 +44,8 @@ export async function getAuthenticatedClient(): Promise<Client | null> {
     if (
       !user ||
       !user.id ||
-      user.collection !== "clients" ||
-      user.status !== "active"
+      user.collection !== 'clients' ||
+      user.status !== 'active'
     ) {
       return null;
     }
@@ -72,7 +72,7 @@ export async function requireClientAuth(): Promise<Client> {
   const client = await getAuthenticatedClient();
 
   if (!client) {
-    throw new Error("Unauthorized: Client authentication required");
+    throw new Error('Unauthorized: Client authentication required');
   }
 
   return client;
