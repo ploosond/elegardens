@@ -73,6 +73,10 @@ COPY --from=builder --chown=nextjs:nodejs /app/tsconfig.json ./tsconfig.json
 RUN pnpm install --frozen-lockfile && \
     chown -R nextjs:nodejs /app/node_modules /app/scripts /app/data /app/src /app/package.json /app/pnpm-lock.yaml /app/tsconfig.json /app/public
 
+# Create media directory for Payload uploads with proper permissions
+RUN mkdir -p /app/media && \
+    chown -R nextjs:nodejs /app/media
+
 USER nextjs
 
 EXPOSE 3000

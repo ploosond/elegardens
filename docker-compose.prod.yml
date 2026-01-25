@@ -10,6 +10,8 @@ services:
       - .env
     environment:
       - NODE_ENV=production
+    volumes:
+      - media_data:/app/media
 
   postgres:
     restart: always
@@ -25,3 +27,4 @@ services:
 
 volumes:
   pgdata_prod:
+  media_data:
