@@ -1,8 +1,9 @@
 import type { CollectionConfig } from "payload";
 import {
   sendOrderEmails,
-  sendOrderConfirmationEmail,
+  sendOrderStatusEmail,
 } from "@/lib/email/order-email-service";
+import { isNotifiableOrderStatus } from "@/lib/email/templates/order-status-changed";
 // Admin RowLabel component is referenced via import map string
 
 // Helper function to get ISO week number
@@ -187,10 +188,13 @@ export const Orders: CollectionConfig = {
               | undefined;
             const currentStatus = doc.status as string;
 
-            // Only send email if status changed TO 'confirmed' (not if it was already 'confirmed')
+            // Notify the client on every status change. previousStatus is
+            // undefined when the beforeChange lookup failed - skip rather than
+            // risk re-sending a notification for an unchanged status.
             if (
-              currentStatus === "confirmed" &&
-              previousStatus !== "confirmed"
+              previousStatus !== undefined &&
+              currentStatus !== previousStatus &&
+              isNotifiableOrderStatus(currentStatus)
             ) {
               // Get client data
               let clientData = null;
@@ -209,15 +213,16 @@ export const Orders: CollectionConfig = {
                   ? doc.locale
                   : "en") as "en" | "de";
 
-                await sendOrderConfirmationEmail(
+                await sendOrderStatusEmail(
                   payload,
                   doc as any,
                   clientData as any,
+                  currentStatus,
                   locale,
                 );
               } else {
                 console.warn(
-                  "Client data not found for order, skipping confirmation email",
+                  "Client data not found for order, skipping status email",
                 );
               }
             }

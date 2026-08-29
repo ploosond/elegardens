@@ -14,9 +14,12 @@ import {
   generateClientOrderConfirmationText,
 } from './templates/client-order-confirmation';
 import {
-  generateOrderStatusConfirmedHTML,
-  generateOrderStatusConfirmedText,
-} from './templates/order-status-confirmed';
+  generateOrderStatusChangedHTML,
+  generateOrderStatusChangedText,
+  getOrderStatusSubject,
+  statusIncludesExcelAttachment,
+  type NotifiableOrderStatus,
+} from './templates/order-status-changed';
 import { generateOrderExcel } from '../excel/order-excel-generator';
 
 type Locale = 'en' | 'de';
@@ -163,23 +166,25 @@ export async function sendOrderEmails(
 }
 
 /**
- * Send order status confirmation email to client when order status changes to 'confirmed'
+ * Send an order status notification email to the client when the order status changes
  * @param payload - Payload instance
  * @param order - Order document
  * @param client - Client document
+ * @param status - Status the order just changed to
  * @param locale - Locale for email (defaults to 'en')
  * @returns Promise with success status
  */
-export async function sendOrderConfirmationEmail(
+export async function sendOrderStatusEmail(
   payload: Payload,
   order: Order,
   client: Client,
+  status: NotifiableOrderStatus,
   locale: Locale = 'en',
 ): Promise<boolean> {
   try {
     if (!client.email) {
       console.warn(
-        'Client email not available, skipping order confirmation email',
+        'Client email not available, skipping order status email',
       );
       return false;
     }
@@ -198,13 +203,15 @@ export async function sendOrderConfirmationEmail(
         'http://localhost:3000',
     };
 
-    // Generate Excel file
+    // Generate Excel file (only statuses that ship the order sheet)
     let excelBuffer: Buffer | null = null;
-    try {
-      excelBuffer = await generateOrderExcel(orderData, clientData);
-    } catch (excelError) {
-      console.error('Error generating Excel file:', excelError);
-      // Continue without attachment if Excel generation fails
+    if (statusIncludesExcelAttachment(status)) {
+      try {
+        excelBuffer = await generateOrderExcel(orderData, clientData);
+      } catch (excelError) {
+        console.error('Error generating Excel file:', excelError);
+        // Continue without attachment if Excel generation fails
+      }
     }
 
     // Prepare attachment if Excel was generated
@@ -218,22 +225,17 @@ export async function sendOrderConfirmationEmail(
         ]
       : undefined;
 
-    const subject =
-      locale === 'de'
-        ? `Bestellung bestätigt: ${order.orderNumber}`
-        : `Order Confirmed: ${order.orderNumber}`;
-
     await payload.email.sendEmail({
       to: client.email,
-      subject,
-      html: generateOrderStatusConfirmedHTML(templateData, locale),
-      text: generateOrderStatusConfirmedText(templateData, locale),
+      subject: getOrderStatusSubject(order.orderNumber, status, locale),
+      html: generateOrderStatusChangedHTML(templateData, status, locale),
+      text: generateOrderStatusChangedText(templateData, status, locale),
       attachments: attachment,
     } as any); // Type assertion needed as Payload types may not include attachments
 
     return true;
   } catch (error) {
-    console.error('Error sending order confirmation email:', error);
+    console.error('Error sending order status email:', error);
     return false;
   }
 }
