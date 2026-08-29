@@ -40,19 +40,6 @@ export const Orders: CollectionConfig = {
   hooks: {
     beforeChange: [
       async ({ data, operation, req }) => {
-        // Store previous status for status change detection
-        if (operation === "update" && data.id) {
-          try {
-            const previousOrder = await req.payload.findByID({
-              collection: "orders",
-              id: data.id,
-            });
-            // Store previous status in request context for use in afterChange
-            (req as any).previousOrderStatus = previousOrder?.status;
-          } catch (error) {
-            console.error("Error fetching previous order status:", error);
-          }
-        }
         if (!data.orderNumber && operation === "create") {
           const payload = req.payload;
 
@@ -139,7 +126,7 @@ export const Orders: CollectionConfig = {
       },
     ],
     afterChange: [
-      async ({ doc, operation, req }) => {
+      async ({ doc, previousDoc, operation, req }) => {
         if (operation === "create" && doc) {
           try {
             const payload = req.payload;
@@ -182,17 +169,12 @@ export const Orders: CollectionConfig = {
           try {
             const payload = req.payload;
 
-            // Get previous status from request context (set in beforeChange)
-            const previousStatus = (req as any).previousOrderStatus as
-              | string
-              | undefined;
+            // Payload passes the pre-update document straight to afterChange
+            const previousStatus = previousDoc?.status as string | undefined;
             const currentStatus = doc.status as string;
 
-            // Notify the client on every status change. previousStatus is
-            // undefined when the beforeChange lookup failed - skip rather than
-            // risk re-sending a notification for an unchanged status.
+            // Notify the client on every status change
             if (
-              previousStatus !== undefined &&
               currentStatus !== previousStatus &&
               isNotifiableOrderStatus(currentStatus)
             ) {
